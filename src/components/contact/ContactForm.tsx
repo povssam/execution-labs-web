@@ -69,21 +69,23 @@ export function ContactForm() {
       return;
     }
 
+    // Send as FormData (CORS-safelisted, no preflight) per Web3Forms guidance.
+    const payload = new FormData();
+    payload.append("access_key", ACCESS_KEY);
+    payload.append("subject", `New project brief from ${name || "the site"}`);
+    payload.append("from_name", "Execution Labs site");
+    payload.append("name", name);
+    payload.append("email", String(data.get("email") ?? ""));
+    payload.append("company", String(data.get("company") ?? ""));
+    payload.append("project_type", type);
+    payload.append("budget", budget);
+    payload.append("message", String(data.get("message") ?? ""));
+
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: ACCESS_KEY,
-          subject: `New project brief from ${name || "the site"}`,
-          from_name: "Execution Labs site",
-          name,
-          email: data.get("email"),
-          company: data.get("company"),
-          project_type: type,
-          budget,
-          message: data.get("message"),
-        }),
+        headers: { Accept: "application/json" },
+        body: payload,
       });
       const json = await res.json();
       if (res.ok && json.success) {
