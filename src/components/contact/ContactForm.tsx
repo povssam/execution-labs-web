@@ -45,14 +45,56 @@ function Chip({
   );
 }
 
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
 export function ContactForm() {
   const [type, setType] = useState(projectTypes[0]);
   const [budget, setBudget] = useState(budgets[3]);
   const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSent(true);
+    if (status === "sending") return;
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const name = String(data.get("name") ?? "");
+
+    setStatus("sending");
+
+    if (!ACCESS_KEY) {
+      // No backend configured yet. Fail loudly instead of pretending to send.
+      setStatus("error");
+      return;
+    }
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: `New project brief from ${name || "the site"}`,
+          from_name: "Execution Labs site",
+          name,
+          email: data.get("email"),
+          company: data.get("company"),
+          project_type: type,
+          budget,
+          message: data.get("message"),
+        }),
+      });
+      const json = await res.json();
+      if (res.ok && json.success) {
+        setStatus("idle");
+        setSent(true);
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -171,13 +213,31 @@ export function ContactForm() {
               />
             </div>
 
-            <Button type="submit" className="mt-1 w-full sm:w-auto">
-              Send message
-              <Send
-                size={15}
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
-              />
-            </Button>
+            <div className="mt-1 flex flex-col gap-3">
+              <Button
+                type="submit"
+                disabled={status === "sending"}
+                className="w-full disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+              >
+                {status === "sending" ? "Sending..." : "Send message"}
+                <Send
+                  size={15}
+                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                />
+              </Button>
+              {status === "error" && (
+                <p className="text-sm text-amber-400/90">
+                  Something went wrong sending your brief. Email us directly at{" "}
+                  <a
+                    href="mailto:hello@executionlabs.com"
+                    className="underline underline-offset-4"
+                  >
+                    hello@executionlabs.com
+                  </a>
+                  .
+                </p>
+              )}
+            </div>
           </motion.form>
         )}
       </AnimatePresence>

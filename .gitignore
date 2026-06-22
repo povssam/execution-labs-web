@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Cloudflare deploy secrets (local only)
 .cf.env
+
+# keep the template, ignore real env files
+!.env.example
