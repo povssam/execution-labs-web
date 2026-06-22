@@ -1,0 +1,42 @@
+import { ArrowRight } from "lucide-react";
+import { Container } from "../ui/Container";
+import { Reveal } from "../ui/Reveal";
+import { ButtonLink } from "../ui/Button";
+
+export function FinalCTA() {
+  return (
+    <section className="py-24 sm:py-32">
+      <Container>
+        <Reveal>
+          <div className="relative overflow-hidden rounded-3xl border border-line bg-charcoal px-8 py-16 text-center sm:px-16 sm:py-24">
+            <div
+              className="pointer-events-none absolute inset-0 grid-backdrop opacity-70"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute left-1/2 top-0 h-72 w-[640px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(231,227,218,0.12),transparent_70%)] blur-2xl"
+              aria-hidden
+            />
+            <div className="relative">
+              <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight text-bone sm:text-5xl">
+                Have a system worth building?
+              </h2>
+              <p className="mx-auto mt-5 max-w-xl text-lg text-bone-dim">
+                Let&apos;s make the first version real.
+              </p>
+              <div className="mt-10 flex justify-center">
+                <ButtonLink href="/contact">
+                  Start a project
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform duration-200 group-hover:translate-x-0.5"
+                  />
+                </ButtonLink>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </Container>
+    </section>
+  );
+}
