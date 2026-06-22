@@ -5,7 +5,7 @@ import { reasons } from "@/lib/data";
 
 export function WhyUs() {
   return (
-    <section className="border-y border-line bg-charcoal/40 py-24 sm:py-32">
+    <section className="border-y border-line bg-charcoal/40 py-20 sm:py-24">
       <Container>
         <SectionHeading label="Why us" title="A team that ships, not pitches" />
 
@@ -24,12 +24,9 @@ export function WhyUs() {
                       0{i + 1}
                     </span>
                   </div>
-                  <h3 className="mt-6 text-xl font-medium text-bone">
+                  <h3 className="mt-8 text-xl font-medium text-bone">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-bone-dim">
-                    {item.body}
-                  </p>
                 </div>
               </Reveal>
             );

@@ -5,7 +5,7 @@ import { process } from "@/lib/data";
 
 export function Process() {
   return (
-    <section id="process" className="border-t border-line bg-charcoal/40 py-24 sm:py-32">
+    <section id="process" className="border-t border-line bg-charcoal/40 py-20 sm:py-24">
       <Container>
         <SectionHeading label="Process" title="How the work gets made" />
 

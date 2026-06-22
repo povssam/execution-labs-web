@@ -6,7 +6,7 @@ import { capabilities } from "@/lib/data";
 
 export function WhatWeBuild() {
   return (
-    <section id="what-we-build" className="py-24 sm:py-32">
+    <section id="what-we-build" className="py-20 sm:py-24">
       <Container>
         <SectionHeading label="What we build" title="Four layers, one standard" />
 
@@ -15,7 +15,7 @@ export function WhatWeBuild() {
             const Icon = item.icon;
             return (
               <Reveal key={item.title} delay={i * 0.05}>
-                <div className="group relative flex flex-col gap-5 border-b border-line bg-charcoal/40 px-6 py-7 transition-colors duration-200 last:border-b-0 hover:bg-charcoal-2/70 sm:flex-row sm:items-center sm:gap-8 sm:px-8">
+                <div className="group relative flex flex-col gap-5 border-b border-line bg-charcoal/40 px-6 py-6 transition-colors duration-200 last:border-b-0 hover:bg-charcoal-2/70 sm:flex-row sm:items-center sm:gap-8 sm:px-8">
                   <span className="font-mono text-xs text-bone-faint sm:w-10">
                     0{i + 1}
                   </span>
@@ -28,9 +28,6 @@ export function WhatWeBuild() {
                     <h3 className="text-xl font-medium text-bone">
                       {item.title}
                     </h3>
-                    <p className="mt-1.5 max-w-md text-sm leading-relaxed text-bone-dim">
-                      {item.body}
-                    </p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 sm:w-56 sm:justify-end">
