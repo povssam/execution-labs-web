@@ -156,17 +156,10 @@ export type Testimonial = {
   placeholder?: boolean;
 };
 
-// Real client quotes only. Replace the placeholder below with an approved
-// quote (and drop the placeholder flag). The section hides itself when empty.
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      "Replace this with a real, approved client quote. One or two sentences on the outcome works best.",
-    name: "Client name",
-    role: "Role, Company",
-    placeholder: true,
-  },
-];
+// Real, approved client quotes only. The section hides itself while empty.
+// To add one:
+//   { quote: "…", name: "Jane Doe", role: "Founder, Acme" }
+export const testimonials: Testimonial[] = [];
 
 export type Founder = {
   name: string;
@@ -178,15 +171,10 @@ export type Founder = {
   placeholder?: boolean;
 };
 
-// Replace with the real founder name, title, and a line in their voice, then
-// drop the placeholder flag. Set to null to hide the founder strip entirely.
-export const founder: Founder | null = {
-  name: "Founder name",
-  role: "Founder, Execution Labs",
-  note: "A line in the founder's voice. Why Execution Labs exists, in plain words.",
-  initials: "EL",
-  placeholder: true,
-};
+// Real founder only. The strip hides itself while this is null. To enable:
+//   { name: "Sam Moussaoui", role: "Founder, Execution Labs",
+//     note: "Why Execution Labs exists, in plain words.", initials: "SM" }
+export const founder: Founder | null = null;
 
 export type Faq = { q: string; a: string };
 
