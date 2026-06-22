@@ -37,6 +37,9 @@ export function FinalCTA() {
                   Book a call
                 </ButtonLink>
               </div>
+              <p className="mt-5 text-xs text-bone-faint">
+                Free 20-minute scoping call. No obligation.
+              </p>
             </div>
           </div>
         </Reveal>

@@ -123,6 +123,37 @@ export type CaseStudy = {
   preview: PreviewKind;
 };
 
+// Industries we've shipped for (derived from real case studies, not invented).
+export const industries = ["Music", "Media", "Finance", "Ops", "Startups"];
+
+export type Reassurance = { title: string; body: string };
+
+// Risk-reversal points. Factual, tied to how engagements actually work.
+export const reassurances: Reassurance[] = [
+  {
+    title: "Fixed scope, fixed price",
+    body: "We quote the work before we start. No open-ended hourly bills.",
+  },
+  {
+    title: "Working software in days",
+    body: "You see a usable version fast, not a deck or a long wait.",
+  },
+  {
+    title: "You own everything",
+    body: "The code and the systems are yours. No lock-in.",
+  },
+  {
+    title: "No long contracts",
+    body: "We earn the next step by shipping the first one.",
+  },
+];
+
+export type Testimonial = { quote: string; name: string; role: string };
+
+// Real client quotes only. Leave empty until approved — the section hides
+// itself when this is empty, so nothing fabricated ever ships.
+export const testimonials: Testimonial[] = [];
+
 export type Faq = { q: string; a: string };
 
 export const faqs: Faq[] = [

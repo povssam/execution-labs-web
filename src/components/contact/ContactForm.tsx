@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Send } from "lucide-react";
 import { Button } from "../ui/Button";
 import { cn } from "@/lib/utils";
+import { CALENDAR_URL } from "@/lib/site";
 
 const projectTypes = [
   "AI Agents",
@@ -116,15 +118,24 @@ export function ContactForm() {
             <h3 className="text-xl font-medium text-bone">Brief received</h3>
             <p className="max-w-sm text-sm leading-relaxed text-bone-dim">
               Thanks for reaching out about your {type.toLowerCase()} project. We
-              read every brief and reply within a day.
+              read every brief and reply within a day. Next, we map the system
+              with you before any quote.
             </p>
-            <button
-              type="button"
-              onClick={() => setSent(false)}
-              className="mt-2 text-sm text-bone-dim underline-offset-4 transition-colors hover:text-bone hover:underline"
-            >
-              Send another
-            </button>
+            <div className="mt-2 flex items-center gap-5 text-sm">
+              <Link
+                href={CALENDAR_URL}
+                className="text-bone underline underline-offset-4 transition-colors hover:text-white"
+              >
+                Book a call now
+              </Link>
+              <button
+                type="button"
+                onClick={() => setSent(false)}
+                className="text-bone-dim underline-offset-4 transition-colors hover:text-bone hover:underline"
+              >
+                Send another
+              </button>
+            </div>
           </motion.div>
         ) : (
           <motion.form
@@ -227,7 +238,7 @@ export function ContactForm() {
                   className="transition-transform duration-200 group-hover:translate-x-0.5"
                 />
               </Button>
-              {status === "error" && (
+              {status === "error" ? (
                 <p className="text-sm text-amber-400/90">
                   Something went wrong sending your brief. Email us directly at{" "}
                   <a
@@ -237,6 +248,10 @@ export function ContactForm() {
                     hello@executionlabs.com
                   </a>
                   .
+                </p>
+              ) : (
+                <p className="text-xs text-bone-faint">
+                  We reply within a day. No spam, no sales pitch.
                 </p>
               )}
             </div>

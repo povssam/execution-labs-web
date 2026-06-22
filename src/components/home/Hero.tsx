@@ -2,6 +2,8 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { ButtonLink } from "../ui/Button";
 import { OpsDashboard } from "./OpsDashboard";
+import { CALENDAR_URL } from "@/lib/site";
+import { industries } from "@/lib/data";
 
 const stats = [
   { value: "6 wks", label: "Idea to MVP" },
@@ -55,10 +57,17 @@ export function Hero() {
                   className="transition-transform duration-200 group-hover:translate-x-0.5"
                 />
               </ButtonLink>
-              <ButtonLink href="/work" variant="secondary">
-                See work
+              <ButtonLink href={CALENDAR_URL} variant="secondary">
+                Book a call
               </ButtonLink>
             </div>
+
+            <p
+              className="reveal mt-3 text-xs text-bone-faint"
+              style={{ animationDelay: "0.26s" }}
+            >
+              Free scoping call. No pressure, no hard sell.
+            </p>
 
             <dl
               className="reveal mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-line pt-6"
@@ -75,6 +84,25 @@ export function Hero() {
                 </div>
               ))}
             </dl>
+
+            <div
+              className="reveal mt-10"
+              style={{ animationDelay: "0.34s" }}
+            >
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-bone-faint">
+                Shipped for teams in
+              </span>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {industries.map((name) => (
+                  <span
+                    key={name}
+                    className="rounded-full border border-line px-3 py-1 text-xs text-bone-dim"
+                  >
+                    {name}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="reveal" style={{ animationDelay: "0.2s" }}>

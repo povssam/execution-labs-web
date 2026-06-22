@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { Mail, Clock, MessageSquare } from "lucide-react";
+import Link from "next/link";
+import { Check } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { CALENDAR_URL } from "@/lib/site";
+import { reassurances } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Contact | Execution Labs",
@@ -10,22 +13,10 @@ export const metadata: Metadata = {
     "Start a project with Execution Labs. Tell us what you want to build and we will make the first version real.",
 };
 
-const points = [
-  {
-    icon: Mail,
-    title: "Direct line",
-    body: "hello@executionlabs.com",
-  },
-  {
-    icon: Clock,
-    title: "Fast replies",
-    body: "We read every brief and reply within a day.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Clear next step",
-    body: "We map the system before we quote the work.",
-  },
+const steps = [
+  "We read your brief, every word.",
+  "We reply within a day.",
+  "We map the system with you before we quote a thing.",
 ];
 
 export default function ContactPage() {
@@ -48,28 +39,58 @@ export default function ContactPage() {
             <Reveal delay={0.1}>
               <p className="mt-5 max-w-md text-lg text-bone-dim">
                 Tell us what you want to build. We move fast and the work holds
-                up.
+                up. No obligation, no hard sell.
               </p>
             </Reveal>
 
-            <div className="mt-12 flex flex-col gap-5">
-              {points.map((p, i) => {
-                const Icon = p.icon;
-                return (
-                  <Reveal key={p.title} delay={0.15 + i * 0.06}>
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-charcoal text-bone">
-                        <Icon size={18} strokeWidth={1.6} />
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-bone">{p.title}</p>
-                        <p className="mt-1 text-sm text-bone-dim">{p.body}</p>
-                      </div>
-                    </div>
-                  </Reveal>
-                );
-              })}
-            </div>
+            <Reveal delay={0.15}>
+              <div className="mt-12">
+                <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
+                  What happens next
+                </span>
+                <ol className="mt-5 flex flex-col gap-4">
+                  {steps.map((step, i) => (
+                    <li key={step} className="flex items-start gap-4">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-line bg-charcoal font-mono text-xs text-bone">
+                        {i + 1}
+                      </span>
+                      <p className="pt-0.5 text-sm leading-relaxed text-bone-dim">
+                        {step}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <div className="mt-10 border-t border-line pt-6">
+                <ul className="flex flex-col gap-2.5">
+                  {reassurances.map((r) => (
+                    <li
+                      key={r.title}
+                      className="flex items-center gap-2.5 text-sm text-bone-dim"
+                    >
+                      <Check size={15} className="shrink-0 text-emerald-400" />
+                      {r.title}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.25}>
+              <p className="mt-8 text-sm text-bone-faint">
+                Prefer to talk first?{" "}
+                <Link
+                  href={CALENDAR_URL}
+                  className="text-bone underline underline-offset-4 transition-colors hover:text-white"
+                >
+                  Book a 20-minute call
+                </Link>
+                .
+              </p>
+            </Reveal>
           </div>
 
           <Reveal delay={0.1}>
