@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { CaseStudyRow } from "@/components/CaseStudyRow";
+import { WorkCard } from "@/components/WorkCard";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { caseStudies } from "@/lib/data";
 
@@ -30,7 +30,7 @@ export default function WorkPage() {
           <Reveal delay={0.1}>
             <p className="mt-5 max-w-2xl text-lg text-bone-dim">
               Real systems for real teams. Each one started as a brief and
-              shipped as software that holds up.
+              shipped as software that holds up. Pick one to read the full story.
             </p>
           </Reveal>
         </Container>
@@ -38,10 +38,10 @@ export default function WorkPage() {
 
       <section className="pb-24 sm:pb-32">
         <Container>
-          <div className="flex flex-col gap-6 sm:gap-8">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {caseStudies.map((study, i) => (
-              <Reveal key={study.slug} delay={0.04}>
-                <CaseStudyRow study={study} reversed={i % 2 === 1} />
+              <Reveal key={study.slug} delay={(i % 3) * 0.05} className="h-full">
+                <WorkCard study={study} className="h-full" />
               </Reveal>
             ))}
           </div>

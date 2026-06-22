@@ -123,6 +123,35 @@ export type CaseStudy = {
   preview: PreviewKind;
 };
 
+export type Faq = { q: string; a: string };
+
+export const faqs: Faq[] = [
+  {
+    q: "How fast can you start?",
+    a: "Most projects kick off within a week of the first call. We keep scope tight so we can move.",
+  },
+  {
+    q: "What does it cost?",
+    a: "Most builds land between 10k and 30k. We scope against the outcome, not hours, and quote before we start.",
+  },
+  {
+    q: "How long until I see something working?",
+    a: "Days, not quarters. The first usable version usually ships in a few weeks, and you use it for real.",
+  },
+  {
+    q: "Do you work with non-technical founders?",
+    a: "Yes. We map the system in plain language before we write code, so you always know what you are getting.",
+  },
+  {
+    q: "What happens after launch?",
+    a: "We watch how it runs and sharpen it against real usage. You own the code and the systems.",
+  },
+  {
+    q: "What do you need from me to start?",
+    a: "A clear problem and someone who can answer questions. We handle the rest.",
+  },
+];
+
 export const caseStudies: CaseStudy[] = [
   {
     slug: "orbit-artist-group",

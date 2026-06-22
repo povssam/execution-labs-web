@@ -1,8 +1,9 @@
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { CaseStudy, PreviewKind } from "@/lib/data";
 
-function CardPreview({ kind }: { kind: PreviewKind }) {
+export function CardPreview({ kind }: { kind: PreviewKind }) {
   if (kind === "queue") {
     const rows = [
       { w: "w-3/4", c: "bg-emerald-400" },
@@ -85,9 +86,11 @@ export function WorkCard({
   className?: string;
 }) {
   return (
-    <article
+    <Link
+      href={`/work/${study.slug}`}
+      aria-label={`Read the ${study.client} case study`}
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-charcoal/60 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-bone/25 hover:bg-charcoal-2/70 hover:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.9)]",
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-charcoal/60 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-bone/25 hover:bg-charcoal-2/70 hover:shadow-[0_20px_50px_-25px_rgba(0,0,0,0.9)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone/40",
         className,
       )}
     >
@@ -143,6 +146,6 @@ export function WorkCard({
           </span>
         ))}
       </div>
-    </article>
+    </Link>
   );
 }

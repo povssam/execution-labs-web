@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "./ui/Container";
+import { CALENDAR_URL, EMAIL } from "@/lib/site";
 
 const nav = [
   { href: "/", label: "Home" },
   { href: "/work", label: "Work" },
+  { href: "/services", label: "Services" },
+  { href: "/services#faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -43,6 +46,12 @@ export function Footer() {
               <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
                 Connect
               </span>
+              <Link
+                href={CALENDAR_URL}
+                className="text-sm text-bone-dim transition-colors hover:text-bone"
+              >
+                Book a call
+              </Link>
               <a
                 href="https://x.com/execution_labs?s=21"
                 target="_blank"
@@ -53,10 +62,10 @@ export function Footer() {
                 <ArrowUpRight size={14} />
               </a>
               <a
-                href="mailto:hello@executionlabs.com"
+                href={`mailto:${EMAIL}`}
                 className="text-sm text-bone-dim transition-colors hover:text-bone"
               >
-                hello@executionlabs.com
+                {EMAIL}
               </a>
             </div>
           </div>

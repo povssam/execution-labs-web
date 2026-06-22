@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { ButtonLink } from "../ui/Button";
+import { CALENDAR_URL } from "@/lib/site";
 
 export function FinalCTA() {
   return (
@@ -24,13 +25,16 @@ export function FinalCTA() {
               <p className="mx-auto mt-5 max-w-xl text-lg text-bone-dim">
                 Let&apos;s make the first version real.
               </p>
-              <div className="mt-10 flex justify-center">
+              <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
                 <ButtonLink href="/contact">
                   Start a project
                   <ArrowRight
                     size={16}
                     className="transition-transform duration-200 group-hover:translate-x-0.5"
                   />
+                </ButtonLink>
+                <ButtonLink href={CALENDAR_URL} variant="secondary">
+                  Book a call
                 </ButtonLink>
               </div>
             </div>
