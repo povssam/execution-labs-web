@@ -18,9 +18,14 @@ export function Testimonials() {
                 <blockquote className="text-base leading-relaxed text-bone">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
-                <figcaption className="mt-6 border-t border-line pt-4 text-sm">
+                <figcaption className="mt-6 flex flex-wrap items-center gap-2 border-t border-line pt-4 text-sm">
                   <span className="font-medium text-bone">{t.name}</span>
-                  <span className="text-bone-faint"> · {t.role}</span>
+                  <span className="text-bone-faint">· {t.role}</span>
+                  {t.placeholder && (
+                    <span className="rounded-full border border-amber-400/40 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] text-amber-400/90">
+                      Placeholder
+                    </span>
+                  )}
                 </figcaption>
               </figure>
             </Reveal>

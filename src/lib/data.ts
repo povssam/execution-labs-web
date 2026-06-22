@@ -148,11 +148,45 @@ export const reassurances: Reassurance[] = [
   },
 ];
 
-export type Testimonial = { quote: string; name: string; role: string };
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+  /** Marks sample content so it never reads as a real claim. */
+  placeholder?: boolean;
+};
 
-// Real client quotes only. Leave empty until approved — the section hides
-// itself when this is empty, so nothing fabricated ever ships.
-export const testimonials: Testimonial[] = [];
+// Real client quotes only. Replace the placeholder below with an approved
+// quote (and drop the placeholder flag). The section hides itself when empty.
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "Replace this with a real, approved client quote. One or two sentences on the outcome works best.",
+    name: "Client name",
+    role: "Role, Company",
+    placeholder: true,
+  },
+];
+
+export type Founder = {
+  name: string;
+  role: string;
+  note: string;
+  /** Initials for the monogram avatar. */
+  initials: string;
+  /** Marks sample content so it never reads as a real claim. */
+  placeholder?: boolean;
+};
+
+// Replace with the real founder name, title, and a line in their voice, then
+// drop the placeholder flag. Set to null to hide the founder strip entirely.
+export const founder: Founder | null = {
+  name: "Founder name",
+  role: "Founder, Execution Labs",
+  note: "A line in the founder's voice. Why Execution Labs exists, in plain words.",
+  initials: "EL",
+  placeholder: true,
+};
 
 export type Faq = { q: string; a: string };
 
