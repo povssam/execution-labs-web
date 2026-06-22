@@ -85,7 +85,7 @@ export function ContactForm() {
         ) : (
           <motion.form
             key="form"
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.25 }}
             onSubmit={onSubmit}

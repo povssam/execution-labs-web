@@ -1,12 +1,7 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { ButtonLink } from "../ui/Button";
 import { OpsDashboard } from "./OpsDashboard";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 const stats = [
   { value: "6 wks", label: "Idea to MVP" },
@@ -26,43 +21,32 @@ export function Hero() {
       <Container className="relative">
         <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1.15fr] lg:gap-12">
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: EASE }}
-              className="inline-flex items-center gap-2 rounded-full border border-line bg-charcoal-2/40 px-4 py-1.5 font-mono text-xs text-bone-dim"
-            >
+            <div className="reveal inline-flex items-center gap-2 rounded-full border border-line bg-charcoal-2/40 px-4 py-1.5 font-mono text-xs text-bone-dim">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
               AI agents and software, built fast
-            </motion.div>
+            </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.06 }}
-              className="mt-6 text-5xl font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
+            <h1
+              className="reveal mt-6 text-5xl font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
+              style={{ animationDelay: "0.06s" }}
             >
               We build systems
               <br />
               that do the work.
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.14 }}
-              className="mt-6 max-w-xl text-lg leading-relaxed text-bone-dim"
+            <p
+              className="reveal mt-6 max-w-xl text-lg leading-relaxed text-bone-dim"
+              style={{ animationDelay: "0.14s" }}
             >
               Execution Labs builds AI agents and software that save companies
               time and money. From internal tools to full product systems, we
               move fast and the work holds up.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.22 }}
-              className="mt-9 flex flex-col gap-3 sm:flex-row"
+            <div
+              className="reveal mt-9 flex flex-col gap-3 sm:flex-row"
+              style={{ animationDelay: "0.22s" }}
             >
               <ButtonLink href="/contact">
                 Start a project
@@ -74,13 +58,11 @@ export function Hero() {
               <ButtonLink href="/work" variant="secondary">
                 See work
               </ButtonLink>
-            </motion.div>
+            </div>
 
-            <motion.dl
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.3 }}
-              className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-line pt-6"
+            <dl
+              className="reveal mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-line pt-6"
+              style={{ animationDelay: "0.3s" }}
             >
               {stats.map((s) => (
                 <div key={s.label}>
@@ -92,16 +74,12 @@ export function Hero() {
                   </dd>
                 </div>
               ))}
-            </motion.dl>
+            </dl>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
-          >
+          <div className="reveal" style={{ animationDelay: "0.2s" }}>
             <OpsDashboard />
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>

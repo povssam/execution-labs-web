@@ -1,29 +1,26 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type RevealProps = {
   children: React.ReactNode;
   className?: string;
+  /** Stagger delay in seconds. */
   delay?: number;
   /** Render a specific element. Defaults to div. */
   as?: "div" | "section" | "li" | "span";
 };
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-export function Reveal({ children, className, delay = 0, as = "div" }: RevealProps) {
-  const MotionTag = motion[as];
+/**
+ * Reveal animates content up on load using CSS only.
+ * The resting state is fully visible, so content always renders even if
+ * the animation never runs (no JS, reduced motion, old browsers).
+ */
+export function Reveal({ children, className, delay = 0, as: Tag = "div" }: RevealProps) {
   return (
-    <MotionTag
-      className={cn(className)}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, ease: EASE, delay }}
+    <Tag
+      className={cn("reveal", className)}
+      style={delay ? { animationDelay: `${delay}s` } : undefined}
     >
       {children}
-    </MotionTag>
+    </Tag>
   );
 }

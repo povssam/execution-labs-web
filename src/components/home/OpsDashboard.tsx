@@ -1,11 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { CountUp } from "../ui/CountUp";
 import { cn } from "@/lib/utils";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 function Panel({
   title,
@@ -21,12 +18,10 @@ function Panel({
   delay?: number;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: EASE, delay }}
+    <div
+      style={delay ? { animationDelay: `${delay}s` } : undefined}
       className={cn(
-        "flex flex-col rounded-xl border border-line bg-charcoal/70 p-4",
+        "reveal flex flex-col rounded-xl border border-line bg-charcoal/70 p-4",
         className,
       )}
     >
@@ -37,7 +32,7 @@ function Panel({
         {meta}
       </div>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -115,19 +110,14 @@ function WorkflowMap({ className }: { className?: string }) {
         ].map((d, i) => (
           <g key={i}>
             <path d={d} stroke="#232327" strokeWidth="1.5" />
-            <motion.path
+            <path
+              className="flow-line"
               d={d}
               stroke="url(#flow)"
               strokeWidth="1.5"
               strokeDasharray="26 120"
-              initial={{ strokeDashoffset: 160 }}
-              animate={{ strokeDashoffset: -160 }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear",
-                delay: i * 0.25,
-              }}
+              strokeDashoffset={160}
+              style={{ animationDelay: `${i * 0.25}s` }}
             />
           </g>
         ))}
@@ -155,6 +145,8 @@ function WorkflowMap({ className }: { className?: string }) {
   );
 }
 
+const timeBars = [40, 55, 48, 70, 62, 85, 78, 96];
+
 function TimeSaved() {
   return (
     <Panel
@@ -173,12 +165,10 @@ function TimeSaved() {
         <span className="text-sm text-bone-dim">hrs</span>
       </div>
       <div className="mt-3 flex h-9 items-end gap-1">
-        {[40, 55, 48, 70, 62, 85, 78, 96].map((h, i) => (
-          <motion.span
+        {timeBars.map((h, i) => (
+          <span
             key={i}
-            initial={{ height: 0 }}
-            animate={{ height: `${h}%` }}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.3 + i * 0.05 }}
+            style={{ height: `${h}%` }}
             className="flex-1 rounded-sm bg-bone/25"
           />
         ))}
@@ -245,18 +235,16 @@ function BuildProgress() {
   return (
     <Panel title="Build progress" delay={0.3}>
       <ul className="flex flex-col gap-2.5">
-        {builds.map((b, i) => (
+        {builds.map((b) => (
           <li key={b.label}>
             <div className="mb-1 flex justify-between text-[11px]">
               <span className="text-bone-dim">{b.label}</span>
               <span className="font-mono text-bone-faint">{b.pct}%</span>
             </div>
             <div className="h-1 overflow-hidden rounded-full bg-charcoal-2">
-              <motion.div
+              <div
                 className="h-full rounded-full bg-bone/70"
-                initial={{ width: 0 }}
-                animate={{ width: `${b.pct}%` }}
-                transition={{ duration: 0.8, ease: EASE, delay: 0.4 + i * 0.1 }}
+                style={{ width: `${b.pct}%` }}
               />
             </div>
           </li>
