@@ -28,6 +28,9 @@ export function WhatWeBuild() {
                     <h3 className="text-xl font-medium text-bone">
                       {item.title}
                     </h3>
+                    <p className="mt-1.5 max-w-md text-sm leading-relaxed text-bone-dim">
+                      {item.body}
+                    </p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 sm:w-56 sm:justify-end">

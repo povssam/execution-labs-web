@@ -61,6 +61,38 @@ export function CardPreview({ kind }: { kind: PreviewKind }) {
     );
   }
 
+  if (kind === "rings") {
+    return (
+      <div className="flex h-full items-center justify-center gap-5">
+        <svg viewBox="0 0 80 80" className="h-full max-h-20" fill="none">
+          <circle cx="40" cy="40" r="30" stroke="#232327" strokeWidth="8" />
+          <circle
+            cx="40"
+            cy="40"
+            r="30"
+            stroke="#e7e3da"
+            strokeOpacity="0.75"
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeDasharray="132 188"
+            transform="rotate(-90 40 40)"
+          />
+        </svg>
+        <div className="flex flex-col gap-1.5">
+          {["Dividends", "Reinvest", "Total return"].map((l, i) => (
+            <span key={l} className="flex items-center gap-2 text-[11px] text-bone-dim">
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ background: i === 0 ? "#e7e3da" : "#3f3f46" }}
+              />
+              {l}
+            </span>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   // status
   const cells = ["Agents", "API", "Jobs", "Sync"];
   return (

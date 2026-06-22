@@ -107,7 +107,7 @@ export const process: Step[] = [
 
 export type Metric = { label: string; value: string };
 
-export type PreviewKind = "queue" | "bars" | "lines" | "status";
+export type PreviewKind = "queue" | "bars" | "lines" | "status" | "rings";
 
 export type CaseStudy = {
   slug: string;
@@ -292,7 +292,7 @@ export const caseStudies: CaseStudy[] = [
       { label: "Errors", value: "0" },
     ],
     tags: ["Finance", "Systems", "Data"],
-    preview: "lines",
+    preview: "rings",
   },
   {
     slug: "custom-ai-ops-system",

@@ -5,8 +5,12 @@ import { reasons } from "@/lib/data";
 
 export function WhyUs() {
   return (
-    <section className="border-y border-line bg-charcoal/40 py-20 sm:py-24">
-      <Container>
+    <section className="relative overflow-hidden border-y border-line bg-charcoal/40 py-20 sm:py-24">
+      <div
+        className="pointer-events-none absolute left-1/2 top-0 h-72 w-[680px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(231,227,218,0.07),transparent_70%)] blur-2xl"
+        aria-hidden
+      />
+      <Container className="relative">
         <SectionHeading label="Why us" title="A team that ships, not pitches" />
 
         <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
@@ -24,9 +28,12 @@ export function WhyUs() {
                       0{i + 1}
                     </span>
                   </div>
-                  <h3 className="mt-8 text-xl font-medium text-bone">
+                  <h3 className="mt-6 text-xl font-medium text-bone">
                     {item.title}
                   </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-bone-dim">
+                    {item.body}
+                  </p>
                 </div>
               </Reveal>
             );

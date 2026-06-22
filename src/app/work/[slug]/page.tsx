@@ -123,7 +123,17 @@ export default async function CaseStudyPage({ params }: Params) {
           <Reveal className="flex flex-col gap-6">
             <Section label="Problem" body={study.problem} />
             <Section label="What we built" body={study.built} />
-            <Section label="Result" body={study.result} />
+          </Reveal>
+
+          <Reveal className="mt-8">
+            <figure className="rounded-2xl border border-line bg-charcoal/40 p-8 sm:p-10">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-emerald-400/90">
+                Result
+              </span>
+              <blockquote className="mt-4 max-w-2xl text-2xl font-medium leading-snug tracking-tight text-bone sm:text-3xl">
+                {study.result}
+              </blockquote>
+            </figure>
           </Reveal>
 
           <Reveal className="mt-10 flex flex-wrap gap-2">

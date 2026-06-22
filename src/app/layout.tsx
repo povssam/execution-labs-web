@@ -24,6 +24,14 @@ export const metadata: Metadata = {
     description:
       "We build agents and software that save companies time and money.",
     type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Execution Labs" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Execution Labs",
+    description:
+      "We build agents and software that save companies time and money.",
+    images: ["/og.png"],
   },
 };
 
