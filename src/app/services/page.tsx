@@ -51,39 +51,31 @@ export default function ServicesPage() {
       <section id="what-we-build" className="pb-24 sm:pb-28">
         <Container>
           <div className="grid gap-5 sm:grid-cols-2">
-            {capabilities.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <Reveal key={item.title} delay={(i % 2) * 0.05} className="h-full">
-                  <div className="group flex h-full flex-col rounded-2xl border border-line bg-charcoal/40 p-7 transition-colors duration-200 hover:bg-charcoal-2/70">
-                    <div className="flex items-center justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-line bg-ink text-bone transition-colors duration-200 group-hover:border-bone/30">
-                        <Icon size={22} strokeWidth={1.6} />
-                      </div>
-                      <span className="font-mono text-xs text-bone-faint">
-                        0{i + 1}
+            {capabilities.map((item, i) => (
+              <Reveal key={item.title} delay={(i % 2) * 0.05} className="h-full">
+                <div className="flex h-full flex-col rounded-2xl border border-line bg-charcoal/40 p-7 transition-colors duration-200 hover:bg-charcoal-2/70">
+                  <span className="font-mono text-xs text-bone-faint">
+                    0{i + 1}
+                  </span>
+                  <h2 className="mt-6 text-xl font-medium text-bone">
+                    {item.title}
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-bone-dim">
+                    {item.body}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2 pt-1">
+                    {item.points.map((p) => (
+                      <span
+                        key={p}
+                        className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim"
+                      >
+                        {p}
                       </span>
-                    </div>
-                    <h2 className="mt-6 text-xl font-medium text-bone">
-                      {item.title}
-                    </h2>
-                    <p className="mt-2 text-sm leading-relaxed text-bone-dim">
-                      {item.body}
-                    </p>
-                    <div className="mt-5 flex flex-wrap gap-2 pt-1">
-                      {item.points.map((p) => (
-                        <span
-                          key={p}
-                          className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim"
-                        >
-                          {p}
-                        </span>
-                      ))}
-                    </div>
+                    ))}
                   </div>
-                </Reveal>
-              );
-            })}
+                </div>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
@@ -95,27 +87,21 @@ export default function ServicesPage() {
             title="A tight loop, brief to real usage"
           />
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-            {process.map((step, i) => {
-              const Icon = step.icon;
-              return (
-                <Reveal key={step.index} delay={i * 0.06}>
-                  <div className="group">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full border border-line bg-ink font-mono text-sm text-bone">
-                        {step.index}
-                      </div>
-                      <Icon size={18} strokeWidth={1.6} className="text-bone-faint" />
-                    </div>
-                    <h3 className="mt-6 text-lg font-medium text-bone">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-bone-dim">
-                      {step.body}
-                    </p>
+            {process.map((step, i) => (
+              <Reveal key={step.index} delay={i * 0.06}>
+                <div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-line bg-ink font-mono text-sm text-bone">
+                    {step.index}
                   </div>
-                </Reveal>
-              );
-            })}
+                  <h3 className="mt-6 text-lg font-medium text-bone">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-bone-dim">
+                    {step.body}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>

@@ -238,9 +238,9 @@ export function ContactForm() {
                   className="transition-transform duration-200 group-hover:translate-x-0.5"
                 />
               </Button>
-              {status === "error" ? (
+              {status === "error" && (
                 <p className="text-sm text-amber-400/90">
-                  Something went wrong sending your brief. Email us directly at{" "}
+                  Something went wrong sending your message. Email us directly at{" "}
                   <a
                     href="mailto:hello@executionlabs.com"
                     className="underline underline-offset-4"
@@ -248,10 +248,6 @@ export function ContactForm() {
                     hello@executionlabs.com
                   </a>
                   .
-                </p>
-              ) : (
-                <p className="text-xs text-bone-faint">
-                  We reply within a day. No spam, no sales pitch.
                 </p>
               )}
             </div>

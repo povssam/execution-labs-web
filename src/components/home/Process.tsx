@@ -16,31 +16,21 @@ export function Process() {
             aria-hidden
           />
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-            {process.map((step, i) => {
-              const Icon = step.icon;
-              return (
-                <Reveal key={step.index} delay={i * 0.06}>
-                  <div className="group relative">
-                    <div className="flex items-center gap-3">
-                      <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-ink font-mono text-sm text-bone transition-colors duration-200 group-hover:border-bone/40">
-                        {step.index}
-                      </div>
-                      <Icon
-                        size={18}
-                        strokeWidth={1.6}
-                        className="text-bone-faint transition-colors duration-200 group-hover:text-bone"
-                      />
-                    </div>
-                    <h3 className="mt-6 text-lg font-medium text-bone">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-bone-dim">
-                      {step.body}
-                    </p>
+            {process.map((step, i) => (
+              <Reveal key={step.index} delay={i * 0.06}>
+                <div className="group relative">
+                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-line bg-ink font-mono text-sm text-bone transition-colors duration-200 group-hover:border-bone/40">
+                    {step.index}
                   </div>
-                </Reveal>
-              );
-            })}
+                  <h3 className="mt-6 text-lg font-medium text-bone">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-bone-dim">
+                    {step.body}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </Container>

@@ -5,7 +5,6 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
-import { CardPreview } from "@/components/WorkCard";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { caseStudies } from "@/lib/data";
 
@@ -63,58 +62,28 @@ export default async function CaseStudyPage({ params }: Params) {
             </Link>
           </Reveal>
 
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-14">
-            <div>
-              <Reveal>
-                <div className="flex items-center gap-3">
-                  <span className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim">
-                    {study.category}
-                  </span>
-                  <span className="font-mono text-xs text-bone-faint">
-                    {study.year}
-                  </span>
-                </div>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h1 className="mt-5 text-4xl font-semibold tracking-tight text-bone sm:text-6xl">
-                  {study.client}
-                </h1>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p className="mt-5 max-w-xl text-lg text-bone-dim">
-                  {study.summary}
-                </p>
-              </Reveal>
-            </div>
-
-            <Reveal delay={0.1}>
-              <div className="relative h-56 overflow-hidden rounded-2xl border border-line bg-ink p-6 sm:h-72">
-                <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-50" />
-                <div className="relative h-full">
-                  <CardPreview kind={study.preview} />
-                </div>
+          <div className="mt-8 max-w-3xl">
+            <Reveal>
+              <div className="flex items-center gap-3">
+                <span className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim">
+                  {study.category}
+                </span>
+                <span className="font-mono text-xs text-bone-faint">
+                  {study.year}
+                </span>
               </div>
             </Reveal>
+            <Reveal delay={0.05}>
+              <h1 className="mt-5 text-4xl font-semibold tracking-tight text-bone sm:text-6xl">
+                {study.client}
+              </h1>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p className="mt-5 max-w-xl text-lg text-bone-dim">
+                {study.summary}
+              </p>
+            </Reveal>
           </div>
-        </Container>
-      </section>
-
-      <section className="pb-8">
-        <Container>
-          <Reveal>
-            <dl className="grid grid-cols-3 gap-4 rounded-2xl border border-line bg-charcoal/40 p-6 sm:gap-6 sm:p-8">
-              {study.metrics.map((m) => (
-                <div key={m.label}>
-                  <dt className="text-2xl font-semibold tracking-tight text-bone sm:text-4xl">
-                    {m.value}
-                  </dt>
-                  <dd className="mt-1 text-xs leading-snug text-bone-faint sm:text-sm">
-                    {m.label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
         </Container>
       </section>
 
@@ -127,7 +96,7 @@ export default async function CaseStudyPage({ params }: Params) {
 
           <Reveal className="mt-8">
             <figure className="rounded-2xl border border-line bg-charcoal/40 p-8 sm:p-10">
-              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-emerald-400/90">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
                 Result
               </span>
               <blockquote className="mt-4 max-w-2xl text-2xl font-medium leading-snug tracking-tight text-bone sm:text-3xl">

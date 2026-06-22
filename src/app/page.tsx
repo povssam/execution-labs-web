@@ -5,7 +5,6 @@ import { Founder } from "@/components/home/Founder";
 import { WorkCarousel } from "@/components/home/WorkCarousel";
 import { Testimonials } from "@/components/home/Testimonials";
 import { Process } from "@/components/home/Process";
-import { Reassurance } from "@/components/home/Reassurance";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
       <WorkCarousel />
       <Testimonials />
       <Process />
-      <Reassurance />
       <FinalCTA />
     </>
   );

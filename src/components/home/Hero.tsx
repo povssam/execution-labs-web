@@ -1,15 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { ButtonLink } from "../ui/Button";
-import { OpsDashboard } from "./OpsDashboard";
+import { SystemMap } from "./SystemMap";
 import { CALENDAR_URL } from "@/lib/site";
-import { industries } from "@/lib/data";
-
-const stats = [
-  { value: "6 wks", label: "Idea to MVP" },
-  { value: "70%", label: "Less manual ops" },
-  { value: "24h", label: "First reply" },
-];
 
 export function Hero() {
   return (
@@ -21,15 +14,14 @@ export function Hero() {
       />
 
       <Container className="relative">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1.15fr] lg:gap-12">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
           <div>
-            <div className="reveal inline-flex items-center gap-2 rounded-full border border-line bg-charcoal-2/40 px-4 py-1.5 font-mono text-xs text-bone-dim">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              AI agents and software, built fast
-            </div>
+            <p className="reveal font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
+              Execution Labs
+            </p>
 
             <h1
-              className="reveal mt-6 text-5xl font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
+              className="reveal mt-5 text-5xl font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
               style={{ animationDelay: "0.06s" }}
             >
               We build systems
@@ -60,52 +52,10 @@ export function Hero() {
                 Book a call
               </ButtonLink>
             </div>
-
-            <p
-              className="reveal mt-3 text-xs text-bone-faint"
-              style={{ animationDelay: "0.26s" }}
-            >
-              Free scoping call. No pressure, no hard sell.
-            </p>
-
-            <dl
-              className="reveal mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-line pt-6"
-              style={{ animationDelay: "0.3s" }}
-            >
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <dt className="text-2xl font-semibold tracking-tight text-bone">
-                    {s.value}
-                  </dt>
-                  <dd className="mt-1 text-xs leading-snug text-bone-faint">
-                    {s.label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-
-            <div
-              className="reveal mt-10"
-              style={{ animationDelay: "0.34s" }}
-            >
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-bone-faint">
-                Shipped for teams in
-              </span>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {industries.map((name) => (
-                  <span
-                    key={name}
-                    className="rounded-full border border-line px-3 py-1 text-xs text-bone-dim"
-                  >
-                    {name}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
 
           <div className="reveal" style={{ animationDelay: "0.2s" }}>
-            <OpsDashboard />
+            <SystemMap />
           </div>
         </div>
       </Container>
