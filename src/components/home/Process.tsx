@@ -7,11 +7,7 @@ export function Process() {
   return (
     <section id="process" className="border-t border-line bg-charcoal/40 py-24 sm:py-32">
       <Container>
-        <SectionHeading
-          label="Process"
-          title="How the work gets made"
-          description="A tight loop, from first brief to real usage."
-        />
+        <SectionHeading label="Process" title="How the work gets made" />
 
         <div className="relative mt-14">
           {/* connecting line */}

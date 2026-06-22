@@ -7,11 +7,7 @@ export function WhyUs() {
   return (
     <section className="border-y border-line bg-charcoal/40 py-24 sm:py-32">
       <Container>
-        <SectionHeading
-          label="Why us"
-          title="A team that ships, not pitches"
-          description="Founder led. Fast. Built around outcomes, not hours."
-        />
+        <SectionHeading label="Why us" title="A team that ships, not pitches" />
 
         <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
           {reasons.map((item, i) => {

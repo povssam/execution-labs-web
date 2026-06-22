@@ -26,7 +26,6 @@ export function WorkCarousel() {
           <SectionHeading
             label="Selected work"
             title="Systems we put into the world"
-            description="Real builds for real teams. Drag or use the arrows to browse."
           />
           <div className="flex gap-2">
             <button

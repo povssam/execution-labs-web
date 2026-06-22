@@ -8,11 +8,7 @@ export function WhatWeBuild() {
   return (
     <section id="what-we-build" className="py-24 sm:py-32">
       <Container>
-        <SectionHeading
-          label="What we build"
-          title="Four layers, one standard"
-          description="Pick the layer you need. We build it to last and to grow."
-        />
+        <SectionHeading label="What we build" title="Four layers, one standard" />
 
         <div className="mt-14 overflow-hidden rounded-2xl border border-line">
           {capabilities.map((item, i) => {

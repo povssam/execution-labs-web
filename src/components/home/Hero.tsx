@@ -41,9 +41,8 @@ export function Hero() {
               className="reveal mt-6 max-w-xl text-lg leading-relaxed text-bone-dim"
               style={{ animationDelay: "0.14s" }}
             >
-              Execution Labs builds AI agents and software that save companies
-              time and money. From internal tools to full product systems, we
-              move fast and the work holds up.
+              AI agents and software that save companies time and money. We move
+              fast and the work holds up.
             </p>
 
             <div

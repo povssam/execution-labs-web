@@ -23,25 +23,25 @@ export type Capability = {
 export const capabilities: Capability[] = [
   {
     title: "AI Agents",
-    body: "Agents that read, decide, and act inside your systems. They do the work, not just chat about it.",
+    body: "Agents that read, decide, and act inside your systems.",
     points: ["Tool use", "Memory", "Human handoff"],
     icon: Bot,
   },
   {
     title: "Internal Tools",
-    body: "Dashboards and ops tools your team actually uses. Built around how you already work.",
+    body: "Dashboards and ops tools your team actually uses.",
     points: ["Live data", "Roles", "Audit trail"],
     icon: Wrench,
   },
   {
     title: "MVP Software",
-    body: "A first version that ships. Real product in weeks, with auth, billing, and a clean interface.",
+    body: "A first version that ships. Real product in weeks.",
     points: ["Auth", "Payments", "Analytics"],
     icon: Rocket,
   },
   {
     title: "Product Systems",
-    body: "Full systems that scale. Clean architecture and clear data that hold up under load.",
+    body: "Full systems that scale and hold up under load.",
     points: ["APIs", "Pipelines", "Infra"],
     icon: Boxes,
   },
@@ -56,17 +56,17 @@ export type Reason = {
 export const reasons: Reason[] = [
   {
     title: "We understand the vision",
-    body: "We get the goal before we write code, then push it further than the brief. The build maps to what you mean.",
+    body: "We get the goal before we write code, then push it past the brief.",
     icon: Eye,
   },
   {
     title: "We move fast",
-    body: "Short cycles. Tight feedback. You see working software in days, not quarters.",
+    body: "Short cycles. Working software in days, not quarters.",
     icon: Zap,
   },
   {
     title: "We build real systems",
-    body: "No throwaway demos. The work is solid, tested, and ready to grow with you.",
+    body: "No throwaway demos. Solid, tested, ready to grow.",
     icon: Layers,
   },
 ];
