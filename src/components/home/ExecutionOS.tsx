@@ -70,7 +70,7 @@ export function ExecutionOS() {
           meta={
             <span className="flex items-center gap-1.5 font-mono text-[10px] text-bone-dim">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              4 running
+              running
             </span>
           }
         >
@@ -144,16 +144,14 @@ export function ExecutionOS() {
         {/* Throughput */}
         <Panel
           title="Throughput"
-          meta={<span className="font-mono text-[10px] text-emerald-400">+18%</span>}
+          meta={<span className="font-mono text-[10px] uppercase tracking-[0.14em] text-bone-faint">wk</span>}
         >
-          <div className="flex items-baseline gap-1">
-            <span className="text-2xl font-semibold tracking-tight text-bone">1.2k</span>
-            <span className="text-[11px] text-bone-dim">runs/wk</span>
-          </div>
-          <div className="mt-2.5 flex h-8 items-end gap-1">
-            {bars.map((h, i) => (
-              <span key={i} style={{ height: `${h}%` }} className="flex-1 rounded-sm bg-bone/25" />
-            ))}
+          <div className="flex h-full items-end">
+            <div className="flex h-14 w-full items-end gap-1">
+              {bars.map((h, i) => (
+                <span key={i} style={{ height: `${h}%` }} className="flex-1 rounded-sm bg-bone/25" />
+              ))}
+            </div>
           </div>
         </Panel>
 
@@ -180,10 +178,7 @@ export function ExecutionOS() {
           <ul className="flex flex-col gap-2">
             {builds.map((b) => (
               <li key={b.label}>
-                <div className="mb-1 flex justify-between text-[11px]">
-                  <span className="text-bone-dim">{b.label}</span>
-                  <span className="font-mono text-bone-faint">{b.pct}%</span>
-                </div>
+                <div className="mb-1 text-[11px] text-bone-dim">{b.label}</div>
                 <div className="h-1 overflow-hidden rounded-full bg-charcoal-2">
                   <div className="h-full rounded-full bg-bone/70" style={{ width: `${b.pct}%` }} />
                 </div>
