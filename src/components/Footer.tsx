@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "./ui/Container";
-import { Logo } from "./brand/Logo";
 import { CALENDAR_URL, EMAIL } from "@/lib/site";
 
 const nav = [
@@ -18,8 +17,7 @@ export function Footer() {
       <Container className="py-14">
         <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-sm">
-            <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight text-bone">
-              <Logo size={20} />
+            <Link href="/" className="text-sm font-semibold tracking-tight text-bone">
               Execution Labs
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-bone-dim">

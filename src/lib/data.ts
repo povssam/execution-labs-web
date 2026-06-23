@@ -226,6 +226,23 @@ export const faqs: Faq[] = [
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: "grace",
+    client: "Grace",
+    category: "Brand, product UI, social",
+    year: "2025",
+    summary:
+      "A product identity and interface direction that feels human, premium, and alive.",
+    problem:
+      "Grace needed a product identity and interface direction that felt human, premium, and alive.",
+    built:
+      "Brand visuals, social mockups, phone UI direction, and a scrolling UI concept.",
+    result:
+      "A clearer product presence with motion-ready visuals and a stronger brand feel.",
+    metrics: [],
+    tags: ["Brand system", "Product UI", "Motion"],
+    preview: "lines",
+  },
+  {
     slug: "orbit-artist-group",
     client: "Orbit Artist Group",
     category: "AI Agents",

@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "./ui/Button";
-import { Logo } from "./brand/Logo";
 import { CALENDAR_URL } from "@/lib/site";
 
 type NavLink = { href: string; label: string; section?: string };
@@ -68,8 +67,7 @@ export function Nav() {
       )}
     >
       <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 sm:px-8">
-        <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight text-bone">
-          <Logo size={20} />
+        <Link href="/" className="text-sm font-semibold tracking-tight text-bone">
           Execution Labs
         </Link>
 
