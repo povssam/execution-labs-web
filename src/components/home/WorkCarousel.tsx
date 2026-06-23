@@ -57,12 +57,12 @@ export function WorkCarousel() {
           ref={trackRef}
           className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-6 px-6 pb-2 sm:scroll-px-8 sm:px-8"
         >
-          {caseStudies.map((study) => (
+          {caseStudies.map((study, i) => (
             <div
               key={study.slug}
               className="w-[300px] shrink-0 snap-start sm:w-[360px]"
             >
-              <WorkCard study={study} className="h-full" />
+              <WorkCard study={study} index={i} className="h-full" />
             </div>
           ))}
           <div className="w-1 shrink-0" aria-hidden />

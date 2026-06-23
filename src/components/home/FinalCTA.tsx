@@ -15,7 +15,11 @@ export function FinalCTA() {
               aria-hidden
             />
             <div
-              className="pointer-events-none absolute left-1/2 top-0 h-72 w-[640px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(231,227,218,0.12),transparent_70%)] blur-2xl"
+              className="pointer-events-none absolute left-1/2 top-[-30%] h-80 w-[720px] max-w-[120%] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
+              style={{
+                background:
+                  "linear-gradient(90deg,#e83ede,#9333ea,#14c8aa,#fb8c28)",
+              }}
               aria-hidden
             />
             <div className="relative">

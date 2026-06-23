@@ -2,6 +2,7 @@ import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 import { capabilities } from "@/lib/data";
+import { gradient } from "@/lib/brand";
 
 export function WhatWeBuild() {
   return (
@@ -9,30 +10,37 @@ export function WhatWeBuild() {
       <Container>
         <SectionHeading label="What we build" title="Four things we build" />
 
-        <div className="mt-12 overflow-hidden rounded-2xl border border-line">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
           {capabilities.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.05}>
-              <div className="group flex flex-col gap-3 border-b border-line bg-charcoal/40 px-6 py-7 transition-colors duration-200 last:border-b-0 hover:bg-charcoal-2/70 sm:flex-row sm:items-baseline sm:gap-8 sm:px-8">
-                <span className="font-mono text-xs text-bone-faint sm:w-10">
-                  0{i + 1}
-                </span>
-
-                <div className="sm:flex-1">
-                  <h3 className="text-xl font-medium text-bone">{item.title}</h3>
-                  <p className="mt-2 max-w-md text-sm leading-relaxed text-bone-dim">
+            <Reveal key={item.title} delay={(i % 2) * 0.06} className="h-full">
+              <div className="group relative h-full overflow-hidden rounded-2xl border border-line bg-charcoal/40 p-7 transition-colors duration-200 hover:bg-charcoal-2/70">
+                <div
+                  className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-50 blur-2xl transition-opacity duration-300 group-hover:opacity-80"
+                  style={{ background: gradient(i) }}
+                  aria-hidden
+                />
+                <div className="relative">
+                  <span
+                    className="block h-9 w-9 rounded-xl"
+                    style={{ background: gradient(i) }}
+                  />
+                  <div className="mt-5 flex items-baseline justify-between gap-3">
+                    <h3 className="text-xl font-medium text-bone">{item.title}</h3>
+                    <span className="font-mono text-xs text-bone-faint">0{i + 1}</span>
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed text-bone-dim">
                     {item.body}
                   </p>
-                </div>
-
-                <div className="flex flex-wrap gap-2 sm:w-56 sm:justify-end">
-                  {item.points.map((p) => (
-                    <span
-                      key={p}
-                      className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim"
-                    >
-                      {p}
-                    </span>
-                  ))}
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {item.points.map((p) => (
+                      <span
+                        key={p}
+                        className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim"
+                      >
+                        {p}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Reveal>
