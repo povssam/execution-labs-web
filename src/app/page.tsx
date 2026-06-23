@@ -1,6 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { WhatWeBuild } from "@/components/home/WhatWeBuild";
-import { UIShowcase } from "@/components/home/UIShowcase";
+import { PhoneShowcase } from "@/components/home/PhoneShowcase";
 import { WorkCarousel } from "@/components/home/WorkCarousel";
 import { Process } from "@/components/home/Process";
 import { FinalCTA } from "@/components/home/FinalCTA";
@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <Hero />
       <WhatWeBuild />
-      <UIShowcase />
+      <PhoneShowcase />
       <WorkCarousel />
       <Process />
       <FinalCTA />

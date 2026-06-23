@@ -1,57 +1,37 @@
 # Asset Inventory — Execution Labs
 
-Status of the brand inputs and exactly what I can and cannot access from this
-environment.
+## Access result
 
-## Access check (honest)
+Pulled the real assets from the public Drive folder by extracting each file's
+`data-id` with a headless browser, then downloading via Google's public image
+endpoint (`lh3.googleusercontent.com/d/<id>`). The brand doc text was read via
+its public export. Figma still needs auth.
 
-| Source | Accessible here? | How |
-|---|---|---|
-| Brand doc (Google Doc) | YES (text) | Read via the doc's public text export. Voice/brief captured. |
-| Drive folder file list | YES (names only) | Folder is public; file names + sizes visible. |
-| Drive binaries (logo, images, videos) | NO | WebFetch returns page metadata only. No file IDs, no direct download, cannot fetch binary image/video data. |
-| Figma file | NO | Requires Figma auth / API token. Cannot render or export. |
+## Assets pulled and how they are used
 
-**Conclusion:** I cannot pull the real logo, the colorful glass/lens image, the
-reference/feedback screenshots, or the videos into the repo. Per Rule 1 I will
-not invent or fake them.
-
-## Files seen in the Drive folder (contents NOT viewable from here)
-
-| File | Size | Best guess (unconfirmed) | Intended use on the site |
+| Drive file | What it is | In repo | Used for |
 |---|---|---|---|
-| Execution Labs - Brand Voice & Brief | Google Doc | Brand voice + brief | Copy/voice. ACCESSED. |
-| IMG_7672.PNG | 3 KB | Likely the logo / mark (tiny file = simple mark) | Nav, hero, footer, favicon |
-| IMG_7671.PNG | 917 KB | Brand visual or screenshot | TBD once viewable |
-| IMG_7674.PNG | 2.4 MB | Likely the colorful glass/lens hero asset (large, high-res) | Hero signature visual |
-| IMG_7673.PNG | 432 KB | Brand visual / Grace mockup | Work / showcase |
-| IMG_7676.PNG | 501 KB | Brand visual / Grace mockup | Work / showcase |
-| IMG_7675.JPG | 735 KB | Photo or screenshot | TBD |
-| b66fa48...mp4 | 175 KB | UI motion / carousel reference video | Motion reference (not embedded) |
-| b9052026...mp4 | 290 KB | UI motion reference video | Motion reference (not embedded) |
+| IMG_7672.PNG (500x500) | **The real Execution Labs logo** (slanted "E" mark) | `public/brand/logo.png`, `src/app/icon.png` | Nav, hero, footer, favicon |
+| IMG_7673.PNG (1500x500) | **The real colorful glass/lens hero banner** (logo + "EXECUTION LABS" + "2026" + "BUILDING SOFTWARE & PRODUCT VISION") | `public/brand/hero-glass.png` | Hero signature visual |
+| IMG_7671.PNG | Feedback screenshot (WhatsApp brief: needs custom/personalized, logo included) | not shipped | Direction only |
+| IMG_7676.PNG | Email with instructions: "bring UI to life, 3 UIs scrolling down in a clean premium way", voice should be warm/genuine not "creepy weird ai", mentions Grace branding concept.pdf | not shipped | Direction only |
+| IMG_7674.PNG | Website reference (a music/events site) | not shipped | Reference |
+| IMG_7675.JPG | Website reference annotated with a red circle around 3 phone UIs (the "3 UIs scrolling" reference) | not shipped | Reference |
+| 2x .mp4 | UI motion reference videos | not shipped | Motion reference |
 
-## What I need uploaded into `public/brand/`
+## Still needed from you (not in the public Drive folder)
 
-Drop the files in with these exact names and I will wire them up immediately:
+1. **Grace branding concept.pdf** — it is an email attachment, not in the Drive
+   folder, so I cannot reach it. Upload it (or export Grace's phone-UI screens
+   as PNGs) into `public/brand/grace/` so the Grace case study and the phone
+   showcase use Grace's real screens instead of representative ones.
+2. **Figma access** — the file needs auth. If you export the project frames as
+   PNGs into `public/brand/`, I will drop them into Selected Work and the phones.
 
-1. `public/brand/logo.svg` (preferred) or `logo.png` — the real Execution Labs
-   logo/mark. Used in nav, hero, footer, and as the favicon.
-2. `public/brand/glass.png` (or `.jpg`) — the colorful glass/lens hero asset.
-   Used as the signature hero visual.
-3. `public/brand/grace/` — Grace visuals (social mockups, phone UI frames).
-   Name them `grace-1.png`, `grace-2.png`, ... Used in the Grace case study and
-   the moving UI showcase columns.
-4. (Optional, for my guidance only) `public/brand/refs/` — the feedback and
-   website-reference screenshots. These help me match the direction; they will
-   not ship.
+## Applied from the feedback
 
-If it is easier, just drop the original `IMG_76xx` files in and tell me which is
-the logo and which is the glass/lens image.
-
-## Done without those binaries (this pass)
-
-- Added the **Grace** case study to Selected work (real project context).
-- Removed the invented logo mark and the generated colorful glass image so the
-  site stops shipping fake brand identity. The hero uses the wordmark and a
-  neutral glow until the real assets land.
-- Kept rendering correct (content visible by default, no blank sections).
+- Used the real logo and real glass/lens banner (no invented marks).
+- Rebuilt the showcase as **3 phone UIs scrolling vertically**, slow and smooth.
+- Kept copy short, warm, and founder-led (the brief flagged the old voice as
+  "creepy weird ai").
+- Added Grace as the first Selected Work case study.
