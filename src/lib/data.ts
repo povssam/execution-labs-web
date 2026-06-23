@@ -1,23 +1,7 @@
-import {
-  Bot,
-  Wrench,
-  Rocket,
-  Boxes,
-  Eye,
-  Zap,
-  Layers,
-  FileText,
-  Map as MapIcon,
-  Code2,
-  LineChart,
-  type LucideIcon,
-} from "lucide-react";
-
 export type Capability = {
   title: string;
   body: string;
   points: string[];
-  icon: LucideIcon;
 };
 
 export const capabilities: Capability[] = [
@@ -25,49 +9,21 @@ export const capabilities: Capability[] = [
     title: "AI Agents",
     body: "Agents that read, decide, and act inside your systems.",
     points: ["Tool use", "Memory", "Human handoff"],
-    icon: Bot,
   },
   {
     title: "Internal Tools",
     body: "Dashboards and ops tools your team actually uses.",
     points: ["Live data", "Roles", "Audit trail"],
-    icon: Wrench,
   },
   {
     title: "MVP Software",
     body: "A first version that ships. Real product in weeks.",
     points: ["Auth", "Payments", "Analytics"],
-    icon: Rocket,
   },
   {
     title: "Product Systems",
     body: "Full systems that scale and hold up under load.",
     points: ["APIs", "Pipelines", "Infra"],
-    icon: Boxes,
-  },
-];
-
-export type Reason = {
-  title: string;
-  body: string;
-  icon: LucideIcon;
-};
-
-export const reasons: Reason[] = [
-  {
-    title: "We understand the vision",
-    body: "We get the goal before we write code, then push it past the brief.",
-    icon: Eye,
-  },
-  {
-    title: "We move fast",
-    body: "Short cycles. Working software in days, not quarters.",
-    icon: Zap,
-  },
-  {
-    title: "We build real systems",
-    body: "No throwaway demos. Solid, tested, ready to grow.",
-    icon: Layers,
   },
 ];
 
@@ -75,7 +31,6 @@ export type Step = {
   index: string;
   title: string;
   body: string;
-  icon: LucideIcon;
 };
 
 export const process: Step[] = [
@@ -83,117 +38,23 @@ export const process: Step[] = [
     index: "01",
     title: "Brief",
     body: "We learn the problem, the users, and what winning looks like.",
-    icon: FileText,
   },
   {
     index: "02",
     title: "Map the system",
     body: "We design the flow, the data, and the edges before building.",
-    icon: MapIcon,
   },
   {
     index: "03",
     title: "Build the first version",
     body: "We ship a working version fast so you can use it for real.",
-    icon: Code2,
   },
   {
     index: "04",
     title: "Improve with real usage",
     body: "We watch how it runs and sharpen it against real data.",
-    icon: LineChart,
   },
 ];
-
-export type Metric = { label: string; value: string };
-
-export type PreviewKind = "queue" | "bars" | "lines" | "status" | "rings";
-
-export type CaseStudy = {
-  slug: string;
-  client: string;
-  category: string;
-  year: string;
-  summary: string;
-  problem: string;
-  built: string;
-  result: string;
-  metrics: Metric[];
-  tags: string[];
-  preview: PreviewKind;
-};
-
-// Industries we've shipped for (derived from real case studies, not invented).
-export const industries = ["Music", "Media", "Finance", "Ops", "Startups"];
-
-export type Reassurance = { title: string; body: string };
-
-// Risk-reversal points. Factual, tied to how engagements actually work.
-export const reassurances: Reassurance[] = [
-  {
-    title: "Fixed scope, fixed price",
-    body: "We quote the work before we start. No open-ended hourly bills.",
-  },
-  {
-    title: "Working software in days",
-    body: "You see a usable version fast, not a deck or a long wait.",
-  },
-  {
-    title: "You own everything",
-    body: "The code and the systems are yours. No lock-in.",
-  },
-  {
-    title: "No long contracts",
-    body: "We earn the next step by shipping the first one.",
-  },
-];
-
-export type Testimonial = {
-  quote: string;
-  name: string;
-  role: string;
-  image?: string;
-  /** Marks sample content so it never reads as a real claim. */
-  placeholder?: boolean;
-};
-
-// MOCK preview content. Replace with real, approved quotes and drop placeholder.
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      "They shipped a working system in weeks, not quarters. It just runs, and we stopped chasing the busywork.",
-    name: "Alex Rivera",
-    role: "Founder, media startup",
-    image: "/people/p1.png",
-    placeholder: true,
-  },
-  {
-    quote:
-      "The agent handles the coordination our team used to drown in. We feel it every week.",
-    name: "Jordan Lee",
-    role: "Head of Ops, agency",
-    image: "/people/p2.png",
-    placeholder: true,
-  },
-];
-
-export type Founder = {
-  name: string;
-  role: string;
-  note: string;
-  image: string;
-  /** Marks sample content so it never reads as a real claim. */
-  placeholder?: boolean;
-};
-
-// MOCK preview content. Replace name/note/image with the real founder.
-export const founder: Founder | null = {
-  name: "Your name here",
-  role: "Founder, Execution Labs",
-  note: "I started Execution Labs to ship the systems other shops only pitch. We build the thing, put it in your hands fast, and keep sharpening it.",
-  image: "/people/founder.png",
-  placeholder: true,
-};
 
 export type Faq = { q: string; a: string };
 
@@ -224,6 +85,21 @@ export const faqs: Faq[] = [
   },
 ];
 
+export type PreviewKind = "queue" | "bars" | "lines" | "status" | "rings";
+
+export type CaseStudy = {
+  slug: string;
+  client: string;
+  category: string;
+  year: string;
+  summary: string;
+  problem: string;
+  built: string;
+  result: string;
+  tags: string[];
+  preview: PreviewKind;
+};
+
 export const caseStudies: CaseStudy[] = [
   {
     slug: "grace",
@@ -238,7 +114,6 @@ export const caseStudies: CaseStudy[] = [
       "Brand visuals, social mockups, phone UI direction, and a scrolling UI concept.",
     result:
       "A clearer product presence with motion-ready visuals and a stronger brand feel.",
-    metrics: [],
     tags: ["Brand system", "Product UI", "Motion"],
     preview: "lines",
   },
@@ -253,11 +128,6 @@ export const caseStudies: CaseStudy[] = [
     built:
       "An agent that watches every project, chases the right people, and keeps work moving without a manager in the loop.",
     result: "Manual coordination dropped 70 percent across the roster.",
-    metrics: [
-      { label: "Coordination", value: "-70%" },
-      { label: "Active projects", value: "48" },
-      { label: "Agent uptime", value: "99.9%" },
-    ],
     tags: ["Agents", "Ops", "Automation"],
     preview: "queue",
   },
@@ -272,11 +142,6 @@ export const caseStudies: CaseStudy[] = [
     built:
       "An internal tool that pulls every account into one view so the team spots winners and reallocates spend in minutes.",
     result: "Reviews that took a full day now take an hour.",
-    metrics: [
-      { label: "Review time", value: "-87%" },
-      { label: "Accounts", value: "32" },
-      { label: "Spend tracked", value: "$4.2M" },
-    ],
     tags: ["Dashboard", "Data", "Internal"],
     preview: "bars",
   },
@@ -291,11 +156,6 @@ export const caseStudies: CaseStudy[] = [
     built:
       "A working MVP with auth, playback, billing, and a clean interface that real users were on within weeks.",
     result: "Shipped a usable product in six weeks.",
-    metrics: [
-      { label: "Time to launch", value: "6 wks" },
-      { label: "Beta users", value: "1.1k" },
-      { label: "Retention", value: "42%" },
-    ],
     tags: ["MVP", "Product", "Audio"],
     preview: "lines",
   },
@@ -310,11 +170,6 @@ export const caseStudies: CaseStudy[] = [
     built:
       "A system that tracks dividends, reinvestment, and total return across a full portfolio with live data and clear math.",
     result: "Replaced the spreadsheets with a view investors trust.",
-    metrics: [
-      { label: "Holdings", value: "260" },
-      { label: "Refresh", value: "Live" },
-      { label: "Errors", value: "0" },
-    ],
     tags: ["Finance", "Systems", "Data"],
     preview: "rings",
   },
@@ -329,11 +184,6 @@ export const caseStudies: CaseStudy[] = [
     built:
       "An agent layer that drafts, routes, and follows up across every tool so the team stays on the work that matters.",
     result: "Saved each operator hours every week.",
-    metrics: [
-      { label: "Hours saved", value: "11/wk" },
-      { label: "Tools linked", value: "7" },
-      { label: "Tasks routed", value: "3.4k" },
-    ],
     tags: ["Agents", "Ops", "Integration"],
     preview: "status",
   },

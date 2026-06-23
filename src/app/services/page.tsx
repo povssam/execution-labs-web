@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { ArrowRight, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ButtonLink } from "@/components/ui/Button";
+import { CtaButtons } from "@/components/ui/CtaButtons";
 import { FinalCTA } from "@/components/home/FinalCTA";
-import { CALENDAR_URL } from "@/lib/site";
 import { capabilities, process, faqs } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -36,14 +35,8 @@ export default function ServicesPage() {
               working first version fast, and improve it with real usage.
             </p>
           </Reveal>
-          <Reveal delay={0.15} className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/contact">
-              Start a project
-              <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-            </ButtonLink>
-            <ButtonLink href={CALENDAR_URL} variant="secondary">
-              Book a call
-            </ButtonLink>
+          <Reveal delay={0.15}>
+            <CtaButtons className="mt-9" />
           </Reveal>
         </Container>
       </section>

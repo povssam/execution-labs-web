@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
-import { ButtonLink } from "../ui/Button";
+import { CtaButtons } from "../ui/CtaButtons";
 import { Logo } from "../brand/Logo";
-import { CALENDAR_URL } from "@/lib/site";
+import { revealDelay } from "@/lib/utils";
 
 export function Hero() {
   return (
@@ -19,7 +18,7 @@ export function Hero() {
 
           <h1
             className="reveal mt-6 text-[2.7rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
-            style={{ "--reveal-delay": "0.06s" } as React.CSSProperties}
+            style={revealDelay("0.06s")}
           >
             We build systems
             <br />
@@ -28,33 +27,19 @@ export function Hero() {
 
           <p
             className="reveal mt-6 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg"
-            style={{ "--reveal-delay": "0.14s" } as React.CSSProperties}
+            style={revealDelay("0.14s")}
           >
             We build agents and software that save companies time and money.
             Custom systems for teams that need speed, taste, and real execution.
           </p>
 
-          <div
-            className="reveal mt-8 flex flex-col gap-3 sm:flex-row"
-            style={{ "--reveal-delay": "0.22s" } as React.CSSProperties}
-          >
-            <ButtonLink href="/contact">
-              Start a project
-              <ArrowRight
-                size={16}
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
-              />
-            </ButtonLink>
-            <ButtonLink href={CALENDAR_URL} variant="secondary">
-              Book a call
-            </ButtonLink>
-          </div>
+          <CtaButtons className="reveal mt-8" style={revealDelay("0.22s")} />
         </div>
 
         {/* signature glass / lens brand banner (real asset) */}
         <div
           className="reveal mt-12 overflow-hidden rounded-2xl border border-line sm:mt-14"
-          style={{ "--reveal-delay": "0.2s" } as React.CSSProperties}
+          style={revealDelay("0.2s")}
         >
           <Image
             src="/brand/hero-glass.png"
