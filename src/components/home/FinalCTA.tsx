@@ -6,7 +6,7 @@ import { CALENDAR_URL } from "@/lib/site";
 
 export function FinalCTA() {
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-16 sm:py-24">
       <Container>
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-line bg-charcoal px-8 py-16 text-center sm:px-16 sm:py-24">

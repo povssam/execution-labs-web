@@ -1,27 +1,27 @@
 import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { ButtonLink } from "../ui/Button";
-import { SystemMap } from "./SystemMap";
+import { ExecutionOS } from "./ExecutionOS";
 import { CALENDAR_URL } from "@/lib/site";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28">
+    <section className="relative overflow-hidden pt-28 pb-14 sm:pt-36 sm:pb-20 lg:pt-40">
       <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
       <div
-        className="pointer-events-none absolute left-1/2 top-[-10%] h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(231,227,218,0.10),transparent_70%)] blur-2xl"
+        className="pointer-events-none absolute left-1/2 top-[-10%] h-[480px] w-[860px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(231,227,218,0.10),transparent_70%)] blur-2xl"
         aria-hidden
       />
 
       <Container className="relative">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
+        <div className="grid items-center gap-10 md:grid-cols-[1fr_1.05fr] md:gap-8 lg:gap-12">
           <div>
             <p className="reveal font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
               Execution Labs
             </p>
 
             <h1
-              className="reveal mt-5 text-5xl font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
+              className="reveal mt-4 text-[2.6rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
               style={{ animationDelay: "0.06s" }}
             >
               We build systems
@@ -30,7 +30,7 @@ export function Hero() {
             </h1>
 
             <p
-              className="reveal mt-6 max-w-xl text-lg leading-relaxed text-bone-dim"
+              className="reveal mt-5 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg"
               style={{ animationDelay: "0.14s" }}
             >
               AI agents and software that save companies time and money. We move
@@ -38,7 +38,7 @@ export function Hero() {
             </p>
 
             <div
-              className="reveal mt-9 flex flex-col gap-3 sm:flex-row"
+              className="reveal mt-7 flex flex-col gap-3 sm:flex-row"
               style={{ animationDelay: "0.22s" }}
             >
               <ButtonLink href="/contact">
@@ -55,7 +55,7 @@ export function Hero() {
           </div>
 
           <div className="reveal" style={{ animationDelay: "0.2s" }}>
-            <SystemMap />
+            <ExecutionOS />
           </div>
         </div>
       </Container>

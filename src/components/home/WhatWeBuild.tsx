@@ -5,11 +5,11 @@ import { capabilities } from "@/lib/data";
 
 export function WhatWeBuild() {
   return (
-    <section id="what-we-build" className="py-20 sm:py-24">
+    <section id="what-we-build" className="py-16 sm:py-24">
       <Container>
         <SectionHeading label="What we build" title="Four things we build" />
 
-        <div className="mt-14 overflow-hidden rounded-2xl border border-line">
+        <div className="mt-12 overflow-hidden rounded-2xl border border-line">
           {capabilities.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.05}>
               <div className="group flex flex-col gap-3 border-b border-line bg-charcoal/40 px-6 py-7 transition-colors duration-200 last:border-b-0 hover:bg-charcoal-2/70 sm:flex-row sm:items-baseline sm:gap-8 sm:px-8">
