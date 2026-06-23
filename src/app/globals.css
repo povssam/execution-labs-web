@@ -124,6 +124,41 @@ body {
   }
 }
 
+/* Living brand background: prismatic glass blobs that drift slowly behind the
+   whole site. Ambient only; content never depends on it. */
+.brand-blob {
+  position: absolute;
+  height: 46rem;
+  width: 46rem;
+  border-radius: 9999px;
+  filter: blur(110px);
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(9%, 7%) scale(1.18); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1.06); }
+  50% { transform: translate(-8%, 6%) scale(0.92); }
+}
+@keyframes drift-c {
+  0%, 100% { transform: translate(0, 0) scale(0.95); }
+  50% { transform: translate(7%, -8%) scale(1.16); }
+}
+@keyframes drift-d {
+  0%, 100% { transform: translate(0, 0) scale(1.1); }
+  50% { transform: translate(-7%, -6%) scale(0.94); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .blob-a { animation: drift-a 30s ease-in-out infinite; }
+  .blob-b { animation: drift-b 38s ease-in-out infinite; }
+  .blob-c { animation: drift-c 34s ease-in-out infinite; }
+  .blob-d { animation: drift-d 44s ease-in-out infinite; }
+}
+
 /* Visible by default. The entrance animation self-completes on load and never
    depends on scroll or an observer, so content can never stay hidden. */
 .reveal {
