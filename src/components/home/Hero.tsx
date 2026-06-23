@@ -1,27 +1,36 @@
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { ButtonLink } from "../ui/Button";
-import { ExecutionOS } from "./ExecutionOS";
+import { Logo } from "../brand/Logo";
+import { AgentRunCard, WorkflowCard } from "./ui-cards";
 import { CALENDAR_URL } from "@/lib/site";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-28 pb-14 sm:pt-36 sm:pb-20 lg:pt-40">
+    <section className="relative overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-40">
       <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
-      <div
-        className="pointer-events-none absolute left-1/2 top-[-10%] h-[480px] w-[860px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(231,227,218,0.10),transparent_70%)] blur-2xl"
+      {/* signature glass / lens brand asset */}
+      <Image
+        src="/brand/glass.png"
+        alt=""
+        width={1600}
+        height={1000}
+        priority
         aria-hidden
+        className="pointer-events-none absolute right-[-22%] top-[-12%] z-0 w-[1100px] max-w-none opacity-80 mix-blend-screen sm:right-[-10%] lg:right-[-4%] lg:w-[920px]"
       />
 
-      <Container className="relative">
-        <div className="grid items-center gap-10 md:grid-cols-[1fr_1.05fr] md:gap-8 lg:gap-12">
+      <Container className="relative z-10">
+        <div className="grid items-center gap-12 md:grid-cols-[1.05fr_0.95fr] md:gap-8 lg:gap-12">
           <div>
-            <p className="reveal font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
-              Execution Labs
-            </p>
+            <div className="reveal flex items-center gap-2.5 text-bone">
+              <Logo size={22} />
+              <span className="text-sm font-semibold tracking-tight">Execution Labs</span>
+            </div>
 
             <h1
-              className="reveal mt-4 text-[2.6rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
+              className="reveal mt-6 text-[2.6rem] font-semibold leading-[1.03] tracking-tight text-bone sm:text-6xl xl:text-7xl"
               style={{ "--reveal-delay": "0.06s" } as React.CSSProperties}
             >
               We build systems
@@ -30,15 +39,16 @@ export function Hero() {
             </h1>
 
             <p
-              className="reveal mt-5 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg"
+              className="reveal mt-6 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg"
               style={{ "--reveal-delay": "0.14s" } as React.CSSProperties}
             >
-              AI agents and software that save companies time and money. We move
-              fast and the work holds up.
+              We build agents and software that save companies time and money.
+              Custom systems for teams that need speed, taste, and real
+              execution.
             </p>
 
             <div
-              className="reveal mt-7 flex flex-col gap-3 sm:flex-row"
+              className="reveal mt-8 flex flex-col gap-3 sm:flex-row"
               style={{ "--reveal-delay": "0.22s" } as React.CSSProperties}
             >
               <ButtonLink href="/contact">
@@ -54,8 +64,19 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="reveal" style={{ "--reveal-delay": "0.2s" } as React.CSSProperties}>
-            <ExecutionOS />
+          {/* stacked product previews */}
+          <div
+            className="reveal relative mx-auto w-full max-w-sm"
+            style={{ "--reveal-delay": "0.2s" } as React.CSSProperties}
+          >
+            <div className="flex flex-col gap-4">
+              <div className="lg:translate-x-3">
+                <AgentRunCard />
+              </div>
+              <div className="lg:-translate-x-3">
+                <WorkflowCard />
+              </div>
+            </div>
           </div>
         </div>
       </Container>

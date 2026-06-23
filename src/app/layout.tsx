@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { ScrollReveal } from "@/components/ScrollReveal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,12 +46,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-ink">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
-          }}
-        />
-        <ScrollReveal />
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
