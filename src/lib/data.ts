@@ -152,29 +152,48 @@ export type Testimonial = {
   quote: string;
   name: string;
   role: string;
+  image?: string;
   /** Marks sample content so it never reads as a real claim. */
   placeholder?: boolean;
 };
 
-// Real, approved client quotes only. The section hides itself while empty.
-// To add one:
-//   { quote: "…", name: "Jane Doe", role: "Founder, Acme" }
-export const testimonials: Testimonial[] = [];
+// MOCK preview content. Replace with real, approved quotes and drop placeholder.
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "They shipped a working system in weeks, not quarters. It just runs, and we stopped chasing the busywork.",
+    name: "Alex Rivera",
+    role: "Founder, media startup",
+    image: "/people/p1.png",
+    placeholder: true,
+  },
+  {
+    quote:
+      "The agent handles the coordination our team used to drown in. We feel it every week.",
+    name: "Jordan Lee",
+    role: "Head of Ops, agency",
+    image: "/people/p2.png",
+    placeholder: true,
+  },
+];
 
 export type Founder = {
   name: string;
   role: string;
   note: string;
-  /** Initials for the monogram avatar. */
-  initials: string;
+  image: string;
   /** Marks sample content so it never reads as a real claim. */
   placeholder?: boolean;
 };
 
-// Real founder only. The strip hides itself while this is null. To enable:
-//   { name: "Sam Moussaoui", role: "Founder, Execution Labs",
-//     note: "Why Execution Labs exists, in plain words.", initials: "SM" }
-export const founder: Founder | null = null;
+// MOCK preview content. Replace name/note/image with the real founder.
+export const founder: Founder | null = {
+  name: "Your name here",
+  role: "Founder, Execution Labs",
+  note: "I started Execution Labs to ship the systems other shops only pitch. We build the thing, put it in your hands fast, and keep sharpening it.",
+  image: "/people/founder.png",
+  placeholder: true,
+};
 
 export type Faq = { q: string; a: string };
 

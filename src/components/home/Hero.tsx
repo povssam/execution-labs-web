@@ -22,7 +22,7 @@ export function Hero() {
 
             <h1
               className="reveal mt-4 text-[2.6rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
-              style={{ animationDelay: "0.06s" }}
+              style={{ "--reveal-delay": "0.06s" } as React.CSSProperties}
             >
               We build systems
               <br />
@@ -31,7 +31,7 @@ export function Hero() {
 
             <p
               className="reveal mt-5 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg"
-              style={{ animationDelay: "0.14s" }}
+              style={{ "--reveal-delay": "0.14s" } as React.CSSProperties}
             >
               AI agents and software that save companies time and money. We move
               fast and the work holds up.
@@ -39,7 +39,7 @@ export function Hero() {
 
             <div
               className="reveal mt-7 flex flex-col gap-3 sm:flex-row"
-              style={{ animationDelay: "0.22s" }}
+              style={{ "--reveal-delay": "0.22s" } as React.CSSProperties}
             >
               <ButtonLink href="/contact">
                 Start a project
@@ -54,7 +54,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="reveal" style={{ animationDelay: "0.2s" }}>
+          <div className="reveal" style={{ "--reveal-delay": "0.2s" } as React.CSSProperties}>
             <ExecutionOS />
           </div>
         </div>

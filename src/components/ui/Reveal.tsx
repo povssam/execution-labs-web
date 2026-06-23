@@ -18,7 +18,9 @@ export function Reveal({ children, className, delay = 0, as: Tag = "div" }: Reve
   return (
     <Tag
       className={cn("reveal", className)}
-      style={delay ? { animationDelay: `${delay}s` } : undefined}
+      style={
+        delay ? ({ "--reveal-delay": `${delay}s` } as React.CSSProperties) : undefined
+      }
     >
       {children}
     </Tag>
