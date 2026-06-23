@@ -1,6 +1,7 @@
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { CtaButtons } from "../ui/CtaButtons";
+import { SectionGlow } from "../ui/SectionGlow";
 
 export function FinalCTA() {
   return (
@@ -12,14 +13,7 @@ export function FinalCTA() {
               className="pointer-events-none absolute inset-0 grid-backdrop opacity-70"
               aria-hidden
             />
-            <div
-              className="pointer-events-none absolute left-1/2 top-[-30%] h-80 w-[720px] max-w-[120%] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
-              style={{
-                background:
-                  "linear-gradient(90deg,#e83ede,#9333ea,#14c8aa,#fb8c28)",
-              }}
-              aria-hidden
-            />
+            <SectionGlow className="left-1/2 top-[-40%] -translate-x-1/2" color="#9333ea" opacity={0.16} />
             <div className="relative">
               <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight text-bone sm:text-5xl">
                 Have a system worth building?

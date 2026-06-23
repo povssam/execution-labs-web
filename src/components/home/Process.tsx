@@ -1,13 +1,15 @@
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
+import { SectionGlow } from "../ui/SectionGlow";
 import { process } from "@/lib/data";
 import { gradient } from "@/lib/brand";
 
 export function Process() {
   return (
-    <section id="process" className="border-t border-line bg-charcoal/40 py-16 sm:py-24">
-      <Container>
+    <section id="process" className="relative overflow-hidden border-t border-line bg-charcoal/40 py-16 sm:py-24">
+      <SectionGlow className="left-[-6rem] bottom-0" color="#fb8c28" opacity={0.06} />
+      <Container className="relative">
         <SectionHeading label="Process" title="How the work gets made" />
 
         <div className="relative mt-12">

@@ -6,6 +6,7 @@ import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 import { ButtonLink } from "../ui/Button";
+import { SectionGlow } from "../ui/SectionGlow";
 import { WorkCard } from "../WorkCard";
 import { caseStudies } from "@/lib/data";
 
@@ -20,8 +21,9 @@ export function WorkCarousel() {
   };
 
   return (
-    <section className="py-16 sm:py-24">
-      <Container>
+    <section className="relative overflow-hidden py-16 sm:py-24">
+      <SectionGlow className="right-[-8rem] top-8" color="#9333ea" opacity={0.07} />
+      <Container className="relative">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
             label="Selected work"

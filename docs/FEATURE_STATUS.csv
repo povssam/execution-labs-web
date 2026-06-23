@@ -1,55 +1,56 @@
 ID,Area,Route,Feature,User Story,Expected Behavior,How To Test,Viewport,Status,Severity,Error Found,Fix Applied,Retest Status,Notes
-1,Navigation,all,Fixed nav + glass on scroll,As a visitor I want a persistent nav,Header fixed top; gains border+glass after scrolling >8px,"Load any page, scroll down, watch header",all,Pass,,,,Pass,
-2,Navigation,all,Desktop links,As a visitor I want to reach every page,"Links: What we build, Work, Services, Process, Contact visible at lg+","Resize >=1024, click each link",1366/1440,Pass,,,,Pass,
-3,Navigation,all,Active link highlight,As a visitor I want to know where I am,"Current page link is bone, others dim","Visit /work, /services, /contact; check highlight",1366/1440,Pass,,,,Pass,
-4,Navigation,/,Homepage scrollspy,As a visitor I want section links to track scroll,What we build / Process highlight as their section enters view,"Scroll home slowly, watch nav",1440,Pass,,,,Pass,"Scrollspy active on / ; verified on local root and production. (A test run that loaded /index.html showed pathname=/index.html which disables the home-only spy - harness artifact, not a bug.)"
-5,Navigation,all,Anchor links from other pages,As a visitor I want section anchors to work off-home,/#what-we-build and /#process navigate home and scroll,From /work click What we build / Process,1440,Pass,,,,Pass,Cross-page anchor /#process from /work lands on home with hash and scrolls
-6,Navigation,all,Book a call CTA,As a visitor I want to book a call,Book a call -> CALENDAR_URL (falls back to /contact when env unset),Click Book a call in nav,all,Pass,,,,Pass,"CALENDAR_URL unset in prod, so resolves to /contact by design"
-7,Navigation,all,Start a project CTA,As a visitor I want to start a project,Start a project -> /contact,Click nav Start a project,all,Pass,,,,Pass,
-8,Mobile menu,all,Hamburger toggle,As a mobile visitor I want a menu,Tapping icon opens panel; X closes it,At 390 tap menu icon twice,390/430,Pass,,,,Pass,
-9,Mobile menu,all,Menu link closes panel,As a mobile visitor I want the menu to close on nav,Tapping a link closes the menu,"Open menu, tap a link",390/430,Pass,,,,Pass,
-10,Navigation,all,Logo to home,As a visitor I want the logo to go home,Logo -> /,Click logo from any page,all,Pass,,,,Pass,
-11,Hero,/,Hero content visible by default,As a visitor I want the hero immediately,"Eyebrow, H1, paragraph, CTAs render without JS gating","Load /, view source has hero text",all,Pass,,,,Pass,"Content in static HTML, not JS-gated"
-12,Hero,/,Hero Start a project,As a visitor I want to act from the hero,Start a project -> /contact,Click hero primary CTA,all,Pass,,,,Pass,
-13,Hero,/,Hero Book a call,As a visitor I want a low-friction option,Book a call -> CALENDAR_URL,Click hero secondary CTA,all,Pass,,,,Pass,Falls back to /contact until calendar URL set
-14,Hero,/,Hero brand visual,As a visitor I want a branded hero,"Logo mark + name, headline, paragraph, CTAs, glass/lens asset, and stacked product previews, all visible by default","Load /, inspect right column",all,Pass,,,,Pass,"Reworked: logo, prismatic glass asset, agent.run + workflow stacked cards"
-15,What we build,/,Four capability rows,As a visitor I want to see what we build,"4 rows: number, title, body, tag chips",Scroll to What we build,all,Pass,,,,Pass,
-16,Why us,/,Why us (removed),As a visitor I want reasons to trust,"3 cards: number, title, body",Scroll to Why us,all,N/A,,,,N/A,Removed in brand rework; not in the 7-section structure
-17,Work carousel,/,Carousel renders cards,As a visitor I want to browse selected work,Heading + 5 cards in horizontal track,Scroll to Selected work,all,Pass,,,,Pass,5 cards
-18,Work carousel,/,Prev/Next arrows,As a visitor I want to scroll the carousel,Arrows scroll track left/right smoothly,Click arrows,1366/1440,Pass,,,,Pass,scrollLeft 0->380 on Next click
-19,Work carousel,/,Cards link to detail,As a visitor I want to open a case study,Each card -> /work/[slug],Click a card,all,Pass,,,,Pass,
-20,Work carousel,/,View all work,As a visitor I want the full list,View all work -> /work,Click View all work,all,Pass,,,,Pass,
-21,Process,/,Four process steps,As a visitor I want to understand the process,"4 numbered steps: title, body",Scroll to Process,all,Pass,,,,Pass,
-22,Final CTA,all,Closing CTA,As a visitor I want a final action,Heading + Start a project + Book a call,Scroll to bottom of home/work/detail,all,Pass,,,,Pass,
-23,Footer,all,Footer page links,As a visitor I want footer nav,"Home, Work, Services, FAQ, Contact navigate",Click each footer link,all,Pass,,,,Pass,FAQ -> /services#faq id exists
-24,Footer,all,Footer connect links,As a visitor I want contact/social,"Book a call, X/Twitter (new tab), email mailto",Click each,all,Pass,,,,Pass,"X opens new tab (rel noopener), email is mailto"
-25,Footer,all,Footer year,As a visitor I want a current year,Shows current year in copyright,Load footer,all,Pass,,,,Pass,
-26,Work page,/work,Gallery grid,As a visitor I want all case studies,5 clickable cards in responsive grid,Load /work,all,Pass,,,,Pass,5 cards
-27,Work page,/work,Cards navigate,As a visitor I want to open a study,Card -> /work/[slug],Click a card,all,Pass,,,,Pass,
-28,Work detail,/work/[slug],Detail renders (5 slugs),As a visitor I want the full story,All 6 slugs (incl. grace) statically generated and render,Visit all 5 detail pages,all,Pass,,,,Pass,6 case studies incl. Grace
-29,Work detail,/work/[slug],Back to work,As a visitor I want to return,All work -> /work,Click back link,all,Pass,,,,Pass,
-30,Work detail,/work/[slug],Problem/Built/Result,As a visitor I want details,"Problem, What we built, Result pull-quote render",Read detail body,all,Pass,,,,Pass,
-31,Work detail,/work/[slug],Start a project like this,As a visitor I want to act,-> /contact,Click CTA,all,Pass,,,,Pass,
-32,Work detail,/work/[slug],Next study link,As a visitor I want to keep browsing,Next: X -> next slug (wraps),Click Next on each,all,Pass,,,,Pass,Wraps last->first
-33,Work detail,/work/badslug,Unknown slug 404,As a visitor I expect a 404,dynamicParams false -> unknown slug 404,Visit /work/nope,all,Pass,,,,Pass,dynamicParams=false -> 404 for unknown slug
-34,Services,/services,Capabilities grid,As a visitor I want service detail,4 capability cards with tags,Load /services,all,Pass,,,,Pass,title=Soniq | Work | Execution Labs
-35,Services,/services,How we work,As a visitor I want the process,4 steps render,Scroll services,all,Pass,,,,Pass,
-36,Services,/services,FAQ accordion,As a visitor I want answers,Native details expand/collapse on click,Click each FAQ,all,Pass,,,,Pass,Native <details> expands/collapses
-37,Services,/services,Services hero CTAs,As a visitor I want to act,"Start a project -> /contact, Book a call -> CALENDAR_URL",Click hero CTAs,all,Pass,,,,Pass,
-38,Contact,/contact,Form fields render,As a visitor I want to send a brief,"Name, email, company, message + chips + submit",Load /contact,all,Pass,,,,Pass,
-39,Contact,/contact,Project type chips,As a visitor I want to pick a type,"One active at a time, toggles on click",Click each type chip,all,Pass,,,,Pass,Active chip gets bg-bone
-40,Contact,/contact,Budget chips,As a visitor I want to pick a budget,One active at a time,Click each budget chip,all,Pass,,,,Pass,
-41,Contact,/contact,Required validation,As a visitor I expect required fields,Name/email/message required; email type validated,Submit empty,all,Pass,,,,Pass,HTML5 required blocks empty submit (form.checkValidity false)
-42,Contact,/contact,Submit w/o key -> error fallback,As a visitor I want a working fallback,No key -> error message with mailto fallback,Submit valid form (no key set),all,Pass,Med,,,Pass,Fallback works. LOGISTICAL GAP: form does not deliver until NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY is set (needs user-provided key) - not fixable in code alone
-43,Contact,/contact,Success state (key set),As a visitor I want confirmation,Brief received + Book a call now + Send another,"Set key, submit",all,Pass,,,,Pass,Verified by code path (json.success -> sent). Not reachable in prod until Web3Forms key set
-44,Contact,/contact,Email + book a call links,As a visitor I want alternatives,mailto and book a call links work,Click each,all,Pass,,,,Pass,
-45,404,/nope,Not found page,As a visitor I want graceful 404,Unknown route serves Next not-found,Visit /nope,all,Fail->Fixed,Low,"Default Next 404 was bare: just 'This page could not be found', no brand voice and no clear way back","Added branded src/app/not-found.tsx (404 eyebrow, message, Back home + See the work CTAs) rendered within nav/footer",Pass,"Route still returns 404; page now branded with working links, no overflow"
-46,Responsive,all,No horizontal overflow,As a visitor I want no sideways scroll,scrollWidth==clientWidth on every page,Check 390/430/768/1366/1440,all,Pass,,,,Pass,"scrollWidth==clientWidth on /, /work, /services, /contact, /work/[slug], and 404 at 390/430/768/1366/1440"
-47,Accessibility,all,Content visible w/o JS / reduced motion,As a visitor I want content always,Reveal rests visible; reduced motion shows all,Disable JS / set reduced motion,all,Pass,,,,Pass,Reveal rests opacity:1; animation only under prefers-reduced-motion:no-preference; built HTML has 0 opacity:0
-48,Brand,all,Favicon + OG + meta,As a sharer I want rich links,"icon.svg favicon, og.png, title/description present",curl head + OG validator,all,Pass,,,,Pass,"icon.svg favicon, og.png Open Graph + Twitter card, descriptive title/description all present"
-49,Build,all,Static export builds,As an operator I want a clean build,lint + build pass; 12 static pages,npm run lint && npm run build,all,Pass,,,,Pass,lint clean; build succeeds; 12 static pages incl. branded 404
-50,Brand,all,Logo / mark (real),As a visitor I want the Execution Labs mark,"Custom three-column mark in nav, hero, footer, and favicon",Load any page; check nav/footer/hero + icon.svg,all,Pass,,,Real logo pulled from Drive,Pass,"public/brand/logo.png + app/icon.png used in nav, hero, footer, favicon"
-51,Brand,/,Glass/lens hero asset (real),As a visitor I want a signature brand visual,"Colorful prismatic glass asset glows in the hero, no blue dominance","Load /, inspect hero background",all,Pass,,,Real banner pulled from Drive,Pass,public/brand/hero-glass.png featured in hero
-52,UI Showcase,/,3 phone UIs scrolling,As a visitor I want to see real product UI in motion,"3 phone mockups scroll vertically (1/2/3 by breakpoint), slow and smooth; cards visible by default; reduced-motion stops motion",Scroll to 'What we actually put in your hands' at each viewport,all,Pass,,,,Pass,Per feedback: 3 UIs scrolling down in phones. Representative app screens until Grace's real screens are uploaded
-53,Selected work,"/, /work, /work/grace",Grace case study,As a visitor I want to see the Grace project,Grace appears first in Selected work and has a detail page (problem/built/result),Load /work and /work/grace,all,Pass,,,,Pass,Real project context added. Visuals (mockups) pending Drive upload
-54,Assets,n/a,Asset access,As the team I want real brand assets used,"Brand doc readable; logo, glass, screenshots, videos used from Drive",See docs/ASSET_INVENTORY.md,n/a,Pass,High,Initial fetch could not get binaries,Extracted data-id via headless browser; downloaded via lh3 image endpoint,Pass,Logo + glass obtained. Grace PDF (email attachment) and Figma still needed
+1,Nav,all,Fixed nav + glass on scroll,As a visitor I want a persistent nav,Header fixed; gains border+glass after scrolling >8px,"Load, scroll, watch header",all,To test,,,,,
+2,Nav,all,Brand logo to home,As a visitor I want the real mark,Real Execution Labs logo (logo.png) in nav links to /,Click logo,all,To test,,,,,
+3,Nav,all,Desktop links,As a visitor I want to reach every page,"What we build, Work, Services, Process, Contact visible at lg+","Resize >=1024, check links",1366/1440,To test,,,,,
+4,Nav,all,Active link highlight,As a visitor I want to know where I am,"Current page link bone, others dim","Visit /work,/services,/contact",1366/1440,To test,,,,,
+5,Nav,/,Homepage scrollspy,As a visitor I want section links to track scroll,What we build / Process highlight as section enters view,"Scroll home, watch nav",1440,To test,,,,,
+6,Nav,all,Cross-page anchor,As a visitor I want anchors off-home,/#process from /work navigates home and scrolls,From /work click Process,1440,To test,,,,,
+7,Nav,all,Book a call CTA,As a visitor I want to book a call,Book a call -> CALENDAR_URL (falls back to /contact),Click nav Book a call,all,To test,,,,,No calendar URL set -> /contact
+8,Nav,all,Start a project CTA,As a visitor I want to start,Start a project -> /contact,Click nav Start a project,all,To test,,,,,
+9,Mobile menu,all,Hamburger toggle,As a mobile visitor I want a menu,Tap icon opens panel; X closes,At 390 tap menu twice,390/430,To test,,,,,
+10,Mobile menu,all,Menu link closes,As a mobile visitor I want it to close on nav,Tapping a link closes menu and navigates,"Open menu, tap link",390/430,To test,,,,,
+11,Hero,/,Hero content visible,As a visitor I want the hero immediately,"Logo, name, headline, paragraph, CTAs visible by default","Load /, view source",all,To test,,,,,
+12,Hero,/,Hero logo image,As a visitor I want the real mark,logo.png loads (not broken),"Load /, inspect img",all,To test,,,,,
+13,Hero,/,Glass/lens banner,As a visitor I want the brand visual,hero-glass.png loads as signature visual,"Load /, inspect banner",all,To test,,,,,
+14,Hero,/,Hero CTAs,As a visitor I want to act,Start a project -> /contact; Book a call -> CALENDAR_URL,Click hero CTAs,all,To test,,,,,
+15,Hero,/,Above the fold,As a visitor I want no blank top,Headline visible near top (not pushed down),Measure h1 top,all,To test,,,,,
+16,What we build,/,Four capability cards,As a visitor I want to see offerings,"4 cards: gradient accent, title, body, tags",Scroll to section,all,To test,,,,,
+17,What we build,/,Card content,As a visitor I want detail,"Each card shows title, body, point tags",Read cards,all,To test,,,,,
+18,UI showcase,/,Three phone columns,As a visitor I want product UI,3 phones (1/2/3 by breakpoint) visible,Scroll to showcase,all,To test,,,,,
+19,UI showcase,/,Phones scroll (marquee),As a visitor I want motion,Phone screens scroll vertically; reduced-motion stops,Watch phones; set reduced motion,all,To test,,,,,
+20,UI showcase,/,Phone screens have content,As a visitor I want real UI,No empty phone frames; visible app UI,Inspect phones,all,To test,,,,,
+21,Work carousel,/,Six cards visible (incl Grace),As a visitor I want selected work,"6 cards in horizontal track, Grace first",Scroll to Selected work,all,To test,,,,,
+22,Work carousel,/,Colorful previews,As a visitor I want branded cards,Each card preview uses a brand accent color,Inspect card previews,all,To test,,,,,
+23,Work carousel,/,Arrows scroll,As a visitor I want to scroll,Prev/Next scroll the track,Click arrows,1366/1440,To test,,,,,
+24,Work carousel,/,Cards link to detail,As a visitor I want to open a study,Card -> /work/[slug],Click a card,all,To test,,,,,
+25,Work carousel,/,View all work,As a visitor I want the full list,View all work -> /work,Click View all work,all,To test,,,,,
+26,Process,/,Four process steps,As a visitor I want the process,"4 steps with gradient badges, title, body",Scroll to Process,all,To test,,,,,
+27,Final CTA,all,Closing CTA,As a visitor I want a final action,Heading + Start a project + Book a call + prismatic glow,Scroll to bottom,all,To test,,,,,
+28,Footer,all,Footer logo + page links,As a visitor I want footer nav,"Logo + Home, Work, Services, FAQ, Contact navigate",Click footer links,all,To test,,,,,
+29,Footer,all,Connect links,As a visitor I want contact/social,"Book a call, X (new tab), email mailto",Click each,all,To test,,,,,
+30,Footer,all,Footer year,As a visitor I want a current year,Shows current year,Load footer,all,To test,,,,,
+31,Work page,/work,Gallery grid,As a visitor I want all studies,6 clickable cards in responsive grid,Load /work,all,To test,,,,,
+32,Work page,/work,Cards navigate,As a visitor I want to open a study,Card -> /work/[slug],Click a card,all,To test,,,,,
+33,Work detail,/work/[slug],Detail renders (6 slugs),As a visitor I want the full story,Each of 6 slugs renders title/summary/sections,Visit all 6,all,To test,,,,,
+34,Work detail,/work/[slug],Back to work,As a visitor I want to return,All work -> /work,Click back,all,To test,,,,,
+35,Work detail,/work/[slug],Problem/Built/Result,As a visitor I want details,"Problem, What we built, Result pull-quote render",Read detail,all,To test,,,,,
+36,Work detail,/work/[slug],Start a project like this,As a visitor I want to act,-> /contact,Click CTA,all,To test,,,,,
+37,Work detail,/work/[slug],Next study,As a visitor I want to keep browsing,Next: X -> next slug (wraps),Click Next,all,To test,,,,,
+38,Work detail,/work/badslug,Unknown slug 404 + title,As a visitor I expect a 404,dynamicParams false -> 404; valid slug title is client name,Visit bad slug; check title,all,To test,,,,,
+39,Services,/services,Capabilities grid,As a visitor I want service detail,4 capability cards with tags,Load /services,all,To test,,,,,
+40,Services,/services,How we work,As a visitor I want the process,4 steps render,Scroll services,all,To test,,,,,
+41,Services,/services,FAQ accordion,As a visitor I want answers,Native details expand/collapse,Click each FAQ,all,To test,,,,,
+42,Services,/services,Services hero CTAs,As a visitor I want to act,Start a project -> /contact; Book a call -> CALENDAR_URL,Click hero CTAs,all,To test,,,,,
+43,Contact,/contact,Form fields,As a visitor I want to send a brief,"Name, email, company, message + chips + submit",Load /contact,all,To test,,,,,
+44,Contact,/contact,Project type chips,As a visitor I want to pick a type,One active at a time,Click chips,all,To test,,,,,
+45,Contact,/contact,Budget chips,As a visitor I want to pick a budget,One active at a time,Click chips,all,To test,,,,,
+46,Contact,/contact,Required validation,As a visitor I expect required fields,Name/email/message required; empty submit blocked,Submit empty,all,To test,,,,,
+47,Contact,/contact,Submit w/o key -> fallback,As a visitor I want a working fallback,No key -> error with mailto fallback,Submit valid form,all,To test,,,,,LOGISTICAL: no Web3Forms key; form does not deliver
+48,Contact,/contact,Email + book a call links,As a visitor I want alternatives,mailto and book a call links work,Click each,all,To test,,,,,
+49,404,/nope,Branded 404,As a visitor I want a graceful 404,Branded page: 'That page does not exist' + Back home / See the work,Visit /nope,all,To test,,,,,
+50,Background,all,Moving brand background,As a visitor I want the brand vibe,4 prismatic blobs drift slowly behind content; reduced-motion stops; no overflow,Load any page; set reduced motion,all,To test,,,,,
+51,Responsive,all,No horizontal overflow,As a visitor I want no sideways scroll,scrollWidth==clientWidth on every route,Check 6 viewports,all,To test,,,,,
+52,Accessibility,all,Content visible by default,As a visitor I want content always,Reveal rests visible; reduced motion + no-JS show content,Disable JS / reduced motion,all,To test,,,,,
+53,Brand,all,Favicon + OG + meta,As a sharer I want rich links,"icon.png favicon, og.png OG+twitter, title/description",curl head + assets,all,To test,,,,,
+54,Brand,all,Real brand assets used,As the team I want the real identity,Real logo + glass banner used (not invented),Inspect logo + banner,all,To test,,,,,
+55,Build,all,Static export builds,As an operator I want a clean build,lint + build pass; 13 static pages,npm run lint && build,all,To test,,,,,

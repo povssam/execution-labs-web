@@ -1,6 +1,7 @@
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
+import { SectionGlow } from "../ui/SectionGlow";
 import { cn } from "@/lib/utils";
 
 const g = {
@@ -150,7 +151,8 @@ function Phone({
 export function PhoneShowcase() {
   return (
     <section className="showcase relative overflow-hidden border-t border-line py-16 sm:py-24">
-      <Container>
+      <SectionGlow className="left-1/2 top-1/3 -translate-x-1/2" color="#14c8aa" opacity={0.08} />
+      <Container className="relative">
         <SectionHeading
           label="Live product"
           title="Real interfaces, brought to life"
@@ -159,10 +161,6 @@ export function PhoneShowcase() {
       </Container>
 
       <Reveal className="relative mt-12">
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(231,227,218,0.05),transparent_70%)] blur-2xl"
-          aria-hidden
-        />
         <Container className="relative">
           <div className="flex justify-center gap-5 sm:gap-6">
             <Phone screen={MusicScreen} duration="58s" />

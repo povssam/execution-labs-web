@@ -6,10 +6,24 @@ import { revealDelay } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-28 pb-14 sm:pt-32 sm:pb-20 lg:pt-36">
-      <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
+    <section className="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32 lg:pt-44 lg:pb-40">
+      {/* immersive glass / lens atmosphere from the real brand asset */}
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+        <Image
+          src="/brand/hero-glass.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="scale-[1.35] object-cover object-[70%_center] opacity-90 sm:scale-110 sm:object-right"
+        />
+        {/* keep the left side (text) dark and readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/50" />
+      </div>
+      <div className="pointer-events-none absolute inset-0 z-0 grid-backdrop opacity-60" aria-hidden />
 
-      <Container className="relative">
+      <Container className="relative z-10">
         <div className="max-w-3xl">
           <div className="reveal flex items-center gap-2.5 text-bone">
             <Logo size={22} />
@@ -34,21 +48,6 @@ export function Hero() {
           </p>
 
           <CtaButtons className="reveal mt-8" style={revealDelay("0.22s")} />
-        </div>
-
-        {/* signature glass / lens brand banner (real asset) */}
-        <div
-          className="reveal mt-12 overflow-hidden rounded-2xl border border-line sm:mt-14"
-          style={revealDelay("0.2s")}
-        >
-          <Image
-            src="/brand/hero-glass.png"
-            alt="Execution Labs"
-            width={1500}
-            height={500}
-            priority
-            className="h-auto w-full"
-          />
         </div>
       </Container>
     </section>
