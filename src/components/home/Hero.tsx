@@ -37,18 +37,29 @@ export function Hero() {
           >
             Agents and software
             <br />
-            that save time.
+            that save time and money.
           </h1>
 
           <p
             className="reveal mt-6 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg"
             style={revealDelay("0.14s")}
           >
-            We build the systems busy teams wish already existed. We understand
-            the vision, push it further, and ship work that holds up.
+            We turn messy briefs into working systems. Less manual work, fewer
+            expensive misses, and software the team can use.
           </p>
 
           <CtaButtons className="reveal mt-8" style={revealDelay("0.22s")} />
+
+          <div
+            className="reveal mt-8 flex flex-wrap gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint"
+            style={revealDelay("0.3s")}
+          >
+            {["Brief", "Build", "Proof"].map((item) => (
+              <span key={item} className="rounded-full border border-line bg-ink/45 px-3 py-1">
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
       </Container>
     </section>

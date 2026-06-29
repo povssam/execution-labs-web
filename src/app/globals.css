@@ -72,8 +72,8 @@ body {
  */
 @keyframes reveal-up {
   from {
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 0.82;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -103,9 +103,11 @@ body {
 
 @keyframes text-wipe {
   from {
-    clip-path: inset(0 100% 0 0);
+    opacity: 0.86;
+    clip-path: inset(0 12% 0 0);
   }
   to {
+    opacity: 1;
     clip-path: inset(0 0 0 0);
   }
 }

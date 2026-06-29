@@ -43,25 +43,24 @@ function Section({ label, body }: { label: string; body: string }) {
 
 function GraceAssetBlock() {
   return (
-    <div className="grid gap-5 lg:grid-cols-[1.35fr_0.65fr]">
-      <div className="overflow-hidden rounded-2xl border border-line bg-charcoal/40">
-        <div className="aspect-video bg-ink">
-          <GraceVideo controls label="Grace animation final" />
+    <div className="grid items-start gap-5 lg:grid-cols-[1.35fr_0.65fr]">
+      <div className="overflow-hidden rounded-2xl border border-bone/15 bg-bone/[0.03] shadow-[0_20px_80px_-50px_rgba(237,237,237,0.45)]">
+        <div className="aspect-video bg-ink ring-1 ring-inset ring-white/10">
+          <GraceVideo label="Grace animation final" />
         </div>
       </div>
 
-      <div className="flex flex-col justify-between rounded-2xl border border-line bg-charcoal/40 p-6">
+      <div className="flex flex-col justify-between rounded-2xl border border-line bg-charcoal/50 p-6">
         <div>
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
-            Real project asset
+            Live motion proof
           </span>
           <h2 className="mt-3 text-2xl font-medium text-bone">
             Grace Animation Final
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-bone-dim">
-            The motion piece shows how the identity, interface direction, and
-            social system move together. It is the proof asset for the Grace
-            brand system.
+            The motion piece shows the identity, interface direction, and
+            social system working as one product language.
           </p>
         </div>
 
@@ -95,6 +94,27 @@ function GraceAssetBlock() {
   );
 }
 
+function ProofStrip({ study }: { study: typeof caseStudies[number] }) {
+  const items = [
+    ["Used by", study.users],
+    ["Built", study.artifact],
+    ["Proof", study.proof],
+  ];
+
+  return (
+    <div className="grid gap-3 border-y border-line py-5 sm:grid-cols-3">
+      {items.map(([label, value]) => (
+        <div key={label}>
+          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
+            {label}
+          </span>
+          <p className="mt-1 text-sm leading-relaxed text-bone-dim">{value}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default async function CaseStudyPage({ params }: Params) {
   const { slug } = await params;
   const index = caseStudies.findIndex((s) => s.slug === slug);
@@ -118,27 +138,34 @@ export default async function CaseStudyPage({ params }: Params) {
             </Link>
           </Reveal>
 
-          <div className="mt-8 max-w-3xl">
-            <Reveal>
-              <div className="flex items-center gap-3">
-                <span className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim">
-                  {study.category}
-                </span>
-                <span className="font-mono text-xs text-bone-faint">
-                  {study.year}
-                </span>
-              </div>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h1 className="mt-5 text-4xl font-semibold tracking-tight text-bone sm:text-6xl">
-                {study.client}
-              </h1>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mt-5 max-w-xl text-lg text-bone-dim">
-                {study.summary}
-              </p>
-            </Reveal>
+          <div className={study.slug === "grace" ? "mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end" : "mt-8 max-w-3xl"}>
+            <div>
+              <Reveal>
+                <div className="flex items-center gap-3">
+                  <span className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim">
+                    {study.category}
+                  </span>
+                  <span className="font-mono text-xs text-bone-faint">
+                    {study.year}
+                  </span>
+                </div>
+              </Reveal>
+              <Reveal delay={0.05}>
+                <h1 className="mt-5 text-4xl font-semibold tracking-tight text-bone sm:text-6xl">
+                  {study.client}
+                </h1>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <p className="mt-5 max-w-xl text-lg text-bone-dim">
+                  {study.summary}
+                </p>
+              </Reveal>
+            </div>
+            {study.slug === "grace" && (
+              <Reveal delay={0.12}>
+                <GraceAssetBlock />
+              </Reveal>
+            )}
           </div>
         </Container>
       </section>
@@ -150,11 +177,9 @@ export default async function CaseStudyPage({ params }: Params) {
             <Section label="What we built" body={study.built} />
           </Reveal>
 
-          {study.slug === "grace" && (
-            <Reveal delay={0.08} className="mt-8">
-              <GraceAssetBlock />
-            </Reveal>
-          )}
+          <Reveal delay={0.06} className="mt-8">
+            <ProofStrip study={study} />
+          </Reveal>
 
           {study.slug === "orbit-artist-group" && (
             <Reveal delay={0.08} className="mt-8">

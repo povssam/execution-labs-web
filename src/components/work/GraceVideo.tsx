@@ -44,7 +44,8 @@ export function GraceVideo({
       autoPlay={!reducedMotion}
       loop={!reducedMotion}
       controls={controls}
-      preload="metadata"
+      preload="auto"
+      poster="/brand/grace/grace-animation-poster.jpg"
     />
   );
 }

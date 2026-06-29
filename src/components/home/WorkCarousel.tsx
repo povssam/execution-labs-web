@@ -19,8 +19,8 @@ export function WorkCarousel() {
         <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
           <SectionHeading
             label="Selected work"
-            title="Systems we put into the world"
-            description="5 named projects stay visible. The motion is there to show pace, not to hide the work."
+            title="Shipped systems, not decks"
+            description="Every card names the artifact, the user, and the workflow improved. The rail moves like a build queue, but the proof stays readable."
           />
 
           <Reveal className="work-rail relative h-[34rem] overflow-hidden rounded-2xl border border-line bg-charcoal/35 p-3 sm:h-[38rem] sm:p-4">
@@ -50,16 +50,21 @@ export function WorkCarousel() {
                     </div>
                   )}
                   <div className="p-5">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
-                      Featured
-                    </span>
-                    <ArrowUpRight size={16} className="text-bone-faint transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bone" />
-                  </div>
-                  <h3 className="mt-5 text-xl font-medium text-bone">{study.client}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-bone-dim">
-                    {study.summary}
-                  </p>
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
+                        Featured
+                      </span>
+                      <ArrowUpRight size={16} className="text-bone-faint transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bone" />
+                    </div>
+                    <h3 className="mt-5 text-xl font-medium text-bone">{study.client}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-bone-dim">
+                      {study.summary}
+                    </p>
+                    <p className="mt-4 border-t border-line pt-4 text-sm leading-relaxed text-bone-dim">
+                      <span className="text-bone">Built:</span> {study.artifact}
+                      <br />
+                      <span className="text-bone">Used by:</span> {study.users}
+                    </p>
                   </div>
                 </Link>
               ))}

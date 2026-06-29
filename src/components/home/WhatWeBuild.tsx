@@ -12,8 +12,8 @@ export function WhatWeBuild() {
       <Container>
         <SectionHeading
           label="What we build"
-          title="Services, kept simple"
-          description="Agents, internal software, MVPs, and product systems. Same loop every time: understand the vision, build the real thing, and make it useful fast."
+          title="Four ways we turn a brief into a system"
+          description="The labels are simple. The work is not. We build the layer that saves time, protects budget, and gets used by the team."
         />
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2">
@@ -30,6 +30,9 @@ export function WhatWeBuild() {
                   <span className="font-mono text-xs text-bone-faint">0{i + 1}</span>
                 </div>
                 <h3 className="mt-5 text-xl font-medium text-bone">{item.title}</h3>
+                <p className="mt-2 text-sm font-medium text-bone">
+                  {item.stance}
+                </p>
                 <p className="mt-2 text-sm leading-relaxed text-bone-dim">
                   {item.body}
                 </p>

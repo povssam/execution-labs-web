@@ -99,7 +99,7 @@ export function WorkCard({
       <div
         className={cn(
           "relative mb-4 h-24 overflow-hidden rounded-xl border border-line bg-ink",
-          study.assets?.video ? "p-0" : "p-3.5",
+          study.assets?.video ? "border-bone/15 p-0 ring-1 ring-white/10" : "p-3.5",
         )}
       >
         {study.assets?.video ? (
@@ -129,6 +129,15 @@ export function WorkCard({
       </div>
 
       <p className="mt-2 text-sm leading-relaxed text-bone-dim">{study.summary}</p>
+
+      <div className="mt-4 border-t border-line pt-4">
+        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
+          Proof
+        </span>
+        <p className="mt-1 text-sm leading-relaxed text-bone-dim">
+          {study.artifact}. {study.proof}.
+        </p>
+      </div>
 
       <div className="mt-auto flex flex-wrap gap-2 pt-5">
         {study.tags.map((tag) => (

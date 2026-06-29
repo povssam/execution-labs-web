@@ -8,7 +8,7 @@ import { caseStudies } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Work | Execution Labs",
   description:
-    "Selected systems we built. Agents, internal tools, MVP software, and full product systems.",
+    "Selected systems Execution Labs built. Agents, internal tools, MVP software, and product systems with proof attached.",
 };
 
 export default function WorkPage() {
@@ -24,13 +24,14 @@ export default function WorkPage() {
           </Reveal>
           <Reveal delay={0.05}>
             <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-bone sm:text-6xl">
-              Systems we put into the world
+              Shipped systems, not decks
             </h1>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-5 max-w-2xl text-lg text-bone-dim">
-              Real systems for real teams. Each one started as a brief and
-              shipped as software that holds up. Pick one to read the full story.
+              Each project started as a business problem and became something a
+              team could use. The proof is the workflow, the artifact, and what
+              changed after launch.
             </p>
           </Reveal>
         </Container>

@@ -1,28 +1,33 @@
 export type Capability = {
   title: string;
   body: string;
+  stance: string;
   points: string[];
 };
 
 export const capabilities: Capability[] = [
   {
-    title: "AI agents",
-    body: "Agents that take real work off the team. They read, decide, route, draft, and hand off when a person should step in.",
-    points: ["Tool use", "Memory", "Human handoff"],
+    title: "AI Agents",
+    stance: "Give the agent a job, not a demo.",
+    body: "Agents that remove recurring work from the team. They read, decide, route, draft, and hand off when a person should step in.",
+    points: ["Brief to workflow", "Tool use", "Human handoff"],
   },
   {
-    title: "Internal software",
-    body: "Ops tools, dashboards, and control rooms built around how the company already runs.",
+    title: "Internal Tools",
+    stance: "Replace the tab maze.",
+    body: "Ops tools and control rooms for the work that currently lives in sheets, Slack, and memory.",
     points: ["Live data", "Roles", "Audit trails"],
   },
   {
-    title: "MVP software",
-    body: "The first version that proves the idea. Real product in weeks, not a deck pretending to be progress.",
-    points: ["Auth", "Payments", "Analytics"],
+    title: "MVP Software",
+    stance: "Ship the first real version.",
+    body: "The smallest complete product that can take payment, gather usage, and prove what should happen next.",
+    points: ["Auth", "Payments", "Usage"],
   },
   {
-    title: "Product systems",
-    body: "The product, data, and infrastructure layer when the work needs to hold up after launch.",
+    title: "Product Systems",
+    stance: "Build the layer that holds up.",
+    body: "Product, data, and infrastructure work for teams that need speed without creating expensive cleanup later.",
     points: ["APIs", "Pipelines", "Infra"],
   },
 ];
@@ -36,23 +41,23 @@ export type Step = {
 export const process: Step[] = [
   {
     index: "01",
-    title: "Understand",
-    body: "We get close to the vision, the constraints, and the real cost of the problem.",
+    title: "Brief",
+    body: "We get close to the vision, the constraint, and the money or time leaking from the system.",
   },
   {
     index: "02",
-    title: "Push further",
-    body: "We map the system and sharpen the idea before a build gets locked in.",
+    title: "Shape",
+    body: "We map the workflow, remove the soft parts, and decide what must be real first.",
   },
   {
     index: "03",
-    title: "Ship the first version",
-    body: "We build the smallest complete version that can be used by the team.",
+    title: "Build",
+    body: "We ship the smallest complete version the team can use, not a presentation about it.",
   },
   {
     index: "04",
-    title: "Make it hold up",
-    body: "We tune it against real usage so speed does not come at the cost of quality.",
+    title: "Harden",
+    body: "We tune it against real usage so the work saves time and avoids expensive rework.",
   },
 ];
 
@@ -96,6 +101,9 @@ export type CaseStudy = {
   problem: string;
   built: string;
   result: string;
+  proof: string;
+  users: string;
+  artifact: string;
   tags: string[];
   preview: PreviewKind;
   assets?: {
@@ -111,13 +119,16 @@ export const caseStudies: CaseStudy[] = [
     category: "Brand system, product interface, social UI, motion",
     year: "2025",
     summary:
-      "A product identity, social UI direction, and motion system built around a human premium feel.",
+      "A brand and interface system for a product that needed to feel human, premium, and alive.",
     problem:
       "Grace needed a product identity and interface direction that felt human, premium, and alive.",
     built:
       "Brand visuals, motion direction, social mockups, phone UI direction, and a scrolling interface concept.",
     result:
-      "A clearer product presence with motion-ready visuals and a stronger brand system.",
+      "A clearer product presence with motion-ready visuals the team could use across product and launch work.",
+    proof: "Brand concept, motion proof, social UI, phone direction",
+    users: "Founder and product team",
+    artifact: "Motion-ready brand system",
     tags: ["Brand system", "Product interface", "Social UI", "Motion"],
     preview: "lines",
     assets: {
@@ -130,13 +141,16 @@ export const caseStudies: CaseStudy[] = [
     client: "Orbit Artist Group",
     category: "AI Agents",
     year: "2025",
-    summary: "An artist-ops agent that keeps releases, tasks, and follow ups moving.",
+    summary: "An artist-ops agent for roster work: releases, tasks, approvals, and follow ups.",
     problem:
-      "A growing roster meant releases, deadlines, and deliverables slipped through manual tracking.",
+      "A growing roster meant releases, deadlines, and deliverables were being tracked by memory, messages, and manual follow up.",
     built:
-      "An agent that watches every project, chases the right people, and keeps work moving without a manager in the loop.",
-    result: "Manual coordination dropped 70 percent across the roster.",
-    tags: ["Agents", "Ops", "Automation"],
+      "An agent-backed operating layer that watches project state, prompts the right person, and keeps release work visible without another status meeting.",
+    result: "Less chasing, fewer missed handoffs, and a roster workflow that keeps moving while the team stays focused on artists.",
+    proof: "Release tracker, task queue, follow-up agent",
+    users: "Artist managers and operations leads",
+    artifact: "Roster operating system",
+    tags: ["Agents", "Ops", "Roster"],
     preview: "queue",
   },
   {
@@ -144,13 +158,16 @@ export const caseStudies: CaseStudy[] = [
     client: "Media Scaling",
     category: "Internal Tools",
     year: "2025",
-    summary: "A control room for paid media decisions at scale.",
+    summary: "A paid-media control room for spend, winners, account health, and budget moves.",
     problem:
-      "Spend was spread across dozens of ad accounts with no single place to judge what worked.",
+      "Spend was spread across accounts and reports, making it slow to see what worked and where money should move.",
     built:
-      "An internal tool that pulls every account into one view so the team spots winners and reallocates spend in minutes.",
-    result: "Reviews that took a full day now take an hour.",
-    tags: ["Dashboard", "Data", "Internal"],
+      "An internal decision screen that pulls account data into one view, flags winners, and gives the team a faster way to reallocate budget.",
+    result: "A clearer review loop for spend decisions, with less time lost jumping between dashboards.",
+    proof: "Spend view, account health, budget review flow",
+    users: "Media buyers and operators",
+    artifact: "Paid media control room",
+    tags: ["Dashboard", "Spend", "Ops"],
     preview: "bars",
   },
   {
@@ -158,12 +175,15 @@ export const caseStudies: CaseStudy[] = [
     client: "Soniq",
     category: "MVP Software",
     year: "2024",
-    summary: "A music product taken from idea to live MVP.",
+    summary: "A music product taken from concept to a usable MVP with real product paths.",
     problem:
-      "A strong concept had no product, and the window to test it with real users was closing.",
+      "A strong music concept needed a product fast enough to test with real users before the opportunity cooled.",
     built:
-      "A working MVP with auth, playback, billing, and a clean interface that real users were on within weeks.",
-    result: "Shipped a usable product in six weeks.",
+      "A working MVP with auth, playback, billing, onboarding, and a clean interface that could support real usage.",
+    result: "The idea moved from conversation to a product people could try, pay for, and judge honestly.",
+    proof: "Auth, playback, billing, onboarding",
+    users: "Music fans and early product users",
+    artifact: "Live product MVP",
     tags: ["MVP", "Product", "Audio"],
     preview: "lines",
   },
@@ -172,27 +192,16 @@ export const caseStudies: CaseStudy[] = [
     client: "Dividends & Total Returns",
     category: "Product Systems",
     year: "2024",
-    summary: "An investing system that makes return math clear and usable.",
+    summary: "A finance system that turns dividend and total-return math into a trusted product view.",
     problem:
       "Dividend and total return math lived in a tangle of fragile spreadsheets no one trusted.",
     built:
-      "A system that tracks dividends, reinvestment, and total return across a full portfolio with live data and clear math.",
-    result: "Replaced the spreadsheets with a view investors trust.",
+      "A product system that tracks dividends, reinvestment, and total return across a portfolio with live data and clear calculations.",
+    result: "Replaced fragile spreadsheet work with a clearer system for investors and operators.",
+    proof: "Portfolio data, return math, reinvestment views",
+    users: "Investors and finance operators",
+    artifact: "Return calculation system",
     tags: ["Finance", "Systems", "Data"],
     preview: "rings",
-  },
-  {
-    slug: "motion-systems",
-    client: "Motion Systems",
-    category: "Motion and product",
-    year: "2025",
-    summary: "Motion studies for product moments that need to feel fast, clear, and owned.",
-    problem:
-      "The work needed to feel built, not assembled from a template.",
-    built:
-      "A controlled motion language using short reveals, vertical movement, and the real prismatic identity asset.",
-    result: "The site now feels more like Execution Labs and less like generic AI software.",
-    tags: ["Motion", "Product", "Identity"],
-    preview: "status",
   },
 ];

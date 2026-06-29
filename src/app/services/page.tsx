@@ -10,7 +10,7 @@ import { capabilities, process, faqs } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Services | Execution Labs",
   description:
-    "What we build, how engagements work, and answers to the questions clients ask before starting. AI agents, internal tools, MVP software, and product systems.",
+    "What Execution Labs builds: AI agents, internal tools, MVP software, and product systems that save time and protect budget.",
 };
 
 export default function ServicesPage() {
@@ -26,13 +26,13 @@ export default function ServicesPage() {
           </Reveal>
           <Reveal delay={0.05}>
             <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-bone sm:text-6xl">
-              What we build, and how it works
+              Build the system that fixes the cost
             </h1>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-5 max-w-2xl text-lg text-bone-dim">
-              Pick the layer you need. We scope against the outcome, ship a
-              working first version fast, and improve it with real usage.
+              Pick the layer you need. We scope against the business problem,
+              ship the first working version, and improve it with real usage.
             </p>
           </Reveal>
           <Reveal delay={0.15}>
@@ -53,6 +53,9 @@ export default function ServicesPage() {
                   <h2 className="mt-6 text-xl font-medium text-bone">
                     {item.title}
                   </h2>
+                  <p className="mt-2 text-sm font-medium text-bone">
+                    {item.stance}
+                  </p>
                   <p className="mt-2 text-sm leading-relaxed text-bone-dim">
                     {item.body}
                   </p>
