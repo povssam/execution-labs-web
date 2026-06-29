@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "./ui/Container";
 import { Logo } from "./brand/Logo";
-import { CALENDAR_URL, EMAIL } from "@/lib/site";
+import { EMAIL } from "@/lib/site";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -48,10 +48,10 @@ export function Footer() {
                 Connect
               </span>
               <Link
-                href={CALENDAR_URL}
+                href="/contact"
                 className="text-sm text-bone-dim transition-colors hover:text-bone"
               >
-                Book a call
+                Start a project
               </Link>
               <a
                 href="https://x.com/execution_labs?s=21"

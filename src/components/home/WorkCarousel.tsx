@@ -1,84 +1,72 @@
 "use client";
 
-import { useRef } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 import { ButtonLink } from "../ui/Button";
-import { SectionGlow } from "../ui/SectionGlow";
 import { WorkCard } from "../WorkCard";
 import { caseStudies } from "@/lib/data";
 
 export function WorkCarousel() {
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  const scrollBy = (dir: 1 | -1) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const amount = Math.min(el.clientWidth * 0.8, 420);
-    el.scrollBy({ left: dir * amount, behavior: "smooth" });
-  };
+  const rail = [...caseStudies, ...caseStudies];
 
   return (
-    <section className="relative overflow-hidden py-16 sm:py-24">
-      <SectionGlow className="right-[-8rem] top-8" color="#9333ea" opacity={0.07} />
+    <section className="relative overflow-hidden border-t border-line py-20 sm:py-28">
       <Container className="relative">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
           <SectionHeading
             label="Selected work"
             title="Systems we put into the world"
+            description="5 named projects stay visible. The motion is there to show pace, not to hide the work."
           />
-          <div className="flex gap-2">
-            <button
-              type="button"
-              aria-label="Previous"
-              onClick={() => scrollBy(-1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-bone-dim transition-colors duration-200 hover:border-bone/40 hover:text-bone"
-            >
-              <ArrowLeft size={18} />
-            </button>
-            <button
-              type="button"
-              aria-label="Next"
-              onClick={() => scrollBy(1)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-bone-dim transition-colors duration-200 hover:border-bone/40 hover:text-bone"
-            >
-              <ArrowRight size={18} />
-            </button>
+
+          <Reveal className="work-rail relative h-[34rem] overflow-hidden rounded-2xl border border-line bg-charcoal/35 p-3 sm:h-[38rem] sm:p-4">
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-20 bg-gradient-to-b from-ink via-ink/80 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-20 bg-gradient-to-t from-ink via-ink/80 to-transparent" />
+            <div className="work-rail-track flex flex-col gap-4">
+              {rail.map((study, i) => (
+                <div key={`${study.slug}-${i}`} className="min-h-[15rem]">
+                  <WorkCard study={study} className="h-full" />
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.08} className="lg:col-start-2">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {caseStudies.slice(0, 2).map((study) => (
+                <Link
+                  key={study.slug}
+                  href={`/work/${study.slug}`}
+                  className="group rounded-2xl border border-line bg-charcoal/35 p-5 transition-colors duration-200 hover:border-bone/25 hover:bg-charcoal-2/60"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
+                      Featured
+                    </span>
+                    <ArrowUpRight size={16} className="text-bone-faint transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bone" />
+                  </div>
+                  <h3 className="mt-5 text-xl font-medium text-bone">{study.client}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-bone-dim">
+                    {study.summary}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </Reveal>
+
+          <div className="lg:col-start-1 lg:row-start-2">
+            <ButtonLink href="/work" variant="secondary">
+              View all work
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-200 group-hover:translate-x-0.5"
+              />
+            </ButtonLink>
           </div>
         </div>
-      </Container>
-
-      <Reveal className="relative mt-12">
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-16 bg-gradient-to-l from-ink to-transparent sm:block"
-          aria-hidden
-        />
-        <div
-          ref={trackRef}
-          className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-6 px-6 pb-2 sm:scroll-px-8 sm:px-8"
-        >
-          {caseStudies.map((study, i) => (
-            <div
-              key={study.slug}
-              className="w-[300px] shrink-0 snap-start sm:w-[360px]"
-            >
-              <WorkCard study={study} index={i} className="h-full" />
-            </div>
-          ))}
-          <div className="w-1 shrink-0" aria-hidden />
-        </div>
-      </Reveal>
-
-      <Container className="mt-12">
-        <ButtonLink href="/work" variant="secondary">
-          View all work
-          <ArrowRight
-            size={16}
-            className="transition-transform duration-200 group-hover:translate-x-0.5"
-          />
-        </ButtonLink>
       </Container>
     </section>
   );

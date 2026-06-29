@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { OrbitCaseReveal } from "@/components/work/OrbitCaseReveal";
 import { caseStudies } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -93,6 +94,12 @@ export default async function CaseStudyPage({ params }: Params) {
             <Section label="Problem" body={study.problem} />
             <Section label="What we built" body={study.built} />
           </Reveal>
+
+          {study.slug === "orbit-artist-group" && (
+            <Reveal delay={0.08} className="mt-8">
+              <OrbitCaseReveal />
+            </Reveal>
+          )}
 
           <Reveal className="mt-8">
             <figure className="rounded-2xl border border-line bg-charcoal/40 p-8 sm:p-10">

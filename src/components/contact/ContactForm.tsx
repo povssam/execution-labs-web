@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, Send } from "lucide-react";
 import { Button } from "../ui/Button";
 import { cn } from "@/lib/utils";
-import { CALENDAR_URL } from "@/lib/site";
 
 const projectTypes = [
   "AI Agents",
@@ -123,10 +122,10 @@ export function ContactForm() {
             </p>
             <div className="mt-2 flex items-center gap-5 text-sm">
               <Link
-                href={CALENDAR_URL}
+                href="/work"
                 className="text-bone underline underline-offset-4 transition-colors hover:text-white"
               >
-                Book a call now
+                See the work
               </Link>
               <button
                 type="button"

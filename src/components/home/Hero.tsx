@@ -17,6 +17,7 @@ export function Hero() {
           sizes="100vw"
           className="scale-[1.35] object-cover object-[70%_center] opacity-90 sm:scale-110 sm:object-right"
         />
+        <div className="absolute right-0 top-0 h-28 w-[34%] bg-ink sm:h-36" />
         {/* keep the left side (text) dark and readable */}
         <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-ink/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/50" />
@@ -34,17 +35,17 @@ export function Hero() {
             className="reveal mt-6 text-[2.7rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
             style={revealDelay("0.06s")}
           >
-            We build systems
+            Agents and software
             <br />
-            that do the work.
+            that save time.
           </h1>
 
           <p
             className="reveal mt-6 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg"
             style={revealDelay("0.14s")}
           >
-            We build agents and software that save companies time and money.
-            Custom systems for teams that need speed, taste, and real execution.
+            We build the systems busy teams wish already existed. We understand
+            the vision, push it further, and ship work that holds up.
           </p>
 
           <CtaButtons className="reveal mt-8" style={revealDelay("0.22s")} />

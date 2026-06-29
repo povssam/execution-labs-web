@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { CALENDAR_URL, EMAIL } from "@/lib/site";
+import { EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact | Execution Labs",
@@ -30,8 +30,8 @@ export default function ContactPage() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-5 max-w-md text-lg text-bone-dim">
-                Tell us what you want to build. We read every message and reply
-                within a day.
+                Tell us what needs to exist, what it should save, and what is
+                slowing the team down now.
               </p>
             </Reveal>
 
@@ -47,14 +47,13 @@ export default function ContactPage() {
                   </a>
                 </p>
                 <p>
-                  Or{" "}
                   <Link
-                    href={CALENDAR_URL}
+                    href="/work"
                     className="text-bone underline underline-offset-4 transition-colors hover:text-white"
                   >
-                    book a call
+                    See the work
                   </Link>{" "}
-                  if you would rather talk it through.
+                  if you want to compare the kind of systems we build.
                 </p>
               </div>
             </Reveal>

@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "./ui/Button";
 import { Logo } from "./brand/Logo";
-import { CALENDAR_URL } from "@/lib/site";
 
 type NavLink = { href: string; label: string; section?: string };
 
@@ -67,7 +66,7 @@ export function Nav() {
         scrolled ? "border-b border-line glass" : "border-b border-transparent",
       )}
     >
-      <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 sm:px-8">
+      <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8">
         <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight text-bone">
           <Logo size={20} />
           Execution Labs
@@ -88,48 +87,47 @@ export function Nav() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-2 lg:flex">
-          <ButtonLink href={CALENDAR_URL} variant="secondary" className="px-4 py-2">
-            Book a call
-          </ButtonLink>
+        <div className="hidden items-center lg:flex">
           <ButtonLink href="/contact" className="px-5 py-2">
             Start a project
+            <ArrowRight size={15} />
           </ButtonLink>
         </div>
 
         <button
           type="button"
           aria-label="Toggle menu"
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="rounded-md p-2 text-bone lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-charcoal/70 text-bone transition-colors duration-150 hover:border-bone/40 lg:hidden"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
 
       {open && (
-        <div className="border-t border-line glass lg:hidden">
-          <div className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-6 py-4">
+        <div className="border-t border-line bg-ink/95 backdrop-blur-xl lg:hidden">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-5 py-5">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-base text-bone-dim hover:bg-charcoal-2 hover:text-bone"
+                className={cn(
+                  "flex items-center justify-between rounded-lg border border-transparent px-3 py-3 text-base transition-colors duration-150",
+                  isActive(link)
+                    ? "border-line bg-charcoal text-bone"
+                    : "text-bone-dim hover:bg-charcoal-2 hover:text-bone",
+                )}
               >
-                {link.label}
+                <span>{link.label}</span>
+                <ArrowRight size={14} className="text-bone-faint" />
               </Link>
             ))}
-            <div className="mt-2 flex flex-col gap-2">
-              <ButtonLink
-                href={CALENDAR_URL}
-                variant="secondary"
-                className="w-full"
-              >
-                Book a call
-              </ButtonLink>
+            <div className="mt-3">
               <ButtonLink href="/contact" className="w-full">
                 Start a project
+                <ArrowRight size={15} />
               </ButtonLink>
             </div>
           </div>

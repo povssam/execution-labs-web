@@ -29,6 +29,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.tracking-tight {
+  letter-spacing: 0 !important;
+}
+
 ::selection {
   background: var(--color-bone);
   color: var(--color-ink);
@@ -77,12 +81,55 @@ body {
   }
 }
 
-@keyframes flow-line {
+@keyframes preloader-out {
+  0%, 72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes preloader-mark {
   from {
-    stroke-dashoffset: 160;
+    opacity: 0;
+    transform: translateY(8px);
   }
   to {
-    stroke-dashoffset: -160;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes text-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes work-rail {
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes orbit-row {
+  from {
+    opacity: 0.25;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes orbit-scan {
+  to {
+    transform: translateX(280%);
   }
 }
 
@@ -122,6 +169,9 @@ body {
   .marquee-col {
     animation: none;
   }
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* Slow, subtle glass breathing for the ambient lens glow. */
@@ -130,6 +180,12 @@ body {
   50% { transform: translate(-50%, 1.5%) scale(1.06); opacity: 0.24; }
 }
 @media (prefers-reduced-motion: no-preference) {
+  .preloader {
+    animation: preloader-out 0.76s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+  .preloader-mark {
+    animation: preloader-mark 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
   .glass-breathe { animation: glass-breathe 18s ease-in-out infinite; }
 }
 
@@ -141,10 +197,23 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
-    animation: reveal-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: reveal-up 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) both;
     animation-delay: var(--reveal-delay, 0s);
   }
-  .flow-line {
-    animation: flow-line 3s linear infinite;
+  .text-wipe {
+    animation: text-wipe 0.62s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+  .work-rail-track {
+    animation: work-rail 24s linear infinite;
+  }
+  .work-rail:hover .work-rail-track {
+    animation-play-state: paused;
+  }
+  .orbit-row {
+    animation: orbit-row 0.48s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+    animation-delay: var(--orbit-delay, 0s);
+  }
+  .orbit-scan {
+    animation: orbit-scan 1.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
   }
 }

@@ -6,23 +6,23 @@ export type Capability = {
 
 export const capabilities: Capability[] = [
   {
-    title: "AI Agents",
-    body: "Agents that read, decide, and act inside your systems.",
+    title: "AI agents",
+    body: "Agents that take real work off the team. They read, decide, route, draft, and hand off when a person should step in.",
     points: ["Tool use", "Memory", "Human handoff"],
   },
   {
-    title: "Internal Tools",
-    body: "Dashboards and ops tools your team actually uses.",
-    points: ["Live data", "Roles", "Audit trail"],
+    title: "Internal software",
+    body: "Ops tools, dashboards, and control rooms built around how the company already runs.",
+    points: ["Live data", "Roles", "Audit trails"],
   },
   {
-    title: "MVP Software",
-    body: "A first version that ships. Real product in weeks.",
+    title: "MVP software",
+    body: "The first version that proves the idea. Real product in weeks, not a deck pretending to be progress.",
     points: ["Auth", "Payments", "Analytics"],
   },
   {
-    title: "Product Systems",
-    body: "Full systems that scale and hold up under load.",
+    title: "Product systems",
+    body: "The product, data, and infrastructure layer when the work needs to hold up after launch.",
     points: ["APIs", "Pipelines", "Infra"],
   },
 ];
@@ -36,23 +36,23 @@ export type Step = {
 export const process: Step[] = [
   {
     index: "01",
-    title: "Brief",
-    body: "We learn the problem, the users, and what winning looks like.",
+    title: "Understand",
+    body: "We get close to the vision, the constraints, and the real cost of the problem.",
   },
   {
     index: "02",
-    title: "Map the system",
-    body: "We design the flow, the data, and the edges before building.",
+    title: "Push further",
+    body: "We map the system and sharpen the idea before a build gets locked in.",
   },
   {
     index: "03",
-    title: "Build the first version",
-    body: "We ship a working version fast so you can use it for real.",
+    title: "Ship the first version",
+    body: "We build the smallest complete version that can be used by the team.",
   },
   {
     index: "04",
-    title: "Improve with real usage",
-    body: "We watch how it runs and sharpen it against real data.",
+    title: "Make it hold up",
+    body: "We tune it against real usage so speed does not come at the cost of quality.",
   },
 ];
 
@@ -61,7 +61,7 @@ export type Faq = { q: string; a: string };
 export const faqs: Faq[] = [
   {
     q: "How fast can you start?",
-    a: "Most projects kick off within a week of the first call. We keep scope tight so we can move.",
+    a: "Most projects kick off within a week of the first conversation. We keep scope tight so we can move.",
   },
   {
     q: "What does it cost?",
@@ -69,7 +69,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "How long until I see something working?",
-    a: "Days, not quarters. The first usable version usually ships in a few weeks, and you use it for real.",
+    a: "Days, not quarters. The first usable version usually ships in a few weeks and gets used for real.",
   },
   {
     q: "Do you work with non-technical founders?",
@@ -107,11 +107,11 @@ export const caseStudies: CaseStudy[] = [
     category: "Brand, product UI, social",
     year: "2025",
     summary:
-      "A product identity and interface direction that feels human, premium, and alive.",
+      "A product identity and interface direction with enough motion to feel alive.",
     problem:
       "Grace needed a product identity and interface direction that felt human, premium, and alive.",
     built:
-      "Brand visuals, social mockups, phone UI direction, and a scrolling UI concept.",
+      "Brand visuals, social direction, interface studies, and a motion system for product moments.",
     result:
       "A clearer product presence with motion-ready visuals and a stronger brand feel.",
     tags: ["Brand system", "Product UI", "Motion"],
@@ -122,7 +122,7 @@ export const caseStudies: CaseStudy[] = [
     client: "Orbit Artist Group",
     category: "AI Agents",
     year: "2025",
-    summary: "An agent that runs artist operations end to end.",
+    summary: "An artist-ops agent that keeps releases, tasks, and follow ups moving.",
     problem:
       "A growing roster meant releases, deadlines, and deliverables slipped through manual tracking.",
     built:
@@ -136,7 +136,7 @@ export const caseStudies: CaseStudy[] = [
     client: "Media Scaling",
     category: "Internal Tools",
     year: "2025",
-    summary: "A control room for paid media at scale.",
+    summary: "A control room for paid media decisions at scale.",
     problem:
       "Spend was spread across dozens of ad accounts with no single place to judge what worked.",
     built:
@@ -150,7 +150,7 @@ export const caseStudies: CaseStudy[] = [
     client: "Soniq",
     category: "MVP Software",
     year: "2024",
-    summary: "A music product, from idea to live MVP.",
+    summary: "A music product taken from idea to live MVP.",
     problem:
       "A strong concept had no product, and the window to test it with real users was closing.",
     built:
@@ -164,7 +164,7 @@ export const caseStudies: CaseStudy[] = [
     client: "Dividends & Total Returns",
     category: "Product Systems",
     year: "2024",
-    summary: "An investing system that models returns in real time.",
+    summary: "An investing system that makes return math clear and usable.",
     problem:
       "Dividend and total return math lived in a tangle of fragile spreadsheets no one trusted.",
     built:
@@ -174,17 +174,17 @@ export const caseStudies: CaseStudy[] = [
     preview: "rings",
   },
   {
-    slug: "custom-ai-ops-system",
-    client: "Custom AI Ops System",
-    category: "AI Agents",
+    slug: "motion-systems",
+    client: "Motion Systems",
+    category: "Motion and product",
     year: "2025",
-    summary: "A custom ops brain for a fast moving team.",
+    summary: "Motion studies for product moments that need to feel fast, clear, and owned.",
     problem:
-      "Work was scattered across email, docs, and tasks, and follow ups kept falling away.",
+      "The work needed to feel built, not assembled from a template.",
     built:
-      "An agent layer that drafts, routes, and follows up across every tool so the team stays on the work that matters.",
-    result: "Saved each operator hours every week.",
-    tags: ["Agents", "Ops", "Integration"],
+      "A controlled motion language using short reveals, vertical movement, and the real prismatic identity asset.",
+    result: "The site now feels more like Execution Labs and less like generic AI software.",
+    tags: ["Motion", "Product", "Identity"],
     preview: "status",
   },
 ];

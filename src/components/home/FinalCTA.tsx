@@ -1,27 +1,25 @@
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { CtaButtons } from "../ui/CtaButtons";
-import { SectionGlow } from "../ui/SectionGlow";
 
 export function FinalCTA() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="border-t border-line py-20 sm:py-28">
       <Container>
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-line bg-charcoal px-8 py-16 text-center sm:px-16 sm:py-24">
+          <div className="relative overflow-hidden rounded-2xl border border-line bg-charcoal px-6 py-14 text-center sm:px-16 sm:py-20">
             <div
               className="pointer-events-none absolute inset-0 grid-backdrop opacity-70"
               aria-hidden
             />
-            <SectionGlow className="left-1/2 top-[-40%] -translate-x-1/2" color="#9333ea" opacity={0.16} />
             <div className="relative">
-              <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight text-bone sm:text-5xl">
+              <h2 className="text-wipe mx-auto max-w-2xl text-3xl font-semibold tracking-tight text-bone sm:text-5xl">
                 Have a system worth building?
               </h2>
               <p className="mx-auto mt-5 max-w-xl text-lg text-bone-dim">
-                Let&apos;s make the first version real.
+                Send the problem. We will tell you what we would build first.
               </p>
-              <CtaButtons className="mt-10 justify-center" />
+              <CtaButtons className="mt-10 justify-center" primaryLabel="Start a project" />
             </div>
           </div>
         </Reveal>

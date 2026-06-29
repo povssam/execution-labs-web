@@ -20,9 +20,8 @@ pressure, hype, jargon, and anything that smells like a hard sell.
 
 ## The conversion model we built around
 
-1. **Two-speed CTA, every screen.** A committed path ("Start a project") and a
-   low-friction one ("Book a call") so people self-select by readiness. Neither
-   shouts.
+1. **One clear CTA, every screen.** "Start a project" is the committed path.
+   The client asked to remove the calendar CTA so the site does not split intent.
 2. **Risk reversal up front.** "Fixed scope, fixed price · Working software in
    days · You own everything · No long contracts." These are factual, tied to
    how engagements actually run — they lower the felt risk of a 10–30k decision.
@@ -32,21 +31,17 @@ pressure, hype, jargon, and anything that smells like a hard sell.
 4. **Honest proof, not invented proof.** An "industries we ship for" strip and
    real case studies. Testimonials and logos are wired but only render when real,
    approved content exists — nothing fabricated ships.
-5. **No-pressure microcopy** at the decision points: "Free scoping call. No
-   pressure, no hard sell." / "We reply within a day. No spam, no sales pitch."
+5. **No-pressure microcopy** at the decision points. The site asks for the
+   problem and makes the next step feel direct without hard-sell language.
 
 ## What's implemented now
 
-- Hero: low-friction "Book a call" beside "Start a project", no-pressure
-  microcopy, and an honest "Shipped for teams in: Music · Media · Finance · Ops ·
-  Startups" trust strip.
+- Hero: one "Start a project" CTA, direct copy, and real brand assets.
 - New **risk-reversal band** on the homepage right before the closing CTA.
 - **Testimonials section** that hides itself until real quotes are added
   (`testimonials` in `src/lib/data.ts`).
-- Contact page rebuilt for conversion: numbered "What happens next", the
-  risk-reversal checklist, a "Book a 20-minute call" option, and reassurance
-  microcopy under the form. (Also fills the empty space flagged in the review.)
-- Closing CTA: dual buttons + "Free 20-minute scoping call. No obligation."
+- Contact page uses the project form plus direct email as the fallback path.
+- Closing CTA: one primary "Start a project" action.
 - Clickable case studies + Services/FAQ (from the navigation pass) remove the
   research dead-ends that stall considered buyers.
 
@@ -61,9 +56,7 @@ These are the highest-leverage items left, in order:
    with a real human attached.
 4. **Real case study numbers** you can stand behind (the current ones are
    placeholders — using them in outreach is a credibility risk).
-5. **Calendar link** for "Book a call" (`NEXT_PUBLIC_CALENDAR_URL`) and the
-   **Web3Forms key** so the form delivers. Until set, "Book a call" routes to the
-   contact form and the form falls back to email.
+5. **Web3Forms key** so the form delivers. Until set, the form falls back to email.
 
 ## What we deliberately did NOT do
 

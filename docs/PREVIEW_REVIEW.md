@@ -9,7 +9,7 @@
 ## TL;DR — 3 things to fix BEFORE driving any traffic
 
 1. **The contact form does not send anywhere.** Submitting shows a "Brief received" success screen but no email/CRM is wired up. Every lead is silently lost. This is the #1 blocker for sales.
-2. **All case studies are placeholder data.** Orbit Artist Group, Media Scaling, Soniq, Dividends & Total Returns, Custom AI Ops System and their metrics (-70%, $4.2M, 1.1k users, etc.) are invented. Do not share publicly or in sales outreach until they are real and approved by the clients.
+2. **Case studies still need client-approved proof.** Grace, Orbit Artist Group, Media Scaling, Soniq, and Dividends & Total Returns stay visible, but any hard claims should be approved before sales use.
 3. **No link preview / no analytics / no custom domain.** Sharing the URL in email or DMs shows no preview card, we can't measure traffic, and it's on a `pages.dev` URL instead of executionlabs.com.
 
 ---
@@ -17,7 +17,7 @@
 ## What's working well (keep it)
 
 - Clean, confident, dark, technical look that matches the brief. Mono labels, rounded cards, thin borders, subtle grid + glow.
-- The hero "ops dashboard" is a strong, on-brand proof-of-capability visual instead of stock art.
+- The hero uses the real glass identity asset and a black mask over the baked-in duplicate top-right label.
 - Clear information architecture: What we build → Why us → Work → Process → CTA.
 - Strong, plain-spoken copy. Short sentences, no agency fluff, no em dashes.
 - Fully responsive, fast static site, content visible immediately.
@@ -27,11 +27,11 @@
 ## FOR DESIGN
 
 ### Polish / refinement
-- **Hero dashboard density on mobile.** The 6 panels compress hard on small screens and some labels get tight (e.g. "operational" next to "System status", client-brief text near its panel edge). Consider showing fewer panels on mobile or letting them stack full-width.
+- **Hero identity asset.** Keep the black mask over the baked-in top-right label unless a clean export of `IMG_7673.PNG` is added.
 - **Lots of vertical whitespace.** Section padding is generous (`py-24 sm:py-32`). On-brand, but the page scrolls long for the amount of content. Tightening 10–15% would feel more confident and less empty.
-- **Work page redundancy.** Each case study shows a card (with metrics) *and* a detail panel (with the same metrics restated). Consider differentiating them or dropping the duplicate metric block.
+- **Motion assets.** The Drive MP4s were not accessible through the connector or present locally. Add them under `public/brand` before replacing the motion panels with video.
 - **Contact page balance (desktop).** The left info column ends high, leaving a large empty area under it next to the form. Add a testimonial, a logo strip, or a small "what happens next" timeline to fill it.
-- **Favicon / brand mark.** Still the default. Add a real Execution Labs mark for the tab and OG image.
+- **Favicon / brand mark.** The real Execution Labs mark is used in the app. Keep OG and favicon exports aligned with it.
 
 ### Missing design elements that help conversion
 - **Social proof band** — client logos (even "trusted by" greyscale), or a single strong testimonial near the hero.
@@ -46,7 +46,7 @@
 ### Lead capture (critical)
 - **Wire the form to a real destination** — email, a shared inbox, or a CRM (HubSpot/Pipedrive/Notion). Options: Formspree, Web3Forms, a Cloudflare Worker, or a CRM embed. Until then, treat the site as brochure-only and route people to email/DM.
 - **Confirm `hello@executionlabs.com` is live and monitored.** It's listed in the footer and contact page as the direct line.
-- **Add a "Book a call" path.** Right now the only CTA is "Start a project" → form. Warm leads convert better with a calendar link (Cal.com / Calendly). Consider a secondary "Book a 20-min call" button.
+- **Keep one CTA.** The latest client direction removes "Book a call". Route warm leads through "Start a project" and direct email.
 
 ### Messaging & credibility
 - **Real case studies with permission.** Replace the dummy ones. For each: client (or anonymized "a 40-person media agency"), the problem, what was built, and a *defensible* result. Avoid hard numbers you can't back up.
@@ -69,7 +69,7 @@
 | 3 | Point custom domain + add analytics | Eng | S | High |
 | 4 | Add OG/share image + favicon | Design | S | High |
 | 5 | Add social proof (logos / testimonial / founder) | Design + Sales | M | High |
-| 6 | Add "Book a call" calendar CTA | Sales + Eng | S | Medium |
+| 6 | Add accessible MP4 motion references when assets are available | Design + Eng | S | Medium |
 | 7 | Tighten spacing + mobile dashboard density | Design | S | Medium |
 | 8 | De-duplicate metrics on Work page | Design | S | Low |
 
