@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { CaseStudy, PreviewKind } from "@/lib/data";
+import { GraceVideo } from "@/components/work/GraceVideo";
 
 // Calm, uniform product-UI preview per case study. Static, always visible.
 export function CardPreview({ kind }: { kind: PreviewKind }) {
@@ -95,11 +96,28 @@ export function WorkCard({
         <span className="font-mono text-[10px] text-bone-faint">{study.year}</span>
       </div>
 
-      <div className="relative mb-4 h-24 overflow-hidden rounded-xl border border-line bg-ink p-3.5">
-        <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-50" />
-        <div className="relative h-full">
-          <CardPreview kind={study.preview} />
-        </div>
+      <div
+        className={cn(
+          "relative mb-4 h-24 overflow-hidden rounded-xl border border-line bg-ink",
+          study.assets?.video ? "p-0" : "p-3.5",
+        )}
+      >
+        {study.assets?.video ? (
+          <>
+            <GraceVideo label={`${study.client} animation preview`} />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
+            <span className="pointer-events-none absolute bottom-2 left-2 rounded-full border border-bone/15 bg-ink/70 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-bone-dim">
+              Real motion
+            </span>
+          </>
+        ) : (
+          <>
+            <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-50" />
+            <div className="relative h-full">
+              <CardPreview kind={study.preview} />
+            </div>
+          </>
+        )}
       </div>
 
       <div className="flex items-start justify-between gap-3">

@@ -7,6 +7,7 @@ import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 import { ButtonLink } from "../ui/Button";
 import { WorkCard } from "../WorkCard";
+import { GraceVideo } from "@/components/work/GraceVideo";
 import { caseStudies } from "@/lib/data";
 
 export function WorkCarousel() {
@@ -40,8 +41,15 @@ export function WorkCarousel() {
                 <Link
                   key={study.slug}
                   href={`/work/${study.slug}`}
-                  className="group rounded-2xl border border-line bg-charcoal/35 p-5 transition-colors duration-200 hover:border-bone/25 hover:bg-charcoal-2/60"
+                  className="group overflow-hidden rounded-2xl border border-line bg-charcoal/35 transition-colors duration-200 hover:border-bone/25 hover:bg-charcoal-2/60"
                 >
+                  {study.assets?.video && (
+                    <div className="relative aspect-video bg-ink">
+                      <GraceVideo label={`${study.client} featured preview`} />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
+                    </div>
+                  )}
+                  <div className="p-5">
                   <div className="flex items-center justify-between gap-4">
                     <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
                       Featured
@@ -52,6 +60,7 @@ export function WorkCarousel() {
                   <p className="mt-2 text-sm leading-relaxed text-bone-dim">
                     {study.summary}
                   </p>
+                  </div>
                 </Link>
               ))}
             </div>

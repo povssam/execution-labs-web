@@ -98,24 +98,32 @@ export type CaseStudy = {
   result: string;
   tags: string[];
   preview: PreviewKind;
+  assets?: {
+    video?: string;
+    pdf?: string;
+  };
 };
 
 export const caseStudies: CaseStudy[] = [
   {
     slug: "grace",
     client: "Grace",
-    category: "Brand, product UI, social",
+    category: "Brand system, product interface, social UI, motion",
     year: "2025",
     summary:
-      "A product identity and interface direction with enough motion to feel alive.",
+      "A product identity, social UI direction, and motion system built around a human premium feel.",
     problem:
       "Grace needed a product identity and interface direction that felt human, premium, and alive.",
     built:
-      "Brand visuals, social direction, interface studies, and a motion system for product moments.",
+      "Brand visuals, motion direction, social mockups, phone UI direction, and a scrolling interface concept.",
     result:
-      "A clearer product presence with motion-ready visuals and a stronger brand feel.",
-    tags: ["Brand system", "Product UI", "Motion"],
+      "A clearer product presence with motion-ready visuals and a stronger brand system.",
+    tags: ["Brand system", "Product interface", "Social UI", "Motion"],
     preview: "lines",
+    assets: {
+      video: "/brand/grace/grace-animation.mp4",
+      pdf: "/brand/grace/grace-branding-concept.pdf",
+    },
   },
   {
     slug: "orbit-artist-group",

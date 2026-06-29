@@ -3,6 +3,7 @@ import { Play, Sparkles } from "lucide-react";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
+import { GraceVideo } from "@/components/work/GraceVideo";
 
 const notes = [
   "Brief to motion",
@@ -56,15 +57,26 @@ export function MotionWork() {
   return (
     <section className="border-t border-line py-20 sm:py-28">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
           <SectionHeading
             label="Motion work"
-            title="Movement that makes the brand feel built"
-            description="Small product moments, identity motion, and loading states that make the work feel custom without slowing people down."
+            title="Product identity that moves"
+            description="Grace shows the range: brand system, social UI, interface direction, and motion built as one product language."
           />
-          <Reveal className="grid gap-4 sm:grid-cols-2">
-            <MotionPanel label="Identity motion" />
-            <MotionPanel label="Product motion" reverse />
+          <Reveal className="grid gap-4 md:grid-cols-[1.35fr_0.65fr]">
+            <div className="overflow-hidden rounded-2xl border border-line bg-charcoal/40">
+              <div className="relative aspect-video bg-ink">
+                <GraceVideo label="Grace Animation Final homepage proof" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute bottom-4 left-4">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-bone/15 bg-ink/70 px-3 py-1 text-xs text-bone-dim">
+                    <Play size={12} />
+                    Grace Animation Final
+                  </span>
+                </div>
+              </div>
+            </div>
+            <MotionPanel label="Brand system" reverse />
           </Reveal>
         </div>
       </Container>

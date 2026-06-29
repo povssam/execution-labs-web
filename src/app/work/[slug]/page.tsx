@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Download, FileText } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { GraceVideo } from "@/components/work/GraceVideo";
 import { OrbitCaseReveal } from "@/components/work/OrbitCaseReveal";
 import { caseStudies } from "@/lib/data";
 
@@ -36,6 +37,60 @@ function Section({ label, body }: { label: string; body: string }) {
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-bone-dim">
         {body}
       </p>
+    </div>
+  );
+}
+
+function GraceAssetBlock() {
+  return (
+    <div className="grid gap-5 lg:grid-cols-[1.35fr_0.65fr]">
+      <div className="overflow-hidden rounded-2xl border border-line bg-charcoal/40">
+        <div className="aspect-video bg-ink">
+          <GraceVideo controls label="Grace animation final" />
+        </div>
+      </div>
+
+      <div className="flex flex-col justify-between rounded-2xl border border-line bg-charcoal/40 p-6">
+        <div>
+          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
+            Real project asset
+          </span>
+          <h2 className="mt-3 text-2xl font-medium text-bone">
+            Grace Animation Final
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-bone-dim">
+            The motion piece shows how the identity, interface direction, and
+            social system move together. It is the proof asset for the Grace
+            brand system.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-3">
+          <a
+            href="/brand/grace/grace-branding-concept.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center justify-between gap-4 rounded-xl border border-line bg-ink/60 px-4 py-3 text-sm text-bone-dim transition-colors duration-150 hover:border-bone/30 hover:text-bone"
+          >
+            <span className="inline-flex items-center gap-2">
+              <FileText size={16} />
+              View brand concept PDF
+            </span>
+            <ArrowUpRight size={15} className="transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
+          <a
+            href="/brand/grace/grace-branding-concept.pdf"
+            download
+            className="group flex items-center justify-between gap-4 rounded-xl border border-line bg-ink/60 px-4 py-3 text-sm text-bone-dim transition-colors duration-150 hover:border-bone/30 hover:text-bone"
+          >
+            <span className="inline-flex items-center gap-2">
+              <Download size={16} />
+              Download brand concept
+            </span>
+            <ArrowRight size={15} className="transition-transform duration-150 group-hover:translate-x-0.5" />
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
@@ -94,6 +149,12 @@ export default async function CaseStudyPage({ params }: Params) {
             <Section label="Problem" body={study.problem} />
             <Section label="What we built" body={study.built} />
           </Reveal>
+
+          {study.slug === "grace" && (
+            <Reveal delay={0.08} className="mt-8">
+              <GraceAssetBlock />
+            </Reveal>
+          )}
 
           {study.slug === "orbit-artist-group" && (
             <Reveal delay={0.08} className="mt-8">
