@@ -13,7 +13,7 @@ export function WhatWeBuild() {
         <SectionHeading
           label="What we build"
           title="Four ways we turn a brief into a system"
-          description="The labels are simple. The work is not. We build the layer that saves time, protects budget, and gets used by the team."
+          description="Agents, tools, MVPs, and systems built to hold up."
         />
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2">
@@ -30,14 +30,19 @@ export function WhatWeBuild() {
                   <span className="font-mono text-xs text-bone-faint">0{i + 1}</span>
                 </div>
                 <h3 className="mt-5 text-xl font-medium text-bone">{item.title}</h3>
-                <p className="mt-2 text-sm font-medium text-bone">
+                <p className="mt-2 text-sm leading-relaxed text-bone-dim">
                   {item.stance}
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-bone-dim">
-                  {item.body}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {item.points.map((p) => (
+                <div className="mt-6 grid grid-cols-3 gap-1.5">
+                  {[0, 1, 2].map((bar) => (
+                    <span
+                      key={bar}
+                      className="h-7 rounded-lg border border-bone/10 bg-ink/55"
+                    />
+                  ))}
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {item.points.slice(0, 2).map((p) => (
                     <span
                       key={p}
                       className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim"

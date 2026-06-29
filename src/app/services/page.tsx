@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import { Plus } from "lucide-react";
+import { Bot, ChartNoAxesCombined, PanelsTopLeft, Plus, Workflow } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CtaButtons } from "@/components/ui/CtaButtons";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { capabilities, process, faqs } from "@/lib/data";
+
+const icons = [Bot, PanelsTopLeft, ChartNoAxesCombined, Workflow];
 
 export const metadata: Metadata = {
   title: "Services | Execution Labs",
@@ -31,8 +33,7 @@ export default function ServicesPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-5 max-w-2xl text-lg text-bone-dim">
-              Pick the layer you need. We scope against the business problem,
-              ship the first working version, and improve it with real usage.
+              Pick the layer. We scope, ship, and prove it in use.
             </p>
           </Reveal>
           <Reveal delay={0.15}>
@@ -46,21 +47,34 @@ export default function ServicesPage() {
           <div className="grid gap-5 sm:grid-cols-2">
             {capabilities.map((item, i) => (
               <Reveal key={item.title} delay={(i % 2) * 0.05} className="h-full">
-                <div className="flex h-full flex-col rounded-2xl border border-line bg-charcoal/40 p-7 transition-colors duration-200 hover:bg-charcoal-2/70">
-                  <span className="font-mono text-xs text-bone-faint">
-                    0{i + 1}
-                  </span>
+                <div className="group flex h-full flex-col rounded-2xl border border-line bg-charcoal/40 p-7 transition-colors duration-200 hover:border-bone/25 hover:bg-charcoal-2/70">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-ink text-bone-dim transition-colors duration-150 group-hover:border-bone/40 group-hover:text-bone">
+                      {(() => {
+                        const Icon = icons[i % icons.length];
+                        return <Icon size={18} strokeWidth={1.8} />;
+                      })()}
+                    </span>
+                    <span className="font-mono text-xs text-bone-faint">
+                      0{i + 1}
+                    </span>
+                  </div>
                   <h2 className="mt-6 text-xl font-medium text-bone">
                     {item.title}
                   </h2>
-                  <p className="mt-2 text-sm font-medium text-bone">
+                  <p className="mt-2 text-sm leading-relaxed text-bone-dim">
                     {item.stance}
                   </p>
-                  <p className="mt-2 text-sm leading-relaxed text-bone-dim">
-                    {item.body}
-                  </p>
+                  <div className="mt-6 grid grid-cols-3 gap-1.5">
+                    {[0, 1, 2].map((bar) => (
+                      <span
+                        key={bar}
+                        className="h-7 rounded-lg border border-bone/10 bg-ink/55"
+                      />
+                    ))}
+                  </div>
                   <div className="mt-5 flex flex-wrap gap-2 pt-1">
-                    {item.points.map((p) => (
+                    {item.points.slice(0, 2).map((p) => (
                       <span
                         key={p}
                         className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim"

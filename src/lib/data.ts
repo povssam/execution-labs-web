@@ -42,22 +42,22 @@ export const process: Step[] = [
   {
     index: "01",
     title: "Brief",
-    body: "We get close to the vision, the constraint, and the money or time leaking from the system.",
+    body: "Find the leak.",
   },
   {
     index: "02",
-    title: "Shape",
-    body: "We map the workflow, remove the soft parts, and decide what must be real first.",
+    title: "System map",
+    body: "Design the workflow.",
   },
   {
     index: "03",
     title: "Build",
-    body: "We ship the smallest complete version the team can use, not a presentation about it.",
+    body: "Ship v1.",
   },
   {
     index: "04",
-    title: "Harden",
-    body: "We tune it against real usage so the work saves time and avoids expensive rework.",
+    title: "Proof",
+    body: "Test in real use.",
   },
 ];
 

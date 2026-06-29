@@ -27,6 +27,7 @@ body {
   color: var(--color-bone);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .tracking-tight {
@@ -135,6 +136,33 @@ body {
   }
 }
 
+@keyframes process-flow-mobile {
+  to {
+    transform: translateY(260%);
+  }
+}
+
+@keyframes process-flow-desktop {
+  to {
+    transform: translateX(640%);
+  }
+}
+
+.process-flow {
+  overflow: hidden;
+}
+
+.process-flow::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  height: 28%;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, transparent, rgba(237, 237, 237, 0.7), transparent);
+}
+
 /* Vertical marquee for the moving UI showcase columns. Cards are visible by
    default; the transform only moves them. Reduced motion stops the motion. */
 @keyframes marquee-y {
@@ -217,5 +245,24 @@ body {
   }
   .orbit-scan {
     animation: orbit-scan 1.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+  }
+  .process-flow::after {
+    animation: process-flow-mobile 3.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+  }
+}
+
+@media (min-width: 1024px) {
+  .process-flow::after {
+    left: 0;
+    top: -1px;
+    height: 3px;
+    width: 14%;
+    background: linear-gradient(to right, transparent, rgba(237, 237, 237, 0.7), transparent);
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .process-flow::after {
+    animation: process-flow-desktop 4.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
   }
 }

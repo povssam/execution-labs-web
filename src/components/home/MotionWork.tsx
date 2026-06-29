@@ -58,7 +58,7 @@ export function MotionWork() {
           <SectionHeading
             label="Motion work"
             title="Motion as proof, not decoration"
-            description="Grace shows how brand, interface, and launch assets can move as one system. The motion explains what was built."
+            description="Grace shows identity, interface, and motion working as one system."
           />
           <Reveal className="grid gap-4 md:grid-cols-[1.35fr_0.65fr]">
             <div className="overflow-hidden rounded-2xl border border-line bg-charcoal/40">

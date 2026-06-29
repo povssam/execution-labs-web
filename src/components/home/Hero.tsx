@@ -44,8 +44,7 @@ export function Hero() {
             className="reveal mt-6 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg"
             style={revealDelay("0.14s")}
           >
-            We turn messy briefs into working systems. Less manual work, fewer
-            expensive misses, and software the team can use.
+            We turn messy briefs into systems that save labor, budget, and time.
           </p>
 
           <CtaButtons className="reveal mt-8" style={revealDelay("0.22s")} />

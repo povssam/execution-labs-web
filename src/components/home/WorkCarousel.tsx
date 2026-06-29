@@ -20,7 +20,7 @@ export function WorkCarousel() {
           <SectionHeading
             label="Selected work"
             title="Shipped systems, not decks"
-            description="Every card names the artifact, the user, and the workflow improved. The rail moves like a build queue, but the proof stays readable."
+            description="Real artifacts, users, and workflows. Proof stays visible."
           />
 
           <Reveal className="work-rail relative h-[34rem] overflow-hidden rounded-2xl border border-line bg-charcoal/35 p-3 sm:h-[38rem] sm:p-4">
