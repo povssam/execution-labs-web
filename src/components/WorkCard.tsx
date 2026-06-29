@@ -85,15 +85,15 @@ export function WorkCard({
       href={`/work/${study.slug}`}
       aria-label={`Read the ${study.client} case study`}
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-charcoal/60 p-5 transition-all duration-200 hover:-translate-y-1 hover:border-bone/25 hover:bg-charcoal-2/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone/40",
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-charcoal/75 p-5 transition-all duration-200 hover:-translate-y-1 hover:border-bone/25 hover:bg-charcoal-2/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone/40",
         className,
       )}
     >
       <div className="mb-4 flex items-center justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
+        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-dim">
           {study.category}
         </span>
-        <span className="font-mono text-[10px] text-bone-faint">{study.year}</span>
+        <span className="font-mono text-[10px] text-bone-dim">{study.year}</span>
       </div>
 
       <div
@@ -121,17 +121,17 @@ export function WorkCard({
       </div>
 
       <div className="flex items-start justify-between gap-3">
-        <h3 className="text-lg font-medium text-bone">{study.client}</h3>
+        <h3 className="text-lg font-semibold text-bone">{study.client}</h3>
         <ArrowUpRight
           size={18}
-          className="mt-0.5 shrink-0 text-bone-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bone"
+          className="mt-0.5 shrink-0 text-bone transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
         />
       </div>
 
       <p className="mt-2 text-sm leading-relaxed text-bone-dim">{study.summary}</p>
 
       <div className="mt-4 border-t border-line pt-4">
-        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
+        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-dim">
           Proof
         </span>
         <p className="mt-1 text-sm leading-relaxed text-bone-dim">

@@ -20,6 +20,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(5rem + env(safe-area-inset-top));
 }
 
 body {
@@ -27,7 +28,8 @@ body {
   color: var(--color-bone);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: env(safe-area-inset-bottom);
+  min-height: 100dvh;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
 }
 
 .tracking-tight {

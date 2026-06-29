@@ -24,8 +24,8 @@ export function WorkCarousel() {
           />
 
           <Reveal className="work-rail relative h-[34rem] overflow-hidden rounded-2xl border border-line bg-charcoal/35 p-3 sm:h-[38rem] sm:p-4">
-            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-20 bg-gradient-to-b from-ink via-ink/80 to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-20 bg-gradient-to-t from-ink via-ink/80 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-10 bg-gradient-to-b from-ink/80 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-10 bg-gradient-to-t from-ink/80 to-transparent" />
             <div className="work-rail-track flex flex-col gap-4">
               {rail.map((study, i) => (
                 <div key={`${study.slug}-${i}`} className="min-h-[15rem]">
@@ -54,9 +54,9 @@ export function WorkCarousel() {
                       <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
                         Featured
                       </span>
-                      <ArrowUpRight size={16} className="text-bone-faint transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-bone" />
+                      <ArrowUpRight size={16} className="text-bone transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                     </div>
-                    <h3 className="mt-5 text-xl font-medium text-bone">{study.client}</h3>
+                    <h3 className="mt-5 text-xl font-semibold text-bone">{study.client}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-bone-dim">
                       {study.summary}
                     </p>

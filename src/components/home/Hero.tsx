@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Container } from "../ui/Container";
 import { CtaButtons } from "../ui/CtaButtons";
-import { Logo } from "../brand/Logo";
 import { revealDelay } from "@/lib/utils";
 
 export function Hero() {
@@ -26,13 +25,8 @@ export function Hero() {
 
       <Container className="relative z-10">
         <div className="max-w-3xl">
-          <div className="reveal flex items-center gap-2.5 text-bone">
-            <Logo size={22} />
-            <span className="text-sm font-semibold tracking-tight">Execution Labs</span>
-          </div>
-
           <h1
-            className="reveal mt-6 text-[2.7rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
+            className="reveal text-[2.7rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
             style={revealDelay("0.06s")}
           >
             Agents and software

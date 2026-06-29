@@ -65,15 +65,7 @@ export default function ServicesPage() {
                   <p className="mt-2 text-sm leading-relaxed text-bone-dim">
                     {item.stance}
                   </p>
-                  <div className="mt-6 grid grid-cols-3 gap-1.5">
-                    {[0, 1, 2].map((bar) => (
-                      <span
-                        key={bar}
-                        className="h-7 rounded-lg border border-bone/10 bg-ink/55"
-                      />
-                    ))}
-                  </div>
-                  <div className="mt-5 flex flex-wrap gap-2 pt-1">
+                  <div className="mt-6 flex flex-wrap gap-2 pt-1">
                     {item.points.slice(0, 2).map((p) => (
                       <span
                         key={p}

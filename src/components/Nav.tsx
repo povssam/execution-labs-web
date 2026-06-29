@@ -116,7 +116,7 @@ export function Nav() {
 
       {open && (
         <div className="fixed inset-x-0 bottom-0 top-16 overflow-y-auto border-t border-line bg-ink/98 backdrop-blur-xl lg:hidden">
-          <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col gap-1 px-5 py-5">
+          <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col gap-1 px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5">
             {links.map((link) => (
               <Link
                 key={link.href}
