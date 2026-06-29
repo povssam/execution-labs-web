@@ -31,6 +31,15 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   // Scrollspy: highlight the homepage section currently in view.
   // Off the homepage, isActive() ignores activeSection, so a stale value is harmless.
   useEffect(() => {
@@ -106,8 +115,8 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div className="border-t border-line bg-ink/95 backdrop-blur-xl lg:hidden">
-          <div className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-5 py-5">
+        <div className="fixed inset-x-0 bottom-0 top-16 overflow-y-auto border-t border-line bg-ink/98 backdrop-blur-xl lg:hidden">
+          <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col gap-1 px-5 py-5">
             {links.map((link) => (
               <Link
                 key={link.href}

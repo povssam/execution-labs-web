@@ -23,10 +23,10 @@ export function Preloader() {
 
   return (
     <div
-      className="preloader fixed inset-0 z-[80] flex items-center justify-center bg-ink"
+      className="preloader pointer-events-none fixed inset-0 z-[80] flex items-center justify-center"
       aria-hidden
     >
-      <div className="preloader-mark flex items-center gap-3">
+      <div className="preloader-mark glass flex items-center gap-3 rounded-full border border-line px-4 py-3 shadow-2xl shadow-black/30">
         <Logo size={34} className="rounded-md" />
         <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-dim">
           Execution Labs

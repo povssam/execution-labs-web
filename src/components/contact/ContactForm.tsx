@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, Send } from "lucide-react";
 import { Button } from "../ui/Button";
 import { cn } from "@/lib/utils";
+import { EMAIL } from "@/lib/site";
 
 const projectTypes = [
   "AI Agents",
@@ -52,6 +53,7 @@ export function ContactForm() {
   const [type, setType] = useState(projectTypes[0]);
   const [budget, setBudget] = useState(budgets[3]);
   const [sent, setSent] = useState(false);
+  const [usedEmailFallback, setUsedEmailFallback] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -61,12 +63,29 @@ export function ContactForm() {
     const form = e.currentTarget;
     const data = new FormData(form);
     const name = String(data.get("name") ?? "");
+    const email = String(data.get("email") ?? "");
+    const company = String(data.get("company") ?? "");
+    const message = String(data.get("message") ?? "");
 
     setStatus("sending");
 
     if (!ACCESS_KEY) {
-      // No backend configured yet. Fail loudly instead of pretending to send.
-      setStatus("error");
+      const subject = encodeURIComponent(`New project brief from ${name || "the site"}`);
+      const body = encodeURIComponent(
+        [
+          `Name: ${name}`,
+          `Email: ${email}`,
+          `Company: ${company || "Not provided"}`,
+          `Project type: ${type}`,
+          `Budget: ${budget}`,
+          "",
+          message,
+        ].join("\n"),
+      );
+      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+      setUsedEmailFallback(true);
+      setStatus("idle");
+      setSent(true);
       return;
     }
 
@@ -76,11 +95,11 @@ export function ContactForm() {
     payload.append("subject", `New project brief from ${name || "the site"}`);
     payload.append("from_name", "Execution Labs site");
     payload.append("name", name);
-    payload.append("email", String(data.get("email") ?? ""));
-    payload.append("company", String(data.get("company") ?? ""));
+    payload.append("email", email);
+    payload.append("company", company);
     payload.append("project_type", type);
     payload.append("budget", budget);
-    payload.append("message", String(data.get("message") ?? ""));
+    payload.append("message", message);
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -91,6 +110,7 @@ export function ContactForm() {
       const json = await res.json();
       if (res.ok && json.success) {
         setStatus("idle");
+        setUsedEmailFallback(false);
         setSent(true);
       } else {
         setStatus("error");
@@ -116,9 +136,9 @@ export function ContactForm() {
             </div>
             <h3 className="text-xl font-medium text-bone">Brief received</h3>
             <p className="max-w-sm text-sm leading-relaxed text-bone-dim">
-              Thanks for reaching out about your {type.toLowerCase()} project. We
-              read every brief and reply within a day. Next, we map the system
-              with you before any quote.
+              {usedEmailFallback
+                ? "Your email app should now have a drafted project brief. Send it when it looks right and we will reply within a day."
+                : `Thanks for reaching out about your ${type.toLowerCase()} project. We read every brief and reply within a day. Next, we map the system with you before any quote.`}
             </p>
             <div className="mt-2 flex items-center gap-5 text-sm">
               <Link
@@ -129,7 +149,10 @@ export function ContactForm() {
               </Link>
               <button
                 type="button"
-                onClick={() => setSent(false)}
+                onClick={() => {
+                  setUsedEmailFallback(false);
+                  setSent(false);
+                }}
                 className="text-bone-dim underline-offset-4 transition-colors hover:text-bone hover:underline"
               >
                 Send another

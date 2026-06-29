@@ -181,7 +181,7 @@ body {
 }
 @media (prefers-reduced-motion: no-preference) {
   .preloader {
-    animation: preloader-out 0.76s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+    animation: preloader-out 0.62s cubic-bezier(0.2, 0.8, 0.3, 1) both;
   }
   .preloader-mark {
     animation: preloader-mark 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) both;
