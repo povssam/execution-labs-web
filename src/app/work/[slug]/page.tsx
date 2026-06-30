@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Download, FileText } from "lucide-react";
+import { BrandAtmosphere } from "@/components/BrandAtmosphere";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
@@ -126,8 +127,8 @@ export default async function CaseStudyPage({ params }: Params) {
   return (
     <>
       <section className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-20">
-        <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
-        <Container className="relative">
+        <BrandAtmosphere intensity="section" />
+        <Container className="relative z-10">
           <Reveal>
             <Link
               href="/work"
@@ -170,8 +171,9 @@ export default async function CaseStudyPage({ params }: Params) {
         </Container>
       </section>
 
-      <section className="pb-24 sm:pb-32">
-        <Container>
+      <section className="relative overflow-hidden pb-24 sm:pb-32">
+        <BrandAtmosphere intensity="soft" />
+        <Container className="relative z-10">
           <Reveal className="flex flex-col gap-6">
             <Section label="Problem" body={study.problem} />
             <Section label="What we built" body={study.built} />

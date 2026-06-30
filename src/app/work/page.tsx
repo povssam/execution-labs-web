@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BrandAtmosphere } from "@/components/BrandAtmosphere";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { WorkCard } from "@/components/WorkCard";
@@ -15,8 +16,8 @@ export default function WorkPage() {
   return (
     <>
       <section className="relative overflow-hidden pt-40 pb-16 sm:pt-48 sm:pb-20">
-        <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
-        <Container className="relative">
+        <BrandAtmosphere intensity="section" />
+        <Container className="relative z-10">
           <Reveal>
             <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
               Work
@@ -37,8 +38,9 @@ export default function WorkPage() {
         </Container>
       </section>
 
-      <section className="pb-24 sm:pb-32">
-        <Container>
+      <section className="relative overflow-hidden pb-24 sm:pb-32">
+        <BrandAtmosphere intensity="soft" />
+        <Container className="relative z-10">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {caseStudies.map((study, i) => (
               <Reveal key={study.slug} delay={(i % 3) * 0.05} className="h-full">

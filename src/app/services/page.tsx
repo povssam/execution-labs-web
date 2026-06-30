@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bot, ChartNoAxesCombined, PanelsTopLeft, Plus, Workflow } from "lucide-react";
+import { BrandAtmosphere } from "@/components/BrandAtmosphere";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -19,8 +20,8 @@ export default function ServicesPage() {
   return (
     <>
       <section className="relative overflow-hidden pt-40 pb-16 sm:pt-48 sm:pb-20">
-        <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
-        <Container className="relative">
+        <BrandAtmosphere intensity="section" />
+        <Container className="relative z-10">
           <Reveal>
             <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
               Services
@@ -42,8 +43,9 @@ export default function ServicesPage() {
         </Container>
       </section>
 
-      <section id="what-we-build" className="pb-24 sm:pb-28">
-        <Container>
+      <section id="what-we-build" className="relative overflow-hidden pb-24 sm:pb-28">
+        <BrandAtmosphere intensity="soft" />
+        <Container className="relative z-10">
           <div className="grid gap-5 sm:grid-cols-2">
             {capabilities.map((item, i) => (
               <Reveal key={item.title} delay={(i % 2) * 0.05} className="h-full">
@@ -82,8 +84,9 @@ export default function ServicesPage() {
         </Container>
       </section>
 
-      <section className="border-y border-line bg-charcoal/40 py-24 sm:py-28">
-        <Container>
+      <section className="relative overflow-hidden border-y border-line bg-charcoal/25 py-24 sm:py-28">
+        <BrandAtmosphere intensity="soft" />
+        <Container className="relative z-10">
           <SectionHeading
             label="How we work"
             title="A tight loop, brief to real usage"
@@ -108,8 +111,9 @@ export default function ServicesPage() {
         </Container>
       </section>
 
-      <section id="faq" className="py-24 sm:py-32">
-        <Container>
+      <section id="faq" className="relative overflow-hidden py-24 sm:py-32">
+        <BrandAtmosphere intensity="soft" />
+        <Container className="relative z-10">
           <SectionHeading
             label="FAQ"
             title="Questions clients ask first"

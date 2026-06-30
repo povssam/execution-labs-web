@@ -1,4 +1,5 @@
 import { Bot, ChartNoAxesCombined, PanelsTopLeft, Workflow } from "lucide-react";
+import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
@@ -8,8 +9,9 @@ const icons = [Bot, PanelsTopLeft, ChartNoAxesCombined, Workflow];
 
 export function WhatWeBuild() {
   return (
-    <section id="what-we-build" className="border-t border-line py-20 sm:py-28">
-      <Container>
+    <section id="what-we-build" className="relative overflow-hidden border-t border-line py-20 sm:py-28">
+      <BrandAtmosphere intensity="soft" />
+      <Container className="relative z-10">
         <SectionHeading
           label="What we build"
           title="Four ways we turn a brief into a system"

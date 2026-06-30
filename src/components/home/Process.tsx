@@ -1,4 +1,5 @@
 import { Check, FileText, Hammer, Route } from "lucide-react";
+import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
@@ -53,8 +54,9 @@ function StepArtifact({ index }: { index: number }) {
 
 export function Process() {
   return (
-    <section id="process" className="border-t border-line bg-charcoal/40 py-20 sm:py-28">
-      <Container>
+    <section id="process" className="relative overflow-hidden border-t border-line bg-charcoal/25 py-20 sm:py-28">
+      <BrandAtmosphere intensity="soft" />
+      <Container className="relative z-10">
         <SectionHeading label="Process" title="Brief to proof" />
 
         <div className="relative mt-10">

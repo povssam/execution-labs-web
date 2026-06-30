@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrandAtmosphere } from "@/components/BrandAtmosphere";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <section className="relative overflow-hidden pt-40 pb-24 sm:pt-48 sm:pb-32">
-      <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
-      <Container className="relative">
+      <BrandAtmosphere intensity="section" />
+      <Container className="relative z-10">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div>
             <Reveal>

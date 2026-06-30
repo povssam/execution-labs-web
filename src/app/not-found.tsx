@@ -1,12 +1,13 @@
 import { ArrowRight } from "lucide-react";
+import { BrandAtmosphere } from "@/components/BrandAtmosphere";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
 
 export default function NotFound() {
   return (
     <section className="relative flex min-h-[70vh] items-center overflow-hidden pt-32 pb-24">
-      <div className="pointer-events-none absolute inset-0 grid-backdrop" aria-hidden />
-      <Container className="relative text-center">
+      <BrandAtmosphere intensity="section" />
+      <Container className="relative z-10 text-center">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
           404
         </p>

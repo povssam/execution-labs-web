@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
@@ -15,7 +16,8 @@ export function WorkCarousel() {
 
   return (
     <section className="relative overflow-hidden border-t border-line py-20 sm:py-28">
-      <Container className="relative">
+      <BrandAtmosphere intensity="soft" />
+      <Container className="relative z-10">
         <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
           <SectionHeading
             label="Selected work"
