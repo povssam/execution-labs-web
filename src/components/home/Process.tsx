@@ -54,8 +54,8 @@ function StepArtifact({ index }: { index: number }) {
 
 export function Process() {
   return (
-    <section id="process" className="relative overflow-hidden border-t border-line bg-charcoal/25 py-20 sm:py-28">
-      <BrandAtmosphere intensity="soft" />
+    <section id="process" className="section-flow relative overflow-hidden bg-charcoal/15 py-20 sm:py-28">
+      <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <Container className="relative z-10">
         <SectionHeading label="Process" title="Brief to proof" />
 

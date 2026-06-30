@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="relative overflow-hidden pt-40 pb-24 sm:pt-48 sm:pb-32">
-      <BrandAtmosphere intensity="section" />
+    <section className="section-flow section-flow--fade relative overflow-hidden pt-40 pb-24 sm:pt-48 sm:pb-32">
+      <BrandAtmosphere intensity="section" tone="fade" focus="right" />
       <Container className="relative z-10">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <div>

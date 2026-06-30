@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { BrandAtmosphere } from "./BrandAtmosphere";
 import { Container } from "./ui/Container";
 import { Logo } from "./brand/Logo";
 import { EMAIL } from "@/lib/site";
@@ -14,8 +15,9 @@ const nav = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-line">
-      <Container className="py-14">
+    <footer className="section-flow section-flow--fade relative overflow-hidden">
+      <BrandAtmosphere intensity="soft" tone="fade" focus="bottom" />
+      <Container className="relative z-10 py-14">
         <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
           <div className="max-w-sm">
             <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight text-bone">

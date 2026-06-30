@@ -15,8 +15,8 @@ export function WorkCarousel() {
   const rail = [...caseStudies, ...caseStudies];
 
   return (
-    <section className="relative overflow-hidden border-t border-line py-20 sm:py-28">
-      <BrandAtmosphere intensity="soft" />
+    <section className="section-flow relative overflow-hidden py-20 sm:py-28">
+      <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
       <Container className="relative z-10">
         <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
           <SectionHeading

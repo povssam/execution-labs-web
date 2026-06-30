@@ -126,8 +126,8 @@ export default async function CaseStudyPage({ params }: Params) {
 
   return (
     <>
-      <section className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-20">
-        <BrandAtmosphere intensity="section" />
+      <section className="section-flow section-flow--hero relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-20">
+        <BrandAtmosphere intensity="section" tone={study.slug === "grace" ? "media" : "proof"} focus="right" />
         <Container className="relative z-10">
           <Reveal>
             <Link
@@ -171,8 +171,8 @@ export default async function CaseStudyPage({ params }: Params) {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden pb-24 sm:pb-32">
-        <BrandAtmosphere intensity="soft" />
+      <section className="section-flow relative overflow-hidden pb-24 sm:pb-32">
+        <BrandAtmosphere intensity="soft" tone={study.slug === "grace" ? "media" : "proof"} focus="left" />
         <Container className="relative z-10">
           <Reveal className="flex flex-col gap-6">
             <Section label="Problem" body={study.problem} />

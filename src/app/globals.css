@@ -76,6 +76,14 @@ body {
   --ba-streak-a: rgba(169, 178, 255, 0.14);
   --ba-streak-b: rgba(255, 202, 126, 0.1);
   --ba-opacity: 1;
+  --ba-mask-start: 8%;
+  --ba-mask-end: 92%;
+  --ba-focus-a-x: 76%;
+  --ba-focus-a-y: 22%;
+  --ba-focus-b-x: 82%;
+  --ba-focus-b-y: 54%;
+  --ba-focus-c-x: 58%;
+  --ba-focus-c-y: 72%;
   pointer-events: none;
   position: absolute;
   inset: 0;
@@ -83,12 +91,12 @@ body {
   overflow: hidden;
   opacity: var(--ba-opacity);
   background:
-    radial-gradient(ellipse 70% 46% at 76% 22%, var(--ba-prism-a), transparent 58%),
-    radial-gradient(ellipse 42% 30% at 82% 54%, var(--ba-prism-b), transparent 64%),
-    radial-gradient(ellipse 44% 26% at 58% 72%, var(--ba-prism-c), transparent 66%),
+    radial-gradient(ellipse 70% 46% at var(--ba-focus-a-x) var(--ba-focus-a-y), var(--ba-prism-a), transparent 58%),
+    radial-gradient(ellipse 42% 30% at var(--ba-focus-b-x) var(--ba-focus-b-y), var(--ba-prism-b), transparent 64%),
+    radial-gradient(ellipse 44% 26% at var(--ba-focus-c-x) var(--ba-focus-c-y), var(--ba-prism-c), transparent 66%),
     linear-gradient(90deg, #050505 0%, var(--ba-base) 48%, rgba(5, 5, 5, 0.72) 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--ba-mask-start), #000 var(--ba-mask-end), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--ba-mask-start), #000 var(--ba-mask-end), transparent);
 }
 
 .brand-atmosphere--fixed {
@@ -150,8 +158,123 @@ body {
   --ba-opacity: 0.64;
 }
 
+.brand-atmosphere--tone-calm {
+  --ba-prism-a: rgba(116, 108, 255, 0.07);
+  --ba-prism-b: rgba(68, 216, 226, 0.055);
+  --ba-prism-c: rgba(240, 168, 86, 0.038);
+  --ba-streak-a: rgba(175, 185, 255, 0.05);
+  --ba-streak-b: rgba(255, 199, 118, 0.035);
+}
+
+.brand-atmosphere--tone-proof {
+  --ba-prism-a: rgba(116, 108, 255, 0.12);
+  --ba-prism-b: rgba(68, 216, 226, 0.08);
+  --ba-prism-c: rgba(240, 168, 86, 0.055);
+  --ba-streak-a: rgba(175, 185, 255, 0.08);
+}
+
+.brand-atmosphere--tone-media {
+  --ba-prism-a: rgba(132, 126, 255, 0.14);
+  --ba-prism-b: rgba(85, 220, 220, 0.105);
+  --ba-prism-c: rgba(238, 190, 116, 0.06);
+  --ba-streak-a: rgba(185, 190, 255, 0.11);
+  --ba-streak-b: rgba(255, 212, 148, 0.07);
+}
+
+.brand-atmosphere--tone-system {
+  --ba-grid: rgba(255, 255, 255, 0.038);
+  --ba-prism-a: rgba(116, 108, 255, 0.095);
+  --ba-prism-b: rgba(68, 216, 226, 0.075);
+  --ba-prism-c: rgba(240, 168, 86, 0.045);
+}
+
+.brand-atmosphere--tone-fade {
+  --ba-prism-a: rgba(116, 108, 255, 0.055);
+  --ba-prism-b: rgba(68, 216, 226, 0.045);
+  --ba-prism-c: rgba(240, 168, 86, 0.03);
+  --ba-streak-a: rgba(175, 185, 255, 0.035);
+  --ba-streak-b: rgba(255, 199, 118, 0.025);
+  --ba-opacity: 0.56;
+}
+
+.brand-atmosphere--focus-left {
+  --ba-focus-a-x: 24%;
+  --ba-focus-a-y: 28%;
+  --ba-focus-b-x: 34%;
+  --ba-focus-b-y: 62%;
+  --ba-focus-c-x: 58%;
+  --ba-focus-c-y: 76%;
+}
+
+.brand-atmosphere--focus-right {
+  --ba-focus-a-x: 78%;
+  --ba-focus-a-y: 26%;
+  --ba-focus-b-x: 70%;
+  --ba-focus-b-y: 62%;
+  --ba-focus-c-x: 44%;
+  --ba-focus-c-y: 78%;
+}
+
+.brand-atmosphere--focus-top {
+  --ba-focus-a-x: 62%;
+  --ba-focus-a-y: 16%;
+  --ba-focus-b-x: 38%;
+  --ba-focus-b-y: 28%;
+  --ba-focus-c-x: 70%;
+  --ba-focus-c-y: 68%;
+}
+
+.brand-atmosphere--focus-bottom {
+  --ba-focus-a-x: 68%;
+  --ba-focus-a-y: 70%;
+  --ba-focus-b-x: 30%;
+  --ba-focus-b-y: 72%;
+  --ba-focus-c-x: 58%;
+  --ba-focus-c-y: 34%;
+}
+
+.section-flow {
+  position: relative;
+  isolation: isolate;
+  scroll-margin-top: calc(5rem + env(safe-area-inset-top));
+}
+
+.section-flow::before,
+.section-flow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-flow::before {
+  top: -1px;
+  height: clamp(3rem, 8vw, 7rem);
+  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0));
+}
+
+.section-flow::after {
+  bottom: -1px;
+  height: clamp(3.5rem, 9vw, 8rem);
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.86), rgba(5, 5, 5, 0));
+}
+
+.section-flow--hero::before,
+.section-flow--hero::after {
+  height: clamp(4rem, 10vw, 9rem);
+}
+
+.section-flow--fade::after {
+  height: clamp(5rem, 12vw, 10rem);
+  background: linear-gradient(to top, #050505, rgba(5, 5, 5, 0));
+}
+
 @media (max-width: 640px) {
   .brand-atmosphere {
+    --ba-mask-start: 5%;
+    --ba-mask-end: 95%;
     background:
       radial-gradient(ellipse 95% 38% at 80% 18%, var(--ba-prism-a), transparent 62%),
       radial-gradient(ellipse 60% 24% at 72% 52%, var(--ba-prism-b), transparent 66%),
@@ -161,6 +284,14 @@ body {
   .brand-atmosphere::after {
     opacity: 0.58;
     filter: blur(22px);
+  }
+
+  .section-flow::before {
+    height: 3.5rem;
+  }
+
+  .section-flow::after {
+    height: 4.5rem;
   }
 }
 

@@ -15,7 +15,7 @@ const notes = [
 function MotionPanel({ label }: { label: string }) {
   return (
     <div className="relative min-h-[17rem] overflow-hidden rounded-2xl border border-line bg-charcoal/40 p-5 sm:min-h-[20rem]">
-      <BrandAtmosphere intensity="section" />
+      <BrandAtmosphere intensity="section" tone="media" focus="bottom" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25" />
       <div className="relative flex h-full flex-col justify-between">
         <div className="flex items-center justify-between">
@@ -46,8 +46,8 @@ function MotionPanel({ label }: { label: string }) {
 
 export function MotionWork() {
   return (
-    <section className="relative overflow-hidden border-t border-line py-20 sm:py-28">
-      <BrandAtmosphere intensity="soft" />
+    <section className="section-flow relative overflow-hidden py-20 sm:py-28">
+      <BrandAtmosphere intensity="section" tone="media" focus="right" />
       <Container className="relative z-10">
         <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
           <SectionHeading

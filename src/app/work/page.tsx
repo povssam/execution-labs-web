@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
-      <section className="relative overflow-hidden pt-40 pb-16 sm:pt-48 sm:pb-20">
-        <BrandAtmosphere intensity="section" />
+      <section className="section-flow section-flow--hero relative overflow-hidden pt-40 pb-16 sm:pt-48 sm:pb-20">
+        <BrandAtmosphere intensity="section" tone="proof" focus="right" />
         <Container className="relative z-10">
           <Reveal>
             <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
@@ -38,8 +38,8 @@ export default function WorkPage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden pb-24 sm:pb-32">
-        <BrandAtmosphere intensity="soft" />
+      <section className="section-flow relative overflow-hidden pb-24 sm:pb-32">
+        <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
         <Container className="relative z-10">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {caseStudies.map((study, i) => (

@@ -9,8 +9,8 @@ const icons = [Bot, PanelsTopLeft, ChartNoAxesCombined, Workflow];
 
 export function WhatWeBuild() {
   return (
-    <section id="what-we-build" className="relative overflow-hidden border-t border-line py-20 sm:py-28">
-      <BrandAtmosphere intensity="soft" />
+    <section id="what-we-build" className="section-flow relative overflow-hidden py-20 sm:py-28">
+      <BrandAtmosphere intensity="soft" tone="calm" focus="right" />
       <Container className="relative z-10">
         <SectionHeading
           label="What we build"
