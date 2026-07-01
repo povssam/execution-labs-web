@@ -1,4 +1,6 @@
 import { Hero } from "@/components/home/Hero";
+import { GlobalStatement } from "@/components/home/GlobalStatement";
+import { WorkedWith } from "@/components/home/WorkedWith";
 import { WhatWeBuild } from "@/components/home/WhatWeBuild";
 import { MotionWork } from "@/components/home/MotionWork";
 import { WorkCarousel } from "@/components/home/WorkCarousel";
@@ -9,9 +11,11 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <WhatWeBuild />
+      <GlobalStatement />
+      <WorkedWith />
       <MotionWork />
       <WorkCarousel />
+      <WhatWeBuild />
       <Process />
       <FinalCTA />
     </>

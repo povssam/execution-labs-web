@@ -1,74 +1,57 @@
-import { CheckCircle2, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
-import { SectionHeading } from "../ui/SectionHeading";
 import { GraceVideo } from "@/components/work/GraceVideo";
 
-const notes = [
-  "Brief captured",
-  "System shaped",
-  "Proof asset built",
-  "Ready to launch",
-];
-
-function MotionPanel({ label }: { label: string }) {
-  return (
-    <div className="relative min-h-[17rem] overflow-hidden rounded-2xl border border-line bg-charcoal/40 p-5 sm:min-h-[20rem]">
-      <BrandAtmosphere intensity="section" tone="media" focus="bottom" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25" />
-      <div className="relative flex h-full flex-col justify-between">
-        <div className="flex items-center justify-between">
-          <span className="inline-flex items-center gap-2 rounded-full border border-bone/15 bg-ink/50 px-3 py-1 text-xs text-bone-dim">
-            <Play size={12} />
-            {label}
-          </span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
-            Brief to build
-          </span>
-        </div>
-        <div className="mt-24 grid gap-2">
-          {notes.map((note, i) => (
-            <span
-              key={note}
-              className="orbit-row flex items-center gap-2 rounded-lg border border-bone/10 bg-ink/55 px-3 py-2 text-sm text-bone"
-              style={{ "--orbit-delay": `${i * 0.08}s` } as React.CSSProperties}
-            >
-              <CheckCircle2 size={14} className="text-bone-dim" />
-              {note}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+const proof = ["Brand system", "Product UI", "Social motion", "Launch asset"];
 
 export function MotionWork() {
   return (
-    <section className="section-flow relative overflow-hidden py-20 sm:py-28">
+    <section className="section-flow scroll-reveal relative overflow-hidden py-20 sm:py-28">
       <BrandAtmosphere intensity="section" tone="media" focus="right" />
       <Container className="relative z-10">
-        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-          <SectionHeading
-            label="Motion work"
-            title="Motion as proof, not decoration"
-            description="Grace shows identity, interface, and motion working as one system."
-          />
-          <Reveal className="grid gap-4 md:grid-cols-[1.35fr_0.65fr]">
-            <div className="overflow-hidden rounded-2xl border border-line bg-charcoal/40">
-              <div className="relative aspect-video bg-ink">
-                <GraceVideo label="Grace Animation Final homepage proof" />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
-                <div className="pointer-events-none absolute bottom-4 left-4">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-bone/15 bg-ink/70 px-3 py-1 text-xs text-bone-dim">
-                    <Play size={12} />
-                    Grace Animation Final
-                  </span>
-                </div>
-              </div>
+        <Reveal className="media-reveal overflow-hidden rounded-xl border border-bone/15 bg-charcoal/40 shadow-[0_35px_120px_-80px_rgba(237,237,237,0.55)]">
+          <div className="relative aspect-[16/10] bg-ink sm:aspect-video">
+            <GraceVideo label="Grace Animation Final homepage proof" className="scale-[1.01]" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/62 via-transparent to-ink/12" />
+            <div className="pointer-events-none absolute left-4 top-4 hidden font-mono text-[10px] uppercase tracking-[0.18em] text-bone-faint sm:block">
+              Grace / motion proof
             </div>
-            <MotionPanel label="Brand system" />
+            <div className="pointer-events-none absolute bottom-4 left-4">
+              <span className="inline-flex items-center gap-2 rounded-full border border-bone/15 bg-ink/70 px-3 py-1 text-xs text-bone-dim backdrop-blur-md">
+                <Play size={12} />
+                Grace Animation Final
+              </span>
+            </div>
+          </div>
+        </Reveal>
+
+        <div className="mt-8 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+          <Reveal>
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
+              Motion work
+            </span>
+            <h2 className="mt-3 max-w-2xl text-4xl font-semibold leading-[1.05] text-bone sm:text-5xl">
+              Motion as proof, not decoration
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.06}>
+            <p className="max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg">
+              Grace shows identity, interface, and motion working as one calm
+              product language.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {proof.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-md border border-bone/10 bg-bone/[0.025] px-3 py-1.5 text-xs text-bone-dim"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
           </Reveal>
         </div>
       </Container>

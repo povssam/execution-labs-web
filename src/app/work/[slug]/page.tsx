@@ -42,16 +42,16 @@ function Section({ label, body }: { label: string; body: string }) {
   );
 }
 
-function GraceAssetBlock() {
+function GraceAssetBlock({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="grid items-start gap-5 lg:grid-cols-[1.35fr_0.65fr]">
-      <div className="overflow-hidden rounded-2xl border border-bone/15 bg-bone/[0.03] shadow-[0_20px_80px_-50px_rgba(237,237,237,0.45)]">
-        <div className="aspect-video bg-ink ring-1 ring-inset ring-white/10">
+    <div className={compact ? "grid items-start gap-5 lg:grid-cols-[1.45fr_0.55fr]" : "grid items-start gap-5 lg:grid-cols-[1.35fr_0.65fr]"}>
+      <div className="media-reveal overflow-hidden rounded-xl border border-bone/15 bg-bone/[0.03] shadow-[0_20px_80px_-50px_rgba(237,237,237,0.45)]">
+        <div className={compact ? "aspect-[16/10] bg-ink ring-1 ring-inset ring-white/10 sm:aspect-video" : "aspect-video bg-ink ring-1 ring-inset ring-white/10"}>
           <GraceVideo label="Grace animation final" />
         </div>
       </div>
 
-      <div className="flex flex-col justify-between rounded-2xl border border-line bg-charcoal/50 p-6">
+      <div className="flex flex-col justify-between rounded-xl border border-line bg-charcoal/50 p-6">
         <div>
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
             Live motion proof
@@ -139,7 +139,13 @@ export default async function CaseStudyPage({ params }: Params) {
             </Link>
           </Reveal>
 
-          <div className={study.slug === "grace" ? "mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end" : "mt-8 max-w-3xl"}>
+          {study.slug === "grace" && (
+            <Reveal delay={0.04} className="mt-8">
+              <GraceAssetBlock compact />
+            </Reveal>
+          )}
+
+          <div className={study.slug === "grace" ? "mt-8 max-w-3xl" : "mt-8 max-w-3xl"}>
             <div>
               <Reveal>
                 <div className="flex items-center gap-3">
@@ -162,11 +168,6 @@ export default async function CaseStudyPage({ params }: Params) {
                 </p>
               </Reveal>
             </div>
-            {study.slug === "grace" && (
-              <Reveal delay={0.12}>
-                <GraceAssetBlock />
-              </Reveal>
-            )}
           </div>
         </Container>
       </section>

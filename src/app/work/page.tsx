@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { WorkCard } from "@/components/WorkCard";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { WorkedWith } from "@/components/home/WorkedWith";
 import { caseStudies } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -37,6 +38,8 @@ export default function WorkPage() {
           </Reveal>
         </Container>
       </section>
+
+      <WorkedWith />
 
       <section className="section-flow relative overflow-hidden pb-24 sm:pb-32">
         <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
