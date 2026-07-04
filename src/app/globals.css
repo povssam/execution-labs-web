@@ -370,6 +370,15 @@ body {
   }
 }
 
+@keyframes light-sweep {
+  from {
+    transform: translateX(-130%) skewX(-12deg);
+  }
+  to {
+    transform: translateX(130%) skewX(-12deg);
+  }
+}
+
 @keyframes scroll-reveal {
   from {
     opacity: 0.84;
@@ -462,7 +471,12 @@ body {
   mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
 }
 .worked-marquee-track {
-  animation: worked-marquee 44s linear infinite;
+  animation: worked-marquee 64s linear infinite;
+}
+@media (max-width: 640px) {
+  .worked-marquee-track {
+    animation-duration: 46s;
+  }
 }
 .worked-marquee:hover .worked-marquee-track {
   animation-play-state: paused;
@@ -474,8 +488,21 @@ body {
   .marquee-col {
     animation: none;
   }
+  /* Static fallback: one wrapped row of names, duplicates and edge fade removed. */
+  .worked-marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
   .worked-marquee-track {
     animation: none;
+    width: 100%;
+  }
+  .worked-marquee-group {
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+  }
+  .worked-marquee-dupe {
+    display: none;
   }
   html {
     scroll-behavior: auto;
@@ -531,12 +558,43 @@ body {
   }
 }
 
+/* Signature motion: one soft light sweep across featured media as it enters
+   view. Pure overlay, never gates content, disabled under reduced motion. */
+.light-sweep {
+  position: relative;
+}
+.light-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    rgba(237, 237, 237, 0.06) 50%,
+    rgba(237, 237, 237, 0.02) 54%,
+    transparent 62%
+  );
+  transform: translateX(-130%) skewX(-12deg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .light-sweep::after {
+    animation: light-sweep 1.4s cubic-bezier(0.2, 0.8, 0.3, 1) 0.55s both;
+  }
+}
+
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .scroll-reveal {
       animation: scroll-reveal both;
       animation-timeline: view();
       animation-range: entry 0% cover 24%;
+    }
+    .light-sweep::after {
+      animation: light-sweep both cubic-bezier(0.2, 0.8, 0.3, 1);
+      animation-timeline: view();
+      animation-range: entry 25% cover 70%;
     }
   }
 }

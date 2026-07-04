@@ -79,13 +79,13 @@ export function Process() {
                       {step.index}
                     </span>
                   </div>
-                  <h3 className="mt-5 text-base font-medium text-bone">
+                  <h3 className="mt-3 text-base font-medium text-bone sm:mt-5">
                     {step.title}
                   </h3>
                   <p className="mt-1 text-sm text-bone-dim">
                     {step.body}
                   </p>
-                  <div className="mt-5 rounded-lg border border-bone/10 bg-charcoal/45 p-3">
+                  <div className="mt-5 hidden rounded-lg border border-bone/10 bg-charcoal/45 p-3 sm:block">
                     <StepArtifact index={i} />
                   </div>
                 </div>

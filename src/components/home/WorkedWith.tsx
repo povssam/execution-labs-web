@@ -9,8 +9,6 @@ const clients = [
   "Dividends & Total Returns",
 ];
 
-const marqueeItems = [...clients, ...clients, ...clients];
-
 export function WorkedWith() {
   return (
     <section className="section-flow scroll-reveal relative overflow-hidden border-y border-line/80 py-7 sm:py-9">
@@ -31,15 +29,28 @@ export function WorkedWith() {
               ))}
             </ul>
 
-            <div className="worked-marquee-track flex w-max items-center gap-5 sm:gap-8">
-              {marqueeItems.map((client, index) => (
-                <span
-                  key={`${client}-${index}`}
-                  aria-hidden="true"
-                  className="worked-wordmark whitespace-nowrap rounded-md border border-bone/10 bg-bone/[0.025] px-4 py-2 text-sm font-medium text-bone-dim shadow-[0_1px_0_rgba(255,255,255,0.04)_inset] sm:px-5 sm:text-base"
+            <div aria-hidden="true" className="worked-marquee-track flex w-max items-center">
+              {[0, 1, 2].map((copy) => (
+                <div
+                  key={copy}
+                  className={
+                    copy === 0
+                      ? "worked-marquee-group flex items-center"
+                      : "worked-marquee-group worked-marquee-dupe flex items-center"
+                  }
                 >
-                  {client}
-                </span>
+                  {clients.map((client) => (
+                    <span
+                      key={client}
+                      className="flex items-center gap-6 pr-6 sm:gap-10 sm:pr-10"
+                    >
+                      <span className="worked-wordmark whitespace-nowrap py-1 text-base font-medium text-bone-dim transition-colors duration-200 hover:text-bone sm:text-lg">
+                        {client}
+                      </span>
+                      <span className="h-1 w-1 shrink-0 rounded-full bg-bone/25" />
+                    </span>
+                  ))}
+                </div>
               ))}
             </div>
           </div>

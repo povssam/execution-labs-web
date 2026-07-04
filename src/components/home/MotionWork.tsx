@@ -1,30 +1,23 @@
-import { Play } from "lucide-react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { GraceVideo } from "@/components/work/GraceVideo";
-
-const proof = ["Brand system", "Product UI", "Social motion", "Launch asset"];
 
 export function MotionWork() {
   return (
     <section className="section-flow scroll-reveal relative overflow-hidden py-20 sm:py-28">
       <BrandAtmosphere intensity="section" tone="media" focus="right" />
       <Container className="relative z-10">
-        <Reveal className="media-reveal overflow-hidden rounded-xl border border-bone/15 bg-charcoal/40 shadow-[0_35px_120px_-80px_rgba(237,237,237,0.55)]">
+        <Reveal className="media-reveal light-sweep overflow-hidden rounded-xl border border-bone/15 bg-charcoal/40 shadow-[0_35px_120px_-80px_rgba(237,237,237,0.55)] sm:rounded-2xl">
           <div className="relative aspect-[16/10] bg-ink sm:aspect-video">
             <GraceVideo label="Grace Animation Final homepage proof" className="scale-[1.01]" />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/62 via-transparent to-ink/12" />
-            <div className="pointer-events-none absolute left-4 top-4 hidden font-mono text-[10px] uppercase tracking-[0.18em] text-bone-faint sm:block">
-              Grace / motion proof
-            </div>
-            <div className="pointer-events-none absolute bottom-4 left-4">
-              <span className="inline-flex items-center gap-2 rounded-full border border-bone/15 bg-ink/70 px-3 py-1 text-xs text-bone-dim backdrop-blur-md">
-                <Play size={12} />
-                Grace Animation Final
-              </span>
-            </div>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-ink/10" />
           </div>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
+            Grace / animation final
+          </p>
         </Reveal>
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
@@ -42,16 +35,9 @@ export function MotionWork() {
               Grace shows identity, interface, and motion working as one calm
               product language.
             </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {proof.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-md border border-bone/10 bg-bone/[0.025] px-3 py-1.5 text-xs text-bone-dim"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
+            <p className="mt-4 font-mono text-xs tracking-[0.04em] text-bone-faint">
+              Brand system · Product UI · Social motion · Launch asset
+            </p>
           </Reveal>
         </div>
       </Container>
