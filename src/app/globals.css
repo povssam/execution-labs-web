@@ -1,26 +1,616 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-ink: #050505;
+  --color-charcoal: #0d0d0f;
+  --color-charcoal-2: #141417;
+  --color-line: #232327;
+  --color-bone: #ededed;
+  --color-bone-dim: #a1a1aa;
+  --color-bone-faint: #86868f;
+  --color-accent: #e7e3da;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(5rem + env(safe-area-inset-top));
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
+}
+
+.tracking-tight {
+  letter-spacing: 0 !important;
+}
+
+::selection {
+  background: var(--color-bone);
+  color: var(--color-ink);
+}
+
+/* Thin scrollbar hide for the work carousel */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Faint technical grid backdrop */
+.grid-backdrop {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+
+.glass {
+  background: rgba(20, 20, 23, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.brand-atmosphere {
+  --ba-base: rgba(5, 5, 5, 0.94);
+  --ba-grid: rgba(255, 255, 255, 0.032);
+  --ba-prism-a: rgba(116, 108, 255, 0.16);
+  --ba-prism-b: rgba(79, 215, 222, 0.1);
+  --ba-prism-c: rgba(238, 179, 96, 0.08);
+  --ba-streak-a: rgba(169, 178, 255, 0.14);
+  --ba-streak-b: rgba(255, 202, 126, 0.1);
+  --ba-opacity: 1;
+  --ba-mask-start: 8%;
+  --ba-mask-end: 92%;
+  --ba-focus-a-x: 76%;
+  --ba-focus-a-y: 22%;
+  --ba-focus-b-x: 82%;
+  --ba-focus-b-y: 54%;
+  --ba-focus-c-x: 58%;
+  --ba-focus-c-y: 72%;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: var(--ba-opacity);
+  background:
+    radial-gradient(ellipse 70% 46% at var(--ba-focus-a-x) var(--ba-focus-a-y), var(--ba-prism-a), transparent 58%),
+    radial-gradient(ellipse 42% 30% at var(--ba-focus-b-x) var(--ba-focus-b-y), var(--ba-prism-b), transparent 64%),
+    radial-gradient(ellipse 44% 26% at var(--ba-focus-c-x) var(--ba-focus-c-y), var(--ba-prism-c), transparent 66%),
+    linear-gradient(90deg, #050505 0%, var(--ba-base) 48%, rgba(5, 5, 5, 0.72) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--ba-mask-start), #000 var(--ba-mask-end), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--ba-mask-start), #000 var(--ba-mask-end), transparent);
+}
+
+.brand-atmosphere--fixed {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.brand-atmosphere::before,
+.brand-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: -10%;
+}
+
+.brand-atmosphere::before {
+  opacity: 0.9;
+  background-image:
+    linear-gradient(to right, var(--ba-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--ba-grid) 1px, transparent 1px),
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.035) 0.6px, transparent 0.8px);
+  background-size: 64px 64px, 64px 64px, 4px 4px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 58% at 50% 36%, #000 34%, transparent 88%);
+  mask-image: radial-gradient(ellipse 75% 58% at 50% 36%, #000 34%, transparent 88%);
+}
+
+.brand-atmosphere::after {
+  opacity: 0.76;
+  filter: blur(18px);
+  transform: translate3d(0, 0, 0) rotate(-8deg);
+  background:
+    linear-gradient(118deg, transparent 16%, var(--ba-streak-a) 38%, var(--ba-streak-b) 45%, transparent 56%),
+    linear-gradient(132deg, transparent 49%, rgba(155, 95, 255, 0.09) 61%, rgba(68, 210, 230, 0.07) 68%, transparent 78%);
+}
+
+.brand-atmosphere--hero {
+  --ba-base: rgba(5, 5, 5, 0.9);
+  --ba-grid: rgba(255, 255, 255, 0.04);
+  --ba-prism-a: rgba(116, 108, 255, 0.24);
+  --ba-prism-b: rgba(68, 216, 226, 0.14);
+  --ba-prism-c: rgba(240, 168, 86, 0.13);
+  --ba-streak-a: rgba(175, 185, 255, 0.2);
+  --ba-streak-b: rgba(255, 199, 118, 0.15);
+}
+
+.brand-atmosphere--section {
+  --ba-opacity: 0.72;
+}
+
+.brand-atmosphere--soft {
+  --ba-grid: rgba(255, 255, 255, 0.022);
+  --ba-prism-a: rgba(116, 108, 255, 0.08);
+  --ba-prism-b: rgba(68, 216, 226, 0.05);
+  --ba-prism-c: rgba(240, 168, 86, 0.045);
+  --ba-streak-a: rgba(175, 185, 255, 0.055);
+  --ba-streak-b: rgba(255, 199, 118, 0.045);
+  --ba-opacity: 0.64;
+}
+
+.brand-atmosphere--tone-calm {
+  --ba-prism-a: rgba(116, 108, 255, 0.07);
+  --ba-prism-b: rgba(68, 216, 226, 0.055);
+  --ba-prism-c: rgba(240, 168, 86, 0.038);
+  --ba-streak-a: rgba(175, 185, 255, 0.05);
+  --ba-streak-b: rgba(255, 199, 118, 0.035);
+}
+
+.brand-atmosphere--tone-proof {
+  --ba-prism-a: rgba(116, 108, 255, 0.12);
+  --ba-prism-b: rgba(68, 216, 226, 0.08);
+  --ba-prism-c: rgba(240, 168, 86, 0.055);
+  --ba-streak-a: rgba(175, 185, 255, 0.08);
+}
+
+.brand-atmosphere--tone-media {
+  --ba-prism-a: rgba(132, 126, 255, 0.14);
+  --ba-prism-b: rgba(85, 220, 220, 0.105);
+  --ba-prism-c: rgba(238, 190, 116, 0.06);
+  --ba-streak-a: rgba(185, 190, 255, 0.11);
+  --ba-streak-b: rgba(255, 212, 148, 0.07);
+}
+
+.brand-atmosphere--tone-system {
+  --ba-grid: rgba(255, 255, 255, 0.038);
+  --ba-prism-a: rgba(116, 108, 255, 0.095);
+  --ba-prism-b: rgba(68, 216, 226, 0.075);
+  --ba-prism-c: rgba(240, 168, 86, 0.045);
+}
+
+.brand-atmosphere--tone-fade {
+  --ba-prism-a: rgba(116, 108, 255, 0.055);
+  --ba-prism-b: rgba(68, 216, 226, 0.045);
+  --ba-prism-c: rgba(240, 168, 86, 0.03);
+  --ba-streak-a: rgba(175, 185, 255, 0.035);
+  --ba-streak-b: rgba(255, 199, 118, 0.025);
+  --ba-opacity: 0.56;
+}
+
+.brand-atmosphere--focus-left {
+  --ba-focus-a-x: 24%;
+  --ba-focus-a-y: 28%;
+  --ba-focus-b-x: 34%;
+  --ba-focus-b-y: 62%;
+  --ba-focus-c-x: 58%;
+  --ba-focus-c-y: 76%;
+}
+
+.brand-atmosphere--focus-right {
+  --ba-focus-a-x: 78%;
+  --ba-focus-a-y: 26%;
+  --ba-focus-b-x: 70%;
+  --ba-focus-b-y: 62%;
+  --ba-focus-c-x: 44%;
+  --ba-focus-c-y: 78%;
+}
+
+.brand-atmosphere--focus-top {
+  --ba-focus-a-x: 62%;
+  --ba-focus-a-y: 16%;
+  --ba-focus-b-x: 38%;
+  --ba-focus-b-y: 28%;
+  --ba-focus-c-x: 70%;
+  --ba-focus-c-y: 68%;
+}
+
+.brand-atmosphere--focus-bottom {
+  --ba-focus-a-x: 68%;
+  --ba-focus-a-y: 70%;
+  --ba-focus-b-x: 30%;
+  --ba-focus-b-y: 72%;
+  --ba-focus-c-x: 58%;
+  --ba-focus-c-y: 34%;
+}
+
+.section-flow {
+  position: relative;
+  isolation: isolate;
+  scroll-margin-top: calc(5rem + env(safe-area-inset-top));
+}
+
+.section-flow::before,
+.section-flow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.section-flow::before {
+  top: -1px;
+  height: clamp(3rem, 8vw, 7rem);
+  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.9), rgba(5, 5, 5, 0));
+}
+
+.section-flow::after {
+  bottom: -1px;
+  height: clamp(3.5rem, 9vw, 8rem);
+  background: linear-gradient(to top, rgba(5, 5, 5, 0.86), rgba(5, 5, 5, 0));
+}
+
+.section-flow--hero::before,
+.section-flow--hero::after {
+  height: clamp(4rem, 10vw, 9rem);
+}
+
+.section-flow--fade::after {
+  height: clamp(5rem, 12vw, 10rem);
+  background: linear-gradient(to top, #050505, rgba(5, 5, 5, 0));
+}
+
+@media (max-width: 640px) {
+  .brand-atmosphere {
+    --ba-mask-start: 5%;
+    --ba-mask-end: 95%;
+    background:
+      radial-gradient(ellipse 95% 38% at 80% 18%, var(--ba-prism-a), transparent 62%),
+      radial-gradient(ellipse 60% 24% at 72% 52%, var(--ba-prism-b), transparent 66%),
+      linear-gradient(90deg, #050505 0%, rgba(5, 5, 5, 0.93) 62%, rgba(5, 5, 5, 0.82) 100%);
+  }
+
+  .brand-atmosphere::after {
+    opacity: 0.58;
+    filter: blur(22px);
+  }
+
+  .section-flow::before {
+    height: 3.5rem;
+  }
+
+  .section-flow::after {
+    height: 4.5rem;
+  }
+}
+
+/*
+ * Reveal + motion utilities.
+ * Content is visible by default. Animation only enhances it.
+ * If JS, reduced motion, or animation support is missing, the resting
+ * state is the final, fully visible state. Animations never gate content.
+ */
+@keyframes reveal-up {
+  from {
+    opacity: 0.82;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes preloader-out {
+  0%, 72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes preloader-mark {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes text-wipe {
+  from {
+    opacity: 0.86;
+    clip-path: inset(0 12% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes work-rail {
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes worked-marquee {
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+
+@keyframes media-reveal {
+  from {
+    opacity: 0.86;
+    clip-path: inset(0 0 16% 0 round 0.75rem);
+    transform: translateY(14px) scale(0.985);
+    filter: saturate(0.92);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 0.75rem);
+    transform: none;
+    filter: saturate(1);
+  }
+}
+
+@keyframes light-sweep {
+  from {
+    transform: translateX(-130%) skewX(-12deg);
+  }
+  to {
+    transform: translateX(130%) skewX(-12deg);
+  }
+}
+
+@keyframes scroll-reveal {
+  from {
+    opacity: 0.84;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes orbit-row {
+  from {
+    opacity: 0.25;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes orbit-scan {
+  to {
+    transform: translateX(280%);
+  }
+}
+
+@keyframes process-flow-mobile {
+  to {
+    transform: translateY(260%);
+  }
+}
+
+@keyframes process-flow-desktop {
+  to {
+    transform: translateX(640%);
+  }
+}
+
+.process-flow {
+  overflow: hidden;
+}
+
+.process-flow::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 0;
+  height: 28%;
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, transparent, rgba(237, 237, 237, 0.7), transparent);
+}
+
+/* Vertical marquee for the moving UI showcase columns. Cards are visible by
+   default; the transform only moves them. Reduced motion stops the motion. */
+@keyframes marquee-y {
+  to {
+    transform: translateY(-50%);
+  }
+}
+.marquee-col {
+  animation: marquee-y var(--mq-dur, 38s) linear infinite;
+}
+.marquee-col.reverse {
+  animation-direction: reverse;
+}
+.showcase:hover .marquee-col {
+  animation-play-state: paused;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 11%,
+    #000 89%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 11%,
+    #000 89%,
+    transparent
+  );
+}
+.worked-marquee {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+.worked-marquee-track {
+  animation: worked-marquee 64s linear infinite;
+}
+@media (max-width: 640px) {
+  .worked-marquee-track {
+    animation-duration: 46s;
+  }
+}
+.worked-marquee:hover .worked-marquee-track {
+  animation-play-state: paused;
+}
+.worked-wordmark {
+  letter-spacing: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-col {
+    animation: none;
+  }
+  /* Static fallback: one wrapped row of names, duplicates and edge fade removed. */
+  .worked-marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .worked-marquee-track {
+    animation: none;
+    width: 100%;
+  }
+  .worked-marquee-group {
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+  }
+  .worked-marquee-dupe {
+    display: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Slow, subtle glass breathing for the ambient lens glow. */
+@keyframes glass-breathe {
+  0%, 100% { transform: translate(-50%, 0) scale(1); opacity: 0.18; }
+  50% { transform: translate(-50%, 1.5%) scale(1.06); opacity: 0.24; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .preloader {
+    animation: preloader-out 0.62s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+  .preloader-mark {
+    animation: preloader-mark 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+  .glass-breathe { animation: glass-breathe 18s ease-in-out infinite; }
+  .hero-media img { animation: media-reveal 0.72s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+  .media-reveal { animation: media-reveal 0.76s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
+}
+
+/* Visible by default. The entrance animation self-completes on load and never
+   depends on scroll or an observer, so content can never stay hidden. */
+.reveal {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: reveal-up 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+    animation-delay: var(--reveal-delay, 0s);
+  }
+  .text-wipe {
+    animation: text-wipe 0.62s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+  .work-rail-track {
+    animation: work-rail 24s linear infinite;
+  }
+  .work-rail:hover .work-rail-track {
+    animation-play-state: paused;
+  }
+  .orbit-row {
+    animation: orbit-row 0.48s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+    animation-delay: var(--orbit-delay, 0s);
+  }
+  .orbit-scan {
+    animation: orbit-scan 1.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+  }
+  .process-flow::after {
+    animation: process-flow-mobile 3.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+  }
+}
+
+/* Signature motion: one soft light sweep across featured media as it enters
+   view. Pure overlay, never gates content, disabled under reduced motion. */
+.light-sweep {
+  position: relative;
+}
+.light-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    rgba(237, 237, 237, 0.06) 50%,
+    rgba(237, 237, 237, 0.02) 54%,
+    transparent 62%
+  );
+  transform: translateX(-130%) skewX(-12deg);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .light-sweep::after {
+    animation: light-sweep 1.4s cubic-bezier(0.2, 0.8, 0.3, 1) 0.55s both;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-reveal {
+      animation: scroll-reveal both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 24%;
+    }
+    .light-sweep::after {
+      animation: light-sweep both cubic-bezier(0.2, 0.8, 0.3, 1);
+      animation-timeline: view();
+      animation-range: entry 25% cover 70%;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .process-flow::after {
+    left: 0;
+    top: -1px;
+    height: 3px;
+    width: 14%;
+    background: linear-gradient(to right, transparent, rgba(237, 237, 237, 0.7), transparent);
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .process-flow::after {
+    animation: process-flow-desktop 4.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+  }
 }
