@@ -557,18 +557,27 @@ body {
   }
 }
 
-/* Hero glass image: embedded atmosphere layer, not a banner. All edges melt
-   into the ink background; the headline overlaps the faded base. */
-.hero-glass-blend {
+/* Hero glass as a full-bleed background atmosphere. The crop pushes the
+   baked-in logo above the visible area; masks melt it into the ink. */
+.hero-glass-bg,
+.hero-glass-bg.light-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 26%, #000 64%, transparent 98%);
+  mask-image: linear-gradient(to bottom, transparent, #000 26%, #000 64%, transparent 98%);
+}
+.hero-glass-bg img {
   opacity: 0.9;
-  -webkit-mask-image:
-    linear-gradient(to right, transparent, #000 10%, #000 90%, transparent),
-    linear-gradient(to bottom, transparent, #000 14%, #000 52%, transparent 99%);
-  mask-image:
-    linear-gradient(to right, transparent, #000 10%, #000 90%, transparent),
-    linear-gradient(to bottom, transparent, #000 14%, #000 52%, transparent 99%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
+  transform: scale(1.8) translate3d(-13%, -30%, 0);
+}
+@media (max-width: 640px) {
+  .hero-glass-bg img {
+    opacity: 0.92;
+    transform: none;
+    object-position: 73% 50%;
+  }
 }
 
 /* Slow, subtle glass breathing for the ambient lens glow. */
@@ -584,7 +593,6 @@ body {
     animation: preloader-mark 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) both;
   }
   .glass-breathe { animation: glass-breathe 18s ease-in-out infinite; }
-  .hero-media img { animation: media-reveal 0.72s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
   .media-reveal { animation: media-reveal 0.76s cubic-bezier(0.2, 0.8, 0.3, 1) both; }
 }
 
