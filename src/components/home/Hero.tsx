@@ -13,7 +13,7 @@ export function Hero() {
 
       <Container className="relative z-10">
         <div
-          className="hero-media light-sweep reveal relative mb-10 overflow-hidden rounded-xl border border-bone/10 bg-charcoal/35 shadow-[0_30px_120px_-80px_rgba(237,237,237,0.6)] sm:mb-12"
+          className="hero-media light-sweep reveal relative"
           style={revealDelay("0.02s")}
         >
           <Image
@@ -22,16 +22,15 @@ export function Hero() {
             width={1500}
             height={500}
             priority
-            className="block h-28 w-full object-cover sm:h-56 lg:h-64"
+            className="hero-glass-blend block h-40 w-full object-cover sm:h-64 lg:h-72"
           />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-ink/10" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden items-center justify-between px-5 pb-3.5 font-mono text-[10px] uppercase tracking-[0.16em] text-bone/60 sm:flex">
+          <div className="pointer-events-none absolute inset-x-0 top-0 hidden items-center justify-between px-1 pt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-bone/55 sm:flex">
             <span>Execution Labs / systems studio</span>
             <span>Brief → System → Build → Proof</span>
           </div>
         </div>
 
-        <div className="max-w-3xl">
+        <div className="relative z-10 -mt-8 max-w-3xl sm:-mt-12">
           <span className="flow-line flow-line--load mb-6 block w-16" aria-hidden />
           <h1
             className="reveal text-[2.7rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
