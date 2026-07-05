@@ -45,10 +45,33 @@ export function WorkCarousel() {
                   href={`/work/${study.slug}`}
                   className="group overflow-hidden rounded-2xl border border-line bg-charcoal/35 transition-colors duration-200 hover:border-bone/25 hover:bg-charcoal-2/60"
                 >
-                  {study.assets?.video && (
+                  {study.assets?.video ? (
                     <div className="relative aspect-video bg-ink">
                       <GraceVideo label={`${study.client} featured preview`} />
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
+                    </div>
+                  ) : (
+                    <div className="relative aspect-video overflow-hidden bg-ink p-5">
+                      <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-40" />
+                      <div className="pointer-events-none absolute left-0 top-10 h-px w-1/3 bg-bone/70 orbit-scan" />
+                      <div className="relative flex h-full flex-col justify-center gap-2">
+                        {[
+                          ["Release task", "Assigned"],
+                          ["Asset follow up", "Drafted"],
+                          ["Deadline risk", "Escalated"],
+                          ["Manager update", "Sent"],
+                        ].map(([task, state]) => (
+                          <div
+                            key={task}
+                            className="flex items-center justify-between gap-4 rounded-lg border border-line bg-charcoal/60 px-3 py-2"
+                          >
+                            <span className="text-xs text-bone">{task}</span>
+                            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-bone-faint">
+                              {state}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                   <div className="p-5">

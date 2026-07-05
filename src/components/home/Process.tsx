@@ -1,56 +1,8 @@
-import { Check, FileText, Hammer, Route } from "lucide-react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 import { process } from "@/lib/data";
-
-const icons = [FileText, Route, Hammer, Check];
-
-function StepArtifact({ index }: { index: number }) {
-  if (index === 0) {
-    return (
-      <div className="grid gap-1.5">
-        <span className="h-1 w-12 rounded-full bg-bone/45" />
-        <span className="h-1 w-20 rounded-full bg-bone/20" />
-        <span className="h-1 w-10 rounded-full bg-bone/15" />
-      </div>
-    );
-  }
-
-  if (index === 1) {
-    return (
-      <div className="flex items-center gap-2">
-        <span className="h-1.5 w-1.5 rounded-full bg-bone/55" />
-        <span className="h-px w-6 bg-bone/20" />
-        <span className="h-1.5 w-7 rounded-full border border-bone/25" />
-        <span className="h-px w-6 bg-bone/20" />
-        <span className="h-1.5 w-1.5 rounded-full bg-bone/35" />
-      </div>
-    );
-  }
-
-  if (index === 2) {
-    return (
-      <div className="grid grid-cols-3 gap-1.5">
-        {[0, 1, 2, 3, 4, 5].map((item) => (
-          <span
-            key={item}
-            className="h-3 rounded border border-bone/10 bg-bone/[0.04]"
-          />
-        ))}
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid gap-1.5">
-      <span className="h-1 w-20 rounded-full bg-bone/20" />
-      <span className="h-1 w-12 rounded-full bg-bone/45" />
-      <span className="h-1 w-16 rounded-full bg-bone/15" />
-    </div>
-  );
-}
 
 export function Process() {
   return (
@@ -59,39 +11,31 @@ export function Process() {
       <Container className="relative z-10">
         <SectionHeading label="Process" title="Brief to proof" />
 
-        <div className="relative mt-10">
-          <div
-            className="process-flow pointer-events-none absolute bottom-0 left-6 top-0 w-px bg-line sm:hidden lg:left-0 lg:right-0 lg:top-1/2 lg:block lg:h-px lg:w-auto"
-            aria-hidden
-          />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+        <div className="relative mt-10 sm:mt-14">
+          {/* The proof-flow rail: vertical on mobile, horizontal on desktop. */}
+          <div className="flow-rail-y left-[3px] sm:hidden" aria-hidden />
+          <div className="flow-rail-x top-[3px] hidden sm:block" aria-hidden />
+
+          <ol className="grid gap-8 sm:grid-cols-4 sm:gap-6">
             {process.map((step, i) => (
-              <Reveal key={step.index} delay={i * 0.06}>
-                <div className="group relative z-10 rounded-2xl border border-line bg-ink/80 p-4 transition-colors duration-200 hover:border-bone/25 sm:p-5">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full border border-line bg-charcoal text-bone-dim transition-colors duration-150 group-hover:border-bone/30 group-hover:text-bone">
-                      {(() => {
-                        const Icon = icons[i % icons.length];
-                        return <Icon size={15} strokeWidth={1.7} />;
-                      })()}
-                    </span>
-                    <span className="font-mono text-[11px] text-bone-faint">
-                      {step.index}
-                    </span>
-                  </div>
-                  <h3 className="mt-3 text-base font-medium text-bone sm:mt-5">
+              <Reveal as="li" key={step.index} delay={i * 0.06}>
+                <div className="relative pl-7 sm:pl-0 sm:pt-9">
+                  <span
+                    className="flow-dot left-0 top-[5px] sm:left-0 sm:top-0"
+                    style={{ opacity: 1 - i * 0.14 }}
+                    aria-hidden
+                  />
+                  <span className="font-mono text-[11px] text-bone-faint">
+                    {step.index}
+                  </span>
+                  <h3 className="mt-1.5 text-lg font-medium text-bone sm:text-xl">
                     {step.title}
                   </h3>
-                  <p className="mt-1 text-sm text-bone-dim">
-                    {step.body}
-                  </p>
-                  <div className="mt-5 hidden rounded-lg border border-bone/10 bg-charcoal/45 p-3 sm:block">
-                    <StepArtifact index={i} />
-                  </div>
+                  <p className="mt-1 text-sm text-bone-dim">{step.body}</p>
                 </div>
               </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </Container>
     </section>

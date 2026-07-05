@@ -8,7 +8,13 @@ export function GlobalStatement() {
       <BrandAtmosphere intensity="soft" tone="fade" focus="center" />
       <Container className="relative z-10">
         <Reveal>
-          <p className="max-w-[19em] text-[1.55rem] font-medium leading-[1.18] text-bone sm:max-w-5xl sm:text-5xl sm:leading-[1.04] lg:text-6xl">
+          <span className="flex items-center gap-3">
+            <span className="flow-line" aria-hidden />
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
+              The studio
+            </span>
+          </span>
+          <p className="mt-5 max-w-[19em] text-[1.55rem] font-medium leading-[1.18] text-bone sm:max-w-5xl sm:text-5xl sm:leading-[1.04] lg:text-6xl">
             Building exceptional digital experiences for visionaries and
             innovators around the world.
           </p>

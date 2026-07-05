@@ -407,31 +407,79 @@ body {
   }
 }
 
-@keyframes process-flow-mobile {
+/*
+ * Signature "proof flow" motion: a prism line that draws itself in as each
+ * section enters view. Lines are fully drawn by default; the draw animation
+ * only runs where scroll timelines are supported and motion is allowed.
+ */
+@keyframes flow-draw {
+  from {
+    transform: var(--flow-from, scaleX(0.12));
+    opacity: 0.4;
+  }
   to {
-    transform: translateY(260%);
+    transform: none;
+    opacity: 1;
   }
 }
 
-@keyframes process-flow-desktop {
-  to {
-    transform: translateX(640%);
-  }
+.flow-line {
+  display: inline-block;
+  height: 1px;
+  width: 2.75rem;
+  flex: none;
+  transform-origin: left center;
+  background: linear-gradient(
+    90deg,
+    rgba(169, 178, 255, 0.85),
+    rgba(79, 215, 222, 0.5),
+    rgba(238, 179, 96, 0.32)
+  );
 }
 
-.process-flow {
-  overflow: hidden;
-}
-
-.process-flow::after {
-  content: "";
+.flow-rail-x,
+.flow-rail-y {
   position: absolute;
-  left: -1px;
+  pointer-events: none;
+}
+
+.flow-rail-x {
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform-origin: left center;
+  --flow-from: scaleX(0.1);
+  background: linear-gradient(
+    90deg,
+    rgba(169, 178, 255, 0.55),
+    rgba(79, 215, 222, 0.32) 45%,
+    rgba(238, 179, 96, 0.22) 80%,
+    transparent
+  );
+}
+
+.flow-rail-y {
   top: 0;
-  height: 28%;
-  width: 3px;
+  bottom: 0;
+  width: 1px;
+  transform-origin: center top;
+  --flow-from: scaleY(0.1);
+  background: linear-gradient(
+    180deg,
+    rgba(169, 178, 255, 0.55),
+    rgba(79, 215, 222, 0.32) 45%,
+    rgba(238, 179, 96, 0.22) 80%,
+    transparent
+  );
+}
+
+.flow-dot {
+  position: absolute;
+  height: 7px;
+  width: 7px;
   border-radius: 999px;
-  background: linear-gradient(to bottom, transparent, rgba(237, 237, 237, 0.7), transparent);
+  background: var(--color-bone);
+  box-shadow: 0 0 10px rgba(169, 178, 255, 0.55);
 }
 
 /* Vertical marquee for the moving UI showcase columns. Cards are visible by
@@ -553,8 +601,8 @@ body {
   .orbit-scan {
     animation: orbit-scan 1.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
   }
-  .process-flow::after {
-    animation: process-flow-mobile 3.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+  .flow-line--load {
+    animation: flow-draw 0.9s cubic-bezier(0.2, 0.8, 0.3, 1) 0.15s both;
   }
 }
 
@@ -596,21 +644,12 @@ body {
       animation-timeline: view();
       animation-range: entry 25% cover 70%;
     }
-  }
-}
-
-@media (min-width: 1024px) {
-  .process-flow::after {
-    left: 0;
-    top: -1px;
-    height: 3px;
-    width: 14%;
-    background: linear-gradient(to right, transparent, rgba(237, 237, 237, 0.7), transparent);
-  }
-}
-
-@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
-  .process-flow::after {
-    animation: process-flow-desktop 4.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+    .flow-line:not(.flow-line--load),
+    .flow-rail-x,
+    .flow-rail-y {
+      animation: flow-draw both cubic-bezier(0.2, 0.8, 0.3, 1);
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
   }
 }
