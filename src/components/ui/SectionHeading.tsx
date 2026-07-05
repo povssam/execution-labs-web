@@ -16,8 +16,11 @@ export function SectionHeading({
     <div className={cn("max-w-2xl", className)}>
       {label && (
         <Reveal>
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
-            {label}
+          <span className="flex items-center gap-3">
+            <span className="flow-line" aria-hidden />
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
+              {label}
+            </span>
           </span>
         </Reveal>
       )}

@@ -22,8 +22,11 @@ export function MotionWork() {
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <Reveal>
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
-              Motion work
+            <span className="flex items-center gap-3">
+              <span className="flow-line" aria-hidden />
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
+                Motion work
+              </span>
             </span>
             <h2 className="mt-3 max-w-2xl text-4xl font-semibold leading-[1.05] text-bone sm:text-5xl">
               Motion as proof, not decoration

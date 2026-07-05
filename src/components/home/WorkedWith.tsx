@@ -44,7 +44,7 @@ export function WorkedWith() {
                       key={client}
                       className="flex items-center gap-6 pr-6 sm:gap-10 sm:pr-10"
                     >
-                      <span className="worked-wordmark whitespace-nowrap py-1 text-base font-medium text-bone-dim transition-colors duration-200 hover:text-bone sm:text-lg">
+                      <span className="worked-wordmark whitespace-nowrap py-1 text-base font-medium text-bone/75 transition-colors duration-200 hover:text-bone sm:text-xl">
                         {client}
                       </span>
                       <span className="h-1 w-1 shrink-0 rounded-full bg-bone/25" />

@@ -1,11 +1,8 @@
-import { Bot, ChartNoAxesCombined, PanelsTopLeft, Workflow } from "lucide-react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 import { capabilities } from "@/lib/data";
-
-const icons = [Bot, PanelsTopLeft, ChartNoAxesCombined, Workflow];
 
 export function WhatWeBuild() {
   return (
@@ -15,40 +12,26 @@ export function WhatWeBuild() {
         <SectionHeading
           label="What we build"
           title="Four ways we turn a brief into a system"
-          description="Agents, tools, MVPs, and systems built to hold up."
         />
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+        <div className="mt-10 border-t border-line sm:mt-12">
           {capabilities.map((item, i) => (
-            <Reveal key={item.title} delay={(i % 2) * 0.06} className="h-full">
-              <div className="group h-full rounded-2xl border border-line bg-charcoal/40 p-6 transition-colors duration-200 hover:border-bone/25 hover:bg-charcoal-2/60 sm:p-7">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-ink text-bone-dim transition-colors duration-150 group-hover:border-bone/40 group-hover:text-bone">
-                    {(() => {
-                      const Icon = icons[i % icons.length];
-                      return <Icon size={18} strokeWidth={1.8} />;
-                    })()}
-                  </span>
-                  <span className="font-mono text-xs text-bone-faint">0{i + 1}</span>
-                </div>
-                <h3 className="mt-5 text-xl font-medium text-bone">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-bone-dim">
+            <Reveal key={item.title} delay={i * 0.05}>
+              <div className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 border-b border-line py-6 transition-colors duration-200 hover:border-bone/25 sm:grid-cols-[4rem_1fr_auto] sm:gap-x-8 sm:py-8">
+                <span className="font-mono text-xs text-bone-faint transition-colors duration-200 group-hover:text-bone-dim">
+                  0{i + 1}
+                </span>
+                <h3 className="text-2xl font-medium text-bone transition-transform duration-200 group-hover:translate-x-1 sm:text-3xl">
+                  {item.title}
+                </h3>
+                <p className="col-start-2 mt-2 max-w-md text-sm leading-relaxed text-bone-dim sm:col-start-3 sm:mt-0 sm:text-right">
                   {item.stance}
                 </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {item.points.slice(0, 2).map((p) => (
-                    <span
-                      key={p}
-                      className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim"
-                    >
-                      {p}
-                    </span>
-                  ))}
-                </div>
               </div>
             </Reveal>
           ))}
         </div>
+
       </Container>
     </section>
   );
