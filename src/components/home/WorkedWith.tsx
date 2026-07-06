@@ -9,53 +9,53 @@ const clients = [
   "Dividends & Total Returns",
 ];
 
+/* Soft opacity rhythm across the strip. Uniform type, no chrome. */
+const rhythm = [0.8, 0.52, 0.68, 0.48, 0.62];
+
 export function WorkedWith() {
   return (
-    <section className="section-flow scroll-reveal relative overflow-hidden border-y border-line/80 py-7 sm:py-9">
+    <section className="section-flow scroll-reveal relative overflow-hidden py-12 sm:py-16">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
+
       <Container className="relative z-10">
-        <div className="grid gap-5 lg:grid-cols-[10rem_1fr] lg:items-center">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
-            Worked with
-          </p>
+        <p className="text-center font-mono text-[11px] uppercase tracking-[0.26em] text-bone-faint">
+          Worked with
+        </p>
+      </Container>
 
-          <div
-            className="worked-marquee relative overflow-hidden"
-            aria-label={`Worked with ${clients.join(", ")}`}
-          >
-            <ul className="sr-only">
-              {clients.map((client) => (
-                <li key={client}>{client}</li>
-              ))}
-            </ul>
+      <div
+        className="worked-marquee relative z-10 mt-8 overflow-hidden sm:mt-10"
+        aria-label={`Worked with ${clients.join(", ")}`}
+      >
+        <ul className="sr-only">
+          {clients.map((client) => (
+            <li key={client}>{client}</li>
+          ))}
+        </ul>
 
-            <div aria-hidden="true" className="worked-marquee-track flex w-max items-center">
-              {[0, 1, 2].map((copy) => (
-                <div
-                  key={copy}
-                  className={
-                    copy === 0
-                      ? "worked-marquee-group flex items-center"
-                      : "worked-marquee-group worked-marquee-dupe flex items-center"
-                  }
+        <div aria-hidden="true" className="worked-marquee-track flex w-max items-center">
+          {[0, 1, 2].map((copy) => (
+            <div
+              key={copy}
+              className={
+                copy === 0
+                  ? "worked-marquee-group flex items-center"
+                  : "worked-marquee-group worked-marquee-dupe flex items-center"
+              }
+            >
+              {clients.map((client, i) => (
+                <span
+                  key={client}
+                  className="worked-wordmark whitespace-nowrap px-8 py-1 text-lg font-medium text-bone sm:px-16 sm:text-2xl"
+                  style={{ opacity: rhythm[i] }}
                 >
-                  {clients.map((client) => (
-                    <span
-                      key={client}
-                      className="flex items-center gap-6 pr-6 sm:gap-10 sm:pr-10"
-                    >
-                      <span className="worked-wordmark whitespace-nowrap py-1 text-base font-medium text-bone/75 transition-colors duration-200 hover:text-bone sm:text-xl">
-                        {client}
-                      </span>
-                      <span className="h-1 w-1 shrink-0 rounded-full bg-bone/25" />
-                    </span>
-                  ))}
-                </div>
+                  {client}
+                </span>
               ))}
             </div>
-          </div>
+          ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
