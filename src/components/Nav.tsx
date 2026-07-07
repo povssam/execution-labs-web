@@ -40,6 +40,13 @@ export function Nav() {
     };
   }, [open]);
 
+  // Close the menu on any route change so the scroll lock is always released.
+  // Client-side navigation does not unmount Nav, so without this the lock can
+  // outlive the menu and trap page scroll.
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   // Scrollspy: highlight the homepage section currently in view.
   // Off the homepage, isActive() ignores activeSection, so a stale value is harmless.
   useEffect(() => {
@@ -134,7 +141,11 @@ export function Nav() {
               </Link>
             ))}
             <div className="mt-3">
-              <ButtonLink href="/contact" className="w-full">
+              <ButtonLink
+                href="/contact"
+                className="w-full"
+                onClick={() => setOpen(false)}
+              >
                 Start a project
                 <ArrowRight size={15} />
               </ButtonLink>
