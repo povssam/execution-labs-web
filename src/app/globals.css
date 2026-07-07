@@ -515,15 +515,15 @@ body {
   );
 }
 .worked-marquee {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
 }
 .worked-marquee-track {
-  animation: worked-marquee 64s linear infinite;
+  animation: worked-marquee 72s linear infinite;
 }
 @media (max-width: 640px) {
   .worked-marquee-track {
-    animation-duration: 46s;
+    animation-duration: 48s;
   }
 }
 .worked-marquee:hover .worked-marquee-track {
@@ -547,7 +547,9 @@ body {
   }
   .worked-marquee-group {
     flex-wrap: wrap;
+    justify-content: center;
     row-gap: 0.25rem;
+    padding: 0 1.25rem;
   }
   .worked-marquee-dupe {
     display: none;
