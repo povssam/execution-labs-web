@@ -11,9 +11,8 @@ import { Logo } from "./brand/Logo";
 type NavLink = { href: string; label: string; section?: string };
 
 const links: NavLink[] = [
-  { href: "/#what-we-build", label: "What we build", section: "what-we-build" },
-  { href: "/work", label: "Work" },
-  { href: "/services", label: "Services" },
+  { href: "/#services", label: "Services", section: "services" },
+  { href: "/#work", label: "Work", section: "work" },
   { href: "/#process", label: "Process", section: "process" },
   { href: "/contact", label: "Contact" },
 ];
@@ -42,10 +41,13 @@ export function Nav() {
 
   // Close the menu on any route change so the scroll lock is always released.
   // Client-side navigation does not unmount Nav, so without this the lock can
-  // outlive the menu and trap page scroll.
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  // outlive the menu and trap page scroll. Reconciled during render (React's
+  // recommended pattern) rather than in an effect, so no cascading render.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    if (open) setOpen(false);
+  }
 
   // Scrollspy: highlight the homepage section currently in view.
   // Off the homepage, isActive() ignores activeSection, so a stale value is harmless.
