@@ -29,8 +29,7 @@ export function SelectedWork() {
       <Container className="relative z-10">
         <SectionHeading
           className="mx-auto text-center [&_span]:justify-center"
-          label="Selected work"
-          title="Shipped systems, not decks"
+          title="Selected Work"
           description="Pick a project. Real artifacts, users, and workflows."
         />
 
@@ -91,12 +90,9 @@ export function SelectedWork() {
 
               {/* Text side */}
               <div className="relative flex flex-col justify-center gap-5 p-6 sm:p-9">
-                <div className="flex items-center gap-3">
-                  <span className="flow-line" aria-hidden />
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
-                    {study.category} · {study.year}
-                  </span>
-                </div>
+                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
+                  {study.category} · {study.year}
+                </span>
 
                 <h3 className="text-2xl font-semibold text-bone sm:text-4xl">
                   {study.client}

@@ -32,7 +32,7 @@ export function ClientSignals() {
       <BrandAtmosphere intensity="soft" tone="calm" focus="right" />
       <Container className="relative z-10">
         <SectionHeading
-          label="Client signals"
+          className="mx-auto max-w-2xl text-center"
           title="What clients notice"
           description="The change shows up in how the work runs, not in a slide."
         />
@@ -41,13 +41,7 @@ export function ClientSignals() {
           {signals.map((signal, i) => (
             <Reveal key={signal.title} delay={i * 0.05}>
               <div className="proof-card h-full p-6 sm:p-8">
-                <div className="flex items-center gap-3">
-                  <span className="flow-line" aria-hidden />
-                  <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
-                    0{i + 1}
-                  </span>
-                </div>
-                <h3 className="mt-4 text-xl font-medium text-bone sm:text-2xl">
+                <h3 className="text-xl font-medium text-bone sm:text-2xl">
                   {signal.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-bone-dim sm:text-base">

@@ -6,7 +6,7 @@ import { revealDelay } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="section-flow section-flow--hero relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-24 lg:pt-52 lg:pb-28">
+    <section className="section-flow section-flow--hero relative overflow-hidden pt-36 pb-10 sm:pt-44 sm:pb-12 lg:pt-52 lg:pb-16">
       <BrandAtmosphere intensity="hero" focus="right" />
 
       {/* Prism glass as full-bleed hero atmosphere. Decorative only. */}
