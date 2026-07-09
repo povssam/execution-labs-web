@@ -16,7 +16,7 @@ export function FinalCTA() {
                 Have a system worth building?
               </h2>
               <p className="mx-auto mt-5 max-w-xl text-lg text-bone-dim">
-                Send the problem. We will map the first useful build.
+                Send the problem. We will map the first useful build in 24 hours.
               </p>
               <CtaButtons className="mt-10 justify-center" primaryLabel="Start a project" />
             </div>

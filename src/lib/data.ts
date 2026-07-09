@@ -30,6 +30,18 @@ export const capabilities: Capability[] = [
     body: "Product, data, and infrastructure work for teams that need speed without creating expensive cleanup later.",
     points: ["APIs", "Pipelines", "Infra"],
   },
+  {
+    title: "Motion Design",
+    stance: "Make the product feel alive.",
+    body: "Identity, interface, and motion built as one language, so a product reads as premium the moment it moves.",
+    points: ["Identity", "Interface", "Motion"],
+  },
+  {
+    title: "Automation",
+    stance: "Delete the manual step.",
+    body: "Quiet systems that watch state, move data, and handle the follow up work no one should be doing by hand.",
+    points: ["Triggers", "Routing", "Handoff"],
+  },
 ];
 
 export type Step = {

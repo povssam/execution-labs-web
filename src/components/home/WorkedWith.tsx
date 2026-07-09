@@ -9,8 +9,9 @@ const clients = [
   "Dividends & Total Returns",
 ];
 
-/* Soft opacity rhythm across the strip. Uniform type, no chrome. */
-const rhythm = [0.8, 0.52, 0.68, 0.48, 0.62];
+/* Gentle opacity rhythm across the strip. Kept high so every name reads clean.
+   Uniform type, no chrome. */
+const rhythm = [0.92, 0.72, 0.84, 0.68, 0.78];
 
 export function WorkedWith() {
   return (
@@ -46,7 +47,7 @@ export function WorkedWith() {
               {clients.map((client, i) => (
                 <span
                   key={client}
-                  className="worked-wordmark whitespace-nowrap px-8 py-1 text-lg font-medium text-bone sm:px-16 sm:text-2xl"
+                  className="worked-wordmark whitespace-nowrap px-10 py-1 text-lg font-medium text-bone sm:px-20 sm:text-2xl"
                   style={{ opacity: rhythm[i] }}
                 >
                   {client}

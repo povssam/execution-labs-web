@@ -4,17 +4,18 @@ import { Reveal } from "../ui/Reveal";
 
 export function GlobalStatement() {
   return (
-    <section className="section-flow scroll-reveal relative overflow-hidden pb-[calc(3.25rem+env(safe-area-inset-bottom))] pt-4 sm:pb-20 sm:pt-4">
+    <section className="section-flow scroll-reveal relative overflow-hidden py-14 sm:py-24">
       <BrandAtmosphere intensity="soft" tone="fade" focus="center" />
       <Container className="relative z-10">
-        <Reveal>
+        <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <span className="flex items-center gap-3">
             <span className="flow-line" aria-hidden />
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-bone-faint">
+            <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-bone-faint">
               The studio
             </span>
+            <span className="flow-line rotate-180" aria-hidden />
           </span>
-          <p className="mt-5 max-w-[19em] text-[1.55rem] font-medium leading-[1.18] text-bone sm:max-w-5xl sm:text-5xl sm:leading-[1.04] lg:text-6xl">
+          <p className="mt-6 text-balance text-[1.4rem] font-medium leading-[1.22] text-bone sm:text-3xl sm:leading-[1.16] lg:text-[2.5rem] lg:leading-[1.14]">
             Building exceptional digital experiences for visionaries and
             innovators around the world.
           </p>
