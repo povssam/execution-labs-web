@@ -11,7 +11,7 @@ export function MotionWork() {
         {/* Centered title and subtitle sit above the video. */}
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="text-balance text-4xl font-semibold leading-[1.05] text-bone sm:text-5xl">
-            Motion as proof, not decoration
+            Motion Work
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg">
             Grace shows identity, interface, and motion working as one calm
@@ -27,11 +27,6 @@ export function MotionWork() {
             <GraceVideo label="Grace Animation Final homepage proof" className="scale-[1.01]" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-ink/10" />
           </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="mt-3 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
-            Grace / animation final
-          </p>
         </Reveal>
       </Container>
     </section>

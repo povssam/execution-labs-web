@@ -1,7 +1,6 @@
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
-import { SectionHeading } from "../ui/SectionHeading";
 import { process } from "@/lib/data";
 
 /**
@@ -16,16 +15,24 @@ export function Process() {
     >
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <Container className="relative z-10">
-        <SectionHeading
-          className="mx-auto max-w-2xl text-center"
-          title="Our Process"
-          description="Four steps from problem to working system."
-        />
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <h2 className="text-balance text-4xl font-semibold tracking-tight text-bone sm:text-5xl sm:leading-[1.05]">
+            Our Process
+          </h2>
+        </Reveal>
 
         <ol className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-4 sm:gap-5">
           {process.map((step, i) => (
             <Reveal as="li" key={step.index} delay={i * 0.06}>
-              <div className="proof-card h-full p-6 sm:p-7">
+              <div className="glow-card relative h-full p-6 sm:p-7">
+                {i < process.length - 1 && (
+                  <span
+                    aria-hidden
+                    className="absolute -right-4 top-1/2 hidden -translate-y-1/2 text-bone-faint/60 sm:block"
+                  >
+                    &#8594;
+                  </span>
+                )}
                 <h3 className="text-lg font-medium text-bone sm:text-xl">
                   {step.title}
                 </h3>

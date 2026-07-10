@@ -4,9 +4,8 @@ import { Reveal } from "../ui/Reveal";
 import { capabilities } from "@/lib/data";
 
 /**
- * Services index. Large centered headline, then a two-column grid of real
- * capabilities on desktop that stacks on mobile. Editorial treatment only:
- * number, title, stance, body. No icons, no pills, no fake dashboards.
+ * Services index. Editorial title plus descriptions only: no numbers, no
+ * labels, no product-card chrome.
  */
 export function WhatWeBuild() {
   return (
@@ -18,18 +17,18 @@ export function WhatWeBuild() {
       <Container className="relative z-10">
         <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <h2 className="text-balance text-4xl font-semibold tracking-tight text-bone sm:text-5xl sm:leading-[1.05]">
-            What we build
+            Services
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:mt-16 sm:grid-cols-2">
+        <div className="mt-12 grid gap-x-12 border-t border-line/80 sm:mt-16 sm:grid-cols-2">
           {capabilities.map((item, i) => (
             <Reveal key={item.title} delay={(i % 2) * 0.05}>
-              <div className="group flex h-full flex-col gap-3 bg-ink px-6 py-8 transition-colors duration-200 hover:bg-charcoal/40 sm:px-9 sm:py-10">
-                <h3 className="text-2xl font-medium text-bone transition-transform duration-200 group-hover:translate-x-1 sm:text-3xl">
+              <div className="group flex h-full flex-col gap-3 border-b border-line/80 py-8 sm:py-10">
+                <h3 className="text-2xl font-medium text-bone transition-colors duration-200 group-hover:text-white sm:text-3xl">
                   {item.title}
                 </h3>
-                <p className="max-w-md text-sm leading-relaxed text-bone-dim sm:text-base">
+                <p className="max-w-lg text-sm leading-relaxed text-bone-dim sm:text-base">
                   {item.body}
                 </p>
               </div>

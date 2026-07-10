@@ -15,7 +15,7 @@ const rhythm = [0.92, 0.72, 0.84, 0.68, 0.78];
 
 export function WorkedWith() {
   return (
-    <section className="section-flow scroll-reveal relative overflow-hidden py-12 sm:py-16">
+    <section className="section-flow scroll-reveal relative overflow-hidden pt-2 pb-12 sm:pt-4 sm:pb-16">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
 
       <Container className="relative z-10">
@@ -47,7 +47,7 @@ export function WorkedWith() {
               {clients.map((client, i) => (
                 <span
                   key={client}
-                  className="worked-wordmark whitespace-nowrap px-10 py-1 text-lg font-medium text-bone sm:px-20 sm:text-2xl"
+                  className="worked-wordmark whitespace-nowrap px-10 py-2 text-lg font-medium text-bone sm:px-20 sm:text-2xl"
                   style={{ opacity: rhythm[i] }}
                 >
                   {client}

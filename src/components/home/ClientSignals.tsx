@@ -33,7 +33,7 @@ export function ClientSignals() {
       <Container className="relative z-10">
         <SectionHeading
           className="mx-auto max-w-2xl text-center"
-          title="What clients notice"
+          title="Client signals"
           description="The change shows up in how the work runs, not in a slide."
         />
 

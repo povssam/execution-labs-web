@@ -30,19 +30,10 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [open]);
-
   // Close the menu on any route change so the scroll lock is always released.
   // Client-side navigation does not unmount Nav, so without this the lock can
-  // outlive the menu and trap page scroll. Reconciled during render (React's
-  // recommended pattern) rather than in an effect, so no cascading render.
+  // outlive the menu and trap page scroll. Reconciled during render rather
+  // than in an effect, so no cascading render.
   const [lastPath, setLastPath] = useState(pathname);
   if (pathname !== lastPath) {
     setLastPath(pathname);
@@ -124,7 +115,10 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div className="fixed inset-x-0 bottom-0 top-16 overflow-y-auto border-t border-line bg-ink/98 backdrop-blur-xl lg:hidden">
+        <div
+          data-native-scroll
+          className="fixed inset-x-0 bottom-0 top-16 overflow-y-auto border-t border-line bg-ink/98 backdrop-blur-xl lg:hidden"
+        >
           <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col gap-1 px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5">
             {links.map((link) => (
               <Link

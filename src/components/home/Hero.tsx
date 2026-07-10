@@ -6,7 +6,7 @@ import { revealDelay } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="section-flow section-flow--hero relative overflow-hidden pt-36 pb-10 sm:pt-44 sm:pb-12 lg:pt-52 lg:pb-16">
+    <section className="section-flow section-flow--hero relative overflow-hidden pt-32 pb-6 sm:pt-40 sm:pb-8 lg:pt-48 lg:pb-10">
       <BrandAtmosphere intensity="hero" focus="right" />
 
       {/* Prism glass as full-bleed hero atmosphere. Decorative only. */}
@@ -26,7 +26,6 @@ export function Hero() {
 
       <Container className="relative z-10">
         <div className="max-w-3xl">
-          <span className="flow-line flow-line--load mb-6 block w-16" aria-hidden />
           <h1
             className="reveal text-[2.7rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
             style={revealDelay("0.08s")}
