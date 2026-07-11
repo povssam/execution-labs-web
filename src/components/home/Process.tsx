@@ -11,7 +11,7 @@ export function Process() {
   return (
     <section
       id="process"
-      className="section-flow relative overflow-hidden bg-charcoal/15 py-20 sm:py-28"
+      className="section-flow relative overflow-hidden py-20 sm:py-28"
     >
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <Container className="relative z-10">
@@ -21,18 +21,11 @@ export function Process() {
           </h2>
         </Reveal>
 
-        <ol className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-4 sm:gap-5">
+        <div className="process-frame relative mt-10 overflow-hidden rounded-xl p-3 sm:mt-14 sm:p-4">
+          <ol className="grid gap-4 sm:grid-cols-4 sm:gap-5">
           {process.map((step, i) => (
             <Reveal as="li" key={step.index} delay={i * 0.06}>
               <div className="glow-card relative h-full p-6 sm:p-7">
-                {i < process.length - 1 && (
-                  <span
-                    aria-hidden
-                    className="absolute -right-4 top-1/2 hidden -translate-y-1/2 text-bone-faint/60 sm:block"
-                  >
-                    &#8594;
-                  </span>
-                )}
                 <h3 className="text-lg font-medium text-bone sm:text-xl">
                   {step.title}
                 </h3>
@@ -42,7 +35,8 @@ export function Process() {
               </div>
             </Reveal>
           ))}
-        </ol>
+          </ol>
+        </div>
       </Container>
     </section>
   );

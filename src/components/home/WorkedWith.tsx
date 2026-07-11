@@ -1,5 +1,4 @@
 import { BrandAtmosphere } from "../BrandAtmosphere";
-import { Container } from "../ui/Container";
 
 const clients = [
   "Grace",
@@ -15,17 +14,11 @@ const rhythm = [0.92, 0.72, 0.84, 0.68, 0.78];
 
 export function WorkedWith() {
   return (
-    <section className="section-flow scroll-reveal relative overflow-hidden pt-2 pb-12 sm:pt-4 sm:pb-16">
+    <section className="section-flow scroll-reveal relative -mt-4 overflow-hidden pt-0 pb-12 sm:-mt-6 sm:pb-16">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
 
-      <Container className="relative z-10">
-        <p className="text-center font-mono text-[11px] uppercase tracking-[0.26em] text-bone-faint">
-          Worked with
-        </p>
-      </Container>
-
       <div
-        className="worked-marquee relative z-10 mt-8 overflow-hidden sm:mt-10"
+        className="worked-marquee relative z-10 overflow-hidden pt-3 sm:pt-4"
         aria-label={`Worked with ${clients.join(", ")}`}
       >
         <ul className="sr-only">

@@ -19,28 +19,28 @@ export const capabilities: Capability[] = [
     points: ["Live data", "Roles", "Audit trails"],
   },
   {
-    title: "MVP Software",
-    stance: "Ship the first real version.",
-    body: "The smallest complete product that can take payment, gather usage, and prove what should happen next.",
-    points: ["Auth", "Payments", "Usage"],
-  },
-  {
     title: "Product Systems",
     stance: "Build the layer that holds up.",
-    body: "Product, data, and infrastructure work for teams that need speed without creating expensive cleanup later.",
+    body: "Product, data, and infrastructure work that keeps the interface and the system moving together.",
     points: ["APIs", "Pipelines", "Infra"],
-  },
-  {
-    title: "Motion Design",
-    stance: "Make the product feel alive.",
-    body: "Identity, interface, and motion built as one language, so a product reads as premium the moment it moves.",
-    points: ["Identity", "Interface", "Motion"],
   },
   {
     title: "Automation",
     stance: "Delete the manual step.",
     body: "Quiet systems that watch state, move data, and handle the follow up work no one should be doing by hand.",
     points: ["Triggers", "Routing", "Handoff"],
+  },
+  {
+    title: "Motion Work",
+    stance: "Show the system in motion.",
+    body: "Identity, interface, and motion treated as one product layer, so the work feels premium when it moves.",
+    points: ["Identity", "Interface", "Motion"],
+  },
+  {
+    title: "Growth Systems",
+    stance: "Keep the follow-through moving.",
+    body: "Landing flows, lead routing, and handoff systems that keep attention moving without adding noise.",
+    points: ["Flows", "Routing", "Follow-up"],
   },
 ];
 

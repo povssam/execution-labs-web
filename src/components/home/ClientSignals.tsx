@@ -1,7 +1,6 @@
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
-import { SectionHeading } from "../ui/SectionHeading";
 
 /**
  * What clients notice. Proof-style cards, not testimonials. No invented people,
@@ -31,16 +30,23 @@ export function ClientSignals() {
     <section className="section-flow relative overflow-hidden py-20 sm:py-28">
       <BrandAtmosphere intensity="soft" tone="calm" focus="right" />
       <Container className="relative z-10">
-        <SectionHeading
-          className="mx-auto max-w-2xl text-center"
-          title="Client signals"
-          description="The change shows up in how the work runs, not in a slide."
-        />
+        <div className="mx-auto max-w-2xl text-center">
+          <Reveal>
+            <h2 className="text-balance text-4xl font-semibold tracking-tight text-bone sm:text-5xl sm:leading-[1.04]">
+              Client signals
+            </h2>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <p className="mt-4 text-base leading-relaxed text-bone-dim sm:text-lg">
+              The change shows up in how the work runs, not in a slide.
+            </p>
+          </Reveal>
+        </div>
 
         <div className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2">
           {signals.map((signal, i) => (
             <Reveal key={signal.title} delay={i * 0.05}>
-              <div className="proof-card h-full p-6 sm:p-8">
+              <div className="proof-card h-full p-6 text-center sm:p-8">
                 <h3 className="text-xl font-medium text-bone sm:text-2xl">
                   {signal.title}
                 </h3>
