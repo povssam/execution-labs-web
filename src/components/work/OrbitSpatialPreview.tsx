@@ -21,7 +21,6 @@ import {
   User,
   X,
 } from "lucide-react";
-import type { ReactNode } from "react";
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import {
   orbitPreviewData,
@@ -84,8 +83,6 @@ export function OrbitSpatialPreview() {
 
   const visibleFeed = orbitPreviewData.feed.filter((item) => item.mode === feedMode);
   const currentFeed = visibleFeed[selectedFeedIndex % visibleFeed.length] ?? orbitPreviewData.feed[0];
-  const visibleExperiences = orbitPreviewData.experiences.filter((item) => item.kind === experienceFilter);
-
   useEffect(() => {
     if (!isPlaying) return;
     const timer = window.setInterval(() => {
@@ -143,19 +140,16 @@ export function OrbitSpatialPreview() {
         <OrbitTopBar />
         <OrbitNav activeSection={activeSection} goTo={goTo} />
 
-        <main className="mt-4 min-h-0 flex-1 overflow-y-auto pb-5">
+        <main className="mt-4 min-h-0 flex-1 overflow-y-auto pb-8">
           {activeSection === "discover" && (
             <DiscoverSystem
               query={query}
               setQuery={setQuery}
               items={filteredMedia}
-              selectedMedia={selectedMedia}
-              playMedia={playMedia}
               openMedia={(item) => {
                 playMedia(item);
                 setDetailMedia(item);
               }}
-              openHub={() => goTo("hub")}
             />
           )}
 
@@ -201,6 +195,10 @@ export function OrbitSpatialPreview() {
               }}
               runAction={runHubAction}
               openExperience={() => runHubAction("Experience")}
+              playSelected={() => {
+                setIsPlaying(true);
+                setStatus(`${selectedMedia.title} is playing.`);
+              }}
             />
           )}
 
@@ -212,7 +210,7 @@ export function OrbitSpatialPreview() {
                 const nextExperience = orbitPreviewData.experiences.find((experience) => experience.kind === nextFilter);
                 if (nextExperience) setSelectedExperience(nextExperience);
               }}
-              experiences={visibleExperiences}
+              experiences={orbitPreviewData.experiences}
               selectedExperience={selectedExperience}
               setSelectedExperience={(experience) => {
                 setSelectedExperience(experience);
@@ -268,15 +266,15 @@ function OrbitTopBar() {
 
 function OrbitNav({ activeSection, goTo }: { activeSection: SectionId; goTo: (section: SectionId) => void }) {
   return (
-    <nav className="mx-auto mt-2 grid w-full max-w-[620px] grid-cols-4 gap-0.5 rounded-full bg-white/86 p-0.5 shadow-sm ring-1 ring-black/10" aria-label="Orbit preview systems">
+    <nav className="mx-auto mt-1 flex min-h-10 w-full max-w-[480px] items-center justify-center gap-1 rounded-full bg-white/60 px-1 text-black/54 ring-1 ring-black/10" aria-label="Orbit preview systems">
       {sections.map((section) => (
         <button
           key={section.id}
           type="button"
           onClick={() => goTo(section.id)}
           className={cn(
-            "min-h-11 rounded-full px-1.5 text-[12px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 sm:text-sm",
-            activeSection === section.id ? "bg-black text-white" : "text-black/54 hover:bg-black/[0.04] hover:text-black",
+            "min-h-9 flex-1 rounded-full px-2 text-[12px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 sm:flex-none sm:px-5 sm:text-sm",
+            activeSection === section.id ? "bg-black text-white" : "hover:bg-black/[0.04] hover:text-black",
           )}
         >
           {section.label}
@@ -290,125 +288,84 @@ function DiscoverSystem({
   query,
   setQuery,
   items,
-  selectedMedia,
-  playMedia,
   openMedia,
-  openHub,
 }: {
   query: string;
   setQuery: (value: string) => void;
   items: OrbitMediaItem[];
-  selectedMedia: OrbitMediaItem;
-  playMedia: (item: OrbitMediaItem) => void;
   openMedia: (item: OrbitMediaItem) => void;
-  openHub: () => void;
 }) {
   return (
-    <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
-      <div>
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-black/42">Good evening</p>
-            <h1 className="mt-1 text-[1.7rem] font-semibold leading-none sm:text-4xl">Discover</h1>
-          </div>
-          <span className="hidden text-sm text-black/48 sm:inline">Nia Vale orbit is active</span>
-        </div>
-
-        <label className="relative mt-4 block max-w-[40rem]">
-          <span className="sr-only">Search Orbit</span>
-          <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-black/38" size={17} />
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search music, reels, artists"
-            className="h-11 w-full rounded-full border border-black/10 bg-white px-11 text-[15px] text-black outline-none shadow-sm transition focus:border-black/30 focus:ring-2 focus:ring-black/10"
-          />
-          {query && (
-            <button
-              type="button"
-              onClick={() => setQuery("")}
-              aria-label="Clear search"
-              className="absolute right-1 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full text-black/55 hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
-            >
-              <X size={16} />
-            </button>
-          )}
-        </label>
-
-        <div className="mt-4 grid auto-rows-[112px] grid-cols-2 gap-2.5 sm:auto-rows-[150px] lg:auto-rows-[150px] lg:grid-cols-6 lg:gap-3">
-          {items.map((item, index) => (
-            <MediaCard key={item.id} item={item} index={index} openMedia={openMedia} />
-          ))}
-        </div>
+    <section className="mx-auto max-w-[980px]">
+      <div className="flex items-center justify-between gap-3 text-[11px] uppercase tracking-[0.18em] text-black/42">
+        <span>products</span>
+        <span>experiences</span>
+        <span>music</span>
+        <span>reels</span>
       </div>
 
-      <aside className="hidden rounded-2xl bg-white p-3 shadow-sm ring-1 ring-black/10 lg:block">
-        <img src={selectedMedia.image} alt="" className="aspect-[4/3] w-full rounded-xl object-cover" />
-        <p className="mt-3 text-xs uppercase tracking-[0.16em] text-black/42">Now in focus</p>
-        <h2 className="mt-1 text-xl font-semibold">{selectedMedia.title}</h2>
-        <p className="mt-2 text-sm leading-5 text-black/58">{selectedMedia.detail}</p>
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          <button type="button" onClick={() => playMedia(selectedMedia)} className="flex min-h-10 items-center justify-center gap-2 rounded-full bg-black px-3 text-sm text-white">
-            <Play size={15} /> Play
+      <label className="relative mt-3 block">
+        <span className="sr-only">Search Orbit</span>
+        <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-black/38" size={17} />
+        <input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search"
+          className="h-11 w-full rounded-full border border-black/10 bg-white px-11 text-[15px] text-black outline-none shadow-sm transition focus:border-black/30 focus:ring-2 focus:ring-black/10 lg:max-w-[760px]"
+        />
+        {query && (
+          <button
+            type="button"
+            onClick={() => setQuery("")}
+            aria-label="Clear search"
+            className="absolute right-1 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full text-black/55 hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:left-[718px] lg:right-auto"
+          >
+            <X size={16} />
           </button>
-          <button type="button" onClick={openHub} className="flex min-h-10 items-center justify-center gap-2 rounded-full border border-black/10 px-3 text-sm hover:border-black/30">
-            <Plus size={15} /> Orbit
-          </button>
-        </div>
-      </aside>
+        )}
+      </label>
+
+      <div className="relative mt-4 min-h-[620px] lg:min-h-[640px]">
+        {items.slice(0, 7).map((item, index) => (
+          <MediaCard key={item.id} item={item} index={index} openMedia={openMedia} />
+        ))}
+      </div>
     </section>
   );
 }
 
 function MediaCard({ item, index, openMedia }: { item: OrbitMediaItem; index: number; openMedia: (item: OrbitMediaItem) => void }) {
   const layout = [
-    "col-span-2 row-span-2 lg:col-span-3 lg:row-span-3",
-    "lg:col-span-2 lg:row-span-2",
-    "lg:col-span-1 lg:row-span-1",
-    "row-span-2 lg:col-span-2 lg:row-span-3",
-    "lg:col-span-1 lg:row-span-2",
-    "lg:col-span-2 lg:row-span-2 lg:translate-y-8",
-    "col-span-2 lg:col-span-3 lg:row-span-2 lg:-translate-y-3",
+    "left-0 top-0 h-[116px] w-[34%] rounded-[1rem] lg:left-[4%] lg:top-0 lg:h-[150px] lg:w-[18%]",
+    "left-[40%] top-0 h-[126px] w-[34%] rounded-[1.25rem] lg:left-[34%] lg:top-8 lg:h-[170px] lg:w-[22%]",
+    "right-0 top-0 h-[108px] w-[20%] rounded-[0.85rem] lg:right-[12%] lg:top-6 lg:h-[145px] lg:w-[14%]",
+    "left-[7%] top-[160px] h-[92px] w-[25%] rounded-full lg:left-[10%] lg:top-[240px] lg:h-[150px] lg:w-[150px]",
+    "left-[42%] top-[165px] h-[130px] w-[35%] rounded-[0.9rem] lg:left-[39%] lg:top-[235px] lg:h-[190px] lg:w-[22%]",
+    "left-[4%] top-[330px] h-[145px] w-[33%] rounded-[1.1rem] lg:left-[18%] lg:top-[440px] lg:h-[170px] lg:w-[18%]",
+    "right-[4%] top-[330px] h-[205px] w-[49%] rounded-[1.35rem] lg:right-[10%] lg:top-[390px] lg:h-[230px] lg:w-[30%]",
   ][index % 7];
-  const radius = [
-    "rounded-[1.35rem]",
-    "rounded-xl",
-    "rounded-[1.35rem]",
-    "rounded-[0.9rem]",
-    "rounded-xl",
-    "rounded-[1.35rem]",
-    "rounded-xl",
-  ][index % 7];
-  const tagPlacement = [
-    "left-3 top-3",
-    "right-3 top-3",
-    "right-3 top-3",
-    "left-3 top-3",
-    "right-3 top-3",
-    "left-3 top-3",
-    "right-3 top-3",
-  ][index % 7];
-  const align = "";
-  const showTag = index % 7 === 0 || index % 7 === 1 || index % 7 === 3;
+  const showMedia = index !== 3;
+  const showTag = index === 0 || index === 2 || index === 4;
 
   return (
     <button
       type="button"
       onClick={() => openMedia(item)}
       className={cn(
-        "group relative overflow-hidden bg-black text-left text-white outline-none shadow-sm transition duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-black",
+        "group absolute overflow-hidden bg-black text-left text-white outline-none shadow-sm transition duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-black",
         layout,
-        radius,
+        !showMedia && "bg-black/[0.08] text-black ring-1 ring-black/10",
       )}
     >
-      <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-[1.025]" />
-      <span className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-transparent" />
+      {showMedia && <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-[1.025]" />}
+      {showMedia && <span className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/10 to-transparent" />}
       {showTag && (
-        <span className={cn("absolute bg-white/88 px-2 py-0.5 text-[10px] font-medium capitalize text-black", index % 3 === 0 ? "rounded-full" : "rounded-md", tagPlacement)}>{item.kind}</span>
+        <span className="absolute left-3 top-3 rounded-full bg-white/88 px-2 py-0.5 text-[10px] font-medium capitalize text-black">{item.kind}</span>
       )}
-      <span className={cn("absolute bottom-3 left-3 right-3 flex flex-col", align)}>
-        <span className="block text-[17px] font-semibold leading-tight sm:text-xl">{item.title}</span>
-        <span className="mt-0.5 flex items-center justify-between gap-2 text-xs text-white/75 sm:text-sm">
+      {!showMedia && <span className="absolute inset-0 grid place-items-center text-[11px] uppercase tracking-[0.16em] text-black/46">music</span>}
+      <span className={cn("absolute bottom-3 left-3 right-3 flex flex-col", !showMedia && "hidden")}>
+        <span className="block text-[15px] font-semibold leading-tight sm:text-lg">{item.title}</span>
+        <span className="mt-0.5 flex items-center justify-between gap-2 text-xs text-white/75">
           <span className="truncate">{item.artist}</span>
           <span>{item.duration}</span>
         </span>
@@ -442,12 +399,81 @@ function FeedSystem({
   share: () => void;
   play: () => void;
 }) {
+  const previous = orbitPreviewData.feed[(index + orbitPreviewData.feed.length - 1) % orbitPreviewData.feed.length];
+  const next = orbitPreviewData.feed[(index + 1) % orbitPreviewData.feed.length];
+
   return (
-    <section className="grid gap-3 lg:grid-cols-[12rem_minmax(0,1fr)_15rem]">
-      <aside className="order-2 rounded-xl bg-white p-3 ring-1 ring-black/10 lg:order-1">
-        <p className="text-xs uppercase tracking-[0.16em] text-black/42">Stories</p>
-        <div className="mt-3 flex gap-2 overflow-x-auto lg:grid">
-          {orbitPreviewData.feed.map((story) => (
+    <section className="mx-auto max-w-[980px]">
+      <div className="flex items-center justify-between gap-3">
+        <FilterRow values={feedModes} active={mode} setActive={setMode} />
+        <div className="hidden gap-2 sm:flex">
+          <button type="button" onClick={() => setIndex(index - 1)} aria-label="Previous story" className="grid h-10 w-10 place-items-center rounded-full bg-white ring-1 ring-black/10">
+            <ChevronLeft size={16} />
+          </button>
+          <button type="button" onClick={() => setIndex(index + 1)} aria-label="Next story" className="grid h-10 w-10 place-items-center rounded-full bg-white ring-1 ring-black/10">
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      </div>
+
+      <div className="relative mt-3 min-h-[660px] overflow-hidden lg:min-h-[650px]">
+        <button type="button" onClick={() => setIndex(index - 1)} aria-label="Previous story preview" className="absolute left-0 top-16 h-[380px] w-[13%] overflow-hidden rounded-[1.25rem] bg-black opacity-55 ring-1 ring-black/10 lg:left-[2%] lg:h-[470px] lg:w-[13%]">
+          <img src={previous.image} alt="" className="h-full w-full object-cover" />
+        </button>
+        <button type="button" onClick={() => setIndex(index + 1)} aria-label="Next story preview" className="absolute right-0 top-16 h-[380px] w-[13%] overflow-hidden rounded-[1.25rem] bg-black opacity-70 ring-1 ring-black/10 lg:right-[2%] lg:h-[470px] lg:w-[13%]">
+          <img src={next.image} alt="" className="h-full w-full object-cover" />
+        </button>
+
+        <div className="mx-auto w-[74%] max-w-[610px]">
+          <div className="mx-auto flex h-7 max-w-[360px] items-center justify-center gap-2">
+            {orbitPreviewData.feed.map((story, storyIndex) => (
+              <button
+                key={story.id}
+                type="button"
+                onClick={() => {
+                  setMode(story.mode);
+                  setIndex(storyIndex);
+                }}
+                aria-label={`Open ${story.title}`}
+                className={cn("h-2.5 rounded-full transition-all", story.id === item.id ? "w-9 bg-black" : "w-2.5 bg-black/22 hover:bg-black/45")}
+              />
+            ))}
+          </div>
+
+          <article className="relative mt-2 overflow-hidden rounded-[1.1rem] bg-black text-white">
+            <img src={item.image} alt="" className="h-[300px] w-full object-cover opacity-90 sm:h-[360px] lg:h-[420px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/18 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="text-[10px] uppercase tracking-[0.16em] text-white/62">{item.metric}</p>
+              <h2 className="mt-1 max-w-[15rem] text-3xl font-semibold leading-[0.95] sm:max-w-md sm:text-5xl">{item.title}</h2>
+              <p className="mt-2 max-w-md text-sm leading-5 text-white/74">{item.caption}</p>
+            </div>
+          </article>
+
+          <div className="mt-3 grid grid-cols-3 gap-2">
+            <button type="button" onClick={play} className="flex min-h-10 items-center justify-center gap-2 rounded-full bg-black px-3 text-sm text-white">
+              <Play size={15} /> Play
+            </button>
+            <button type="button" onClick={toggleLiked} className="flex min-h-10 items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-3 text-sm hover:border-black/30">
+              <Heart size={15} fill={liked ? "currentColor" : "none"} /> {liked ? "Liked" : "Like"}
+            </button>
+            <button type="button" onClick={share} className="flex min-h-10 items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-3 text-sm hover:border-black/30">
+              <Share2 size={15} /> Share
+            </button>
+          </div>
+
+          <div className="mt-3 grid gap-2 rounded-[1rem] bg-white/70 p-3 ring-1 ring-black/10 sm:grid-cols-[1fr_auto] sm:items-center">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.16em] text-black/40">{item.artist}</p>
+              <p className="mt-1 text-sm leading-5 text-black/62">{item.context}</p>
+            </div>
+            <button type="button" onClick={toggleSaved} className="flex min-h-10 items-center justify-center gap-2 rounded-full border border-black/10 px-4 text-sm hover:border-black/30">
+              {saved ? <Check size={15} /> : <Plus size={15} />} {saved ? "Saved" : "Save"}
+            </button>
+          </div>
+
+          <div className="mx-auto mt-4 flex max-w-[240px] items-center justify-center gap-2">
+            {orbitPreviewData.feed.map((story) => (
             <button
               key={story.id}
               type="button"
@@ -456,60 +482,16 @@ function FeedSystem({
                 setIndex(0);
               }}
               className={cn(
-                "min-h-10 min-w-28 rounded-full border px-3 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:min-w-0",
+                "min-h-8 rounded-full border px-3 text-xs transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30",
                 story.id === item.id ? "border-black bg-black text-white" : "border-black/10 text-black/62 hover:border-black/30",
               )}
             >
               {story.artist}
             </button>
           ))}
-        </div>
-      </aside>
-
-      <div className="order-1 overflow-hidden lg:order-2">
-        <FilterRow values={feedModes} active={mode} setActive={setMode} />
-        <div className="mt-3 flex items-stretch gap-3">
-          <button type="button" onClick={() => setIndex(index - 1)} aria-label="Previous story" className="hidden w-16 shrink-0 overflow-hidden rounded-xl bg-black opacity-55 lg:block">
-            <img src={orbitPreviewData.feed[(index + orbitPreviewData.feed.length - 1) % orbitPreviewData.feed.length].image} alt="" className="h-full w-full object-cover" />
-          </button>
-        <article className="relative min-w-0 flex-1 overflow-hidden rounded-[1.35rem] bg-black text-white">
-          <img src={item.image} alt="" className="h-[min(64dvh,560px)] min-h-[430px] w-full object-cover opacity-90 lg:h-[680px]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/18 to-black/5" />
-          <div className="absolute left-4 right-4 top-4 flex gap-1">
-            {feedModes.map((nextMode) => (
-              <span key={nextMode} className={cn("h-1 flex-1 rounded-full", mode === nextMode ? "bg-white" : "bg-white/30")} />
-            ))}
           </div>
-          <div className="absolute bottom-4 left-4 right-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-white/62">{item.metric}</p>
-            <h2 className="mt-1 text-4xl font-semibold leading-[0.95] sm:text-5xl">{item.title}</h2>
-            <p className="mt-2 max-w-md text-sm leading-5 text-white/76 sm:text-base">{item.caption}</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <IconButton onClick={play} label="Play" icon={<Play size={15} />} light />
-              <IconButton onClick={toggleLiked} label={liked ? "Liked" : "Like"} icon={<Heart size={15} fill={liked ? "currentColor" : "none"} />} />
-              <IconButton onClick={share} label="Share" icon={<Share2 size={15} />} />
-            </div>
-          </div>
-        </article>
-          <button type="button" onClick={() => setIndex(index + 1)} aria-label="Next story preview" className="hidden w-20 shrink-0 overflow-hidden rounded-xl bg-black opacity-70 lg:block">
-            <img src={orbitPreviewData.feed[(index + 1) % orbitPreviewData.feed.length].image} alt="" className="h-full w-full object-cover" />
-          </button>
         </div>
       </div>
-
-      <aside className="order-3 rounded-xl bg-white p-4 ring-1 ring-black/10">
-        <p className="text-xs uppercase tracking-[0.16em] text-black/42">Context</p>
-        <p className="mt-3 text-xl font-semibold">{item.artist}</p>
-        <p className="mt-2 text-sm leading-5 text-black/58">{item.context}</p>
-        <div className="mt-4 grid gap-2">
-          <button type="button" onClick={toggleSaved} className="flex min-h-10 items-center justify-center gap-2 rounded-full border border-black/10 text-sm hover:border-black/30">
-            {saved ? <Check size={15} /> : <Plus size={15} />} {saved ? "Saved" : "Save"}
-          </button>
-          <button type="button" onClick={() => setIndex(index + 1)} className="flex min-h-10 items-center justify-center gap-2 rounded-full bg-black text-sm text-white">
-            Next <ChevronRight size={15} />
-          </button>
-        </div>
-      </aside>
     </section>
   );
 }
@@ -527,6 +509,7 @@ function HubSystem({
   rotate,
   runAction,
   openExperience,
+  playSelected,
 }: {
   angle: number;
   action: HubAction;
@@ -540,14 +523,15 @@ function HubSystem({
   rotate: (direction: -1 | 1) => void;
   runAction: (action: HubAction) => void;
   openExperience: () => void;
+  playSelected: () => void;
 }) {
   return (
-    <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_17rem]">
+    <section className="mx-auto max-w-[980px]">
       <div>
-        <div className="flex items-end justify-between">
+        <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-black/42">Artist orbit</p>
-            <h1 className="mt-1 text-[1.7rem] font-semibold leading-none sm:text-4xl">Nia Vale</h1>
+            <p className="text-xs uppercase tracking-[0.18em] text-black/42">Orbit</p>
+            <h1 className="mt-1 text-[2rem] font-semibold leading-none tracking-[0.14em] sm:text-4xl">ORBIT</h1>
           </div>
           <div className="flex gap-1.5">
             <button type="button" onClick={() => rotate(-1)} aria-label="Rotate hub left" className="grid h-10 w-10 place-items-center rounded-full bg-white shadow-sm ring-1 ring-black/10">
@@ -557,6 +541,22 @@ function HubSystem({
               <ChevronRight size={16} />
             </button>
           </div>
+        </div>
+
+        <div className="relative mt-3 h-40 lg:h-28">
+          <button type="button" onClick={playSelected} className="absolute left-[3%] top-2 h-24 w-28 overflow-hidden rounded-[48%] bg-black text-white shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:left-[11%] lg:h-24 lg:w-32">
+            <img src={selectedMedia.image} alt="" className="h-full w-full object-cover opacity-90" />
+            <span className="absolute left-3 top-3 text-[10px] uppercase tracking-[0.14em] text-white/70">music</span>
+          </button>
+          <button type="button" onClick={openExperience} className="absolute right-[2%] top-0 h-28 w-36 overflow-hidden rounded-[46%] bg-black text-white shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:right-[13%] lg:h-28 lg:w-40">
+            <img src={orbitPreviewData.experiences[0].image} alt="" className="h-full w-full object-cover opacity-85" />
+            <span className="absolute left-4 top-4 text-[10px] uppercase tracking-[0.14em] text-white/70">experience</span>
+          </button>
+          <button type="button" onClick={playSelected} className="absolute bottom-2 left-1/2 flex h-10 w-[86%] -translate-x-1/2 items-center gap-3 rounded-full border border-black/10 bg-white px-3 text-left shadow-sm hover:border-black/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:w-[58%]">
+            <Play size={14} />
+            <span className="min-w-0 flex-1 truncate text-sm">Nia Vale - {selectedMedia.title}</span>
+            <span className="h-1 w-20 rounded-full bg-black/10"><span className="block h-full w-1/3 rounded-full bg-black" /></span>
+          </button>
         </div>
 
         <div
@@ -577,16 +577,16 @@ function HubSystem({
             setAngle(dragStart.angle + (event.clientX - dragStart.x) * 0.35);
           }}
           onPointerUp={() => setDragStart(null)}
-          className="relative mt-6 aspect-square min-h-[350px] overflow-hidden rounded-[1.4rem] bg-[#e9e3d8] outline-none ring-1 ring-black/10 focus-visible:ring-2 focus-visible:ring-black/30 sm:mt-7 lg:aspect-auto lg:h-[560px] lg:min-h-0"
+          className="relative mx-auto mt-1 aspect-square min-h-[340px] max-w-[620px] overflow-visible outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:h-[380px] lg:min-h-0"
         >
-          <div className="absolute inset-[9%] rounded-full border border-black/26" />
-          <div className="absolute inset-[18%] rounded-full border border-black/12" />
-          <div className="absolute inset-[30%] rounded-full border border-black/8" />
+          <div className="absolute inset-[10%] rounded-full border border-black/32" />
+          <div className="absolute inset-[20%] rounded-full border border-black/14" />
+          <div className="absolute inset-[33%] rounded-full border border-black/8" />
           <div
             className="pointer-events-none absolute left-1/2 top-1/2 h-px w-[38%] origin-left bg-black/34"
             style={{ transform: `rotate(${(360 / hubActions.length) * hubActions.indexOf(action) + angle - 90}deg)` }}
           />
-          <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-black shadow-[0_24px_80px_-36px_rgba(0,0,0,0.65)] sm:h-60 sm:w-60 lg:h-64 lg:w-64">
+          <div className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-black shadow-[0_24px_80px_-36px_rgba(0,0,0,0.65)] sm:h-52 sm:w-52 lg:h-56 lg:w-56">
             <img src={selectedMedia.image} alt="" className="h-full w-full object-cover opacity-95" />
             <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/72 to-transparent" />
             <span className="absolute inset-x-4 bottom-4 text-center text-white">
@@ -608,8 +608,8 @@ function HubSystem({
                   action === nextAction ? "border-black bg-black text-white" : "border-black/10 bg-white text-black hover:border-black/30",
                 )}
                 style={{
-                  left: `calc(50% + ${Math.cos(radians) * 32}%)`,
-                  top: `calc(50% + ${Math.sin(radians) * 32}%)`,
+                  left: `calc(50% + ${Math.cos(radians) * 34}%)`,
+                  top: `calc(50% + ${Math.sin(radians) * 34}%)`,
                   transform: "translate(-50%, -50%)",
                 } as CSSProperties}
               >
@@ -622,25 +622,10 @@ function HubSystem({
               </button>
             );
           })}
-          <div className="absolute bottom-4 left-4 hidden max-w-[13rem] rounded-xl bg-white/84 p-3 ring-1 ring-black/10 backdrop-blur-sm sm:block">
-            <p className="text-[10px] uppercase tracking-[0.16em] text-black/44">Action</p>
-            <p className="mt-1 text-lg font-semibold leading-tight">{action}</p>
-            <p className="mt-1 text-xs leading-4 text-black/58">{status}</p>
-          </div>
         </div>
 
         <HubActionPanel action={action} status={status} orbitAdded={orbitAdded} reposts={reposts} runAction={runAction} openExperience={openExperience} />
       </div>
-
-      <aside className="rounded-xl bg-white p-4 ring-1 ring-black/10 lg:mt-[5.6rem]">
-        <p className="text-xs uppercase tracking-[0.16em] text-black/42">Orbit state</p>
-        <h2 className="mt-2 text-2xl font-semibold">Nia Vale</h2>
-        <p className="mt-2 text-sm leading-5 text-black/58">Current action: {action}. Rotate or select an orbit action to update the artist state.</p>
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          <Stat label="Reposts" value={String(reposts)} />
-          <Stat label="In orbit" value={orbitAdded ? "Yes" : "No"} />
-        </div>
-      </aside>
     </section>
   );
 }
@@ -747,50 +732,64 @@ function ExperiencesSystem({
   selectedExperience: OrbitExperience;
   setSelectedExperience: (experience: OrbitExperience) => void;
 }) {
+  const shows = experiences.filter((experience) => experience.kind === "Shows");
+  const connect = experiences.find((experience) => experience.kind === "Connect") ?? experiences[0];
+  const live = experiences.find((experience) => experience.kind === "Live Stream") ?? experiences[0];
+  const activeItems = experiences.filter((experience) => experience.kind === filter);
+
   return (
-    <section>
+    <section className="mx-auto max-w-[980px]">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-black/42">Live access</p>
-          <h1 className="mt-1 text-[1.7rem] font-semibold leading-none sm:text-4xl">Experiences</h1>
+          <p className="text-xs uppercase tracking-[0.18em] text-black/42">Experiences</p>
+          <h1 className="mt-1 text-[1.7rem] font-semibold leading-none sm:text-4xl">All access</h1>
         </div>
       </div>
       <div className="mt-4">
         <FilterRow values={experienceKinds} active={filter} setActive={setFilter} />
       </div>
 
-      <div className="mt-4 grid auto-rows-[140px] grid-cols-2 gap-2.5 lg:auto-rows-[200px] lg:grid-cols-5">
-        {experiences.map((experience, index) => (
+      <div className="mt-4 grid min-h-[520px] grid-cols-[0.9fr_1.18fr_0.9fr] gap-2.5 lg:min-h-[560px] lg:gap-4">
+        <div className={cn("grid content-start gap-2.5 transition-opacity", filter !== "Shows" && "opacity-45")}>
+          <button type="button" onClick={() => setFilter("Shows")} className="w-fit rounded-full border border-black/10 bg-white px-3 py-1 text-sm">Shows</button>
+          {shows.map((experience, index) => (
+            <ExperienceTile key={experience.id} experience={experience} active={selectedExperience.id === experience.id} className={index === 0 ? "h-32 lg:h-40" : "h-44 lg:h-56"} onClick={() => setSelectedExperience(experience)} />
+          ))}
+        </div>
+
+        <div className={cn("grid content-start gap-2.5 transition-opacity", filter !== "Connect" && "opacity-70")}>
+          <button type="button" onClick={() => setFilter("Connect")} className="w-fit rounded-full border border-black/10 bg-white px-3 py-1 text-sm">Connect</button>
           <button
-            key={experience.id}
             type="button"
-            onClick={() => setSelectedExperience(experience)}
+            onClick={() => setSelectedExperience(connect)}
             className={cn(
-              "group relative overflow-hidden bg-black text-left text-white outline-none shadow-sm ring-1 ring-black/5 focus-visible:ring-2 focus-visible:ring-black",
-              experiences.length === 1 && "col-span-2 row-span-2 rounded-[1.35rem] lg:col-span-5",
-              experiences.length === 2 && index === 0 && "col-span-2 row-span-2 rounded-[1.35rem] lg:col-span-3",
-              experiences.length === 2 && index === 1 && "col-span-2 row-span-2 rounded-xl lg:col-span-2",
-              experiences.length > 2 && index === 0 && "col-span-2 row-span-2 rounded-[1.35rem] lg:col-span-3",
-              experiences.length > 2 && index !== 0 && "rounded-xl",
-              experience.kind === "Connect" && "border border-black/20",
-              experiences.length > 2 && experience.scale === "wide" && index !== 0 && "col-span-2 lg:col-span-2",
-              experiences.length > 2 && experience.scale === "tall" && index !== 0 && "row-span-2",
+              "min-h-[178px] rounded-[1.15rem] border bg-white p-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:min-h-[210px]",
+              selectedExperience.id === connect.id ? "border-black" : "border-black/10 hover:border-black/30",
             )}
           >
-            <img src={experience.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-[1.025]" />
-            <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/18 to-transparent" />
-            {(index === 0 || experience.kind === "Connect") && (
-              <span className="absolute left-3 top-3 rounded-full bg-white/88 px-2 py-0.5 text-[10px] font-medium text-black">{experience.kind}</span>
-            )}
-            <span className="absolute bottom-3 left-3 right-3">
-              <span className="block text-xl font-semibold leading-tight sm:text-2xl">{experience.title}</span>
-              <span className="mt-1 block text-xs text-white/74 sm:text-sm">{experience.time} / {experience.location}</span>
+            <p className="text-xs uppercase tracking-[0.16em] text-black/42">Direct artist access</p>
+            <h2 className="mt-2 text-xl font-semibold leading-tight">{connect.title}</h2>
+            <p className="mt-2 text-sm leading-5 text-black/58">Two minute reply from {connect.artist}. Available today inside Orbit.</p>
+            <span className="mt-4 inline-flex min-h-9 items-center gap-2 rounded-full bg-black px-4 text-sm text-white">
+              <MessageCircle size={15} /> {connect.cta}
             </span>
           </button>
-        ))}
+          {activeItems.filter((experience) => experience.kind === "Connect").map((experience) => (
+            <ExperienceTile key={`${experience.id}-image`} experience={experience} active={selectedExperience.id === experience.id} className="h-40 lg:h-52" onClick={() => setSelectedExperience(experience)} />
+          ))}
+        </div>
+
+        <div className={cn("grid content-start gap-2.5 transition-opacity", filter !== "Live Stream" && "opacity-45")}>
+          <button type="button" onClick={() => setFilter("Live Stream")} className="w-fit rounded-full border border-black/10 bg-white px-3 py-1 text-sm">Live Stream</button>
+          <ExperienceTile experience={live} active={selectedExperience.id === live.id} className="h-48 lg:h-64" onClick={() => setSelectedExperience(live)} />
+          <button type="button" onClick={() => setFilter("Live Stream")} className="min-h-20 rounded-[1rem] border border-black/10 bg-white p-3 text-left text-sm hover:border-black/30">
+            <Radio className="mb-2" size={16} />
+            Reminder window opens Friday.
+          </button>
+        </div>
       </div>
 
-      <aside className="mt-3 grid gap-3 rounded-xl bg-white p-4 ring-1 ring-black/10 lg:grid-cols-[1fr_auto] lg:items-center">
+      <aside className="mt-3 grid gap-3 rounded-xl bg-white/80 p-4 ring-1 ring-black/10 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
           <p className="text-xs uppercase tracking-[0.16em] text-black/42">{selectedExperience.kind}</p>
           <h2 className="mt-1 text-2xl font-semibold">{selectedExperience.title}</h2>
@@ -808,6 +807,27 @@ function ExperiencesSystem({
         </button>
       </aside>
     </section>
+  );
+}
+
+function ExperienceTile({ experience, active, className, onClick }: { experience: OrbitExperience; active: boolean; className: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "group relative overflow-hidden rounded-[1rem] bg-black text-left text-white outline-none ring-1 transition focus-visible:ring-2 focus-visible:ring-black",
+        active ? "ring-black" : "ring-black/5",
+        className,
+      )}
+    >
+      <img src={experience.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-88 transition duration-300 group-hover:scale-[1.025]" />
+      <span className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/12 to-transparent" />
+      <span className="absolute bottom-3 left-3 right-3">
+        <span className="block text-base font-semibold leading-tight lg:text-xl">{experience.title}</span>
+        <span className="mt-1 block text-xs text-white/72">{experience.time}</span>
+      </span>
+    </button>
   );
 }
 
@@ -870,7 +890,7 @@ function MiniPlayer({
   togglePlay: () => void;
 }) {
   return (
-    <div className="z-50 shrink-0 pb-[calc(0.45rem+env(safe-area-inset-bottom))] text-black">
+    <div className="z-50 shrink-0 pb-[calc(0.35rem+env(safe-area-inset-bottom))] text-black">
       {open ? (
         <div className="mx-auto max-w-md rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-black/10 lg:max-w-none lg:rounded-t-xl lg:rounded-b-none">
           <div className="flex items-center gap-3">
@@ -898,19 +918,19 @@ function MiniPlayer({
           />
         </div>
       ) : (
-        <div className="mx-auto flex h-[76px] w-full max-w-md items-center gap-2.5 rounded-2xl bg-white/96 px-2.5 shadow-[0_16px_60px_-34px_rgba(0,0,0,0.8)] ring-1 ring-black/10 backdrop-blur lg:h-14 lg:max-w-none lg:rounded-t-xl lg:rounded-b-none lg:px-3">
+        <div className="mx-auto flex h-[76px] w-full max-w-md items-center gap-2 rounded-full bg-white/96 px-3 shadow-sm ring-1 ring-black/10 backdrop-blur lg:h-11 lg:max-w-none lg:rounded-t-xl lg:rounded-b-none lg:px-3">
           <button type="button" onClick={toggleOpen} className="flex min-w-0 flex-1 items-center gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30" aria-label="Expand player">
-            <img src={track.image} alt="" className="h-11 w-11 shrink-0 rounded-xl object-cover lg:h-9 lg:w-9 lg:rounded-full" />
+            <img src={track.image} alt="" className="h-12 w-12 shrink-0 rounded-full object-cover lg:h-8 lg:w-8" />
             <span className="min-w-0">
               <span className="block truncate text-sm font-semibold">{track.title}</span>
               <span className="block truncate text-xs text-black/52">{track.artist}</span>
             </span>
           </button>
-          <button type="button" onClick={togglePlay} aria-label={playing ? "Pause track" : "Play track"} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-black text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:h-10 lg:w-10">
-            {playing ? <Pause size={17} /> : <Play size={17} />}
+          <button type="button" onClick={togglePlay} aria-label={playing ? "Pause track" : "Play track"} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-black text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:h-8 lg:w-8">
+            {playing ? <Pause size={15} /> : <Play size={15} />}
           </button>
-          <button type="button" onClick={toggleOpen} aria-label="Expand player" className="grid h-10 w-10 shrink-0 place-items-center rounded-full hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
-            <ChevronDown size={18} className="rotate-180" />
+          <button type="button" onClick={toggleOpen} aria-label="Expand player" className="grid h-9 w-9 shrink-0 place-items-center rounded-full hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
+            <ChevronDown size={16} className="rotate-180" />
           </button>
         </div>
       )}
@@ -934,31 +954,6 @@ function FilterRow<T extends string>({ values, active, setActive }: { values: re
           {value}
         </button>
       ))}
-    </div>
-  );
-}
-
-function IconButton({ onClick, label, icon, light = false }: { onClick: () => void; label: string; icon: ReactNode; light?: boolean }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={cn(
-        "flex min-h-10 items-center gap-2 rounded-full px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
-        light ? "bg-white text-black" : "bg-white/14 text-white ring-1 ring-white/16",
-      )}
-    >
-      {icon}
-      {label}
-    </button>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl bg-black/[0.04] p-3">
-      <p className="text-2xl font-semibold">{value}</p>
-      <p className="text-xs text-black/50">{label}</p>
     </div>
   );
 }
