@@ -65,6 +65,8 @@ const vinylOne =
   "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=1200&q=82";
 const crowdOne =
   "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=82";
+const merchOne =
+  "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1200&q=82";
 
 export const orbitPreviewData: OrbitPreviewData = {
   media: [
@@ -122,6 +124,28 @@ export const orbitPreviewData: OrbitPreviewData = {
       accent: "#cfd4c5",
       duration: "Follow",
       layout: "compact",
+    },
+    {
+      id: "tour-tee",
+      kind: "product",
+      title: "Tour Tee",
+      artist: "Saint Vale",
+      detail: "Heavyweight black tee from the small-room tour run.",
+      image: merchOne,
+      accent: "#c7c1b7",
+      duration: "$68",
+      layout: "compact",
+    },
+    {
+      id: "midnight-room",
+      kind: "experience",
+      title: "Midnight Room",
+      artist: "Mika North",
+      detail: "A late stream and short artist chat for orbit members.",
+      image: studioOne,
+      accent: "#d2d0c8",
+      duration: "Live",
+      layout: "wide",
     },
   ],
   feed: [
