@@ -137,19 +137,13 @@ export function OrbitSpatialPreview() {
     }
   };
 
-  const nextTrack = () => {
-    setTrackIndex((index) => (index + 1) % orbitPreviewData.tracks.length);
-    setProgress(0);
-    setIsPlaying(true);
-  };
-
   return (
     <div className="orbit-preview min-h-dvh overflow-x-hidden bg-[#f5f1e9] text-[#111]">
-      <div className="mx-auto flex min-h-dvh w-full max-w-[1180px] flex-col px-3 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-[calc(0.45rem+env(safe-area-inset-top))] sm:px-5 lg:px-8 lg:pb-[calc(5.8rem+env(safe-area-inset-bottom))]">
+      <div className="mx-auto flex h-dvh w-full max-w-[1180px] flex-col overflow-hidden px-3 pt-[calc(0.45rem+env(safe-area-inset-top))] sm:px-5 lg:px-8">
         <OrbitTopBar />
         <OrbitNav activeSection={activeSection} goTo={goTo} />
 
-        <main className="mt-4 flex-1">
+        <main className="mt-4 min-h-0 flex-1 overflow-y-auto pb-5">
           {activeSection === "discover" && (
             <DiscoverSystem
               query={query}
@@ -212,7 +206,11 @@ export function OrbitSpatialPreview() {
           {activeSection === "experiences" && (
             <ExperiencesSystem
               filter={experienceFilter}
-              setFilter={setExperienceFilter}
+              setFilter={(nextFilter) => {
+                setExperienceFilter(nextFilter);
+                const nextExperience = orbitPreviewData.experiences.find((experience) => experience.kind === nextFilter);
+                if (nextExperience) setSelectedExperience(nextExperience);
+              }}
               experiences={visibleExperiences}
               selectedExperience={selectedExperience}
               setSelectedExperience={(experience) => {
@@ -222,6 +220,16 @@ export function OrbitSpatialPreview() {
             />
           )}
         </main>
+
+        <MiniPlayer
+          track={currentTrack}
+          open={playerOpen}
+          playing={isPlaying}
+          progress={progress}
+          setProgress={setProgress}
+          toggleOpen={() => setPlayerOpen((value) => !value)}
+          togglePlay={() => setIsPlaying((value) => !value)}
+        />
       </div>
 
       <MediaPanel
@@ -235,16 +243,6 @@ export function OrbitSpatialPreview() {
         openHub={() => goTo("hub")}
       />
 
-      <MiniPlayer
-        track={currentTrack}
-        open={playerOpen}
-        playing={isPlaying}
-        progress={progress}
-        setProgress={setProgress}
-        toggleOpen={() => setPlayerOpen((value) => !value)}
-        togglePlay={() => setIsPlaying((value) => !value)}
-        next={nextTrack}
-      />
     </div>
   );
 }
@@ -269,7 +267,7 @@ function OrbitTopBar() {
 
 function OrbitNav({ activeSection, goTo }: { activeSection: SectionId; goTo: (section: SectionId) => void }) {
   return (
-    <nav className="mx-auto mt-2 grid w-full max-w-[720px] grid-cols-4 gap-0.5 rounded-full bg-white/86 p-0.5 shadow-sm ring-1 ring-black/10" aria-label="Orbit preview systems">
+    <nav className="mx-auto mt-2 grid w-full max-w-[620px] grid-cols-4 gap-0.5 rounded-full bg-white/86 p-0.5 shadow-sm ring-1 ring-black/10" aria-label="Orbit preview systems">
       {sections.map((section) => (
         <button
           key={section.id}
@@ -315,7 +313,7 @@ function DiscoverSystem({
           <span className="hidden text-sm text-black/48 sm:inline">Nia Vale orbit is active</span>
         </div>
 
-        <label className="relative mt-4 block max-w-[46rem]">
+        <label className="relative mt-4 block max-w-[40rem]">
           <span className="sr-only">Search Orbit</span>
           <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-black/38" size={17} />
           <input
@@ -390,6 +388,7 @@ function MediaCard({ item, index, openMedia }: { item: OrbitMediaItem; index: nu
     "right-3 top-3",
   ][index % 7];
   const align = "";
+  const showTag = index % 7 === 0 || index % 7 === 1 || index % 7 === 3;
 
   return (
     <button
@@ -403,7 +402,9 @@ function MediaCard({ item, index, openMedia }: { item: OrbitMediaItem; index: nu
     >
       <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-[1.025]" />
       <span className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-transparent" />
-      <span className={cn("absolute bg-white/92 px-2.5 py-1 text-[11px] font-medium capitalize text-black", index % 3 === 0 ? "rounded-full" : "rounded-md", tagPlacement)}>{item.kind}</span>
+      {showTag && (
+        <span className={cn("absolute bg-white/88 px-2 py-0.5 text-[10px] font-medium capitalize text-black", index % 3 === 0 ? "rounded-full" : "rounded-md", tagPlacement)}>{item.kind}</span>
+      )}
       <span className={cn("absolute bottom-3 left-3 right-3 flex flex-col", align)}>
         <span className="block text-[17px] font-semibold leading-tight sm:text-xl">{item.title}</span>
         <span className="mt-0.5 flex items-center justify-between gap-2 text-xs text-white/75 sm:text-sm">
@@ -682,7 +683,9 @@ function ExperiencesSystem({
           >
             <img src={experience.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-[1.025]" />
             <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/18 to-transparent" />
-            <span className="absolute left-3 top-3 rounded-full bg-white/92 px-2.5 py-1 text-[11px] font-medium text-black">{experience.kind}</span>
+            {(index === 0 || experience.kind === "Connect") && (
+              <span className="absolute left-3 top-3 rounded-full bg-white/88 px-2 py-0.5 text-[10px] font-medium text-black">{experience.kind}</span>
+            )}
             <span className="absolute bottom-3 left-3 right-3">
               <span className="block text-xl font-semibold leading-tight sm:text-2xl">{experience.title}</span>
               <span className="mt-1 block text-xs text-white/74 sm:text-sm">{experience.time} / {experience.location}</span>
@@ -755,7 +758,6 @@ function MiniPlayer({
   setProgress,
   toggleOpen,
   togglePlay,
-  next,
 }: {
   track: (typeof orbitPreviewData.tracks)[number];
   open: boolean;
@@ -764,10 +766,9 @@ function MiniPlayer({
   setProgress: (progress: number) => void;
   toggleOpen: () => void;
   togglePlay: () => void;
-  next: () => void;
 }) {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 px-3 pb-[calc(0.45rem+env(safe-area-inset-bottom))] text-black">
+    <div className="z-50 shrink-0 pb-[calc(0.45rem+env(safe-area-inset-bottom))] text-black">
       {open && (
         <div className="mx-auto mb-2 max-w-md rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-black/10 lg:max-w-xl">
           <div className="flex items-start justify-between">
@@ -791,7 +792,7 @@ function MiniPlayer({
           />
         </div>
       )}
-      <div className="mx-auto flex h-[76px] max-w-md items-center gap-2.5 rounded-2xl bg-white/96 px-2.5 shadow-[0_16px_60px_-34px_rgba(0,0,0,0.8)] ring-1 ring-black/10 backdrop-blur lg:h-14 lg:max-w-[760px] lg:rounded-full lg:px-3">
+      <div className="mx-auto flex h-[76px] w-full max-w-md items-center gap-2.5 rounded-2xl bg-white/96 px-2.5 shadow-[0_16px_60px_-34px_rgba(0,0,0,0.8)] ring-1 ring-black/10 backdrop-blur lg:h-14 lg:max-w-none lg:rounded-t-xl lg:rounded-b-none lg:px-3">
         <button type="button" onClick={toggleOpen} className="flex min-w-0 flex-1 items-center gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30" aria-label="Expand player">
           <img src={track.image} alt="" className="h-11 w-11 shrink-0 rounded-xl object-cover lg:h-9 lg:w-9 lg:rounded-full" />
           <span className="min-w-0">
@@ -802,8 +803,8 @@ function MiniPlayer({
         <button type="button" onClick={togglePlay} aria-label={playing ? "Pause track" : "Play track"} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-black text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:h-10 lg:w-10">
           {playing ? <Pause size={17} /> : <Play size={17} />}
         </button>
-        <button type="button" onClick={next} aria-label="Next track" className="grid h-10 w-10 shrink-0 place-items-center rounded-full hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
-          <ChevronRight size={18} />
+        <button type="button" onClick={toggleOpen} aria-label="Expand player" className="grid h-10 w-10 shrink-0 place-items-center rounded-full hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
+          <ChevronDown size={18} className={cn("transition-transform", open ? "rotate-0" : "rotate-180")} />
         </button>
       </div>
     </div>
