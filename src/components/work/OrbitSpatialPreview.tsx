@@ -200,6 +200,7 @@ export function OrbitSpatialPreview() {
                 setStatus(direction > 0 ? "Orbit rotated clockwise." : "Orbit rotated counter-clockwise.");
               }}
               runAction={runHubAction}
+              openExperience={() => runHubAction("Experience")}
             />
           )}
 
@@ -525,6 +526,7 @@ function HubSystem({
   setAngle,
   rotate,
   runAction,
+  openExperience,
 }: {
   angle: number;
   action: HubAction;
@@ -537,6 +539,7 @@ function HubSystem({
   setAngle: (value: number | ((value: number) => number)) => void;
   rotate: (direction: -1 | 1) => void;
   runAction: (action: HubAction) => void;
+  openExperience: () => void;
 }) {
   return (
     <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_17rem]">
@@ -574,10 +577,10 @@ function HubSystem({
             setAngle(dragStart.angle + (event.clientX - dragStart.x) * 0.35);
           }}
           onPointerUp={() => setDragStart(null)}
-          className="relative mt-4 aspect-square min-h-[350px] overflow-hidden rounded-[1.4rem] bg-[#e9e3d8] outline-none ring-1 ring-black/10 focus-visible:ring-2 focus-visible:ring-black/30 lg:aspect-auto lg:h-[560px] lg:min-h-0"
+          className="relative mt-6 aspect-square min-h-[350px] overflow-hidden rounded-[1.4rem] bg-[#e9e3d8] outline-none ring-1 ring-black/10 focus-visible:ring-2 focus-visible:ring-black/30 sm:mt-7 lg:aspect-auto lg:h-[560px] lg:min-h-0"
         >
-          <div className="absolute inset-[7%] rounded-full border border-black/26" />
-          <div className="absolute inset-[17%] rounded-full border border-black/12" />
+          <div className="absolute inset-[9%] rounded-full border border-black/26" />
+          <div className="absolute inset-[18%] rounded-full border border-black/12" />
           <div className="absolute inset-[30%] rounded-full border border-black/8" />
           <div
             className="pointer-events-none absolute left-1/2 top-1/2 h-px w-[38%] origin-left bg-black/34"
@@ -585,10 +588,11 @@ function HubSystem({
           />
           <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-black shadow-[0_24px_80px_-36px_rgba(0,0,0,0.65)] sm:h-60 sm:w-60 lg:h-64 lg:w-64">
             <img src={selectedMedia.image} alt="" className="h-full w-full object-cover opacity-95" />
-          </div>
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-[78%] text-center">
-            <p className="text-sm font-semibold">Nia Vale</p>
-            <p className="text-xs text-black/48">{selectedMedia.title}</p>
+            <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/72 to-transparent" />
+            <span className="absolute inset-x-4 bottom-4 text-center text-white">
+              <span className="block text-sm font-semibold leading-tight">Nia Vale</span>
+              <span className="block truncate text-xs text-white/70">{selectedMedia.title}</span>
+            </span>
           </div>
           {hubActions.map((nextAction, index) => {
             const step = (360 / hubActions.length) * index + angle;
@@ -604,8 +608,9 @@ function HubSystem({
                   action === nextAction ? "border-black bg-black text-white" : "border-black/10 bg-white text-black hover:border-black/30",
                 )}
                 style={{
-                  left: `calc(50% + ${Math.cos(radians) * 37}%)`,
-                  top: `calc(50% + ${Math.sin(radians) * 37}%)`,
+                  left: `calc(50% + ${Math.cos(radians) * 32}%)`,
+                  top: `calc(50% + ${Math.sin(radians) * 32}%)`,
+                  transform: "translate(-50%, -50%)",
                 } as CSSProperties}
               >
                 {nextAction === "Repost" && <Repeat2 size={15} />}
@@ -623,20 +628,108 @@ function HubSystem({
             <p className="mt-1 text-xs leading-4 text-black/58">{status}</p>
           </div>
         </div>
+
+        <HubActionPanel action={action} status={status} orbitAdded={orbitAdded} reposts={reposts} runAction={runAction} openExperience={openExperience} />
       </div>
 
-      <aside className="rounded-xl bg-white p-4 ring-1 ring-black/10 lg:mt-[4.9rem]">
-        <p className="text-xs uppercase tracking-[0.16em] text-black/42">Selected action</p>
-        <h2 className="mt-2 text-3xl font-semibold">{action}</h2>
-        <p className="mt-2 text-sm leading-5 text-black/58">{status}</p>
-        <button type="button" onClick={() => runAction(action)} className="mt-4 flex min-h-11 w-full items-center justify-center rounded-full bg-black px-4 text-sm text-white">
-          Run action
-        </button>
-        <div className="mt-4 hidden grid-cols-2 gap-2 sm:grid">
+      <aside className="rounded-xl bg-white p-4 ring-1 ring-black/10 lg:mt-[5.6rem]">
+        <p className="text-xs uppercase tracking-[0.16em] text-black/42">Orbit state</p>
+        <h2 className="mt-2 text-2xl font-semibold">Nia Vale</h2>
+        <p className="mt-2 text-sm leading-5 text-black/58">Current action: {action}. Rotate or select an orbit action to update the artist state.</p>
+        <div className="mt-4 grid grid-cols-2 gap-2">
           <Stat label="Reposts" value={String(reposts)} />
           <Stat label="In orbit" value={orbitAdded ? "Yes" : "No"} />
         </div>
       </aside>
+    </section>
+  );
+}
+
+function HubActionPanel({
+  action,
+  status,
+  orbitAdded,
+  reposts,
+  runAction,
+  openExperience,
+}: {
+  action: HubAction;
+  status: string;
+  orbitAdded: boolean;
+  reposts: number;
+  runAction: (action: HubAction) => void;
+  openExperience: () => void;
+}) {
+  return (
+    <section className="mt-3 rounded-xl bg-white p-3 ring-1 ring-black/10 sm:p-4">
+      <p className="text-xs uppercase tracking-[0.16em] text-black/42">Selected action</p>
+      <div className="mt-2 grid gap-3 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div>
+          <h2 className="text-2xl font-semibold">{action}</h2>
+          <p className="mt-1 text-sm leading-5 text-black/58">{status}</p>
+        </div>
+        <button type="button" onClick={() => runAction(action)} className="flex min-h-9 items-center justify-center rounded-full bg-black px-4 text-sm text-white sm:min-h-10">
+          {action === "Add to Orbit" && (orbitAdded ? "Update Orbit" : "Add artist")}
+          {action === "Share" && "Copy link"}
+          {action === "Repost" && "Repost again"}
+          {action === "Shop" && "Open item"}
+          {action === "Experience" && "View events"}
+        </button>
+      </div>
+
+      {action === "Add to Orbit" && (
+        <div className="mt-3 flex gap-2 overflow-x-auto sm:mt-4 sm:grid sm:grid-cols-3">
+          {["Core rotation", "After-hours", "Release watch"].map((collection) => (
+            <button key={collection} type="button" onClick={() => runAction("Add to Orbit")} className="min-h-9 shrink-0 rounded-full border border-black/10 px-3 text-sm hover:border-black/30 sm:min-h-10">
+              {orbitAdded ? <Check className="mr-1 inline" size={14} /> : <Plus className="mr-1 inline" size={14} />}
+              {collection}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {action === "Share" && (
+        <div className="mt-3 flex gap-2 overflow-x-auto sm:mt-4 sm:grid sm:grid-cols-3">
+          <button type="button" onClick={() => runAction("Share")} className="min-h-9 shrink-0 rounded-full border border-black/10 px-3 text-sm hover:border-black/30 sm:min-h-10">Copy artist link</button>
+          <button type="button" onClick={() => runAction("Share")} className="min-h-9 shrink-0 rounded-full border border-black/10 px-3 text-sm hover:border-black/30 sm:min-h-10">Share track</button>
+          <button type="button" onClick={() => runAction("Share")} className="min-h-9 shrink-0 rounded-full border border-black/10 px-3 text-sm hover:border-black/30 sm:min-h-10">Send to orbit</button>
+        </div>
+      )}
+
+      {action === "Repost" && (
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-black/58 sm:mt-4">
+          <span className="rounded-full bg-black/[0.04] px-3 py-1.5 sm:py-2">{reposts} reposts</span>
+          <button type="button" onClick={() => runAction("Repost")} className="min-h-9 rounded-full border border-black/10 px-4 text-black hover:border-black/30 sm:min-h-10">Repost with note</button>
+        </div>
+      )}
+
+      {action === "Shop" && (
+        <div className="mt-3 grid gap-2 sm:mt-4 sm:grid-cols-2">
+          {orbitPreviewData.media.filter((item) => item.kind === "product").map((item) => (
+            <button key={item.id} type="button" onClick={() => runAction("Shop")} className="flex min-h-12 items-center justify-between rounded-xl bg-black/[0.04] px-3 text-left text-sm hover:bg-black/[0.07]">
+              <span>
+                <span className="block font-medium">{item.title}</span>
+                <span className="text-xs text-black/50">{item.detail}</span>
+              </span>
+              <ShoppingBag size={16} />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {action === "Experience" && (
+        <div className="mt-3 grid gap-2 sm:mt-4 sm:grid-cols-2">
+          {orbitPreviewData.experiences.slice(0, 2).map((experience) => (
+            <button key={experience.id} type="button" onClick={openExperience} className="flex min-h-12 items-center justify-between rounded-xl bg-black/[0.04] px-3 text-left text-sm hover:bg-black/[0.07]">
+              <span>
+                <span className="block font-medium">{experience.title}</span>
+                <span className="text-xs text-black/50">{experience.time}</span>
+              </span>
+              <Ticket size={16} />
+            </button>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
@@ -674,11 +767,14 @@ function ExperiencesSystem({
             onClick={() => setSelectedExperience(experience)}
             className={cn(
               "group relative overflow-hidden bg-black text-left text-white outline-none shadow-sm ring-1 ring-black/5 focus-visible:ring-2 focus-visible:ring-black",
-              index === 0 && "col-span-2 row-span-2 rounded-[1.35rem] lg:col-span-3",
-              index !== 0 && "rounded-xl",
+              experiences.length === 1 && "col-span-2 row-span-2 rounded-[1.35rem] lg:col-span-5",
+              experiences.length === 2 && index === 0 && "col-span-2 row-span-2 rounded-[1.35rem] lg:col-span-3",
+              experiences.length === 2 && index === 1 && "col-span-2 row-span-2 rounded-xl lg:col-span-2",
+              experiences.length > 2 && index === 0 && "col-span-2 row-span-2 rounded-[1.35rem] lg:col-span-3",
+              experiences.length > 2 && index !== 0 && "rounded-xl",
               experience.kind === "Connect" && "border border-black/20",
-              experience.scale === "wide" && index !== 0 && "col-span-2 lg:col-span-2",
-              experience.scale === "tall" && index !== 0 && "row-span-2",
+              experiences.length > 2 && experience.scale === "wide" && index !== 0 && "col-span-2 lg:col-span-2",
+              experiences.length > 2 && experience.scale === "tall" && index !== 0 && "row-span-2",
             )}
           >
             <img src={experience.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-[1.025]" />
@@ -699,6 +795,12 @@ function ExperiencesSystem({
           <p className="text-xs uppercase tracking-[0.16em] text-black/42">{selectedExperience.kind}</p>
           <h2 className="mt-1 text-2xl font-semibold">{selectedExperience.title}</h2>
           <p className="mt-1 max-w-2xl text-sm leading-5 text-black/58">{selectedExperience.description}</p>
+          {selectedExperience.kind === "Connect" && (
+            <p className="mt-2 text-sm text-black/54">2 minute reply / Available today / Direct artist access</p>
+          )}
+          {selectedExperience.kind === "Live Stream" && (
+            <p className="mt-2 text-sm text-black/54">Live room access / Reminder enabled after selection</p>
+          )}
         </div>
         <button type="button" onClick={() => setSelectedExperience(selectedExperience)} className="flex min-h-10 items-center justify-center gap-2 rounded-full bg-black px-4 text-sm text-white">
           {selectedExperience.kind === "Live Stream" ? <Radio size={15} /> : selectedExperience.kind === "Connect" ? <MessageCircle size={15} /> : <Ticket size={15} />}
@@ -769,15 +871,19 @@ function MiniPlayer({
 }) {
   return (
     <div className="z-50 shrink-0 pb-[calc(0.45rem+env(safe-area-inset-bottom))] text-black">
-      {open && (
-        <div className="mx-auto mb-2 max-w-md rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-black/10 lg:max-w-xl">
-          <div className="flex items-start justify-between">
-            <div>
+      {open ? (
+        <div className="mx-auto max-w-md rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-black/10 lg:max-w-none lg:rounded-t-xl lg:rounded-b-none">
+          <div className="flex items-center gap-3">
+            <img src={track.image} alt="" className="h-16 w-16 shrink-0 rounded-xl object-cover lg:h-12 lg:w-12" />
+            <div className="min-w-0 flex-1">
               <p className="text-xs uppercase tracking-[0.16em] text-black/42">Now playing</p>
-              <h2 className="mt-1 text-2xl font-semibold">{track.title}</h2>
-              <p className="text-sm text-black/58">{track.artist}</p>
+              <h2 className="mt-0.5 truncate text-xl font-semibold lg:text-2xl">{track.title}</h2>
+              <p className="truncate text-sm text-black/58">{track.artist}</p>
             </div>
-            <button type="button" onClick={toggleOpen} aria-label="Collapse player" className="grid h-10 w-10 place-items-center rounded-full hover:bg-black/5">
+            <button type="button" onClick={togglePlay} aria-label={playing ? "Pause track" : "Play track"} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-black text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
+              {playing ? <Pause size={17} /> : <Play size={17} />}
+            </button>
+            <button type="button" onClick={toggleOpen} aria-label="Collapse player" className="grid h-10 w-10 shrink-0 place-items-center rounded-full hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
               <ChevronDown size={18} />
             </button>
           </div>
@@ -788,25 +894,26 @@ function MiniPlayer({
             max={100}
             value={progress}
             onChange={(event) => setProgress(Number(event.target.value))}
-            className="orbit-range mt-5 w-full"
+            className="orbit-range mt-4 w-full"
           />
         </div>
+      ) : (
+        <div className="mx-auto flex h-[76px] w-full max-w-md items-center gap-2.5 rounded-2xl bg-white/96 px-2.5 shadow-[0_16px_60px_-34px_rgba(0,0,0,0.8)] ring-1 ring-black/10 backdrop-blur lg:h-14 lg:max-w-none lg:rounded-t-xl lg:rounded-b-none lg:px-3">
+          <button type="button" onClick={toggleOpen} className="flex min-w-0 flex-1 items-center gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30" aria-label="Expand player">
+            <img src={track.image} alt="" className="h-11 w-11 shrink-0 rounded-xl object-cover lg:h-9 lg:w-9 lg:rounded-full" />
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-semibold">{track.title}</span>
+              <span className="block truncate text-xs text-black/52">{track.artist}</span>
+            </span>
+          </button>
+          <button type="button" onClick={togglePlay} aria-label={playing ? "Pause track" : "Play track"} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-black text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:h-10 lg:w-10">
+            {playing ? <Pause size={17} /> : <Play size={17} />}
+          </button>
+          <button type="button" onClick={toggleOpen} aria-label="Expand player" className="grid h-10 w-10 shrink-0 place-items-center rounded-full hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
+            <ChevronDown size={18} className="rotate-180" />
+          </button>
+        </div>
       )}
-      <div className="mx-auto flex h-[76px] w-full max-w-md items-center gap-2.5 rounded-2xl bg-white/96 px-2.5 shadow-[0_16px_60px_-34px_rgba(0,0,0,0.8)] ring-1 ring-black/10 backdrop-blur lg:h-14 lg:max-w-none lg:rounded-t-xl lg:rounded-b-none lg:px-3">
-        <button type="button" onClick={toggleOpen} className="flex min-w-0 flex-1 items-center gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30" aria-label="Expand player">
-          <img src={track.image} alt="" className="h-11 w-11 shrink-0 rounded-xl object-cover lg:h-9 lg:w-9 lg:rounded-full" />
-          <span className="min-w-0">
-            <span className="block truncate text-sm font-semibold">{track.title}</span>
-            <span className="block truncate text-xs text-black/52">{track.artist}</span>
-          </span>
-        </button>
-        <button type="button" onClick={togglePlay} aria-label={playing ? "Pause track" : "Play track"} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-black text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:h-10 lg:w-10">
-          {playing ? <Pause size={17} /> : <Play size={17} />}
-        </button>
-        <button type="button" onClick={toggleOpen} aria-label="Expand player" className="grid h-10 w-10 shrink-0 place-items-center rounded-full hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
-          <ChevronDown size={18} className={cn("transition-transform", open ? "rotate-0" : "rotate-180")} />
-        </button>
-      </div>
     </div>
   );
 }
