@@ -145,7 +145,7 @@ export function OrbitSpatialPreview() {
 
   return (
     <div className="orbit-preview min-h-dvh overflow-x-hidden bg-[#f5f1e9] text-[#111]">
-      <div className="mx-auto flex min-h-dvh w-full max-w-[1180px] flex-col px-3 pb-[calc(7rem+env(safe-area-inset-bottom))] pt-[calc(0.75rem+env(safe-area-inset-top))] sm:px-5 lg:px-8">
+      <div className="mx-auto flex min-h-dvh w-full max-w-[1180px] flex-col px-3 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-[calc(0.45rem+env(safe-area-inset-top))] sm:px-5 lg:px-8 lg:pb-[calc(5.8rem+env(safe-area-inset-bottom))]">
         <OrbitTopBar />
         <OrbitNav activeSection={activeSection} goTo={goTo} />
 
@@ -251,15 +251,15 @@ export function OrbitSpatialPreview() {
 
 function OrbitTopBar() {
   return (
-    <header className="flex h-11 items-center justify-between">
+    <header className="flex h-10 items-center justify-between">
       <div className="flex items-center gap-2">
-        <span className="grid h-8 w-8 place-items-center rounded-full bg-black text-[13px] font-semibold text-white">O</span>
-        <span className="text-[15px] font-semibold tracking-[0.16em]">ORBIT</span>
+        <span className="grid h-7 w-7 place-items-center rounded-full bg-black text-[12px] font-semibold text-white">O</span>
+        <span className="text-[14px] font-semibold tracking-[0.18em]">ORBIT</span>
       </div>
       <button
         type="button"
         aria-label="Open profile"
-        className="grid h-10 w-10 place-items-center rounded-full border border-black/10 bg-white text-black shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+        className="grid h-10 w-10 place-items-center rounded-full bg-white text-black shadow-sm ring-1 ring-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
       >
         <User size={17} />
       </button>
@@ -269,15 +269,15 @@ function OrbitTopBar() {
 
 function OrbitNav({ activeSection, goTo }: { activeSection: SectionId; goTo: (section: SectionId) => void }) {
   return (
-    <nav className="mt-3 grid grid-cols-4 gap-1 rounded-full bg-white p-1 shadow-sm ring-1 ring-black/10" aria-label="Orbit preview systems">
+    <nav className="mx-auto mt-2 grid w-full max-w-[720px] grid-cols-4 gap-0.5 rounded-full bg-white/86 p-0.5 shadow-sm ring-1 ring-black/10" aria-label="Orbit preview systems">
       {sections.map((section) => (
         <button
           key={section.id}
           type="button"
           onClick={() => goTo(section.id)}
           className={cn(
-            "min-h-9 rounded-full px-2 text-[12px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 sm:text-sm",
-            activeSection === section.id ? "bg-black text-white" : "text-black/58 hover:bg-black/[0.04] hover:text-black",
+            "min-h-11 rounded-full px-1.5 text-[12px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 sm:text-sm",
+            activeSection === section.id ? "bg-black text-white" : "text-black/54 hover:bg-black/[0.04] hover:text-black",
           )}
         >
           {section.label}
@@ -305,7 +305,7 @@ function DiscoverSystem({
   openHub: () => void;
 }) {
   return (
-    <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+    <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
       <div>
         <div className="flex items-end justify-between gap-4">
           <div>
@@ -315,7 +315,7 @@ function DiscoverSystem({
           <span className="hidden text-sm text-black/48 sm:inline">Nia Vale orbit is active</span>
         </div>
 
-        <label className="relative mt-4 block">
+        <label className="relative mt-4 block max-w-[46rem]">
           <span className="sr-only">Search Orbit</span>
           <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-black/38" size={17} />
           <input
@@ -336,7 +336,7 @@ function DiscoverSystem({
           )}
         </label>
 
-        <div className="mt-4 grid auto-rows-[118px] grid-cols-2 gap-2.5 sm:auto-rows-[150px] lg:auto-rows-[170px] lg:grid-cols-4">
+        <div className="mt-4 grid auto-rows-[112px] grid-cols-2 gap-2.5 sm:auto-rows-[150px] lg:auto-rows-[150px] lg:grid-cols-6 lg:gap-3">
           {items.map((item, index) => (
             <MediaCard key={item.id} item={item} index={index} openMedia={openMedia} />
           ))}
@@ -363,28 +363,48 @@ function DiscoverSystem({
 
 function MediaCard({ item, index, openMedia }: { item: OrbitMediaItem; index: number; openMedia: (item: OrbitMediaItem) => void }) {
   const layout = [
-    "col-span-2 row-span-2",
-    "",
-    "",
-    "row-span-2",
-    "",
-    "",
-    "col-span-2",
+    "col-span-2 row-span-2 lg:col-span-3 lg:row-span-3",
+    "lg:col-span-2 lg:row-span-2",
+    "lg:col-span-1 lg:row-span-1",
+    "row-span-2 lg:col-span-2 lg:row-span-3",
+    "lg:col-span-1 lg:row-span-2",
+    "lg:col-span-2 lg:row-span-2 lg:translate-y-8",
+    "col-span-2 lg:col-span-3 lg:row-span-2 lg:-translate-y-3",
   ][index % 7];
+  const radius = [
+    "rounded-[1.35rem]",
+    "rounded-xl",
+    "rounded-[1.35rem]",
+    "rounded-[0.9rem]",
+    "rounded-xl",
+    "rounded-[1.35rem]",
+    "rounded-xl",
+  ][index % 7];
+  const tagPlacement = [
+    "left-3 top-3",
+    "right-3 top-3",
+    "right-3 top-3",
+    "left-3 top-3",
+    "right-3 top-3",
+    "left-3 top-3",
+    "right-3 top-3",
+  ][index % 7];
+  const align = "";
 
   return (
     <button
       type="button"
       onClick={() => openMedia(item)}
       className={cn(
-        "group relative overflow-hidden rounded-2xl bg-black text-left text-white outline-none shadow-sm transition duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-black",
+        "group relative overflow-hidden bg-black text-left text-white outline-none shadow-sm transition duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-black",
         layout,
+        radius,
       )}
     >
       <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-90 transition duration-300 group-hover:scale-[1.025]" />
       <span className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/18 to-transparent" />
-      <span className="absolute left-3 top-3 rounded-full bg-white/92 px-2.5 py-1 text-[11px] font-medium capitalize text-black">{item.kind}</span>
-      <span className="absolute bottom-3 left-3 right-3">
+      <span className={cn("absolute bg-white/92 px-2.5 py-1 text-[11px] font-medium capitalize text-black", index % 3 === 0 ? "rounded-full" : "rounded-md", tagPlacement)}>{item.kind}</span>
+      <span className={cn("absolute bottom-3 left-3 right-3 flex flex-col", align)}>
         <span className="block text-[17px] font-semibold leading-tight sm:text-xl">{item.title}</span>
         <span className="mt-0.5 flex items-center justify-between gap-2 text-xs text-white/75 sm:text-sm">
           <span className="truncate">{item.artist}</span>
@@ -421,8 +441,8 @@ function FeedSystem({
   play: () => void;
 }) {
   return (
-    <section className="grid gap-3 lg:grid-cols-[14rem_minmax(0,1fr)_16rem]">
-      <aside className="order-2 rounded-2xl bg-white p-3 shadow-sm ring-1 ring-black/10 lg:order-1">
+    <section className="grid gap-3 lg:grid-cols-[12rem_minmax(0,1fr)_15rem]">
+      <aside className="order-2 rounded-xl bg-white p-3 ring-1 ring-black/10 lg:order-1">
         <p className="text-xs uppercase tracking-[0.16em] text-black/42">Stories</p>
         <div className="mt-3 flex gap-2 overflow-x-auto lg:grid">
           {orbitPreviewData.feed.map((story) => (
@@ -444,9 +464,13 @@ function FeedSystem({
         </div>
       </aside>
 
-      <div className="order-1 lg:order-2">
+      <div className="order-1 overflow-hidden lg:order-2">
         <FilterRow values={feedModes} active={mode} setActive={setMode} />
-        <article className="relative mt-3 overflow-hidden rounded-2xl bg-black text-white">
+        <div className="mt-3 flex items-stretch gap-3">
+          <button type="button" onClick={() => setIndex(index - 1)} aria-label="Previous story" className="hidden w-16 shrink-0 overflow-hidden rounded-xl bg-black opacity-55 lg:block">
+            <img src={orbitPreviewData.feed[(index + orbitPreviewData.feed.length - 1) % orbitPreviewData.feed.length].image} alt="" className="h-full w-full object-cover" />
+          </button>
+        <article className="relative min-w-0 flex-1 overflow-hidden rounded-[1.35rem] bg-black text-white">
           <img src={item.image} alt="" className="h-[min(64dvh,560px)] min-h-[430px] w-full object-cover opacity-90 lg:h-[680px]" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/18 to-black/5" />
           <div className="absolute left-4 right-4 top-4 flex gap-1">
@@ -465,9 +489,13 @@ function FeedSystem({
             </div>
           </div>
         </article>
+          <button type="button" onClick={() => setIndex(index + 1)} aria-label="Next story preview" className="hidden w-20 shrink-0 overflow-hidden rounded-xl bg-black opacity-70 lg:block">
+            <img src={orbitPreviewData.feed[(index + 1) % orbitPreviewData.feed.length].image} alt="" className="h-full w-full object-cover" />
+          </button>
+        </div>
       </div>
 
-      <aside className="order-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/10">
+      <aside className="order-3 rounded-xl bg-white p-4 ring-1 ring-black/10">
         <p className="text-xs uppercase tracking-[0.16em] text-black/42">Context</p>
         <p className="mt-3 text-xl font-semibold">{item.artist}</p>
         <p className="mt-2 text-sm leading-5 text-black/58">{item.context}</p>
@@ -510,7 +538,7 @@ function HubSystem({
   runAction: (action: HubAction) => void;
 }) {
   return (
-    <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem]">
+    <section className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_17rem]">
       <div>
         <div className="flex items-end justify-between">
           <div>
@@ -547,10 +575,14 @@ function HubSystem({
           onPointerUp={() => setDragStart(null)}
           className="relative mt-4 aspect-square min-h-[350px] overflow-hidden rounded-[1.4rem] bg-[#e9e3d8] outline-none ring-1 ring-black/10 focus-visible:ring-2 focus-visible:ring-black/30 lg:aspect-auto lg:h-[560px] lg:min-h-0"
         >
-          <div className="absolute inset-[8%] rounded-full border border-black/18" />
-          <div className="absolute inset-[16%] rounded-full border border-black/10" />
-          <div className="absolute inset-[29%] rounded-full border border-black/8" />
-          <div className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-black shadow-[0_24px_80px_-36px_rgba(0,0,0,0.65)] sm:h-60 sm:w-60 lg:h-56 lg:w-56">
+          <div className="absolute inset-[7%] rounded-full border border-black/26" />
+          <div className="absolute inset-[17%] rounded-full border border-black/12" />
+          <div className="absolute inset-[30%] rounded-full border border-black/8" />
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 h-px w-[38%] origin-left bg-black/34"
+            style={{ transform: `rotate(${(360 / hubActions.length) * hubActions.indexOf(action) + angle - 90}deg)` }}
+          />
+          <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-black shadow-[0_24px_80px_-36px_rgba(0,0,0,0.65)] sm:h-60 sm:w-60 lg:h-64 lg:w-64">
             <img src={selectedMedia.image} alt="" className="h-full w-full object-cover opacity-95" />
           </div>
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-[78%] text-center">
@@ -584,10 +616,15 @@ function HubSystem({
               </button>
             );
           })}
+          <div className="absolute bottom-4 left-4 hidden max-w-[13rem] rounded-xl bg-white/84 p-3 ring-1 ring-black/10 backdrop-blur-sm sm:block">
+            <p className="text-[10px] uppercase tracking-[0.16em] text-black/44">Action</p>
+            <p className="mt-1 text-lg font-semibold leading-tight">{action}</p>
+            <p className="mt-1 text-xs leading-4 text-black/58">{status}</p>
+          </div>
         </div>
       </div>
 
-      <aside className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/10 lg:mt-[4.9rem]">
+      <aside className="rounded-xl bg-white p-4 ring-1 ring-black/10 lg:mt-[4.9rem]">
         <p className="text-xs uppercase tracking-[0.16em] text-black/42">Selected action</p>
         <h2 className="mt-2 text-3xl font-semibold">{action}</h2>
         <p className="mt-2 text-sm leading-5 text-black/58">{status}</p>
@@ -628,16 +665,18 @@ function ExperiencesSystem({
         <FilterRow values={experienceKinds} active={filter} setActive={setFilter} />
       </div>
 
-      <div className="mt-4 grid auto-rows-[150px] grid-cols-2 gap-2.5 lg:auto-rows-[210px] lg:grid-cols-4">
+      <div className="mt-4 grid auto-rows-[140px] grid-cols-2 gap-2.5 lg:auto-rows-[200px] lg:grid-cols-5">
         {experiences.map((experience, index) => (
           <button
             key={experience.id}
             type="button"
             onClick={() => setSelectedExperience(experience)}
             className={cn(
-              "group relative overflow-hidden rounded-2xl bg-black text-left text-white outline-none shadow-sm ring-1 ring-black/5 focus-visible:ring-2 focus-visible:ring-black",
-              index === 0 && "col-span-2 row-span-2",
-              experience.scale === "wide" && index !== 0 && "col-span-2",
+              "group relative overflow-hidden bg-black text-left text-white outline-none shadow-sm ring-1 ring-black/5 focus-visible:ring-2 focus-visible:ring-black",
+              index === 0 && "col-span-2 row-span-2 rounded-[1.35rem] lg:col-span-3",
+              index !== 0 && "rounded-xl",
+              experience.kind === "Connect" && "border border-black/20",
+              experience.scale === "wide" && index !== 0 && "col-span-2 lg:col-span-2",
               experience.scale === "tall" && index !== 0 && "row-span-2",
             )}
           >
@@ -652,7 +691,7 @@ function ExperiencesSystem({
         ))}
       </div>
 
-      <aside className="mt-3 grid gap-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/10 lg:grid-cols-[1fr_auto] lg:items-center">
+      <aside className="mt-3 grid gap-3 rounded-xl bg-white p-4 ring-1 ring-black/10 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
           <p className="text-xs uppercase tracking-[0.16em] text-black/42">{selectedExperience.kind}</p>
           <h2 className="mt-1 text-2xl font-semibold">{selectedExperience.title}</h2>
@@ -682,7 +721,7 @@ function MediaPanel({
 }) {
   if (!item) return null;
   return (
-    <aside className="fixed inset-x-3 bottom-[calc(6rem+env(safe-area-inset-bottom))] z-40 mx-auto max-w-md rounded-2xl bg-white p-4 text-black shadow-2xl ring-1 ring-black/10 lg:inset-x-auto lg:right-6 lg:w-96">
+    <aside className="fixed inset-x-3 bottom-[calc(5.6rem+env(safe-area-inset-bottom))] z-40 mx-auto max-w-md rounded-xl bg-white p-4 text-black shadow-2xl ring-1 ring-black/10 lg:inset-x-auto lg:right-6 lg:w-96">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-[0.16em] text-black/42">{item.kind}</p>
@@ -728,9 +767,9 @@ function MiniPlayer({
   next: () => void;
 }) {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 px-3 pb-[calc(0.55rem+env(safe-area-inset-bottom))] text-black">
+    <div className="fixed inset-x-0 bottom-0 z-50 px-3 pb-[calc(0.45rem+env(safe-area-inset-bottom))] text-black">
       {open && (
-        <div className="mx-auto mb-2 max-w-md rounded-3xl bg-white p-4 shadow-2xl ring-1 ring-black/10 lg:max-w-xl">
+        <div className="mx-auto mb-2 max-w-md rounded-2xl bg-white p-4 shadow-2xl ring-1 ring-black/10 lg:max-w-xl">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.16em] text-black/42">Now playing</p>
@@ -752,15 +791,15 @@ function MiniPlayer({
           />
         </div>
       )}
-      <div className="mx-auto flex h-20 max-w-[1180px] items-center gap-3 rounded-[1.35rem] bg-white/96 px-3 shadow-[0_16px_60px_-34px_rgba(0,0,0,0.8)] ring-1 ring-black/10 backdrop-blur">
+      <div className="mx-auto flex h-[76px] max-w-md items-center gap-2.5 rounded-2xl bg-white/96 px-2.5 shadow-[0_16px_60px_-34px_rgba(0,0,0,0.8)] ring-1 ring-black/10 backdrop-blur lg:h-14 lg:max-w-[760px] lg:rounded-full lg:px-3">
         <button type="button" onClick={toggleOpen} className="flex min-w-0 flex-1 items-center gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30" aria-label="Expand player">
-          <img src={track.image} alt="" className="h-12 w-12 shrink-0 rounded-xl object-cover" />
+          <img src={track.image} alt="" className="h-11 w-11 shrink-0 rounded-xl object-cover lg:h-9 lg:w-9 lg:rounded-full" />
           <span className="min-w-0">
             <span className="block truncate text-sm font-semibold">{track.title}</span>
             <span className="block truncate text-xs text-black/52">{track.artist}</span>
           </span>
         </button>
-        <button type="button" onClick={togglePlay} aria-label={playing ? "Pause track" : "Play track"} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-black text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
+        <button type="button" onClick={togglePlay} aria-label={playing ? "Pause track" : "Play track"} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-black text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:h-10 lg:w-10">
           {playing ? <Pause size={17} /> : <Play size={17} />}
         </button>
         <button type="button" onClick={next} aria-label="Next track" className="grid h-10 w-10 shrink-0 place-items-center rounded-full hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30">
