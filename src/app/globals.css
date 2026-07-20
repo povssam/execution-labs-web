@@ -470,6 +470,26 @@ body {
 .worked-wordmark {
   letter-spacing: 0;
 }
+
+.orbit-action {
+  transform: translate(-50%, -50%);
+}
+
+.orbit-range {
+  accent-color: #111;
+}
+
+.orbit-preview button,
+.orbit-preview input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 520px) {
+  .orbit-action {
+    transform: translate(-50%, -50%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-col {
     animation: none;

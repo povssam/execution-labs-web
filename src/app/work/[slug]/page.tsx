@@ -190,6 +190,15 @@ export default async function CaseStudyPage({ params }: Params) {
             </Reveal>
           )}
 
+          {study.slug === "orbit-artist-group" && (
+            <Reveal delay={0.1} className="mt-6">
+              <ButtonLink href="/orbit-preview" variant="secondary">
+                Open Orbit spatial UI preview
+                <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+              </ButtonLink>
+            </Reveal>
+          )}
+
           <Reveal className="mt-8">
             <figure className="rounded-2xl border border-line bg-charcoal/40 p-8 sm:p-10">
               <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
