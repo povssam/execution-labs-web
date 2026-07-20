@@ -136,11 +136,11 @@ export function OrbitSpatialPreview() {
 
   return (
     <div className="orbit-preview min-h-dvh overflow-x-hidden bg-[#f5f1e9] text-[#111]">
-      <div className="mx-auto flex h-dvh w-full max-w-[1180px] flex-col overflow-hidden px-3 pt-[calc(0.45rem+env(safe-area-inset-top))] sm:px-5 lg:px-8">
+      <div className="mx-auto flex h-dvh w-full max-w-[1180px] flex-col overflow-hidden px-3 pt-[calc(0.35rem+env(safe-area-inset-top))] sm:px-5 lg:px-8">
         <OrbitTopBar />
         <OrbitNav activeSection={activeSection} goTo={goTo} />
 
-        <main className="mt-4 min-h-0 flex-1 overflow-y-auto pb-8">
+        <main className="mt-2 min-h-0 flex-1 overflow-y-auto pb-8 sm:mt-3">
           {activeSection === "discover" && (
             <DiscoverSystem
               query={query}
@@ -248,7 +248,7 @@ export function OrbitSpatialPreview() {
 
 function OrbitTopBar() {
   return (
-    <header className="flex h-10 items-center justify-between">
+    <header className="flex h-9 items-center justify-between">
       <div className="flex items-center gap-2">
         <span className="grid h-7 w-7 place-items-center rounded-full bg-black text-[12px] font-semibold text-white">O</span>
         <span className="text-[14px] font-semibold tracking-[0.18em]">ORBIT</span>
@@ -266,14 +266,14 @@ function OrbitTopBar() {
 
 function OrbitNav({ activeSection, goTo }: { activeSection: SectionId; goTo: (section: SectionId) => void }) {
   return (
-    <nav className="mx-auto mt-1 flex min-h-10 w-full max-w-[480px] items-center justify-center gap-1 rounded-full bg-white/60 px-1 text-black/54 ring-1 ring-black/10" aria-label="Orbit preview systems">
+    <nav className="mx-auto mt-0.5 flex min-h-11 w-fit max-w-full items-center justify-center gap-1 overflow-x-auto text-black/54" aria-label="Orbit preview systems">
       {sections.map((section) => (
         <button
           key={section.id}
           type="button"
           onClick={() => goTo(section.id)}
           className={cn(
-            "min-h-9 flex-1 rounded-full px-2 text-[12px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 sm:flex-none sm:px-5 sm:text-sm",
+            "min-h-11 shrink-0 rounded-full px-3 text-[12px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 sm:px-5 sm:text-sm",
             activeSection === section.id ? "bg-black text-white" : "hover:bg-black/[0.04] hover:text-black",
           )}
         >
@@ -577,7 +577,7 @@ function HubSystem({
             setAngle(dragStart.angle + (event.clientX - dragStart.x) * 0.35);
           }}
           onPointerUp={() => setDragStart(null)}
-          className="relative mx-auto mt-1 aspect-square min-h-[340px] max-w-[620px] overflow-visible outline-none focus-visible:ring-2 focus-visible:ring-black/30 lg:h-[380px] lg:min-h-0"
+          className="relative mx-auto mt-1 aspect-square min-h-[318px] max-w-[620px] overflow-visible outline-none focus-visible:ring-2 focus-visible:ring-black/30 sm:min-h-[340px] lg:h-[380px] lg:min-h-0"
         >
           <div className="absolute inset-[10%] rounded-full border border-black/32" />
           <div className="absolute inset-[20%] rounded-full border border-black/14" />
@@ -586,7 +586,7 @@ function HubSystem({
             className="pointer-events-none absolute left-1/2 top-1/2 h-px w-[38%] origin-left bg-black/34"
             style={{ transform: `rotate(${(360 / hubActions.length) * hubActions.indexOf(action) + angle - 90}deg)` }}
           />
-          <div className="absolute left-1/2 top-1/2 h-36 w-36 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-black shadow-[0_24px_80px_-36px_rgba(0,0,0,0.65)] sm:h-52 sm:w-52 lg:h-56 lg:w-56">
+          <div className="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-black shadow-[0_24px_80px_-36px_rgba(0,0,0,0.65)] sm:h-52 sm:w-52 lg:h-56 lg:w-56">
             <img src={selectedMedia.image} alt="" className="h-full w-full object-cover opacity-95" />
             <span className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/72 to-transparent" />
             <span className="absolute inset-x-4 bottom-4 text-center text-white">
