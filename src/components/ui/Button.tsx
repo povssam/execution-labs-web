@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { MouseEventHandler } from "react";
 import { cn } from "@/lib/utils";
 
 type Variant = "primary" | "secondary";
@@ -19,12 +20,18 @@ type CommonProps = {
   children: React.ReactNode;
 };
 
+type LinkProps = CommonProps & {
+  href: string;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
+};
+
 export function ButtonLink({
   href,
   variant = "primary",
   className,
   children,
-}: CommonProps & { href: string }) {
+  onClick,
+}: LinkProps) {
   const external = href.startsWith("http");
   if (external) {
     return (
@@ -32,6 +39,7 @@ export function ButtonLink({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={onClick}
         className={cn(base, variants[variant], className)}
       >
         {children}
@@ -39,7 +47,7 @@ export function ButtonLink({
     );
   }
   return (
-    <Link href={href} className={cn(base, variants[variant], className)}>
+    <Link href={href} onClick={onClick} className={cn(base, variants[variant], className)}>
       {children}
     </Link>
   );

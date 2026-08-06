@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <GlobalStatement />
       <WorkedWith />
+      <GlobalStatement />
       <MotionWork />
       <WorkCarousel />
       <WhatWeBuild />

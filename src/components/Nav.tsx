@@ -21,8 +21,9 @@ const links: NavLink[] = [
 export function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openPathname, setOpenPathname] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const open = openPathname === pathname;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -107,7 +108,7 @@ export function Nav() {
           type="button"
           aria-label="Toggle menu"
           aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpenPathname(open ? null : pathname)}
           className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-charcoal/70 text-bone transition-colors duration-150 hover:border-bone/40 lg:hidden"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
@@ -115,13 +116,13 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div className="fixed inset-x-0 bottom-0 top-16 overflow-y-auto border-t border-line bg-ink/98 backdrop-blur-xl lg:hidden">
+        <div className="fixed inset-x-0 bottom-0 top-16 overscroll-contain overflow-y-auto border-t border-line bg-ink/98 backdrop-blur-xl lg:hidden">
           <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col gap-1 px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setOpen(false)}
+                onClick={() => setOpenPathname(null)}
                 className={cn(
                   "flex items-center justify-between rounded-lg border border-transparent px-3 py-3 text-base transition-colors duration-150",
                   isActive(link)
@@ -134,7 +135,7 @@ export function Nav() {
               </Link>
             ))}
             <div className="mt-3">
-              <ButtonLink href="/contact" className="w-full">
+              <ButtonLink href="/contact" onClick={() => setOpenPathname(null)} className="w-full">
                 Start a project
                 <ArrowRight size={15} />
               </ButtonLink>

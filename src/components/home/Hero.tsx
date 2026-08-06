@@ -6,7 +6,7 @@ import { revealDelay } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="section-flow section-flow--hero relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-10">
+    <section className="section-flow section-flow--hero relative overflow-hidden pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-8">
       <BrandAtmosphere intensity="hero" focus="right" />
       <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-ink via-ink/80 to-ink/20" aria-hidden />
       <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-ink via-transparent to-ink/45" aria-hidden />

@@ -13,7 +13,7 @@ const marqueeItems = [...clients, ...clients, ...clients];
 
 export function WorkedWith() {
   return (
-    <section className="section-flow scroll-reveal relative overflow-hidden border-y border-line/80 py-7 sm:py-9">
+    <section className="section-flow scroll-reveal relative overflow-hidden pt-5 pb-7 sm:pt-7 sm:pb-9">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
       <Container className="relative z-10">
         <div className="grid gap-5 lg:grid-cols-[10rem_1fr] lg:items-center">
