@@ -5,7 +5,6 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { BrandAtmosphere } from "@/components/BrandAtmosphere";
 import { Preloader } from "@/components/Preloader";
-import { SmoothScroll } from "@/components/SmoothScroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,7 +51,6 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col bg-ink">
         <BrandAtmosphere intensity="soft" fixed />
         <Preloader />
-        <SmoothScroll />
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />

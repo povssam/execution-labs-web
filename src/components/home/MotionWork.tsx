@@ -33,14 +33,13 @@ export function MotionWork() {
               Motion work
             </span>
             <h2 className="mt-3 max-w-2xl text-4xl font-semibold leading-[1.05] text-bone sm:text-5xl">
-              Motion as proof, not decoration
+              Motion Work
             </h2>
           </Reveal>
 
           <Reveal delay={0.06}>
             <p className="max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg">
-              Grace shows identity, interface, and motion working as one calm
-              product language.
+              Grace shows identity, interface, and motion working as one calm product.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               {proof.map((item) => (
