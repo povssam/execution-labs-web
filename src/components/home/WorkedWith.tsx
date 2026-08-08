@@ -9,8 +9,6 @@ const clients = [
   "Dividends & Total Returns",
 ];
 
-const marqueeItems = [...clients, ...clients, ...clients];
-
 export function WorkedWith() {
   return (
     <section className="section-flow scroll-reveal relative overflow-hidden pt-5 pb-7 sm:pt-7 sm:pb-9">
@@ -31,15 +29,22 @@ export function WorkedWith() {
               ))}
             </ul>
 
-            <div className="worked-marquee-track flex w-max items-center gap-5 sm:gap-8">
-              {marqueeItems.map((client, index) => (
-                <span
-                  key={`${client}-${index}`}
+            <div className="worked-marquee-track flex w-max items-center">
+              {[0, 1].map((group) => (
+                <div
+                  key={group}
                   aria-hidden="true"
-                  className="worked-wordmark whitespace-nowrap rounded-md border border-bone/10 bg-bone/[0.025] px-4 py-2 text-sm font-medium text-bone-dim shadow-[0_1px_0_rgba(255,255,255,0.04)_inset] sm:px-5 sm:text-base"
+                  className="worked-marquee-group flex shrink-0 items-center gap-5 pr-5 sm:gap-8 sm:pr-8"
                 >
-                  {client}
-                </span>
+                  {clients.map((client) => (
+                    <span
+                      key={`${group}-${client}`}
+                      className="worked-wordmark whitespace-nowrap rounded-md border border-bone/10 bg-bone/[0.025] px-4 py-2 text-sm font-medium text-bone-dim shadow-[0_1px_0_rgba(255,255,255,0.04)_inset] sm:px-5 sm:text-base"
+                    >
+                      {client}
+                    </span>
+                  ))}
+                </div>
               ))}
             </div>
           </div>
