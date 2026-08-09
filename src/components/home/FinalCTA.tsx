@@ -10,7 +10,7 @@ export function FinalCTA() {
       <Container className="relative z-10">
         <Reveal>
           <div className="relative border-t border-line px-2 py-16 text-center sm:py-24">
-            <h2 className="text-wipe mx-auto max-w-3xl text-4xl font-semibold tracking-tight text-bone sm:text-6xl">
+            <h2 className="text-wipe mx-auto max-w-3xl text-4xl font-semibold leading-[1.02] tracking-tight text-bone sm:text-5xl lg:text-6xl">
               Have a system worth building?
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg text-bone-dim">

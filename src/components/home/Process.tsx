@@ -10,11 +10,11 @@ export function Process() {
     <section id="process" className="section-flow relative overflow-hidden py-24 sm:py-32 lg:py-40">
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <Container className="relative z-10">
-        <Reveal className="grid gap-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
             Our process
           </p>
-          <h2 className="text-4xl font-semibold leading-none text-bone sm:text-6xl">
+          <h2 className="mt-4 text-4xl font-semibold leading-[1.02] text-bone sm:text-5xl lg:text-6xl">
             Brief to proof.
           </h2>
         </Reveal>
@@ -39,12 +39,12 @@ export function Process() {
           <div className="grid gap-10 lg:grid-cols-4 lg:gap-8">
             {process.map((step, index) => (
               <Reveal key={step.index} delay={index * 0.07} className={offsets[index]}>
-                <article className="process-station relative border-t border-line pt-5 lg:min-h-48">
-                  <span className="process-station-dot absolute -top-1 left-0 h-2 w-2 rounded-full border border-bone/40 bg-ink" />
+                <article className="process-station relative px-4 pt-5 text-center lg:min-h-48">
+                  <span className="process-station-dot mx-auto mb-5 block h-2 w-2 rounded-full border border-bone/40 bg-ink" />
                   <span className="font-mono text-[10px] tracking-[0.16em] text-bone-faint">
                     {step.index}
                   </span>
-                  <h3 className="mt-8 text-3xl font-medium text-bone sm:text-4xl lg:text-3xl xl:text-4xl">
+                  <h3 className="mt-5 text-3xl font-semibold leading-tight text-bone sm:text-4xl">
                     {step.title}
                   </h3>
                   <p className="mt-3 text-base text-bone-dim">{step.body}</p>

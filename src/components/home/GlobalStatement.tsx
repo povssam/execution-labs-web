@@ -4,7 +4,7 @@ import { Reveal } from "../ui/Reveal";
 
 export function GlobalStatement() {
   return (
-    <section className="section-flow scroll-reveal relative overflow-hidden pb-24 pt-96 sm:pb-32 sm:pt-[25rem] lg:pb-36 lg:pt-56">
+    <section id="studio-statement" className="section-flow scroll-reveal relative overflow-hidden pb-24 pt-96 sm:pb-32 sm:pt-[25rem] lg:pb-36 lg:pt-64">
       <BrandAtmosphere intensity="soft" tone="fade" focus="center" />
       <Container className="relative z-10">
         <Reveal>

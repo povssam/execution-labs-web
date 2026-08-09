@@ -134,17 +134,19 @@ export function WorkCarousel() {
   };
 
   return (
-    <section className="section-flow relative overflow-hidden py-20 sm:py-28">
+    <section id="selected-work" className="section-flow relative overflow-hidden py-24 sm:py-32 lg:py-40">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
       <Container className="relative z-10">
-        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="text-center">
           <SectionHeading
             label="Selected work"
             title="Shipped systems, not decks"
             description="Real artifacts, users, and workflows. Proof stays visible."
+            align="center"
+            scale="display"
           />
 
-          <Reveal delay={0.08} className="flex items-center gap-3 lg:pb-1">
+          <Reveal delay={0.08} className="mt-6 flex items-center justify-center gap-3">
             <span className="mr-1 font-mono text-[11px] tracking-[0.16em] text-bone-faint">
               {String(activeIndex + 1).padStart(2, "0")} / {String(projectCount).padStart(2, "0")}
             </span>
@@ -214,22 +216,13 @@ export function WorkCarousel() {
                       style={{ zIndex: 10 - Math.abs(offset) } as CSSProperties}
                     >
                       <div className="work-arc-card">
-                        <div className="flex items-center justify-between gap-3 font-mono text-[9px] uppercase tracking-[0.15em] text-bone-faint sm:text-[10px]">
-                          <span className="truncate">{study.category}</span>
-                          <span className="shrink-0">{study.year}</span>
-                        </div>
-                        <div className="relative mt-3 h-20 overflow-hidden rounded-lg border border-line bg-ink p-3">
-                          <span className="pointer-events-none absolute inset-0 grid-backdrop opacity-45" />
-                          <div className="relative h-full">
-                            <CardPreview kind={study.preview} />
-                          </div>
-                        </div>
-                        <div className="mt-3 flex items-center justify-between gap-3 text-left">
-                          <span className="truncate text-base font-semibold text-bone sm:text-lg">
-                            {study.client}
-                          </span>
-                          <ArrowUpRight size={16} className="shrink-0 text-bone-dim" />
-                        </div>
+                        <span className="work-arc-index font-mono text-[9px] tracking-[0.16em] text-bone-faint sm:text-[10px]">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span className="work-arc-name">{study.client}</span>
+                        <span className="work-arc-category font-mono text-[9px] uppercase tracking-[0.13em] text-bone-faint sm:text-[10px]">
+                          {study.category}
+                        </span>
                       </div>
                     </button>
                   );
@@ -242,13 +235,13 @@ export function WorkCarousel() {
               id="selected-work-panel"
               role="tabpanel"
               aria-labelledby={`work-tab-${selected.slug}`}
-              className="work-project-detail grid overflow-hidden border-y border-line lg:grid-cols-[1.18fr_0.82fr]"
+              className="work-project-detail mt-4 grid gap-8 overflow-hidden lg:mt-0 lg:grid-cols-[1.28fr_0.72fr] lg:items-stretch lg:gap-12"
             >
-              <div className="work-project-media relative min-h-64 overflow-hidden bg-ink sm:min-h-80 lg:min-h-[25rem]">
+              <div className="work-project-media relative min-h-72 overflow-hidden bg-ink sm:min-h-[25rem] lg:min-h-[34rem]">
                 {selected.assets?.video ? (
                   <GraceVideo label={`${selected.client} selected project artifact`} />
                 ) : (
-                  <div className="relative flex h-full min-h-64 items-center justify-center p-10 sm:min-h-80 sm:p-16">
+                  <div className="relative flex h-full min-h-72 items-center justify-center p-10 sm:min-h-[25rem] sm:p-16 lg:min-h-[34rem]">
                     <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-55" />
                     <div className="relative h-40 w-full max-w-lg sm:h-48">
                       <CardPreview kind={selected.preview} />
@@ -256,17 +249,17 @@ export function WorkCarousel() {
                   </div>
                 )}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-ink/12" />
-                <span className="pointer-events-none absolute bottom-4 left-4 rounded-full border border-bone/15 bg-ink/75 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-bone-dim backdrop-blur-md">
+                <span className="pointer-events-none absolute bottom-5 left-5 font-mono text-[10px] uppercase tracking-[0.15em] text-bone-dim sm:bottom-7 sm:left-7">
                   {selected.artifact}
                 </span>
               </div>
 
-              <div className="flex flex-col py-8 sm:py-10 lg:border-l lg:border-line lg:px-10 lg:py-12">
+              <div className="flex flex-col py-2 sm:py-4 lg:py-10">
                 <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
                   <span>{selected.category}</span>
                   <span>{selected.year}</span>
                 </div>
-                <h3 className="mt-5 text-3xl font-semibold tracking-tight text-bone sm:text-4xl">
+                <h3 className="mt-5 text-center text-3xl font-semibold leading-tight tracking-tight text-bone sm:text-4xl">
                   {selected.client}
                 </h3>
                 <p className="mt-4 text-base leading-relaxed text-bone-dim">
@@ -320,7 +313,7 @@ export function WorkCarousel() {
           </div>
         </Reveal>
 
-        <div className="mt-8">
+        <div className="mt-10 flex justify-center">
           <ButtonLink href="/work" variant="secondary">
             View all work
             <ArrowRight
