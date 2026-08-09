@@ -16,6 +16,11 @@
 
 :root {
   color-scheme: dark;
+
+  /* 8px-derived spacing scale for the homepage's long-form rhythm. */
+  --section-space-standard: clamp(5rem, 8vw, 8rem);
+  --section-space-feature: clamp(6rem, 8vw, 8rem);
+  --section-space-compact: clamp(5rem, 7vw, 7rem);
 }
 
 html {
@@ -30,6 +35,18 @@ body {
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
   padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
+}
+
+.section-space-standard {
+  padding-block: var(--section-space-standard);
+}
+
+.section-space-feature {
+  padding-block: var(--section-space-feature);
+}
+
+.section-space-compact {
+  padding-block: var(--section-space-compact);
 }
 
 .tracking-tight {
@@ -649,7 +666,6 @@ body {
 
 .signal-index {
   display: block;
-  margin-bottom: 0.5rem;
 }
 
 .work-arc-stage {

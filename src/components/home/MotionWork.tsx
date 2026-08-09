@@ -7,7 +7,7 @@ const proof = ["Brand system", "Product UI", "Social motion", "Launch asset"];
 
 export function MotionWork() {
   return (
-    <section id="motion-work" className="section-flow scroll-reveal relative overflow-hidden py-24 sm:py-32 lg:py-40">
+    <section id="motion-work" className="section-flow section-space-feature scroll-reveal relative overflow-hidden">
       <BrandAtmosphere intensity="section" tone="media" focus="right" />
       <Container className="relative z-10">
         <div className="mx-auto max-w-3xl text-center">

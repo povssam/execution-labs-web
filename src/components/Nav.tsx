@@ -76,7 +76,7 @@ export function Nav() {
         scrolled ? "border-b border-line glass" : "border-b border-transparent",
       )}
     >
-      <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8">
+      <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 sm:px-8">
         <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight text-bone">
           <Logo size={20} />
           Execution Labs
@@ -117,7 +117,7 @@ export function Nav() {
 
       {open && (
         <div className="fixed inset-x-0 bottom-0 top-16 overscroll-contain overflow-y-auto border-t border-line bg-ink/98 backdrop-blur-xl lg:hidden">
-          <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col gap-1 px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5">
+          <div className="mx-auto flex min-h-full w-full max-w-6xl flex-col gap-1 px-6 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5">
             {links.map((link) => (
               <Link
                 key={link.href}

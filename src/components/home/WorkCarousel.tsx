@@ -134,7 +134,7 @@ export function WorkCarousel() {
   };
 
   return (
-    <section id="selected-work" className="section-flow relative overflow-hidden py-24 sm:py-32 lg:py-40">
+    <section id="selected-work" className="section-flow section-space-feature relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
       <Container className="relative z-10">
         <div className="text-center">
@@ -146,7 +146,7 @@ export function WorkCarousel() {
             scale="display"
           />
 
-          <Reveal delay={0.08} className="mt-6 flex items-center justify-center gap-3">
+          <Reveal delay={0.08} className="mt-4 flex items-center justify-center gap-3">
             <span className="mr-1 font-mono text-[11px] tracking-[0.16em] text-bone-faint">
               {String(activeIndex + 1).padStart(2, "0")} / {String(projectCount).padStart(2, "0")}
             </span>
@@ -169,7 +169,7 @@ export function WorkCarousel() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.1} className="mt-8 sm:mt-10">
+        <Reveal delay={0.1} className="mt-8">
           <div className="work-arc-shell">
             <div
               className="work-arc-stage"

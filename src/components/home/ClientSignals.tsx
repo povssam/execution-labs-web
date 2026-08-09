@@ -11,7 +11,7 @@ const signals = [
 
 export function ClientSignals() {
   return (
-    <section id="client-signals" className="section-flow relative overflow-hidden py-24 sm:py-32 lg:py-40">
+    <section id="client-signals" className="section-flow section-space-compact relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
       <Container className="relative z-10">
         <Reveal className="text-center">
@@ -23,14 +23,14 @@ export function ClientSignals() {
           </span>
         </Reveal>
 
-        <div className="signal-field mt-14 sm:mt-20">
+        <div className="signal-field mt-12 sm:mt-16 lg:mt-20">
           {signals.map((signal, index) => (
             <Reveal key={signal} delay={index * 0.04}>
-              <div className="signal-row relative py-7 text-center sm:py-9">
+              <div className="signal-row relative py-6 text-center sm:py-8">
                 <span className="signal-index font-mono text-[10px] text-bone-faint">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className="signal-copy mt-3 text-3xl font-semibold leading-tight tracking-tight text-bone sm:text-4xl">
+                <h3 className="signal-copy mt-2 text-3xl font-semibold leading-tight tracking-tight text-bone sm:text-4xl">
                   {signal}
                 </h3>
               </div>

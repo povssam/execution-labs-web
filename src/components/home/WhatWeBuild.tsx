@@ -42,7 +42,7 @@ export function WhatWeBuild() {
   };
 
   return (
-    <section id="what-we-build" className="section-flow relative overflow-hidden py-24 sm:py-32 lg:py-40">
+    <section id="what-we-build" className="section-flow section-space-standard relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <Container className="relative z-10">
         <Reveal className="mx-auto max-w-3xl border-b border-line pb-8 text-center">
@@ -94,7 +94,7 @@ export function WhatWeBuild() {
             id="capability-panel"
             role="tabpanel"
             aria-labelledby={`capability-tab-${activeCapability}`}
-            className="capability-detail order-1 relative min-h-[27rem] pt-4 lg:order-2 lg:min-h-[34rem] lg:pt-8"
+            className="capability-detail order-1 relative min-h-[25rem] pt-4 lg:order-2 lg:min-h-[34rem] lg:pt-8"
           >
             <span className="capability-index" aria-hidden="true">
               {String(activeCapability + 1).padStart(2, "0")}
@@ -105,10 +105,10 @@ export function WhatWeBuild() {
               </span>
               <ArrowUpRight className="text-bone-faint" size={20} strokeWidth={1.4} />
             </div>
-            <h3 className="relative mx-auto mt-16 max-w-3xl text-center text-3xl font-semibold leading-tight tracking-tight text-bone sm:text-4xl lg:mt-24">
+            <h3 className="relative mx-auto mt-12 max-w-3xl text-center text-3xl font-semibold leading-tight tracking-tight text-bone sm:text-4xl lg:mt-24">
               {active.title}
             </h3>
-            <div className="relative mt-16 grid gap-7 sm:grid-cols-[0.9fr_1.1fr]">
+            <div className="relative mt-12 grid gap-7 sm:grid-cols-[0.9fr_1.1fr] lg:mt-16">
               <p className="text-xl leading-snug text-bone sm:text-2xl lg:text-right">
                 {active.stance}
               </p>
@@ -116,7 +116,7 @@ export function WhatWeBuild() {
                 {active.body}
               </p>
             </div>
-            <div className="relative mt-12 grid grid-cols-3 gap-3 font-mono text-[10px] uppercase tracking-[0.12em] text-bone-faint sm:text-[11px]">
+            <div className="relative mt-10 grid grid-cols-3 gap-3 font-mono text-[10px] uppercase tracking-[0.12em] text-bone-faint sm:text-[11px] lg:mt-12">
               {active.points.map((point, index) => (
                 <span key={point} className="border-t border-line pt-4 text-center">
                   <span className="mb-2 block text-bone/25">0{index + 1}</span>
