@@ -5,6 +5,7 @@ import { WhatWeBuild } from "@/components/home/WhatWeBuild";
 import { MotionWork } from "@/components/home/MotionWork";
 import { WorkCarousel } from "@/components/home/WorkCarousel";
 import { Process } from "@/components/home/Process";
+import { ClientSignals } from "@/components/home/ClientSignals";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <WorkCarousel />
       <WhatWeBuild />
       <Process />
+      <ClientSignals />
       <FinalCTA />
     </>
   );

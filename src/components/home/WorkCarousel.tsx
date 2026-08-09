@@ -242,7 +242,7 @@ export function WorkCarousel() {
               id="selected-work-panel"
               role="tabpanel"
               aria-labelledby={`work-tab-${selected.slug}`}
-              className="work-project-detail grid overflow-hidden rounded-2xl border border-line bg-charcoal/45 lg:grid-cols-[1.12fr_0.88fr]"
+              className="work-project-detail grid overflow-hidden border-y border-line lg:grid-cols-[1.18fr_0.82fr]"
             >
               <div className="work-project-media relative min-h-64 overflow-hidden bg-ink sm:min-h-80 lg:min-h-[25rem]">
                 {selected.assets?.video ? (
@@ -261,7 +261,7 @@ export function WorkCarousel() {
                 </span>
               </div>
 
-              <div className="flex flex-col p-6 sm:p-8 lg:p-10">
+              <div className="flex flex-col py-8 sm:py-10 lg:border-l lg:border-line lg:px-10 lg:py-12">
                 <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
                   <span>{selected.category}</span>
                   <span>{selected.year}</span>
@@ -296,12 +296,10 @@ export function WorkCarousel() {
                 </dl>
 
                 <div className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-8">
-                  <div className="flex flex-wrap gap-2">
-                    {selected.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-line px-2.5 py-1 text-[11px] text-bone-dim"
-                      >
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[10px] uppercase tracking-[0.12em] text-bone-faint">
+                    {selected.tags.slice(0, 3).map((tag, index) => (
+                      <span key={tag}>
+                        {index > 0 && <span className="mr-2 text-line">/</span>}
                         {tag}
                       </span>
                     ))}
