@@ -1,36 +1,31 @@
 import Image from "next/image";
-import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { CtaButtons } from "../ui/CtaButtons";
 import { revealDelay } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="section-flow section-flow--hero relative overflow-hidden pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-8">
-      <BrandAtmosphere intensity="hero" focus="right" />
-      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-ink via-ink/80 to-ink/20" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-ink via-transparent to-ink/45" aria-hidden />
+    <section className="relative overflow-hidden pt-32 pb-14 sm:pt-40 sm:pb-16 lg:pt-44 lg:pb-16">
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+        <Image
+          src="/brand/hero-glass.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="scale-[1.35] object-cover object-[70%_center] opacity-90 sm:scale-110 sm:object-right"
+        />
+        <div className="absolute right-0 top-0 h-28 w-[34%] bg-ink sm:h-36" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink to-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/50" />
+      </div>
+      <div className="pointer-events-none absolute inset-0 z-0 grid-backdrop opacity-60" aria-hidden />
 
       <Container className="relative z-10">
-        <div
-          className="hero-media reveal relative mb-10 overflow-hidden rounded-xl border border-bone/10 bg-charcoal/35 shadow-[0_30px_120px_-80px_rgba(237,237,237,0.6)] sm:mb-12"
-          style={revealDelay("0.02s")}
-        >
-          <Image
-            src="/brand/hero-glass.png"
-            alt="Execution Labs glass prism identity"
-            width={1500}
-            height={500}
-            priority
-            className="block h-28 w-full object-cover sm:h-56 lg:h-64"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/30 via-transparent to-ink/10" />
-        </div>
-
         <div className="max-w-3xl">
           <h1
             className="reveal text-[2.7rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"
-            style={revealDelay("0.08s")}
+            style={revealDelay("0.06s")}
           >
             Agents and software
             <br />
@@ -39,12 +34,12 @@ export function Hero() {
 
           <p
             className="reveal mt-6 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg"
-            style={revealDelay("0.16s")}
+            style={revealDelay("0.14s")}
           >
-            We turn messy briefs into systems that save labor, budget, and time.
+            We turn your vision into systems that save labor, budget, and time.
           </p>
 
-          <CtaButtons className="reveal mt-8" style={revealDelay("0.24s")} />
+          <CtaButtons className="reveal mt-8" style={revealDelay("0.22s")} />
         </div>
       </Container>
     </section>
