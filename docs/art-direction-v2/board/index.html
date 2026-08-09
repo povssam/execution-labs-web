@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Execution Labs — Web Art Direction V2</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="board-header">
+      <a class="board-brand" href="?direction=current">Execution Labs <span>/ Web Art Direction V2</span></a>
+      <nav class="board-nav" aria-label="Art directions">
+        <a href="?direction=current">00 — Current</a>
+        <a href="?direction=a">01 — Direction A</a>
+        <a href="?direction=b">02 — Direction B</a>
+        <a href="?direction=c">03 — Direction C</a>
+      </nav>
+      <details class="page-picker">
+        <summary>Pages</summary>
+        <div>
+          <a href="?page=final-desktop">04 — Final Desktop</a>
+          <a href="?page=final-mobile">05 — Final Mobile</a>
+          <a href="?page=motion">06 — Motion Storyboard</a>
+          <a href="?page=components">07 — Components</a>
+        </div>
+      </details>
+      <div class="board-viewport"><span id="direction-name">Current</span><span id="viewport-name">1440 / 900</span></div>
+    </header>
+
+    <main id="artboard"></main>
+
+    <script src="./board.js"></script>
+  </body>
+</html>
