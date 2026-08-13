@@ -10,7 +10,6 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
-import { ButtonLink } from "../ui/Button";
 import { GraceVideo } from "@/components/work/GraceVideo";
 import { caseStudies } from "@/lib/data";
 
@@ -109,26 +108,27 @@ export function WorkCarousel() {
     <section id="selected-work" className="selected-work section-flow relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
       <Container className="relative z-10">
-        <Reveal className="editorial-heading grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-          <div className="flex items-end justify-between gap-5 lg:block">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
-              Selected work
-            </p>
-            <span className="font-mono text-[10px] tracking-[0.16em] text-bone-faint lg:mt-4 lg:block">
-              {String(activeIndex + 1).padStart(2, "0")} / {String(projectCount).padStart(2, "0")}
-            </span>
-          </div>
-          <div>
-            <h2 className="max-w-4xl text-4xl font-semibold leading-[1.02] text-bone sm:text-5xl lg:text-6xl">
-              Shipped systems, not decks.
-            </h2>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-bone-dim">
-              Real artifacts, users, and workflows. Proof stays visible.
-            </p>
-          </div>
-        </Reveal>
+        <div className="selected-work-intro">
+          <Reveal className="editorial-heading grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+            <div className="flex items-end justify-between gap-5 lg:block">
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
+                Selected work
+              </p>
+              <span className="font-mono text-[10px] tracking-[0.16em] text-bone-faint lg:mt-4 lg:block">
+                {String(activeIndex + 1).padStart(2, "0")} / {String(projectCount).padStart(2, "0")}
+              </span>
+            </div>
+            <div>
+              <h2 className="max-w-4xl text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-6xl">
+                Shipped systems, not decks.
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-bone-dim sm:text-lg">
+                Real artifacts, users, and workflows. Proof stays visible.
+              </p>
+            </div>
+          </Reveal>
 
-        <Reveal delay={0.08} className="mt-14 lg:mt-20">
+          <Reveal delay={0.08} className="work-selector-wrap mt-8 sm:mt-10 lg:mt-12">
           <div
             className="work-project-rail no-scrollbar"
             data-dragging={dragging}
@@ -172,7 +172,10 @@ export function WorkCarousel() {
               );
             })}
           </div>
+          </Reveal>
+        </div>
 
+        <Reveal delay={0.1}>
           <article
             key={selected.slug}
             id="selected-work-panel"
@@ -181,24 +184,26 @@ export function WorkCarousel() {
             className="work-project-stage"
           >
             <div className="work-project-media">
-              {selected.assets?.video ? (
-                <GraceVideo label={`${selected.client} selected project artifact`} />
-              ) : (
-                <div className="work-artifact-field">
-                  <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-45" />
-                  <span className="work-artifact-index" aria-hidden="true">
-                    {String(activeIndex + 1).padStart(2, "0")}
-                  </span>
-                  <div className="relative z-10 max-w-4xl">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-bone-faint">
-                      {selected.artifact}
-                    </p>
-                    <h3 className="mt-5 text-5xl font-semibold leading-[0.92] tracking-tight text-bone sm:text-7xl lg:text-8xl">
-                      {selected.client}
-                    </h3>
+              <div className="work-project-media-canvas">
+                {selected.assets?.video ? (
+                  <GraceVideo label={`${selected.client} selected project artifact`} />
+                ) : (
+                  <div className="work-artifact-field">
+                    <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-45" />
+                    <span className="work-artifact-index" aria-hidden="true">
+                      {String(activeIndex + 1).padStart(2, "0")}
+                    </span>
+                    <div className="relative z-10 max-w-4xl">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-bone-faint">
+                        {selected.artifact}
+                      </p>
+                      <h3 className="mt-5 text-5xl font-semibold leading-[0.92] tracking-tight text-bone sm:text-7xl lg:text-8xl">
+                        {selected.client}
+                      </h3>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
               <div className="work-project-media-shade pointer-events-none absolute inset-0" />
               <span className="work-project-artifact-label pointer-events-none absolute bottom-5 left-5 z-10 font-mono text-[10px] uppercase tracking-[0.15em] text-bone-dim sm:bottom-8 sm:left-8">
                 {selected.artifact}
@@ -210,25 +215,13 @@ export function WorkCarousel() {
                 <span>{selected.category}</span>
                 <span>{selected.year}</span>
               </div>
-              <h3 className="mt-8 text-3xl font-semibold leading-tight text-bone sm:text-4xl">
-                {selected.client}
-              </h3>
-              <p className="mt-5 text-base leading-relaxed text-bone-dim">
+              <p className="work-project-summary text-base leading-relaxed text-bone">
                 {selected.summary}
               </p>
-              <p className="mt-8 text-sm leading-relaxed text-bone-dim">
-                {selected.built}
-              </p>
-              <dl className="work-project-facts">
-                <div>
-                  <dt>Proof</dt>
-                  <dd>{selected.proof}</dd>
-                </div>
-                <div>
-                  <dt>Used by</dt>
-                  <dd>{selected.users}</dd>
-                </div>
-              </dl>
+              <div className="work-project-proof">
+                <span>Proof</span>
+                <p>{selected.proof}</p>
+              </div>
               <Link href={`/work/${selected.slug}`} className="work-project-link group">
                 View project
                 <ArrowUpRight
@@ -240,11 +233,11 @@ export function WorkCarousel() {
           </article>
         </Reveal>
 
-        <div className="mt-10 flex justify-end">
-          <ButtonLink href="/work" variant="secondary">
+        <div className="work-all-row">
+          <Link href="/work" className="work-all-link group">
             View all work
             <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-          </ButtonLink>
+          </Link>
         </div>
       </Container>
     </section>

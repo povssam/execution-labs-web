@@ -39,3 +39,13 @@ Every animation has one purpose: enter, perform that purpose, then settle. No bo
 
 The page should feel still when the visitor stops scrolling. If an effect does not
 improve comprehension, hierarchy, proof, or interaction feedback, it stays off.
+
+## Middle-section interaction refinement
+
+| Moment | Trigger | Transition | Resting state | Reduced motion |
+| --- | --- | --- | --- | --- |
+| Capability system | Tap, swipe, or arrow key | 420ms opacity/vertical settle | One connected active capability | Instant content replacement |
+| Project arc | Tap, swipe, drag, or arrow key | 420–620ms transform and opacity | Active project centered; neighbors recede | Instant selection |
+| Motion Work | Enter viewport | One reveal; Grace video supplies the motion | Full-width media surface | Poster frame, no autoplay/loop |
+| Process route | Scroll, hover, or focus | 300–420ms opacity and line progression | Current step bright; prior steps settled | Static readable route |
+| Client Signals | Scroll, tap, hover, or focus | 280–420ms opacity and restrained scale | One outcome leads at a time | Instant active state |
