@@ -26,3 +26,16 @@ Every animation has one purpose: enter, perform that purpose, then settle. No bo
 - Focus is visible and never represented only by color.
 - Touch selection must not capture page scrolling outside the intentional project interaction area.
 - `prefers-reduced-motion: reduce` removes transforms, staggers, blur, and non-essential transitions while preserving state changes and content order.
+
+## Controlled refinement
+
+| Moment | Start | Transition | Resting state | Guardrail |
+| --- | --- | --- | --- | --- |
+| Hero prism | Approved full-bleed real asset | Existing load treatment only | Static signature composition | No looping drift or decorative parallax |
+| Studio statement | Words masked and low on the baseline | Word-group reveal with a short, even stagger | Fully readable centered statement | Never emulate typing; no cursor or per-letter jitter |
+| Capability selection | Previous detail at rest | Opacity and a small vertical settle | New detail holds its layout | No blur-heavy swap or scale jump |
+| Selected Work selection | Quiet index row | Horizontal index shift and media crossfade | Large media plus compact facts | No arc rotation, overshoot, or competing card chrome |
+| Motion Work | Real Grace poster/video | Media frame resolves once | Large, quiet media surface | The video is the only continuous movement in the section |
+
+The page should feel still when the visitor stops scrolling. If an effect does not
+improve comprehension, hierarchy, proof, or interaction feedback, it stays off.

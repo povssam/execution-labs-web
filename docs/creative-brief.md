@@ -39,3 +39,34 @@ Agents and software that save time and money.
 4. How we work
 5. Worked with
 6. Contact CTA
+
+## Implementation refinement — controlled signature
+
+This pass implements the approved Direction A language on `feat/art-direction-v2`.
+The goal is not a new concept. It is a tighter reading of the same dark editorial
+technology studio: the prism asset carries the signature, real work arrives sooner,
+and every transition has a clear resting state.
+
+### Narrative
+
+1. Hero: direct positioning, signature prism, and one clear action.
+2. Worked With: legitimate client signal remains in the first viewport.
+3. Studio statement: a full editorial beat with a short masked word reveal.
+4. Capabilities: a readable editorial index.
+5. Selected work: the strongest projects stay large and the index stays quiet.
+6. Motion Work: Grace is the dominant moving proof surface.
+7. Process, signals, and CTA: a clean path from capability to action.
+
+### Non-goals
+
+- No new effects, generated imagery, fake metrics, testimonials, or client claims.
+- No hero structure change, footer rewrite, production deployment, or new primary CTA.
+- No continuous animation outside the intentional Worked With rail and real Grace video.
+
+### Success criteria
+
+- The first viewport still reaches Worked With at 390, 430, 768, 1366, and 1440 widths.
+- The statement owns one calm editorial beat before the capability system begins.
+- Grace media is materially larger than its surrounding copy and chrome.
+- Selected Work reads as a controlled index, not a rotating card carousel.
+- Supporting copy remains readable on mobile and no page-level horizontal overflow exists.

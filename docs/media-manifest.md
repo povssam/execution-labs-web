@@ -19,3 +19,10 @@ The assets are local repository assets already used by the current implementatio
 - Do not add stock imagery, generated project screenshots, fake dashboards, or invented logos.
 - Keep media surfaces large enough to read the artifact and quiet enough that type remains primary.
 - Prefer poster-first, responsive sizing, and lazy loading for below-the-fold media.
+
+## Controlled presentation pass
+
+No new media was generated. The existing `hero-glass.png` remains the approved,
+full-bleed right-side hero atmosphere. The Grace poster/video remains the only moving
+proof asset. Projects without repository media use their real names, categories, and
+artifact descriptions as an editorial field rather than generated dashboards or imagery.

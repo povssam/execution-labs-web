@@ -8,7 +8,7 @@ const clients = [
 
 export function WorkedWith() {
   return (
-    <section className="worked-with-surface relative -mt-px overflow-hidden pb-8 sm:pb-10">
+    <section className="worked-with-surface relative overflow-hidden">
       <div className="relative z-10">
         <p className="text-center font-mono text-[10px] uppercase tracking-[0.22em] text-bone-faint">
           Worked with

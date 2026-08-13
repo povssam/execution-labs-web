@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import type { MouseEvent as ReactMouseEvent } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "./ui/Button";
@@ -69,6 +70,22 @@ export function Nav() {
     return pathname.startsWith(link.href);
   };
 
+  const handleLinkClick = (
+    event: ReactMouseEvent<HTMLAnchorElement>,
+    link: NavLink,
+  ) => {
+    setOpenPathname(null);
+    if (pathname !== "/" || !link.section) return;
+
+    event.preventDefault();
+    window.setTimeout(() => {
+      const target = document.getElementById(link.section!);
+      if (!target) return;
+      window.history.pushState(null, "", `#${link.section}`);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+  };
+
   return (
     <header
       className={cn(
@@ -87,6 +104,7 @@ export function Nav() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={(event) => handleLinkClick(event, link)}
               className={cn(
                 "rounded-full px-3.5 py-2 text-sm transition-colors duration-200",
                 isActive(link) ? "text-bone" : "text-bone-dim hover:text-bone",
@@ -122,7 +140,7 @@ export function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setOpenPathname(null)}
+                onClick={(event) => handleLinkClick(event, link)}
                 className={cn(
                   "flex items-center justify-between rounded-lg border border-transparent px-3 py-3 text-base transition-colors duration-150",
                   isActive(link)

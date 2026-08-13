@@ -100,3 +100,16 @@ Low to medium. It is the simplest to implement and the easiest to make fast and 
 Recommend Direction A as the implementation candidate.
 
 A keeps the strongest parts of the existing approved work—dark identity, prism atmosphere, real Grace media, and clear typography—while giving every lower section a distinct composition. It creates a premium studio feeling without making the interaction model carry the entire concept. Direction B should inform a restrained Selected Work transition or one spatial moment, not become the whole page. Direction C is a useful fallback if performance or brand restraint becomes the deciding constraint.
+
+## Implementation pass — Direction A, controlled
+
+The approved direction is now being translated as a restrained editorial system:
+
+- The hero keeps the approved headline, structure, and full-bleed right-side prism treatment. Only its viewport framing is optically balanced.
+- Worked With stays attached to the opening scene and occupies the bottom edge of the first viewport without a separate band or divider.
+- Capabilities and Selected Work use an editorial index: large type, rules, and quiet selection state instead of rounded cards or rotating perspective.
+- Selected Work prioritizes the strongest visible proof while preserving all real case-study routes in the work archive.
+- Motion Work gives Grace the largest media surface and keeps its labels subordinate to the asset.
+- CTA hierarchy remains singular: `Start a project` is the only primary action and the approved footer direction is unchanged.
+
+The existing local art-direction board remains the visual reference because no Figma MCP connector is exposed in this workspace.

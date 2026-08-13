@@ -5,7 +5,7 @@ import { revealDelay } from "@/lib/utils";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-32 pb-14 sm:pt-40 sm:pb-16 lg:pt-44 lg:pb-16">
+    <section className="home-hero relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
         <Image
           src="/brand/hero-glass.png"
@@ -13,7 +13,7 @@ export function Hero() {
           fill
           priority
           sizes="100vw"
-          className="scale-[1.35] object-cover object-[70%_center] opacity-90 sm:scale-110 sm:object-right"
+          className="hero-signature scale-[1.35] object-cover object-[70%_center] opacity-90 sm:scale-110 sm:object-right"
         />
         <div className="absolute right-0 top-0 h-28 w-[34%] bg-ink sm:h-36" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink to-ink/30" />
@@ -21,7 +21,7 @@ export function Hero() {
       </div>
       <div className="pointer-events-none absolute inset-0 z-0 grid-backdrop opacity-60" aria-hidden />
 
-      <Container className="relative z-10">
+      <Container className="home-hero-content relative z-10">
         <div className="max-w-3xl">
           <h1
             className="reveal text-[2.7rem] font-semibold leading-[1.02] tracking-tight text-bone sm:text-6xl xl:text-7xl"

@@ -3,35 +3,21 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import type {
-  CSSProperties,
   KeyboardEvent as ReactKeyboardEvent,
   PointerEvent as ReactPointerEvent,
 } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
-import { SectionHeading } from "../ui/SectionHeading";
 import { ButtonLink } from "../ui/Button";
-import { CardPreview } from "../WorkCard";
 import { GraceVideo } from "@/components/work/GraceVideo";
 import { caseStudies } from "@/lib/data";
-import { cn } from "@/lib/utils";
 
 const projectCount = caseStudies.length;
 
 function wrapIndex(index: number) {
   return (index + projectCount) % projectCount;
-}
-
-function getArcOffset(index: number, activeIndex: number) {
-  let offset = index - activeIndex;
-  const midpoint = Math.floor(projectCount / 2);
-
-  if (offset > midpoint) offset -= projectCount;
-  if (offset < -midpoint) offset += projectCount;
-
-  return offset;
 }
 
 type DragState = {
@@ -42,7 +28,6 @@ type DragState = {
 
 export function WorkCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [dragX, setDragX] = useState(0);
   const [dragging, setDragging] = useState(false);
   const dragState = useRef<DragState | null>(null);
   const suppressClick = useRef(false);
@@ -57,34 +42,24 @@ export function WorkCarousel() {
     }
   };
 
-  const moveSelection = (direction: -1 | 1, steps = 1, focus = false) => {
-    selectProject(activeIndex + direction * steps, focus);
-  };
-
   const resetDrag = () => {
     dragState.current = null;
     setDragging(false);
-    setDragX(0);
   };
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-
     dragState.current = {
       pointerId: event.pointerId,
       startX: event.clientX,
       startTime: event.timeStamp,
     };
     setDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
-  };
-
-  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const drag = dragState.current;
-    if (!drag || drag.pointerId !== event.pointerId) return;
-
-    const delta = event.clientX - drag.startX;
-    setDragX(Math.max(-180, Math.min(180, delta)));
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      // Synthetic pointer events may not own an active browser pointer.
+    }
   };
 
   const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -94,13 +69,10 @@ export function WorkCarousel() {
     const delta = event.clientX - drag.startX;
     const elapsed = Math.max(1, event.timeStamp - drag.startTime);
     const velocity = delta / elapsed;
-    const intentionalSwipe = Math.abs(delta) > 38 || Math.abs(velocity) > 0.42;
+    const intentionalSwipe = Math.abs(delta) > 42 || Math.abs(velocity) > 0.4;
 
     suppressClick.current = Math.abs(delta) > 8;
-    if (intentionalSwipe) {
-      const steps = Math.abs(delta) > event.currentTarget.clientWidth * 0.34 ? 2 : 1;
-      moveSelection(delta < 0 ? 1 : -1, steps);
-    }
+    if (intentionalSwipe) selectProject(activeIndex + (delta < 0 ? 1 : -1));
 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -115,11 +87,11 @@ export function WorkCarousel() {
     event: ReactKeyboardEvent<HTMLButtonElement>,
     index: number,
   ) => {
-    if (event.key === "ArrowLeft") {
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
       event.preventDefault();
       selectProject(index - 1, true);
     }
-    if (event.key === "ArrowRight") {
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
       event.preventDefault();
       selectProject(index + 1, true);
     }
@@ -134,192 +106,144 @@ export function WorkCarousel() {
   };
 
   return (
-    <section id="selected-work" className="section-flow section-space-feature relative overflow-hidden">
+    <section id="selected-work" className="selected-work section-flow relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
       <Container className="relative z-10">
-        <div className="text-center">
-          <SectionHeading
-            label="Selected work"
-            title="Shipped systems, not decks"
-            description="Real artifacts, users, and workflows. Proof stays visible."
-            align="center"
-            scale="display"
-          />
-
-          <Reveal delay={0.08} className="mt-4 flex items-center justify-center gap-3">
-            <span className="mr-1 font-mono text-[11px] tracking-[0.16em] text-bone-faint">
+        <Reveal className="editorial-heading grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+          <div className="flex items-end justify-between gap-5 lg:block">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
+              Selected work
+            </p>
+            <span className="font-mono text-[10px] tracking-[0.16em] text-bone-faint lg:mt-4 lg:block">
               {String(activeIndex + 1).padStart(2, "0")} / {String(projectCount).padStart(2, "0")}
             </span>
-            <button
-              type="button"
-              aria-label="Select previous project"
-              onClick={() => moveSelection(-1)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-charcoal/55 text-bone-dim transition-colors duration-200 hover:border-bone/35 hover:text-bone focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone/40"
-            >
-              <ArrowLeft size={16} />
-            </button>
-            <button
-              type="button"
-              aria-label="Select next project"
-              onClick={() => moveSelection(1)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-charcoal/55 text-bone-dim transition-colors duration-200 hover:border-bone/35 hover:text-bone focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone/40"
-            >
-              <ArrowRight size={16} />
-            </button>
-          </Reveal>
-        </div>
-
-        <Reveal delay={0.1} className="mt-8">
-          <div className="work-arc-shell">
-            <div
-              className="work-arc-stage"
-              data-dragging={dragging}
-              role="tablist"
-              aria-label="Selected projects"
-              aria-orientation="horizontal"
-              onPointerDown={handlePointerDown}
-              onPointerMove={handlePointerMove}
-              onPointerUp={handlePointerUp}
-              onPointerCancel={resetDrag}
-              onDragStart={(event) => event.preventDefault()}
-            >
-              <p className="sr-only">
-                Swipe, drag, tap a project, or use the left and right arrow keys to change selection.
-              </p>
-              <div
-                className={cn("work-arc-track", dragging && "work-arc-track--dragging")}
-                style={{ transform: `translate3d(${dragX}px, 0, 0)` }}
-              >
-                {caseStudies.map((study, index) => {
-                  const offset = getArcOffset(index, activeIndex);
-                  const isSelected = offset === 0;
-
-                  return (
-                    <button
-                      key={study.slug}
-                      ref={(element) => {
-                        tabs.current[index] = element;
-                      }}
-                      id={`work-tab-${study.slug}`}
-                      type="button"
-                      role="tab"
-                      aria-selected={isSelected}
-                      aria-controls="selected-work-panel"
-                      tabIndex={isSelected ? 0 : -1}
-                      data-offset={offset}
-                      data-selected={isSelected}
-                      onClick={() => {
-                        if (!suppressClick.current) selectProject(index);
-                      }}
-                      onKeyDown={(event) => handleTabKeyDown(event, index)}
-                      className="work-arc-item"
-                      style={{ zIndex: 10 - Math.abs(offset) } as CSSProperties}
-                    >
-                      <div className="work-arc-card">
-                        <span className="work-arc-index font-mono text-[9px] tracking-[0.16em] text-bone-faint sm:text-[10px]">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <span className="work-arc-name">{study.client}</span>
-                        <span className="work-arc-category font-mono text-[9px] uppercase tracking-[0.13em] text-bone-faint sm:text-[10px]">
-                          {study.category}
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div
-              key={selected.slug}
-              id="selected-work-panel"
-              role="tabpanel"
-              aria-labelledby={`work-tab-${selected.slug}`}
-              className="work-project-detail mt-4 grid gap-8 overflow-hidden lg:mt-0 lg:grid-cols-[1.28fr_0.72fr] lg:items-stretch lg:gap-12"
-            >
-              <div className="work-project-media relative min-h-72 overflow-hidden bg-ink sm:min-h-[25rem] lg:min-h-[34rem]">
-                {selected.assets?.video ? (
-                  <GraceVideo label={`${selected.client} selected project artifact`} />
-                ) : (
-                  <div className="relative flex h-full min-h-72 items-center justify-center p-10 sm:min-h-[25rem] sm:p-16 lg:min-h-[34rem]">
-                    <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-55" />
-                    <div className="relative h-40 w-full max-w-lg sm:h-48">
-                      <CardPreview kind={selected.preview} />
-                    </div>
-                  </div>
-                )}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-ink/12" />
-                <span className="pointer-events-none absolute bottom-5 left-5 font-mono text-[10px] uppercase tracking-[0.15em] text-bone-dim sm:bottom-7 sm:left-7">
-                  {selected.artifact}
-                </span>
-              </div>
-
-              <div className="flex flex-col py-2 sm:py-4 lg:py-10">
-                <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
-                  <span>{selected.category}</span>
-                  <span>{selected.year}</span>
-                </div>
-                <h3 className="mt-5 text-center text-3xl font-semibold leading-tight tracking-tight text-bone sm:text-4xl">
-                  {selected.client}
-                </h3>
-                <p className="mt-4 text-base leading-relaxed text-bone-dim">
-                  {selected.summary}
-                </p>
-                <p className="mt-5 border-t border-line pt-5 text-sm leading-relaxed text-bone-dim">
-                  {selected.built}
-                </p>
-
-                <dl className="mt-6 grid gap-4 border-t border-line pt-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                  <div>
-                    <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
-                      Proof
-                    </dt>
-                    <dd className="mt-1 text-sm leading-relaxed text-bone-dim">
-                      {selected.proof}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
-                      Used by
-                    </dt>
-                    <dd className="mt-1 text-sm leading-relaxed text-bone-dim">
-                      {selected.users}
-                    </dd>
-                  </div>
-                </dl>
-
-                <div className="mt-auto flex flex-wrap items-center justify-between gap-5 pt-8">
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[10px] uppercase tracking-[0.12em] text-bone-faint">
-                    {selected.tags.slice(0, 3).map((tag, index) => (
-                      <span key={tag}>
-                        {index > 0 && <span className="mr-2 text-line">/</span>}
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <Link
-                    href={`/work/${selected.slug}`}
-                    className="group inline-flex items-center gap-2 text-sm font-medium text-bone focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone/40"
-                  >
-                    View project
-                    <ArrowUpRight
-                      size={16}
-                      className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                    />
-                  </Link>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div>
+            <h2 className="max-w-4xl text-4xl font-semibold leading-[1.02] text-bone sm:text-5xl lg:text-6xl">
+              Shipped systems, not decks.
+            </h2>
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-bone-dim">
+              Real artifacts, users, and workflows. Proof stays visible.
+            </p>
           </div>
         </Reveal>
 
-        <div className="mt-10 flex justify-center">
+        <Reveal delay={0.08} className="mt-14 lg:mt-20">
+          <div
+            className="work-project-rail no-scrollbar"
+            data-dragging={dragging}
+            role="tablist"
+            aria-label="Selected projects"
+            aria-orientation="horizontal"
+            onPointerDown={handlePointerDown}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={resetDrag}
+            onDragStart={(event) => event.preventDefault()}
+          >
+            <p className="sr-only">
+              Swipe, tap a project, or use the arrow keys to change selection.
+            </p>
+            {caseStudies.map((study, index) => {
+              const isSelected = index === activeIndex;
+              return (
+                <button
+                  key={study.slug}
+                  ref={(element) => {
+                    tabs.current[index] = element;
+                  }}
+                  id={`work-tab-${study.slug}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  aria-controls="selected-work-panel"
+                  tabIndex={isSelected ? 0 : -1}
+                  data-selected={isSelected}
+                  onClick={() => {
+                    if (!suppressClick.current) selectProject(index);
+                  }}
+                  onKeyDown={(event) => handleTabKeyDown(event, index)}
+                  className="work-project-trigger"
+                >
+                  <span className="font-mono text-[9px] tracking-[0.14em] text-bone-faint">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="work-project-trigger-name">{study.client}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <article
+            key={selected.slug}
+            id="selected-work-panel"
+            role="tabpanel"
+            aria-labelledby={`work-tab-${selected.slug}`}
+            className="work-project-stage"
+          >
+            <div className="work-project-media">
+              {selected.assets?.video ? (
+                <GraceVideo label={`${selected.client} selected project artifact`} />
+              ) : (
+                <div className="work-artifact-field">
+                  <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-45" />
+                  <span className="work-artifact-index" aria-hidden="true">
+                    {String(activeIndex + 1).padStart(2, "0")}
+                  </span>
+                  <div className="relative z-10 max-w-4xl">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-bone-faint">
+                      {selected.artifact}
+                    </p>
+                    <h3 className="mt-5 text-5xl font-semibold leading-[0.92] tracking-tight text-bone sm:text-7xl lg:text-8xl">
+                      {selected.client}
+                    </h3>
+                  </div>
+                </div>
+              )}
+              <div className="work-project-media-shade pointer-events-none absolute inset-0" />
+              <span className="work-project-artifact-label pointer-events-none absolute bottom-5 left-5 z-10 font-mono text-[10px] uppercase tracking-[0.15em] text-bone-dim sm:bottom-8 sm:left-8">
+                {selected.artifact}
+              </span>
+            </div>
+
+            <div className="work-project-copy">
+              <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
+                <span>{selected.category}</span>
+                <span>{selected.year}</span>
+              </div>
+              <h3 className="mt-8 text-3xl font-semibold leading-tight text-bone sm:text-4xl">
+                {selected.client}
+              </h3>
+              <p className="mt-5 text-base leading-relaxed text-bone-dim">
+                {selected.summary}
+              </p>
+              <p className="mt-8 text-sm leading-relaxed text-bone-dim">
+                {selected.built}
+              </p>
+              <dl className="work-project-facts">
+                <div>
+                  <dt>Proof</dt>
+                  <dd>{selected.proof}</dd>
+                </div>
+                <div>
+                  <dt>Used by</dt>
+                  <dd>{selected.users}</dd>
+                </div>
+              </dl>
+              <Link href={`/work/${selected.slug}`} className="work-project-link group">
+                View project
+                <ArrowUpRight
+                  size={16}
+                  className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </Link>
+            </div>
+          </article>
+        </Reveal>
+
+        <div className="mt-10 flex justify-end">
           <ButtonLink href="/work" variant="secondary">
             View all work
-            <ArrowRight
-              size={16}
-              className="transition-transform duration-200 group-hover:translate-x-0.5"
-            />
+            <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />
           </ButtonLink>
         </div>
       </Container>
