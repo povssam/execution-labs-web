@@ -78,3 +78,30 @@ Runtime checks:
 - No console or page errors were recorded.
 
 Review captures live in `docs/qa/middle-art-direction/after/`.
+
+## Responsive composition collision repair — 2026-08-13
+
+Checkpoint: `d09a9b6b5161fbc322c8fd37508df5b2236cfccb` on `feat/art-direction-v2`.
+
+Measured root causes and fixes:
+
+- The fixed 64px nav, mobile safe-area inset, section scroll margin, and menu panel offset used separate values. They now resolve through `--nav-height` and `--anchor-offset` (`nav + 16px`).
+- Containers and middle-section spacing used overlapping local tokens. They now share `--page-gutter`, `--content-max`, `--editorial-max`, `--section-space`, and `--section-space-sm` on an 8px-derived fluid scale.
+- What We Build relied on a two-column block whose proof copy shared the active-copy flow. The panel is now a bounded content/proof grid beside the capability navigation; readable columns measure 275px/216px at 1024 and 294px/231px at 1440, then collapse without absolute-positioned text.
+- Selected Work used viewport-relative card widths and mobile arc offsets that allowed adjacent labels to cross the active label. The active project now measures a 0px center-axis delta at every tested width; adjacent mobile labels sit on a lower arc with categories suppressed visually while retaining the project name controls.
+- The process line extended past its final marker and individual steps had unconstrained widths. Marker centers now share one equal rail: 142/382/622/862px at 1024 and 300/572/844/1116px at 1440; mobile uses one exact vertical axis.
+- Client Signals previously shifted even rows and transformed the active row. All rows now share one left rail; the active state is color/opacity only.
+- Project pages used different header order and duplicated proof/artifact treatment. All five now use one eyebrow → title → category/year → summary → proof structure. The homepage Soniq artifact label is rendered once.
+
+Production-build Playwright results:
+
+- 34/34 tests passed across 390×844, 430×932, 768×1024, 1024×768, 1366×768, 1440×900, and 1728×1117.
+- Zero page-level horizontal overflow at all seven viewport sizes.
+- Zero unintended readable-element intersections across all six capability states and all five Selected Work states.
+- Zero clipped large headings or bounded content outside the viewport.
+- Selected Work active-project center delta: 0px at all seven sizes after settled keyboard transitions.
+- All tested anchors landed at least 8px below the fixed nav safe area.
+- Every project header passed at 390×844 and 1440×900 with one artifact label, no collisions, no clipping, and no nav obstruction.
+- Mobile menu close/navigation restored scrolling; wheel continuation, touch/swipe, keyboard selection, and reduced-motion behavior passed.
+
+Before/after captures live in `docs/qa/responsive-collision-repair/`.

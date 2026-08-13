@@ -95,27 +95,6 @@ function GraceAssetBlock({ compact = false }: { compact?: boolean }) {
   );
 }
 
-function ProofStrip({ study }: { study: typeof caseStudies[number] }) {
-  const items = [
-    ["Used by", study.users],
-    ["Built", study.artifact],
-    ["Proof", study.proof],
-  ];
-
-  return (
-    <div className="grid gap-3 border-y border-line py-5 sm:grid-cols-3">
-      {items.map(([label, value]) => (
-        <div key={label}>
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
-            {label}
-          </span>
-          <p className="mt-1 text-sm leading-relaxed text-bone-dim">{value}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export default async function CaseStudyPage({ params }: Params) {
   const { slug } = await params;
   const index = caseStudies.findIndex((s) => s.slug === slug);
@@ -139,36 +118,37 @@ export default async function CaseStudyPage({ params }: Params) {
             </Link>
           </Reveal>
 
+          <Reveal delay={0.04} className="case-study-header">
+            <span className="case-study-eyebrow font-mono text-[11px] uppercase tracking-[0.18em] text-bone-faint">
+              {study.artifact}
+            </span>
+            <h1 className="case-study-title font-semibold tracking-tight text-bone">
+              {study.client}
+            </h1>
+            <div className="case-study-meta font-mono text-[11px] uppercase tracking-[0.14em] text-bone-faint">
+              <span>{study.category}</span>
+              <span>{study.year}</span>
+            </div>
+            <p className="case-study-summary text-lg leading-relaxed text-bone-dim">
+              {study.summary}
+            </p>
+            <dl className="case-study-proof">
+              <div>
+                <dt>Proof</dt>
+                <dd>{study.proof}</dd>
+              </div>
+              <div>
+                <dt>Used by</dt>
+                <dd>{study.users}</dd>
+              </div>
+            </dl>
+          </Reveal>
+
           {study.slug === "grace" && (
-            <Reveal delay={0.04} className="mt-8">
+            <Reveal delay={0.08} className="case-study-media">
               <GraceAssetBlock compact />
             </Reveal>
           )}
-
-          <div className={study.slug === "grace" ? "mt-8 max-w-3xl" : "mt-8 max-w-3xl"}>
-            <div>
-              <Reveal>
-                <div className="flex items-center gap-3">
-                  <span className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-bone-dim">
-                    {study.category}
-                  </span>
-                  <span className="font-mono text-xs text-bone-faint">
-                    {study.year}
-                  </span>
-                </div>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h1 className="mt-5 text-4xl font-semibold tracking-tight text-bone sm:text-6xl">
-                  {study.client}
-                </h1>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p className="mt-5 max-w-xl text-lg text-bone-dim">
-                  {study.summary}
-                </p>
-              </Reveal>
-            </div>
-          </div>
         </Container>
       </section>
 
@@ -178,10 +158,6 @@ export default async function CaseStudyPage({ params }: Params) {
           <Reveal className="flex flex-col gap-6">
             <Section label="Problem" body={study.problem} />
             <Section label="What we built" body={study.built} />
-          </Reveal>
-
-          <Reveal delay={0.06} className="mt-8">
-            <ProofStrip study={study} />
           </Reveal>
 
           {study.slug === "orbit-artist-group" && (
