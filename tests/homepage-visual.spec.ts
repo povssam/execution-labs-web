@@ -390,6 +390,71 @@ test("mobile menu releases body scroll and in-page navigation remains usable", a
   expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(before);
 });
 
+test("mobile menu stays viewport-fixed after deep scrolling and releases every lock", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/", { waitUntil: "networkidle" });
+  await page.evaluate(() => window.scrollTo(0, 3000));
+  await page.waitForTimeout(300);
+
+  const menuButton = page.getByRole("button", { name: "Toggle menu" });
+  await menuButton.click();
+
+  const panel = page.getByRole("dialog", { name: "Site navigation" });
+  await expect(panel).toBeVisible();
+  const geometry = await page.evaluate(() => {
+    const header = document.querySelector("header")!.getBoundingClientRect();
+    const menu = document.getElementById("mobile-navigation")!.getBoundingClientRect();
+    return {
+      headerBottom: Math.round(header.bottom),
+      menuTop: Math.round(menu.top),
+      menuBottom: Math.round(menu.bottom),
+      viewportHeight: window.innerHeight,
+      parent: document.getElementById("mobile-navigation")!.parentElement?.tagName,
+    };
+  });
+
+  expect(Math.abs(geometry.menuTop - geometry.headerBottom)).toBeLessThanOrEqual(1);
+  expect(geometry.menuBottom).toBe(geometry.viewportHeight);
+  expect(geometry.parent).toBe("BODY");
+  await expect(page.locator("body")).toHaveCSS("overflow", "hidden");
+  await expect(page.locator("html")).toHaveCSS("overflow", "hidden");
+
+  await page.keyboard.press("Escape");
+  await expect(panel).toBeHidden();
+  await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
+  await expect(page.locator("html")).not.toHaveCSS("overflow", "hidden");
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(2500);
+
+  await menuButton.click();
+  await page.setViewportSize({ width: 1024, height: 768 });
+  await expect(panel).toBeHidden();
+  await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
+  await expect(page.locator("html")).not.toHaveCSS("overflow", "hidden");
+});
+
+test("mobile menu remains viewport-bound on every primary route", async ({ page }) => {
+  await page.setViewportSize({ width: 430, height: 932 });
+
+  for (const route of ["/", "/work", "/services", "/contact", "/work/soniq"]) {
+    await page.goto(route, { waitUntil: "networkidle" });
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page.waitForTimeout(200);
+    await page.getByRole("button", { name: "Toggle menu" }).click();
+
+    const panel = page.getByRole("dialog", { name: "Site navigation" });
+    await expect(panel, route).toBeVisible();
+    const bounds = await panel.boundingBox();
+    expect(bounds, route).not.toBeNull();
+    expect(Math.round(bounds?.y ?? -1), route).toBe(64);
+    expect(Math.round((bounds?.y ?? 0) + (bounds?.height ?? 0)), route).toBe(932);
+
+    await page.getByRole("button", { name: "Toggle menu" }).click();
+    await expect(panel, route).toBeHidden();
+    await expect(page.locator("body"), route).not.toHaveCSS("overflow", "hidden");
+    await expect(page.locator("html"), route).not.toHaveCSS("overflow", "hidden");
+  }
+});
+
 test("Selected Work supports keyboard and touch-first swipe selection", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/#selected-work", { waitUntil: "networkidle" });

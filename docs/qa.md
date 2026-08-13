@@ -105,3 +105,11 @@ Production-build Playwright results:
 - Mobile menu close/navigation restored scrolling; wheel continuation, touch/swipe, keyboard selection, and reduced-motion behavior passed.
 
 Before/after captures live in `docs/qa/responsive-collision-repair/`.
+
+## Deep-scroll mobile navigation repair — 2026-08-13
+
+- Root cause: the viewport-fixed mobile menu was nested inside the fixed header. Once the header gained its scrolled `backdrop-filter`, WebKit could treat it as the menu's containing block and place the panel near the document origin instead of the visible viewport.
+- Fix: the menu panel is now a document-root sibling of the header with an explicit viewport layer. The approved header and menu styling remain unchanged.
+- Scroll locking now applies to both `html` and `body` and restores both values on close, navigation, Escape, unmount, and mobile-to-desktop breakpoint changes.
+- Deep-scroll geometry was verified at 390×844 and 430×932. The menu remained bounded from the 64px nav edge to the viewport bottom on `/`, `/work`, `/services`, `/contact`, and `/work/soniq`.
+- Review captures: `docs/qa/nav-scroll-fix/menu-open-deep-scroll-390x844.png` and `docs/qa/nav-scroll-fix/menu-closed-deep-scroll-390x844.png`.
