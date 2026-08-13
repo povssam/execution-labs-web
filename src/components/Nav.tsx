@@ -35,10 +35,33 @@ export function Nav() {
 
   useEffect(() => {
     if (!open) return;
+    const root = document.documentElement;
     const previousOverflow = document.body.style.overflow;
+    const previousRootOverflow = root.style.overflow;
     document.body.style.overflow = "hidden";
+    root.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = previousOverflow;
+      root.style.overflow = previousRootOverflow;
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpenPathname(null);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpenPathname(null);
+    };
+
+    desktop.addEventListener("change", closeOnDesktop);
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      desktop.removeEventListener("change", closeOnDesktop);
+      window.removeEventListener("keydown", closeOnEscape);
     };
   }, [open]);
 
@@ -87,54 +110,63 @@ export function Nav() {
   };
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled ? "border-b border-line glass" : "border-b border-transparent",
-      )}
-    >
-      <nav className="site-container site-nav flex h-[var(--nav-height)] items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight text-bone">
-          <Logo size={20} />
-          Execution Labs
-        </Link>
+    <>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          scrolled ? "border-b border-line glass" : "border-b border-transparent",
+        )}
+      >
+        <nav className="site-container site-nav flex h-[var(--nav-height)] items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight text-bone">
+            <Logo size={20} />
+            Execution Labs
+          </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={(event) => handleLinkClick(event, link)}
-              className={cn(
-                "rounded-full px-3.5 py-2 text-sm transition-colors duration-200",
-                isActive(link) ? "text-bone" : "text-bone-dim hover:text-bone",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+          <div className="hidden items-center gap-1 lg:flex">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={(event) => handleLinkClick(event, link)}
+                className={cn(
+                  "rounded-full px-3.5 py-2 text-sm transition-colors duration-200",
+                  isActive(link) ? "text-bone" : "text-bone-dim hover:text-bone",
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
-        <div className="hidden items-center lg:flex">
-          <ButtonLink href="/contact" className="px-5 py-2">
-            Start a project
-            <ArrowRight size={15} />
-          </ButtonLink>
-        </div>
+          <div className="hidden items-center lg:flex">
+            <ButtonLink href="/contact" className="px-5 py-2">
+              Start a project
+              <ArrowRight size={15} />
+            </ButtonLink>
+          </div>
 
-        <button
-          type="button"
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpenPathname(open ? null : pathname)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-charcoal/70 text-bone transition-colors duration-150 hover:border-bone/40 lg:hidden"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </nav>
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            onClick={() => setOpenPathname(open ? null : pathname)}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-charcoal/70 text-bone transition-colors duration-150 hover:border-bone/40 lg:hidden"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </nav>
+      </header>
 
       {open && (
-        <div className="fixed inset-x-0 bottom-0 top-[var(--nav-height)] overscroll-contain overflow-y-auto border-t border-line bg-ink/98 backdrop-blur-xl lg:hidden">
+        <div
+          id="mobile-navigation"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site navigation"
+          className="fixed inset-x-0 bottom-0 top-[var(--nav-height)] z-40 overscroll-contain overflow-y-auto border-t border-line bg-ink/98 backdrop-blur-xl lg:hidden"
+        >
           <div className="site-container flex min-h-full flex-col gap-1 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5">
             {links.map((link) => (
               <Link
@@ -161,6 +193,6 @@ export function Nav() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
