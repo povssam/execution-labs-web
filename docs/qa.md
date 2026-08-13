@@ -52,3 +52,29 @@ Repository checks completed on the unchanged application source: `npm run lint`,
 ## Figma status
 
 No Figma MCP connector is exposed in this workspace, so the requested Figma file and URL could not be created programmatically. The local board is the review artifact and mirrors the requested page labels: 00 CURRENT, 01 DIRECTION A, 02 DIRECTION B, 03 DIRECTION C, with direction query parameters and focused review states.
+
+## Middle-section refinement — 2026-08-13
+
+The approved hero and footer were held unchanged. Production-build QA covered the redesigned middle sequence at 390×844, 430×932, 768×1024, 1366×768, and 1440×900.
+
+Measured 390px improvements from the client-reference baseline:
+
+| Section | Before | After | Change |
+| --- | ---: | ---: | ---: |
+| What We Build | 974px | 678px | -296px |
+| Selected Work | 1,670px | 1,082px | -588px |
+| Motion Work | 567px | 520px | -47px |
+| Process | 1,048px | 692px | -356px |
+| Client Signals | 704px | 527px | -177px |
+| Full page | 7,552px | 6,088px | -1,464px |
+
+Runtime checks:
+
+- 14 Playwright tests passed against the production build.
+- Homepage and `/contact` had no page-level horizontal overflow at all five viewports.
+- Mobile menu lock released after close and after in-page navigation.
+- Capability swipe/tap, project keyboard/swipe, and Client Signals focus/tap states passed.
+- Reduced motion disables continuous marquee/video motion and state transitions.
+- No console or page errors were recorded.
+
+Review captures live in `docs/qa/middle-art-direction/after/`.

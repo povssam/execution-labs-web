@@ -139,6 +139,12 @@ for (const viewport of viewports) {
     expect(Math.abs(section(".home-opening").height - viewport.height)).toBeLessThanOrEqual(1);
     expect(Math.abs(section(".worked-with-surface").bottom - viewport.height)).toBeLessThanOrEqual(1);
     expect(section(".statement-section").top).toBeGreaterThanOrEqual(viewport.height);
+    if (viewport.width <= 430) {
+      expect(section(".capabilities-editorial").height).toBeLessThan(800);
+      expect(section(".selected-work").height).toBeLessThan(1400);
+      expect(section(".process-editorial").height).toBeLessThan(800);
+      expect(section(".signals-editorial").height).toBeLessThan(650);
+    }
     expect(errors).toEqual([]);
   });
 }
@@ -224,6 +230,40 @@ test("Selected Work supports keyboard and touch-first swipe selection", async ({
     "aria-selected",
     "true",
   );
+});
+
+test("middle-section controls support touch and keep active states coherent", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#what-we-build", { waitUntil: "networkidle" });
+
+  const capabilityRail = page.locator(".capability-navigation");
+  const capabilityBox = await capabilityRail.boundingBox();
+  expect(capabilityBox).not.toBeNull();
+  if (!capabilityBox) return;
+
+  const capabilityY = capabilityBox.y + capabilityBox.height / 2;
+  await capabilityRail.dispatchEvent("pointerdown", {
+    pointerId: 11,
+    pointerType: "touch",
+    clientX: capabilityBox.x + capabilityBox.width * 0.8,
+    clientY: capabilityY,
+    button: 0,
+  });
+  await capabilityRail.dispatchEvent("pointerup", {
+    pointerId: 11,
+    pointerType: "touch",
+    clientX: capabilityBox.x + capabilityBox.width * 0.2,
+    clientY: capabilityY,
+    button: 0,
+  });
+  await expect(page.locator("#capability-tab-1")).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator("#capability-panel")).toContainText("Replace the tab maze.");
+
+  await page.locator(".signals-editorial").scrollIntoViewIfNeeded();
+  const signals = page.locator(".signal-line");
+  await signals.nth(2).click();
+  await expect(signals.nth(2)).toHaveAttribute("aria-pressed", "true");
+  await expect(signals.nth(0)).toHaveAttribute("aria-pressed", "false");
 });
 
 test.describe("reduced motion", () => {
