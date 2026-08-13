@@ -140,20 +140,22 @@ export function WhatWeBuild() {
                 {String(activeCapability + 1).padStart(2, "0")} / {String(capabilities.length).padStart(2, "0")}
               </span>
             </div>
-            <div className="capability-detail-copy">
+            <div className="capability-detail-primary">
               <h3 className="capability-detail-title text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-5xl">
                 {active.stance}
               </h3>
-              <p className="max-w-lg text-base leading-relaxed text-bone-dim">
+              <p className="capability-detail-body text-base leading-relaxed text-bone-dim">
                 {active.body}
               </p>
             </div>
-            <div className="capability-points font-mono text-[10px] uppercase tracking-[0.12em] text-bone-faint sm:text-[11px]">
-              {active.points.map((point, index) => (
-                <span key={point}>
-                  <span className="mr-2 text-bone/25">0{index + 1}</span>{point}
-                </span>
-              ))}
+            <div className="capability-proof">
+              <div className="capability-points font-mono text-[10px] uppercase tracking-[0.12em] text-bone-faint sm:text-[11px]">
+                {active.points.map((point, index) => (
+                  <span key={point}>
+                    <span className="mr-2 text-bone/25">0{index + 1}</span>{point}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>

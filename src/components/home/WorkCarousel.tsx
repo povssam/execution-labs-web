@@ -205,9 +205,11 @@ export function WorkCarousel() {
                 )}
               </div>
               <div className="work-project-media-shade pointer-events-none absolute inset-0" />
-              <span className="work-project-artifact-label pointer-events-none absolute bottom-5 left-5 z-10 font-mono text-[10px] uppercase tracking-[0.15em] text-bone-dim sm:bottom-8 sm:left-8">
-                {selected.artifact}
-              </span>
+              {selected.assets?.video && (
+                <span className="work-project-artifact-label pointer-events-none absolute bottom-5 left-5 z-10 font-mono text-[10px] uppercase tracking-[0.15em] text-bone-dim sm:bottom-8 sm:left-8">
+                  {selected.artifact}
+                </span>
+              )}
             </div>
 
             <div className="work-project-copy">

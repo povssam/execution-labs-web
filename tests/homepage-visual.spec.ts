@@ -1,11 +1,14 @@
 import { expect, test } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
 const viewports = [
   { width: 390, height: 844 },
   { width: 430, height: 932 },
   { width: 768, height: 1024 },
+  { width: 1024, height: 768 },
   { width: 1366, height: 768 },
   { width: 1440, height: 900 },
+  { width: 1728, height: 1117 },
 ];
 
 const sectionSelectors = [
@@ -32,6 +35,8 @@ const keySelectors = [
   ".capabilities-editorial .editorial-heading",
   ".capability-navigation",
   ".capability-detail",
+  ".capability-detail-primary",
+  ".capability-proof",
   ".selected-work .editorial-heading",
   ".work-arc-stage",
   ".work-project-stage",
@@ -52,6 +57,97 @@ type RectMetric = {
   width: number;
   height: number;
 };
+
+async function getReadableCollisionReport(page: Page) {
+  return page.evaluate(() => {
+    const visible = (element: Element) => {
+      const styles = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      return styles.display !== "none" && styles.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
+    };
+    const area = (a: DOMRect, b: DOMRect) =>
+      Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
+      Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+    const groups: Array<[string, string[]]> = [
+      ["capability", [".capability-detail-meta", ".capability-detail-primary", ".capability-proof"]],
+      ["selected-work-entry", [".selected-work .editorial-heading", ".work-arc-stage"]],
+      ["selected-work-projects", [".work-arc-name"]],
+      ["selected-work-proof", [".work-project-media", ".work-project-copy"]],
+      ["process-entry", [".process-editorial .editorial-heading", ".process-route"]],
+      ["signals-entry", [".signals-heading", ".signals-manifesto"]],
+    ];
+    const collisions: string[] = [];
+
+    for (const [name, selectors] of groups) {
+      const elements = selectors.flatMap((selector) =>
+        [...document.querySelectorAll(selector)].filter(visible),
+      );
+      for (let index = 0; index < elements.length; index += 1) {
+        for (let next = index + 1; next < elements.length; next += 1) {
+          if (area(elements[index].getBoundingClientRect(), elements[next].getBoundingClientRect()) > 1) {
+            collisions.push(`${name}: ${elements[index].className} <> ${elements[next].className}`);
+          }
+        }
+      }
+    }
+
+    for (const step of document.querySelectorAll(".process-route-step article")) {
+      const elements = [...step.querySelectorAll(".process-route-marker, .process-route-title, .process-route-copy")].filter(visible);
+      for (let index = 0; index < elements.length; index += 1) {
+        for (let next = index + 1; next < elements.length; next += 1) {
+          if (area(elements[index].getBoundingClientRect(), elements[next].getBoundingClientRect()) > 1) {
+            collisions.push(`process-step: ${elements[index].className} <> ${elements[next].className}`);
+          }
+        }
+      }
+    }
+
+    const signalLines = [...document.querySelectorAll(".signal-line")].filter(visible);
+    for (let index = 0; index < signalLines.length - 1; index += 1) {
+      if (area(signalLines[index].getBoundingClientRect(), signalLines[index + 1].getBoundingClientRect()) > 1) {
+        collisions.push(`signal-lines: ${index} <> ${index + 1}`);
+      }
+    }
+
+    const boundedSelectors = [
+      ".editorial-heading",
+      ".capability-detail-meta",
+      ".capability-detail-primary",
+      ".capability-proof",
+      ".work-project-stage",
+      ".process-route",
+      ".signals-heading",
+      ".signals-manifesto",
+    ];
+    const outsideViewport = boundedSelectors.flatMap((selector) =>
+      [...document.querySelectorAll(selector)]
+        .filter(visible)
+        .filter((element) => {
+          const rect = element.getBoundingClientRect();
+          return rect.left < -1 || rect.right > window.innerWidth + 1;
+        })
+        .map((element) => `${selector}: ${Math.round(element.getBoundingClientRect().left)}..${Math.round(element.getBoundingClientRect().right)}`),
+    );
+
+    const clippedHeadings = [...document.querySelectorAll<HTMLElement>("h1, h2, h3")]
+      .filter(visible)
+      .filter((heading) => {
+        const styles = getComputedStyle(heading);
+        const clipsX = styles.overflowX !== "visible" && heading.scrollWidth - heading.clientWidth > 1;
+        const clipsY = styles.overflowY !== "visible" && heading.scrollHeight - heading.clientHeight > 1;
+        return clipsX || clipsY;
+      })
+      .map((heading) => heading.textContent?.replace(/\s+/g, " ").trim() ?? "unknown");
+
+    const stage = document.querySelector<HTMLElement>(".work-arc-stage")?.getBoundingClientRect();
+    const active = document.querySelector<HTMLElement>('.work-arc-item[aria-selected="true"]')?.getBoundingClientRect();
+    const activeCenterDelta = stage && active
+      ? Math.abs((active.left + active.right) / 2 - (stage.left + stage.right) / 2)
+      : Number.POSITIVE_INFINITY;
+
+    return { collisions, outsideViewport, clippedHeadings, activeCenterDelta };
+  });
+}
 
 for (const viewport of viewports) {
   test(`homepage geometry ${viewport.width}x${viewport.height}`, async ({ page }) => {
@@ -146,6 +242,105 @@ for (const viewport of viewports) {
       expect(section(".signals-editorial").height).toBeLessThan(650);
     }
     expect(errors).toEqual([]);
+  });
+}
+
+for (const viewport of viewports) {
+  test(`readable collision audit ${viewport.width}x${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto("/", { waitUntil: "networkidle" });
+
+    for (let index = 0; index < 6; index += 1) {
+      await page.locator(`#capability-tab-${index}`).evaluate((element: HTMLButtonElement) => element.click());
+      await page.waitForTimeout(450);
+      const report = await getReadableCollisionReport(page);
+      expect(report.collisions, `capability ${index + 1}`).toEqual([]);
+      expect(report.outsideViewport, `capability ${index + 1}`).toEqual([]);
+      expect(report.clippedHeadings, `capability ${index + 1}`).toEqual([]);
+      expect(report.activeCenterDelta).toBeLessThanOrEqual(1);
+    }
+
+    const selected = page.locator('.work-arc-item[aria-selected="true"]');
+    await selected.focus();
+    for (let index = 0; index < 5; index += 1) {
+      const report = await getReadableCollisionReport(page);
+      expect(report.collisions, `project ${index + 1}`).toEqual([]);
+      expect(report.outsideViewport, `project ${index + 1}`).toEqual([]);
+      expect(report.clippedHeadings, `project ${index + 1}`).toEqual([]);
+      expect(report.activeCenterDelta).toBeLessThanOrEqual(1);
+      await page.keyboard.press("ArrowRight");
+      await expect
+        .poll(async () => (await getReadableCollisionReport(page)).activeCenterDelta)
+        .toBeLessThanOrEqual(1);
+    }
+  });
+}
+
+for (const viewport of viewports) {
+  test(`anchor safe offset ${viewport.width}x${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto("/", { waitUntil: "networkidle" });
+
+    for (const id of ["what-we-build", "selected-work", "process"]) {
+      await page.evaluate((targetId) => document.getElementById(targetId)?.scrollIntoView(), id);
+      await page.waitForTimeout(700);
+      const positions = await page.evaluate((targetId) => ({
+        sectionTop: Math.round(document.getElementById(targetId)?.getBoundingClientRect().top ?? -1),
+        navBottom: Math.round(document.querySelector("header")?.getBoundingClientRect().bottom ?? 0),
+      }), id);
+      expect(positions.sectionTop, id).toBeGreaterThanOrEqual(positions.navBottom + 8);
+    }
+  });
+}
+
+for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
+  test(`all case-study headers ${viewport.width}x${viewport.height}`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    const slugs = ["grace", "orbit-artist-group", "media-scaling", "soniq", "dividends-total-returns"];
+
+    for (const slug of slugs) {
+      await page.goto(`/work/${slug}`, { waitUntil: "networkidle" });
+      const report = await page.evaluate(() => {
+        const selectors = [".case-study-eyebrow", ".case-study-title", ".case-study-meta", ".case-study-summary", ".case-study-proof"];
+        const elements = selectors.map((selector) => document.querySelector<HTMLElement>(selector));
+        const area = (a: DOMRect, b: DOMRect) =>
+          Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
+          Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+        const collisions: string[] = [];
+        for (let index = 0; index < elements.length; index += 1) {
+          for (let next = index + 1; next < elements.length; next += 1) {
+            if (elements[index] && elements[next] && area(elements[index]!.getBoundingClientRect(), elements[next]!.getBoundingClientRect()) > 1) {
+              collisions.push(`${selectors[index]} <> ${selectors[next]}`);
+            }
+          }
+        }
+        const artifact = document.querySelector(".case-study-eyebrow")?.textContent?.trim() ?? "";
+        const artifactCount = artifact
+          ? (document.querySelector("main")?.innerText.toLowerCase().split(artifact.toLowerCase()).length ?? 1) - 1
+          : 0;
+        const title = document.querySelector<HTMLElement>(".case-study-title")!;
+        const backLink = document.querySelector<HTMLElement>('main a[href="/work"]')!;
+        const nav = document.querySelector<HTMLElement>("header")!;
+        const titleStyles = getComputedStyle(title);
+        return {
+          collisions,
+          artifactCount: Math.max(0, artifactCount),
+          overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+          titleClipped:
+            (titleStyles.overflowX !== "visible" && title.scrollWidth - title.clientWidth > 1) ||
+            (titleStyles.overflowY !== "visible" && title.scrollHeight - title.clientHeight > 1),
+          titleOutside: title.getBoundingClientRect().left < -1 || title.getBoundingClientRect().right > window.innerWidth + 1,
+          contentUnderNav: backLink.getBoundingClientRect().top < nav.getBoundingClientRect().bottom + 8,
+        };
+      });
+
+      expect(report.collisions, slug).toEqual([]);
+      expect(report.artifactCount, slug).toBe(1);
+      expect(report.overflow, slug).toBeLessThanOrEqual(1);
+      expect(report.titleClipped, slug).toBe(false);
+      expect(report.titleOutside, slug).toBe(false);
+      expect(report.contentUnderNav, slug).toBe(false);
+    }
   });
 }
 
