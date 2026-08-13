@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import type {
+  CSSProperties,
   KeyboardEvent as ReactKeyboardEvent,
   PointerEvent as ReactPointerEvent,
 } from "react";
@@ -13,11 +14,22 @@ import { Reveal } from "../ui/Reveal";
 import { ButtonLink } from "../ui/Button";
 import { GraceVideo } from "@/components/work/GraceVideo";
 import { caseStudies } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 const projectCount = caseStudies.length;
 
 function wrapIndex(index: number) {
   return (index + projectCount) % projectCount;
+}
+
+function getArcOffset(index: number, activeIndex: number) {
+  let offset = index - activeIndex;
+  const midpoint = Math.floor(projectCount / 2);
+
+  if (offset > midpoint) offset -= projectCount;
+  if (offset < -midpoint) offset += projectCount;
+
+  return offset;
 }
 
 type DragState = {
@@ -28,6 +40,7 @@ type DragState = {
 
 export function WorkCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [dragX, setDragX] = useState(0);
   const [dragging, setDragging] = useState(false);
   const dragState = useRef<DragState | null>(null);
   const suppressClick = useRef(false);
@@ -45,6 +58,7 @@ export function WorkCarousel() {
   const resetDrag = () => {
     dragState.current = null;
     setDragging(false);
+    setDragX(0);
   };
 
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -60,6 +74,14 @@ export function WorkCarousel() {
     } catch {
       // Synthetic pointer events may not own an active browser pointer.
     }
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = dragState.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    const delta = event.clientX - drag.startX;
+    setDragX(Math.max(-160, Math.min(160, delta)));
   };
 
   const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -130,47 +152,62 @@ export function WorkCarousel() {
 
         <Reveal delay={0.08} className="mt-14 lg:mt-20">
           <div
-            className="work-project-rail no-scrollbar"
+            className="work-arc-stage"
             data-dragging={dragging}
             role="tablist"
             aria-label="Selected projects"
             aria-orientation="horizontal"
             onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={resetDrag}
             onDragStart={(event) => event.preventDefault()}
           >
             <p className="sr-only">
-              Swipe, tap a project, or use the arrow keys to change selection.
+              Swipe, drag, tap a project, or use the arrow keys to change selection.
             </p>
-            {caseStudies.map((study, index) => {
-              const isSelected = index === activeIndex;
-              return (
-                <button
-                  key={study.slug}
-                  ref={(element) => {
-                    tabs.current[index] = element;
-                  }}
-                  id={`work-tab-${study.slug}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={isSelected}
-                  aria-controls="selected-work-panel"
-                  tabIndex={isSelected ? 0 : -1}
-                  data-selected={isSelected}
-                  onClick={() => {
-                    if (!suppressClick.current) selectProject(index);
-                  }}
-                  onKeyDown={(event) => handleTabKeyDown(event, index)}
-                  className="work-project-trigger"
-                >
-                  <span className="font-mono text-[9px] tracking-[0.14em] text-bone-faint">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="work-project-trigger-name">{study.client}</span>
-                </button>
-              );
-            })}
+            <div
+              className={cn("work-arc-track", dragging && "work-arc-track--dragging")}
+              style={{ transform: `translate3d(${dragX}px, 0, 0)` }}
+            >
+              {caseStudies.map((study, index) => {
+                const offset = getArcOffset(index, activeIndex);
+                const isSelected = offset === 0;
+
+                return (
+                  <button
+                    key={study.slug}
+                    ref={(element) => {
+                      tabs.current[index] = element;
+                    }}
+                    id={`work-tab-${study.slug}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={isSelected}
+                    aria-controls="selected-work-panel"
+                    tabIndex={isSelected ? 0 : -1}
+                    data-offset={offset}
+                    data-selected={isSelected}
+                    onClick={() => {
+                      if (!suppressClick.current) selectProject(index);
+                    }}
+                    onKeyDown={(event) => handleTabKeyDown(event, index)}
+                    className="work-arc-item"
+                    style={{ zIndex: 10 - Math.abs(offset) } as CSSProperties}
+                  >
+                    <span className="work-arc-card">
+                      <span className="font-mono text-[9px] tracking-[0.14em] text-bone-faint sm:text-[10px]">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span className="work-arc-name">{study.client}</span>
+                      <span className="work-arc-category font-mono text-[9px] uppercase tracking-[0.13em] text-bone-faint sm:text-[10px]">
+                        {study.category}
+                      </span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <article
@@ -178,7 +215,7 @@ export function WorkCarousel() {
             id="selected-work-panel"
             role="tabpanel"
             aria-labelledby={`work-tab-${selected.slug}`}
-            className="work-project-stage"
+            className="work-project-stage -mt-4 sm:-mt-6"
           >
             <div className="work-project-media">
               {selected.assets?.video ? (

@@ -1308,8 +1308,7 @@ body {
 
 .motion-media-wrap {
   width: min(calc(100vw - 2rem), 90rem);
-  margin-inline: 50%;
-  transform: translateX(-50%);
+  margin-left: calc(50% - 50vw + 1rem);
 }
 
 .motion-media {
@@ -1463,7 +1462,7 @@ body {
   }
 
   .work-project-media {
-    min-height: 28rem;
+    min-height: clamp(22rem, 100vw, 25rem);
   }
 
   .motion-media {
@@ -1495,7 +1494,7 @@ body {
 
   .process-route-step {
     min-height: 0;
-    padding: 0 0 4.5rem;
+    padding: 0 0 3.5rem;
   }
 
   .process-route-step:last-child {
@@ -1522,6 +1521,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html[data-scroll-behavior="smooth"] {
+    scroll-behavior: auto;
+  }
+
   .statement-word,
   .capability-nav-item,
   .work-project-trigger,
@@ -1613,6 +1616,15 @@ body {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.selected-work .work-arc-stage {
+  height: clamp(13rem, 18vw, 15rem);
+  margin-inline: 0;
+}
+
+.selected-work .work-arc-item {
+  width: min(68vw, 20rem);
+}
+
 .work-project-media {
   border: 1px solid rgba(237, 237, 237, 0.16);
   padding: clamp(0.35rem, 1vw, 0.85rem);
@@ -1680,6 +1692,11 @@ body {
 
   .work-project-rail {
     grid-template-columns: none;
+  }
+
+  .selected-work .work-arc-stage {
+    height: 12.5rem;
+    margin-inline: -0.75rem;
   }
 }
 
