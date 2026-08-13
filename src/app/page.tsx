@@ -11,12 +11,14 @@ import { FinalCTA } from "@/components/home/FinalCTA";
 export default function Home() {
   return (
     <>
-      <Hero />
-      <WorkedWith />
+      <div className="home-opening">
+        <Hero />
+        <WorkedWith />
+      </div>
       <GlobalStatement />
-      <MotionWork />
-      <WorkCarousel />
       <WhatWeBuild />
+      <WorkCarousel />
+      <MotionWork />
       <Process />
       <ClientSignals />
       <FinalCTA />
