@@ -40,15 +40,6 @@ export function ClientSignals() {
     <section id="client-signals" className="signals-editorial section-flow relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
       <Container className="relative z-10">
-        <Reveal className="signals-heading flex items-end justify-between gap-8">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
-            Client signals
-          </p>
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
-            What changes
-          </span>
-        </Reveal>
-
         <div className="signals-manifesto mt-10 sm:mt-12">
           {signals.map((signal, index) => (
             <Reveal key={signal} delay={index * 0.04}>
@@ -65,9 +56,6 @@ export function ClientSignals() {
                 onFocus={() => setActiveSignal(index)}
                 className="signal-line"
               >
-                <span className="signal-index font-mono text-[10px] text-bone-faint" aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
                 <span className="signal-copy text-3xl font-semibold leading-[0.98] tracking-tight text-bone sm:text-5xl lg:text-7xl">
                   {signal}
                 </span>

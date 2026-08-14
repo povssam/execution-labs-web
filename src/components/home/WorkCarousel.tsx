@@ -122,9 +122,6 @@ export function WorkCarousel() {
               <h2 className="max-w-4xl text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-6xl">
                 Shipped systems, not decks.
               </h2>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-bone-dim sm:text-lg">
-                Real artifacts, users, and workflows. Proof stays visible.
-              </p>
             </div>
           </Reveal>
 
@@ -213,15 +210,7 @@ export function WorkCarousel() {
             </div>
 
             <div className="work-project-copy">
-              <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
-                <span>{selected.category}</span>
-                <span>{selected.year}</span>
-              </div>
-              <p className="work-project-summary text-base leading-relaxed text-bone">
-                {selected.summary}
-              </p>
               <div className="work-project-proof">
-                <span>Proof</span>
                 <p>{selected.proof}</p>
               </div>
               <Link href={`/work/${selected.slug}`} className="work-project-link group">

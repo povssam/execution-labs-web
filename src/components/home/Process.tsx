@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
@@ -35,10 +34,7 @@ export function Process() {
     <section id="process" className="process-editorial section-flow relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <Container className="relative z-10">
-        <Reveal className="editorial-heading grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint lg:pb-2">
-            Our process
-          </p>
+        <Reveal className="editorial-heading">
           <h2 className="text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-6xl">
             Brief to proof.
           </h2>
@@ -46,9 +42,7 @@ export function Process() {
 
         <div
           className="process-route mt-10 sm:mt-12 lg:mt-16"
-          style={{ "--process-progress": `${(activeStep / (process.length - 1)) * 100}%` } as CSSProperties}
         >
-          <div className="process-route-line" aria-hidden="true" />
           <div className="process-route-grid">
             {process.map((step, index) => (
               <Reveal key={step.index} delay={index * 0.07} className="process-route-step">

@@ -144,9 +144,6 @@ export function WhatWeBuild() {
               <h3 className="capability-detail-title text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-5xl">
                 {active.stance}
               </h3>
-              <p className="capability-detail-body text-base leading-relaxed text-bone-dim">
-                {active.body}
-              </p>
             </div>
             <div className="capability-proof">
               <div className="capability-points font-mono text-[10px] uppercase tracking-[0.12em] text-bone-faint sm:text-[11px]">
