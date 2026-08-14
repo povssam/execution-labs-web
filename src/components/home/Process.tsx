@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
@@ -8,7 +8,6 @@ import { process } from "@/lib/data";
 
 export function Process() {
   const [activeStep, setActiveStep] = useState(0);
-  const steps = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
     let frame = 0;
@@ -45,23 +44,19 @@ export function Process() {
   return (
     <section id="process" className="process-editorial section-flow relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
-      <Container className="relative z-10">
+      <Container className="middle-container relative z-10">
         <div className="process-route">
           <div className="process-route-grid">
             {process.map((step, index) => (
               <Reveal key={step.index} delay={index * 0.07} className="process-route-step">
                 <article
-                  ref={(element) => {
-                    steps.current[index] = element;
-                  }}
-                  data-step-index={index}
                   data-active={index === activeStep}
                   data-past={index < activeStep}
                 >
-                  <h3 className="process-route-title text-2xl font-semibold leading-tight text-bone sm:text-3xl lg:text-4xl">
+                  <h3 className="process-route-title middle-step-title">
                     {step.title}
                   </h3>
-                  <p className="process-route-copy max-w-[12rem] text-sm text-bone-dim sm:text-base">{step.body}</p>
+                  <p className="process-route-copy middle-body">{step.body}</p>
                 </article>
               </Reveal>
             ))}

@@ -130,8 +130,8 @@ export function WorkCarousel() {
 
   return (
     <section id="selected-work" className="selected-work section-flow relative overflow-hidden">
-      <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
-      <Container className="relative z-10">
+      <BrandAtmosphere intensity="soft" tone="system" focus="right" />
+      <Container className="middle-container relative z-10">
         <Reveal className="work-selector-wrap">
           <div
             className="work-project-rail no-scrollbar"
@@ -183,7 +183,7 @@ export function WorkCarousel() {
             aria-labelledby={`work-tab-${selected.slug}`}
             className="work-project-stage"
           >
-            <h2 className="work-project-active-title">{selected.client}</h2>
+            <h2 className="work-project-active-title middle-display">{selected.client}</h2>
             <div className="work-project-media">
               <div className="work-project-media-canvas">
                 {selected.assets?.video ? (
@@ -203,9 +203,6 @@ export function WorkCarousel() {
             </div>
 
             <div className="work-project-copy">
-              <div className="work-project-proof">
-                <p>{selected.proof}</p>
-              </div>
               <Link href={`/work/${selected.slug}`} className="work-project-link group">
                 View project
                 <ArrowUpRight

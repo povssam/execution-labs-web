@@ -11,7 +11,7 @@ import { Reveal } from "../ui/Reveal";
 import { capabilities } from "@/lib/data";
 
 export function WhatWeBuild() {
-  const [activeCapability, setActiveCapability] = useState(0);
+  const [activeCapability, setActiveCapability] = useState(2);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const pointerStart = useRef<{ id: number; x: number } | null>(null);
   const suppressClick = useRef(false);
@@ -75,17 +75,14 @@ export function WhatWeBuild() {
       className="capabilities-editorial section-flow relative overflow-hidden"
     >
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
-      <Container className="relative z-10">
-        <Reveal className="editorial-heading capability-heading grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint lg:pb-2">
-            What we build
-          </p>
-          <h2 className="max-w-3xl text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-5xl">
+      <Container className="middle-container relative z-10">
+        <Reveal className="capability-heading">
+          <h2 className="middle-section-heading max-w-3xl">
             Six capabilities. Built as one.
           </h2>
         </Reveal>
 
-        <div className="capability-composition mt-10 sm:mt-12 lg:mt-16">
+        <div className="capability-composition">
           <div
             role="tablist"
             aria-label="Capabilities"
@@ -119,7 +116,7 @@ export function WhatWeBuild() {
                   className="capability-nav-item group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone/40"
                   data-selected={selected}
                 >
-                  <span className="capability-nav-label text-base text-bone-dim sm:text-lg">
+                  <span className="capability-nav-label">
                     {capability.title}
                   </span>
                 </button>
@@ -134,22 +131,16 @@ export function WhatWeBuild() {
             aria-labelledby={`capability-tab-${activeCapability}`}
             className="capability-detail"
           >
-            <div className="capability-detail-meta font-mono text-[10px] uppercase tracking-[0.16em] text-bone-faint">
-              <span>{active.title}</span>
-              <span>
-                {String(activeCapability + 1).padStart(2, "0")} / {String(capabilities.length).padStart(2, "0")}
-              </span>
-            </div>
             <div className="capability-detail-primary">
-              <h3 className="capability-detail-title text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-5xl">
+              <h3 className="capability-detail-title middle-display">
                 {active.stance}
               </h3>
             </div>
             <div className="capability-proof">
-              <div className="capability-points font-mono text-[10px] uppercase tracking-[0.12em] text-bone-faint sm:text-[11px]">
-                {active.points.map((point, index) => (
+              <div className="capability-points">
+                {active.points.map((point) => (
                   <span key={point}>
-                    <span className="mr-2 text-bone/25">0{index + 1}</span>{point}
+                    {point}
                   </span>
                 ))}
               </div>

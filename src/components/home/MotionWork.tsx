@@ -1,17 +1,19 @@
 import { Container } from "../ui/Container";
+import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Reveal } from "../ui/Reveal";
 import { GraceVideo } from "@/components/work/GraceVideo";
 
 export function MotionWork() {
   return (
     <section id="motion-work" className="motion-editorial section-flow relative overflow-hidden">
-      <Container className="relative z-10">
-        <Reveal className="motion-editorial-heading editorial-heading max-w-3xl">
-          <h2 className="text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-6xl">
+      <BrandAtmosphere intensity="soft" tone="system" focus="right" />
+      <Container className="middle-container relative z-10">
+        <Reveal className="motion-editorial-heading">
+          <h2 className="middle-section-heading">
             Motion Work
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-bone-dim sm:text-lg">
-            Grace shows identity, interface, and motion working as one calm product.
+          <p className="motion-editorial-copy middle-body">
+            Grace shows identity, interface, and motion as one product.
           </p>
         </Reveal>
 
