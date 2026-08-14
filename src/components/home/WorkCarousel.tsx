@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type {
   KeyboardEvent as ReactKeyboardEvent,
   PointerEvent as ReactPointerEvent,
 } from "react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
@@ -22,7 +22,6 @@ function wrapIndex(index: number) {
 type DragState = {
   pointerId: number;
   startX: number;
-  startTime: number;
 };
 
 export function WorkCarousel() {
@@ -32,6 +31,22 @@ export function WorkCarousel() {
   const suppressClick = useRef(false);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const selected = caseStudies[activeIndex];
+
+  useEffect(() => {
+    if (window.innerWidth >= 768) return;
+
+    const tab = tabs.current[activeIndex];
+    const rail = tab?.parentElement;
+    if (!tab || !rail) return;
+
+    window.requestAnimationFrame(() => {
+      const left = tab.offsetLeft - (rail.clientWidth - tab.offsetWidth) / 2;
+      rail.scrollTo({
+        left: Math.max(0, left),
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      });
+    });
+  }, [activeIndex]);
 
   const selectProject = (index: number, focus = false) => {
     const nextIndex = wrapIndex(index);
@@ -51,8 +66,8 @@ export function WorkCarousel() {
     dragState.current = {
       pointerId: event.pointerId,
       startX: event.clientX,
-      startTime: event.timeStamp,
     };
+    suppressClick.current = false;
     setDragging(true);
     try {
       event.currentTarget.setPointerCapture(event.pointerId);
@@ -66,20 +81,29 @@ export function WorkCarousel() {
     if (!drag || drag.pointerId !== event.pointerId) return;
 
     const delta = event.clientX - drag.startX;
-    const elapsed = Math.max(1, event.timeStamp - drag.startTime);
-    const velocity = delta / elapsed;
-    const intentionalSwipe = Math.abs(delta) > 42 || Math.abs(velocity) > 0.4;
+    const intentionalSwipe = Math.abs(delta) > 42;
 
-    suppressClick.current = Math.abs(delta) > 8;
-    if (intentionalSwipe) selectProject(activeIndex + (delta < 0 ? 1 : -1));
+    const pointedTab = document
+      .elementFromPoint(event.clientX, event.clientY)
+      ?.closest<HTMLElement>('[role="tab"]');
+    const pointedIndex = pointedTab
+      ? caseStudies.findIndex((study) => pointedTab.id === `work-tab-${study.slug}`)
+      : -1;
+
+    suppressClick.current = true;
+    if (intentionalSwipe) {
+      selectProject(activeIndex + (delta < 0 ? 1 : -1));
+    } else if (pointedIndex >= 0) {
+      selectProject(pointedIndex);
+    }
 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
     resetDrag();
-    window.requestAnimationFrame(() => {
+    window.setTimeout(() => {
       suppressClick.current = false;
-    });
+    }, 0);
   };
 
   const handleTabKeyDown = (
@@ -108,24 +132,7 @@ export function WorkCarousel() {
     <section id="selected-work" className="selected-work section-flow relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="proof" focus="left" />
       <Container className="relative z-10">
-        <div className="selected-work-intro">
-          <Reveal className="editorial-heading grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-            <div className="flex items-end justify-between gap-5 lg:block">
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-bone-faint">
-                Selected work
-              </p>
-              <span className="font-mono text-[10px] tracking-[0.16em] text-bone-faint lg:mt-4 lg:block">
-                {String(activeIndex + 1).padStart(2, "0")} / {String(projectCount).padStart(2, "0")}
-              </span>
-            </div>
-            <div>
-              <h2 className="max-w-4xl text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-6xl">
-                Shipped systems, not decks.
-              </h2>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08} className="work-selector-wrap mt-8 sm:mt-10 lg:mt-12">
+        <Reveal className="work-selector-wrap">
           <div
             className="work-project-rail no-scrollbar"
             data-dragging={dragging}
@@ -161,16 +168,12 @@ export function WorkCarousel() {
                   onKeyDown={(event) => handleTabKeyDown(event, index)}
                   className="work-project-trigger"
                 >
-                  <span className="font-mono text-[9px] tracking-[0.14em] text-bone-faint">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
                   <span className="work-project-trigger-name">{study.client}</span>
                 </button>
               );
             })}
           </div>
-          </Reveal>
-        </div>
+        </Reveal>
 
         <Reveal delay={0.1}>
           <article
@@ -180,6 +183,7 @@ export function WorkCarousel() {
             aria-labelledby={`work-tab-${selected.slug}`}
             className="work-project-stage"
           >
+            <h2 className="work-project-active-title">{selected.client}</h2>
             <div className="work-project-media">
               <div className="work-project-media-canvas">
                 {selected.assets?.video ? (
@@ -187,26 +191,15 @@ export function WorkCarousel() {
                 ) : (
                   <div className="work-artifact-field">
                     <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-45" />
-                    <span className="work-artifact-index" aria-hidden="true">
-                      {String(activeIndex + 1).padStart(2, "0")}
-                    </span>
                     <div className="relative z-10 max-w-4xl">
                       <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-bone-faint">
                         {selected.artifact}
                       </p>
-                      <h3 className="mt-5 text-5xl font-semibold leading-[0.92] tracking-tight text-bone sm:text-7xl lg:text-8xl">
-                        {selected.client}
-                      </h3>
                     </div>
                   </div>
                 )}
               </div>
               <div className="work-project-media-shade pointer-events-none absolute inset-0" />
-              {selected.assets?.video && (
-                <span className="work-project-artifact-label pointer-events-none absolute bottom-5 left-5 z-10 font-mono text-[10px] uppercase tracking-[0.15em] text-bone-dim sm:bottom-8 sm:left-8">
-                  {selected.artifact}
-                </span>
-              )}
             </div>
 
             <div className="work-project-copy">
@@ -223,13 +216,6 @@ export function WorkCarousel() {
             </div>
           </article>
         </Reveal>
-
-        <div className="work-all-row">
-          <Link href="/work" className="work-all-link group">
-            View all work
-            <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5" />
-          </Link>
-        </div>
       </Container>
     </section>
   );

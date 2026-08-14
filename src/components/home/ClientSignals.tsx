@@ -17,23 +17,35 @@ export function ClientSignals() {
   const rows = useRef<Array<HTMLButtonElement | null>>([]);
 
   useEffect(() => {
-    if (window.matchMedia("(min-width: 768px)").matches) return;
+    let frame = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        const index = Number((visible?.target as HTMLElement | undefined)?.dataset.signalIndex);
-        if (Number.isFinite(index)) setActiveSignal(index);
-      },
-      { rootMargin: "-30% 0px -48% 0px", threshold: [0, 0.4, 0.8] },
-    );
+    const updateActiveSignal = () => {
+      frame = 0;
+      const section = document.getElementById("client-signals");
+      if (!section) return;
 
-    rows.current.forEach((row) => {
-      if (row) observer.observe(row);
-    });
-    return () => observer.disconnect();
+      const bounds = section.getBoundingClientRect();
+      const start = bounds.top - window.innerHeight * 0.7;
+      const end = bounds.bottom - window.innerHeight * 0.3;
+      const progress = Math.min(1, Math.max(0, -start / Math.max(end - start, 1)));
+      const nextSignal = Math.min(signals.length - 1, Math.round(progress * (signals.length - 1)));
+
+      setActiveSignal((current) => (current === nextSignal ? current : nextSignal));
+    };
+
+    const scheduleUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveSignal);
+    };
+
+    updateActiveSignal();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
@@ -51,6 +63,7 @@ export function ClientSignals() {
                 aria-pressed={index === activeSignal}
                 data-signal-index={index}
                 data-active={index === activeSignal}
+                data-past={index < activeSignal}
                 onClick={() => setActiveSignal(index)}
                 onMouseEnter={() => setActiveSignal(index)}
                 onFocus={() => setActiveSignal(index)}

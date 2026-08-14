@@ -11,38 +11,42 @@ export function Process() {
   const steps = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
-    if (window.matchMedia("(min-width: 768px)").matches) return;
+    let frame = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        const index = Number((visible?.target as HTMLElement | undefined)?.dataset.stepIndex);
-        if (Number.isFinite(index)) setActiveStep(index);
-      },
-      { rootMargin: "-28% 0px -46% 0px", threshold: [0, 0.35, 0.7] },
-    );
+    const updateActiveStep = () => {
+      frame = 0;
+      const section = document.getElementById("process");
+      if (!section) return;
 
-    steps.current.forEach((step) => {
-      if (step) observer.observe(step);
-    });
-    return () => observer.disconnect();
+      const bounds = section.getBoundingClientRect();
+      const start = bounds.top - window.innerHeight * 0.7;
+      const end = bounds.bottom - window.innerHeight * 0.3;
+      const progress = Math.min(1, Math.max(0, -start / Math.max(end - start, 1)));
+      const nextStep = Math.min(process.length - 1, Math.round(progress * (process.length - 1)));
+
+      setActiveStep((current) => (current === nextStep ? current : nextStep));
+    };
+
+    const scheduleUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveStep);
+    };
+
+    updateActiveStep();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
     <section id="process" className="process-editorial section-flow relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <Container className="relative z-10">
-        <Reveal className="editorial-heading">
-          <h2 className="text-3xl font-semibold leading-[1.04] text-bone sm:text-4xl lg:text-6xl">
-            Brief to proof.
-          </h2>
-        </Reveal>
-
-        <div
-          className="process-route mt-10 sm:mt-12 lg:mt-16"
-        >
+        <div className="process-route">
           <div className="process-route-grid">
             {process.map((step, index) => (
               <Reveal key={step.index} delay={index * 0.07} className="process-route-step">
@@ -53,16 +57,7 @@ export function Process() {
                   data-step-index={index}
                   data-active={index === activeStep}
                   data-past={index < activeStep}
-                  tabIndex={0}
-                  onMouseEnter={() => setActiveStep(index)}
-                  onFocus={() => setActiveStep(index)}
                 >
-                  <div className="process-route-marker">
-                    <span className="process-route-dot" />
-                    <span className="font-mono text-[10px] tracking-[0.16em] text-bone-faint">
-                      {step.index}
-                    </span>
-                  </div>
                   <h3 className="process-route-title text-2xl font-semibold leading-tight text-bone sm:text-3xl lg:text-4xl">
                     {step.title}
                   </h3>
