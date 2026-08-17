@@ -3887,12 +3887,6 @@ body {
   .final-cta-content {
     transform: translateY(5.5rem);
   }
-
-  .site-header[data-at-end="true"]:not([data-menu-open="true"]) {
-    opacity: 0;
-    pointer-events: none;
-    transform: translate3d(0, -100%, 0);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

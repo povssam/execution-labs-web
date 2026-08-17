@@ -35,7 +35,6 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
-  const [atEnd, setAtEnd] = useState(false);
   const [openPathname, setOpenPathname] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const previousScrollY = useRef(0);
@@ -66,7 +65,6 @@ export function Nav() {
 
       setScrolled(scrollY > 12);
       setScrollProgress(Math.min(1, Math.max(0, scrollY / maxScroll)));
-      setAtEnd(maxScroll > 0 && scrollY >= maxScroll - 2);
       setActiveSection(getActiveSection());
       if (Math.abs(delta) > 4) setScrollDirection(delta > 0 ? "down" : "up");
 
@@ -153,7 +151,6 @@ export function Nav() {
         className="site-header fixed inset-x-0 top-0 z-50 transition-all duration-300"
         data-scrolled={scrolled}
         data-scroll-direction={scrollDirection}
-        data-at-end={atEnd}
         data-menu-open={open}
       >
         <nav className="site-container site-nav flex h-[var(--nav-height)] items-center justify-between">
