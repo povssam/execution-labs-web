@@ -17,8 +17,8 @@ export default function Home() {
       </div>
       <GlobalStatement />
       <WhatWeBuild />
-      <WorkCarousel />
       <MotionWork />
+      <WorkCarousel />
       <Process />
       <ClientSignals />
       <FinalCTA />

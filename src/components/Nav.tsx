@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -20,24 +19,13 @@ const links: NavLink[] = [
   { href: "/contact", label: "Contact" },
 ];
 
-const scrollSpyIds = ["what-we-build", "selected-work", "motion-work", "process", "client-signals"];
-
-const scrollSectionLabels: Record<string, string> = {
-  "what-we-build": "What we build",
-  "selected-work": "Selected work",
-  "motion-work": "Motion work",
-  process: "Process",
-  "client-signals": "Client signals",
-};
+const scrollSpyIds = ["what-we-build", "motion-work", "selected-work", "process", "client-signals"];
 
 export function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
   const [openPathname, setOpenPathname] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
-  const previousScrollY = useRef(0);
   const scrollFrame = useRef<number | null>(null);
   const open = openPathname === pathname;
 
@@ -60,15 +48,9 @@ export function Nav() {
 
     const updateScrollState = () => {
       const scrollY = window.scrollY;
-      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-      const delta = scrollY - previousScrollY.current;
 
       setScrolled(scrollY > 12);
-      setScrollProgress(Math.min(1, Math.max(0, scrollY / maxScroll)));
       setActiveSection(getActiveSection());
-      if (Math.abs(delta) > 4) setScrollDirection(delta > 0 ? "down" : "up");
-
-      previousScrollY.current = scrollY;
       scrollFrame.current = null;
     };
 
@@ -127,8 +109,6 @@ export function Nav() {
     return pathname.startsWith(link.href);
   };
 
-  const smartLabel = activeSection ? scrollSectionLabels[activeSection] : "Execution Labs";
-
   const handleLinkClick = (
     event: ReactMouseEvent<HTMLAnchorElement>,
     link: NavLink,
@@ -150,7 +130,6 @@ export function Nav() {
       <header
         className="site-header fixed inset-x-0 top-0 z-50 transition-all duration-300"
         data-scrolled={scrolled}
-        data-scroll-direction={scrollDirection}
         data-menu-open={open}
       >
         <nav className="site-container site-nav flex h-[var(--nav-height)] items-center justify-between">
@@ -195,15 +174,6 @@ export function Nav() {
           </button>
         </nav>
 
-        <div className="nav-smart-bar" aria-hidden="true">
-          <span className="nav-smart-label">{smartLabel}</span>
-          <span className="nav-smart-track">
-            <span
-              className="nav-smart-progress"
-              style={{ width: `${scrollProgress * 100}%` } as CSSProperties}
-            />
-          </span>
-        </div>
       </header>
 
       {open && (

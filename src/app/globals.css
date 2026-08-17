@@ -3798,50 +3798,6 @@ body {
   z-index: 1;
 }
 
-.nav-smart-bar {
-  position: absolute;
-  bottom: 0.35rem;
-  left: 50%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  width: max-content;
-  max-width: calc(100% - 2 * var(--page-gutter));
-  transform: translateX(-50%);
-  pointer-events: none;
-  transition: opacity 360ms var(--middle-ease), transform 360ms var(--middle-ease);
-}
-
-.nav-smart-label {
-  color: var(--color-bone-faint);
-  font-family: var(--font-mono), monospace;
-  font-size: 0.5rem;
-  letter-spacing: 0.15em;
-  line-height: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.nav-smart-track {
-  display: block;
-  width: 4rem;
-  height: 0.125rem;
-  overflow: hidden;
-  border-radius: 999px;
-  background: rgba(237, 237, 237, 0.14);
-}
-
-.nav-smart-progress {
-  display: block;
-  height: 100%;
-  min-width: 0;
-  border-radius: inherit;
-  background: linear-gradient(to right, rgba(237, 237, 237, 0.36), rgba(154, 145, 255, 0.82));
-  box-shadow: 0 0 12px rgba(154, 145, 255, 0.34);
-  transition: width 180ms linear;
-}
-
 @keyframes fixed-atmosphere-drift {
   0% {
     opacity: 0.52;
@@ -3866,22 +3822,6 @@ body {
   }
 }
 
-@media (max-width: 1023px) {
-  .nav-smart-bar {
-    right: calc(var(--page-gutter) + 3.25rem);
-    left: auto;
-    transform: none;
-  }
-
-  .nav-smart-label {
-    display: none;
-  }
-
-  .nav-smart-track {
-    width: 2.75rem;
-  }
-}
-
 @media (max-width: 767px) {
   /* Keep the final CTA clear of the fixed header at the bottom scroll limit. */
   .final-cta-content {
@@ -3891,10 +3831,128 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .site-header::before,
-  .nav-smart-bar,
-  .nav-smart-progress,
   .brand-atmosphere--fixed::after {
     animation: none;
     transition: none;
+  }
+}
+
+/* Final QA pass: one measured rhythm, one media rail, one ordered state
+ * language. Hero and footer geometry remain intentionally untouched. */
+
+:root {
+  --middle-section-lead: clamp(4.5rem, 8vw, 7.5rem);
+  --middle-section-inset: clamp(3rem, 5vw, 5rem);
+}
+
+.capabilities-editorial {
+  padding-top: var(--middle-section-lead) !important;
+  padding-bottom: var(--middle-section-inset) !important;
+}
+
+.selected-work,
+.motion-editorial,
+.process-editorial,
+.signals-editorial {
+  padding-block: var(--middle-section-inset) !important;
+}
+
+.signals-editorial {
+  padding-bottom: clamp(3.5rem, 6vw, 6rem) !important;
+}
+
+.capability-detail-primary {
+  display: flex;
+  align-items: flex-end;
+}
+
+.capability-proof {
+  display: grid;
+  align-content: end;
+  gap: clamp(1.25rem, 2vw, 2rem);
+}
+
+.capability-system-field {
+  position: relative;
+  min-height: clamp(8rem, 12vw, 12rem);
+  overflow: hidden;
+  background-image:
+    linear-gradient(to right, rgba(237, 237, 237, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(237, 237, 237, 0.06) 1px, transparent 1px);
+  background-size: 25% 100%, 100% 50%;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+}
+
+.capability-system-axis {
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  left: 8%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(237, 237, 237, 0.34), transparent);
+}
+
+.capability-system-node {
+  position: absolute;
+  top: calc(50% - 0.25rem);
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid rgba(237, 237, 237, 0.58);
+  border-radius: 999px;
+  background: var(--color-ink);
+  box-shadow: 0 0 0 0.35rem rgba(237, 237, 237, 0.035);
+}
+
+.capability-system-node--one {
+  left: 14%;
+}
+
+.capability-system-node--two {
+  left: calc(50% - 0.25rem);
+  border-color: rgba(171, 164, 255, 0.78);
+  box-shadow: 0 0 0 0.35rem rgba(145, 137, 255, 0.08);
+}
+
+.capability-system-node--three {
+  right: 14%;
+}
+
+.work-project-selector-viewport {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.work-project-rail {
+  max-width: 100%;
+  overscroll-behavior-x: contain;
+}
+
+.work-project-trigger {
+  scroll-snap-align: center;
+}
+
+.signal-line {
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .capability-system-field {
+    min-height: 8.5rem;
+  }
+
+  .process-route-step {
+    padding-bottom: clamp(1rem, 4vw, 1.5rem) !important;
+  }
+
+  .process-route-step:last-child {
+    padding-bottom: 0 !important;
+  }
+
+  .work-project-rail {
+    gap: 1.25rem;
+    padding-right: max(calc(50% - 2rem), 0px) !important;
+    padding-left: max(calc(50% - 2rem), 0px) !important;
   }
 }

@@ -137,6 +137,12 @@ export function WhatWeBuild() {
               </h3>
             </div>
             <div className="capability-proof">
+              <div className="capability-system-field" aria-hidden="true">
+                <span className="capability-system-axis" />
+                <span className="capability-system-node capability-system-node--one" />
+                <span className="capability-system-node capability-system-node--two" />
+                <span className="capability-system-node capability-system-node--three" />
+              </div>
               <div className="capability-points">
                 {active.points.map((point) => (
                   <span key={point}>

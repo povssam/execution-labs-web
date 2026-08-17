@@ -133,45 +133,47 @@ export function WorkCarousel() {
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <Container className="middle-container relative z-10">
         <Reveal className="work-selector-wrap">
-          <div
-            className="work-project-rail no-scrollbar"
-            data-dragging={dragging}
-            role="tablist"
-            aria-label="Selected projects"
-            aria-orientation="horizontal"
-            onPointerDown={handlePointerDown}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={resetDrag}
-            onDragStart={(event) => event.preventDefault()}
-          >
-            <p className="sr-only">
-              Swipe, tap a project, or use the arrow keys to change selection.
-            </p>
-            {caseStudies.map((study, index) => {
-              const isSelected = index === activeIndex;
-              return (
-                <button
-                  key={study.slug}
-                  ref={(element) => {
-                    tabs.current[index] = element;
-                  }}
-                  id={`work-tab-${study.slug}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={isSelected}
-                  aria-controls="selected-work-panel"
-                  tabIndex={isSelected ? 0 : -1}
-                  data-selected={isSelected}
-                  onClick={() => {
-                    if (!suppressClick.current) selectProject(index);
-                  }}
-                  onKeyDown={(event) => handleTabKeyDown(event, index)}
-                  className="work-project-trigger"
-                >
-                  <span className="work-project-trigger-name">{study.client}</span>
-                </button>
-              );
-            })}
+          <div className="work-project-selector-viewport">
+            <div
+              className="work-project-rail no-scrollbar"
+              data-dragging={dragging}
+              role="tablist"
+              aria-label="Selected projects"
+              aria-orientation="horizontal"
+              onPointerDown={handlePointerDown}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={resetDrag}
+              onDragStart={(event) => event.preventDefault()}
+            >
+              <p className="sr-only">
+                Swipe, tap a project, or use the arrow keys to change selection.
+              </p>
+              {caseStudies.map((study, index) => {
+                const isSelected = index === activeIndex;
+                return (
+                  <button
+                    key={study.slug}
+                    ref={(element) => {
+                      tabs.current[index] = element;
+                    }}
+                    id={`work-tab-${study.slug}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={isSelected}
+                    aria-controls="selected-work-panel"
+                    tabIndex={isSelected ? 0 : -1}
+                    data-selected={isSelected}
+                    onClick={() => {
+                      if (!suppressClick.current) selectProject(index);
+                    }}
+                    onKeyDown={(event) => handleTabKeyDown(event, index)}
+                    className="work-project-trigger"
+                  >
+                    <span className="work-project-trigger-name">{study.client}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </Reveal>
 

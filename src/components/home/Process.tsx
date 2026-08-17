@@ -1,45 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { process } from "@/lib/data";
+import { useScrollSequence } from "@/hooks/useScrollSequence";
 
 export function Process() {
-  const [activeStep, setActiveStep] = useState(0);
-
-  useEffect(() => {
-    let frame = 0;
-
-    const updateActiveStep = () => {
-      frame = 0;
-      const section = document.getElementById("process");
-      if (!section) return;
-
-      const bounds = section.getBoundingClientRect();
-      const start = bounds.top - window.innerHeight * 0.7;
-      const end = bounds.bottom - window.innerHeight * 0.3;
-      const progress = Math.min(1, Math.max(0, -start / Math.max(end - start, 1)));
-      const nextStep = Math.min(process.length - 1, Math.round(progress * (process.length - 1)));
-
-      setActiveStep((current) => (current === nextStep ? current : nextStep));
-    };
-
-    const scheduleUpdate = () => {
-      if (!frame) frame = window.requestAnimationFrame(updateActiveStep);
-    };
-
-    updateActiveStep();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-
-    return () => {
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
+  const activeStep = useScrollSequence({ sectionId: "process", count: process.length });
 
   return (
     <section id="process" className="process-editorial section-flow relative overflow-hidden">
