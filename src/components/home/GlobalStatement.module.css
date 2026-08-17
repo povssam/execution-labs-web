@@ -1,0 +1,29 @@
+.word {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.word::before {
+  content: attr(data-word);
+  visibility: hidden;
+}
+
+.characterLayer {
+  position: absolute;
+  inset: 0 auto auto 0;
+  white-space: nowrap;
+  letter-spacing: -0.006em;
+}
+
+.character {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .character {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
