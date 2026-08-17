@@ -1,28 +1,24 @@
 import { BrandAtmosphere } from "../BrandAtmosphere";
-import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { process } from "@/lib/data";
+import styles from "./Middle.module.css";
 
 export function Process() {
   return (
-    <section id="process" className="process-editorial section-flow relative overflow-hidden">
+    <section id="process" className={`${styles.section} section-flow relative overflow-hidden`}>
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
-      <Container className="middle-container relative z-10">
-        <div className="process-route">
-          <div className="process-route-grid">
-            {process.map((step, index) => (
-              <Reveal key={step.index} delay={index * 0.07} className="process-route-step">
-                <article>
-                  <h3 className="process-route-title middle-step-title">
-                    {step.title}
-                  </h3>
-                  <p className="process-route-copy middle-body">{step.body}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+      <div className={`${styles.container} relative z-10`}>
+        <div className={styles.processGrid}>
+          {process.map((step, index) => (
+            <Reveal key={step.index} delay={index * 0.07} className={styles.processItem}>
+              <article>
+                <h3 className={styles.itemTitle}>{step.title}</h3>
+                <p className={styles.itemCopy}>{step.body}</p>
+              </article>
+            </Reveal>
+          ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

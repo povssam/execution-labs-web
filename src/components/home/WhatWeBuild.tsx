@@ -6,9 +6,9 @@ import type {
   PointerEvent as ReactPointerEvent,
 } from "react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
-import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { capabilities } from "@/lib/data";
+import styles from "./Middle.module.css";
 
 export function WhatWeBuild() {
   const [activeCapability, setActiveCapability] = useState(2);
@@ -86,57 +86,57 @@ export function WhatWeBuild() {
   return (
     <section
       id="what-we-build"
-      className="capabilities-editorial section-flow relative overflow-hidden"
+      className={`${styles.section} ${styles.firstSection} section-flow relative overflow-hidden`}
     >
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
-      <Container className="middle-container relative z-10">
-        <Reveal className="capability-heading">
-          <h2 className="middle-section-heading max-w-3xl">
+      <div className={`${styles.container} relative z-10`}>
+        <Reveal>
+          <h2 className={styles.sectionHeading}>
             Six capabilities.<br />Built as one.
           </h2>
         </Reveal>
 
-        <div className="capability-composition">
-          <div
-            role="tablist"
-            aria-label="Capabilities"
-            aria-orientation="horizontal"
-            className="capability-navigation no-scrollbar"
-            ref={rail}
-            onPointerDown={handlePointerDown}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={() => {
-              pointerStart.current = null;
-            }}
-          >
-            {capabilities.map((capability, index) => {
-              const selected = index === activeCapability;
-              return (
-                <button
-                  key={capability.title}
-                  ref={(element) => {
-                    tabs.current[index] = element;
-                  }}
-                  id={`capability-tab-${index}`}
-                  type="button"
-                  role="tab"
-                  aria-selected={selected}
-                  aria-controls="capability-panel"
-                  tabIndex={selected ? 0 : -1}
-                  onClick={() => {
-                    if (!suppressClick.current) selectCapability(index);
-                  }}
-                  onFocus={() => setActiveCapability(index)}
-                  onKeyDown={(event) => handleKeyDown(event, index)}
-                  className="capability-nav-item group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone/40"
-                  data-selected={selected}
-                >
-                  <span className="capability-nav-label">
+        <div className={styles.capabilityLayout}>
+          <div className={styles.selectorViewport}>
+            <div
+              role="tablist"
+              aria-label="Capabilities"
+              aria-orientation="horizontal"
+              className={`${styles.selectorRail} no-scrollbar`}
+              ref={rail}
+              onPointerDown={handlePointerDown}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={() => {
+                pointerStart.current = null;
+              }}
+            >
+              {capabilities.map((capability, index) => {
+                const selected = index === activeCapability;
+                return (
+                  <button
+                    key={capability.title}
+                    ref={(element) => {
+                      tabs.current[index] = element;
+                    }}
+                    id={`capability-tab-${index}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    aria-controls="capability-panel"
+                    tabIndex={selected ? 0 : -1}
+                    onClick={() => {
+                      if (!suppressClick.current) selectCapability(index);
+                    }}
+                    onFocus={() => setActiveCapability(index)}
+                    onKeyDown={(event) => handleKeyDown(event, index)}
+                    className={`${styles.selectorItem} ${selected ? styles.selected : ""}`}
+                    data-selected={selected}
+                  >
                     {capability.title}
-                  </span>
-                </button>
-              );
-            })}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <div
@@ -144,18 +144,18 @@ export function WhatWeBuild() {
             id="capability-panel"
             role="tabpanel"
             aria-labelledby={`capability-tab-${activeCapability}`}
-            className="capability-detail"
+            className={styles.capabilityPanel}
           >
-            <div className="capability-detail-primary">
-              <p className="capability-detail-name">{active.title}</p>
-              <h3 className="capability-detail-title middle-display">{active.stance}</h3>
-              <div className="capability-points">
+            <div>
+              <p className={styles.capabilityName}>{active.title}</p>
+              <h3 className={styles.display}>{active.stance}</h3>
+              <div className={styles.proofWords}>
                 {active.points.map((point) => <span key={point}>{point}</span>)}
               </div>
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

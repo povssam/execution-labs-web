@@ -8,10 +8,10 @@ import type {
 } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
-import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { GraceVideo } from "@/components/work/GraceVideo";
 import { caseStudies } from "@/lib/data";
+import styles from "./Middle.module.css";
 
 const projectCount = caseStudies.length;
 
@@ -129,13 +129,13 @@ export function WorkCarousel() {
   };
 
   return (
-    <section id="selected-work" className="selected-work section-flow relative overflow-hidden">
+    <section id="selected-work" className={`${styles.section} section-flow relative overflow-hidden`}>
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
-      <Container className="middle-container relative z-10">
-        <Reveal className="work-selector-wrap">
-          <div className="work-project-selector-viewport">
+      <div className={`${styles.container} relative z-10`}>
+        <Reveal>
+          <div className={styles.selectorViewport}>
             <div
-              className="work-project-rail no-scrollbar"
+              className={`${styles.selectorRail} no-scrollbar`}
               data-dragging={dragging}
               role="tablist"
               aria-label="Selected projects"
@@ -167,9 +167,9 @@ export function WorkCarousel() {
                       if (!suppressClick.current) selectProject(index);
                     }}
                     onKeyDown={(event) => handleTabKeyDown(event, index)}
-                    className="work-project-trigger"
+                    className={`${styles.selectorItem} ${isSelected ? styles.selected : ""}`}
                   >
-                    <span className="work-project-trigger-name">{study.client}</span>
+                    {study.client}
                   </button>
                 );
               })}
@@ -183,39 +183,32 @@ export function WorkCarousel() {
             id="selected-work-panel"
             role="tabpanel"
             aria-labelledby={`work-tab-${selected.slug}`}
-            className="work-project-stage"
+            className={styles.projectStage}
           >
-            <h2 className="work-project-active-title middle-display">{selected.client}</h2>
-            <div className="work-project-media">
-              <div className="work-project-media-canvas">
+            <h2 className={`${styles.display} ${styles.projectTitle}`}>{selected.client}</h2>
+            <div className={styles.media} data-project-media>
+              <div className={styles.mediaCanvas}>
                 {selected.assets?.video ? (
                   <GraceVideo label={`${selected.client} selected project artifact`} />
                 ) : (
-                  <div className="work-artifact-field">
-                    <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-45" />
-                    <div className="relative z-10 max-w-4xl">
-                      <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-bone-faint">
-                        {selected.artifact}
-                      </p>
-                    </div>
+                  <div className={styles.artifact}>
+                    <p className={styles.artifactCopy}>{selected.artifact}</p>
                   </div>
                 )}
               </div>
-              <div className="work-project-media-shade pointer-events-none absolute inset-0" />
+              <div className={styles.mediaShade} />
             </div>
 
-            <div className="work-project-copy">
-              <Link href={`/work/${selected.slug}`} className="work-project-link group">
-                View project
-                <ArrowUpRight
-                  size={16}
-                  className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                />
-              </Link>
-            </div>
+            <Link href={`/work/${selected.slug}`} className={`${styles.projectAction} group`} data-project-link>
+              View project
+              <ArrowUpRight
+                size={16}
+                className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </Link>
           </article>
         </Reveal>
-      </Container>
+      </div>
     </section>
   );
 }

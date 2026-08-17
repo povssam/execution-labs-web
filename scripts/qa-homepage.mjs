@@ -37,7 +37,7 @@ try {
 
     const layout = await page.evaluate(() => {
       const processItems = [...document.querySelectorAll("#process article")];
-      const signalItems = [...document.querySelectorAll("#client-signals .signal-line")];
+      const signalItems = [...document.querySelectorAll("#client-signals p")];
       const middleSections = ["what-we-build", "selected-work", "process", "client-signals"]
         .map((id) => document.getElementById(id))
         .filter(Boolean);
@@ -46,6 +46,7 @@ try {
         innerWidth: window.innerWidth,
         progressUi: Boolean(document.querySelector(".nav-smart-progress, .nav-smart-bar")),
         motionWork: Boolean(document.querySelector("#motion-work")),
+        graceVideos: [...document.querySelectorAll("video")].filter((video) => video.currentSrc.includes("grace-animation")).length,
         headerHeight: document.querySelector(".site-header")?.getBoundingClientRect().height ?? 0,
         processCount: processItems.length,
         signalCount: signalItems.length,
@@ -57,7 +58,7 @@ try {
           return style.display === "none" || style.visibility === "hidden" || Number(style.opacity) < 0.95;
         }).length,
         clippedMiddleContent: [...document.querySelectorAll(
-          "#what-we-build h2, #what-we-build h3, #what-we-build .capability-points, #selected-work h2, #selected-work .work-project-media, #selected-work .work-project-link, #process article, #client-signals .signal-line",
+          "#what-we-build h2, #what-we-build h3, #what-we-build [role='tabpanel'], #selected-work h2, #selected-work [data-project-media], #selected-work [data-project-link], #process article, #client-signals p",
         )].filter((item) => {
           const bounds = item.getBoundingClientRect();
           return bounds.left < -0.5 || bounds.right > window.innerWidth + 0.5;
@@ -69,6 +70,7 @@ try {
     assert(layout.scrollWidth === width, `${width}x${height}: page overflow ${layout.scrollWidth - width}px`);
     assert(!layout.progressUi, `${width}x${height}: progress UI is still present`);
     assert(!layout.motionWork, `${width}x${height}: separate Motion Work section still renders`);
+    assert(layout.graceVideos === 1, `${width}x${height}: expected one Grace media presentation, got ${layout.graceVideos}`);
     assert(layout.processCount === 4, `${width}x${height}: expected four process steps`);
     assert(layout.signalCount === 4, `${width}x${height}: expected four client signals`);
     assert(!layout.stateAttributes, `${width}x${height}: obsolete scroll-state attributes remain`);
@@ -100,7 +102,7 @@ try {
       const capabilityBeforeSwipe = await capabilityTabs.evaluateAll((tabs) =>
         tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true"),
       );
-      await page.locator(".capability-navigation").evaluate((rail) => {
+      await page.locator('[role="tablist"][aria-label="Capabilities"]').evaluate((rail) => {
         rail.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerId: 7, pointerType: "touch", clientX: 260 }));
         rail.dispatchEvent(new PointerEvent("pointerup", { bubbles: true, pointerId: 7, pointerType: "touch", clientX: 150 }));
       });
@@ -112,11 +114,19 @@ try {
         capabilityTouchSelected === (capabilityBeforeSwipe + 1) % 6,
         `${width}x${height}: capability swipe selection failed (${capabilityBeforeSwipe} → ${capabilityTouchSelected})`,
       );
+      const capabilityCenterDelta = await capabilityTabs.nth(capabilityTouchSelected).evaluate((tab) => {
+        const rail = tab.closest('[role="tablist"]');
+        if (!rail) return Infinity;
+        const tabBounds = tab.getBoundingClientRect();
+        const railBounds = rail.getBoundingClientRect();
+        return Math.abs((tabBounds.left + tabBounds.right) / 2 - (railBounds.left + railBounds.right) / 2);
+      });
+      assert(capabilityCenterDelta <= 3, `${width}x${height}: selected capability is ${capabilityCenterDelta}px off center`);
 
       const projectBeforeSwipe = await workTabs.evaluateAll((tabs) =>
         tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true"),
       );
-      await page.locator(".work-project-rail").evaluate((rail) => {
+      await page.locator('[role="tablist"][aria-label="Selected projects"]').evaluate((rail) => {
         rail.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerId: 8, pointerType: "touch", clientX: 260 }));
         rail.dispatchEvent(new PointerEvent("pointerup", { bubbles: true, pointerId: 8, pointerType: "touch", clientX: 150 }));
       });
@@ -128,6 +138,14 @@ try {
         projectTouchSelected === (projectBeforeSwipe + 1) % 5,
         `${width}x${height}: project swipe selection failed (${projectBeforeSwipe} → ${projectTouchSelected})`,
       );
+      const projectCenterDelta = await workTabs.nth(projectTouchSelected).evaluate((tab) => {
+        const rail = tab.closest('[role="tablist"]');
+        if (!rail) return Infinity;
+        const tabBounds = tab.getBoundingClientRect();
+        const railBounds = rail.getBoundingClientRect();
+        return Math.abs((tabBounds.left + tabBounds.right) / 2 - (railBounds.left + railBounds.right) / 2);
+      });
+      assert(projectCenterDelta <= 3, `${width}x${height}: selected project is ${projectCenterDelta}px off center`);
 
     }
 
@@ -168,6 +186,16 @@ try {
     results.push({ viewport: `${width}x${height}`, middleHeights: layout.middleHeights });
     await page.close();
   }
+
+  const resizePage = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+  await resizePage.goto(baseUrl, { waitUntil: "networkidle" });
+  for (const [width, height] of [[390, 844], [1440, 900], [430, 932], [1366, 768]]) {
+    await resizePage.setViewportSize({ width, height });
+    await wait(120);
+    const resizedWidth = await resizePage.evaluate(() => document.documentElement.scrollWidth);
+    assert(resizedWidth === width, `${width}x${height}: resize introduced ${resizedWidth - width}px overflow`);
+  }
+  await resizePage.close();
 } finally {
   await browser.close();
 }

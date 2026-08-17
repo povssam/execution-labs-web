@@ -1,6 +1,6 @@
 import { BrandAtmosphere } from "../BrandAtmosphere";
-import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
+import styles from "./Middle.module.css";
 
 const signals = [
   "Faster decisions",
@@ -11,21 +11,17 @@ const signals = [
 
 export function ClientSignals() {
   return (
-    <section id="client-signals" className="signals-editorial section-flow relative overflow-hidden">
+    <section id="client-signals" className={`${styles.section} ${styles.lastSection} section-flow relative overflow-hidden`}>
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
-      <Container className="middle-container relative z-10">
-        <div className="signals-manifesto">
+      <div className={`${styles.container} relative z-10`}>
+        <div className={styles.signalsGrid}>
           {signals.map((signal, index) => (
             <Reveal key={signal} delay={index * 0.04}>
-              <p className="signal-line">
-                <span className="signal-copy middle-step-title">
-                  {signal}.
-                </span>
-              </p>
+              <p className={styles.signal}>{signal}.</p>
             </Reveal>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
