@@ -1554,9 +1554,11 @@ body {
 }
 
 .statement-section {
-  min-height: min(76svh, 48rem);
-  padding-block: clamp(6rem, 11vw, 10rem);
-  background: var(--color-ink);
+  min-height: 0;
+  padding-block: clamp(8rem, 10vw, 10rem) clamp(7rem, 9vw, 9rem);
+  background:
+    radial-gradient(ellipse 52% 34% at 50% 50%, rgba(126, 119, 255, 0.045), transparent 72%),
+    var(--color-ink);
 }
 
 .capabilities-editorial,
@@ -1652,8 +1654,8 @@ body {
 
 @media (max-width: 767px) {
   .statement-section {
-    min-height: 64svh;
-    padding-block: 6rem;
+    min-height: 0;
+    padding-block: 7rem 6rem;
   }
 
   .motion-media {

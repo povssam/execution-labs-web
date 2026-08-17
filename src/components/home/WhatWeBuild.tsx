@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type {
   KeyboardEvent as ReactKeyboardEvent,
@@ -7,27 +9,17 @@ import type {
 } from "react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Reveal } from "../ui/Reveal";
-import { GraceVideo } from "@/components/work/GraceVideo";
-import { capabilities, caseStudies } from "@/lib/data";
+import { capabilities } from "@/lib/data";
 import styles from "./Middle.module.css";
 
-const capabilityProofs = [
-  caseStudies[1],
-  caseStudies[2],
-  caseStudies[3],
-  caseStudies[4],
-  caseStudies[0],
-  caseStudies[1],
-];
-
 export function WhatWeBuild() {
-  const [activeCapability, setActiveCapability] = useState(2);
+  const [activeCapability, setActiveCapability] = useState(4);
+  const reducedMotion = useReducedMotion();
   const rail = useRef<HTMLDivElement | null>(null);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const pointerStart = useRef<{ id: number; x: number } | null>(null);
   const suppressClick = useRef(false);
   const active = capabilities[activeCapability];
-  const proof = capabilityProofs[activeCapability];
 
   useEffect(() => {
     const tab = tabs.current[activeCapability];
@@ -151,32 +143,49 @@ export function WhatWeBuild() {
           </div>
 
           <div
-            key={active.title}
-            id="capability-panel"
-            role="tabpanel"
-            aria-labelledby={`capability-tab-${activeCapability}`}
-            className={styles.capabilityPanel}
+            className={styles.capabilityPanelFrame}
           >
-            <div>
-              <p className={styles.capabilityName}>{active.title}</p>
-              <h3 className={styles.display}>{active.stance}</h3>
-              <div className={styles.proofWords}>
-                {active.points.map((point) => <span key={point}>{point}</span>)}
-              </div>
-              <div className={styles.capabilityMedia} data-capability-proof>
-                {activeCapability === 4 ? (
-                  <GraceVideo
-                    className={styles.capabilityVideo}
-                    label="Grace motion-design capability proof"
-                  />
-                ) : (
-                  <div className={styles.systemProof}>
-                    <p className={styles.systemProofClient}>{proof.client}</p>
-                    <p className={styles.systemProofArtifact}>{proof.artifact}</p>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={active.title}
+                id="capability-panel"
+                role="tabpanel"
+                aria-labelledby={`capability-tab-${activeCapability}`}
+                className={styles.capabilityPanel}
+                initial={{ opacity: 0, y: reducedMotion ? 0 : 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
+                transition={{ duration: reducedMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className={styles.capabilityLead}>
+                  <p className={styles.capabilityName}>{active.title}</p>
+                  <h3 className={styles.display}>{active.stance}</h3>
+                </div>
+
+                <div className={styles.capabilityMedia} data-capability-proof>
+                  {activeCapability === 4 ? (
+                    <>
+                      <Image
+                        src="/brand/grace/grace-product-proof.jpg"
+                        alt="Grace product interface shown as motion-design proof"
+                        fill
+                        sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1440px) calc(100vw - 128px), 1280px"
+                        className={styles.capabilityImage}
+                      />
+                      <div className={styles.capabilityMediaShade} />
+                    </>
+                  ) : (
+                    <div className={styles.proofComposition} aria-label={`${active.title} proof points`}>
+                      {active.points.map((point) => <span key={point}>{point}</span>)}
+                    </div>
+                  )}
+
+                  <div className={styles.proofWords} aria-hidden={activeCapability !== 4}>
+                    {active.points.map((point) => <span key={point}>{point}</span>)}
                   </div>
-                )}
-              </div>
-            </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>

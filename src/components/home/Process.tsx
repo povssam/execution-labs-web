@@ -1,4 +1,3 @@
-import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Reveal } from "../ui/Reveal";
 import { process } from "@/lib/data";
 import styles from "./Middle.module.css";
@@ -6,7 +5,6 @@ import styles from "./Middle.module.css";
 export function Process() {
   return (
     <section id="process" className={`${styles.section} ${styles.compactSection} section-flow relative overflow-hidden`}>
-      <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <div className={`${styles.container} relative z-10`}>
         <div className={styles.processGrid}>
           {process.map((step, index) => (

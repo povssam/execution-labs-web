@@ -57,7 +57,11 @@ try {
     await page.evaluate(({ top, sectionHeight, viewportHeight }) => {
       window.scrollTo(0, top + sectionHeight * 0.42 - viewportHeight);
     }, { top: geometry.top, sectionHeight: geometry.height, viewportHeight: height });
-    await wait(1000);
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll("[data-statement-character]")]
+        .some((character) => Number(getComputedStyle(character).opacity) > 0.05),
+    );
+    await wait(180);
 
     const during = await page.evaluate(() => {
       const paragraph = document.querySelector("#studio-statement p");

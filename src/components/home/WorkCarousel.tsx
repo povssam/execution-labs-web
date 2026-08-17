@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type {
   KeyboardEvent as ReactKeyboardEvent,
@@ -26,6 +27,7 @@ type DragState = {
 
 export function WorkCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const reducedMotion = useReducedMotion();
   const [dragging, setDragging] = useState(false);
   const dragState = useRef<DragState | null>(null);
   const suppressClick = useRef(false);
@@ -177,40 +179,46 @@ export function WorkCarousel() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <article
-            key={selected.slug}
-            id="selected-work-panel"
-            role="tabpanel"
-            aria-labelledby={`work-tab-${selected.slug}`}
-            className={styles.projectStage}
-          >
-            <h2 className={`${styles.display} ${styles.projectTitle}`}>{selected.client}</h2>
-            <div className={styles.media} data-project-media>
-              <div className={styles.mediaCanvas}>
-                {selected.assets?.video ? (
-                  <GraceVideo label={`${selected.client} selected project artifact`} />
-                ) : (
-                  <div className={styles.artifact}>
-                    <p className={styles.artifactCopy}>{selected.artifact}</p>
-                    <div className={styles.artifactTags}>
-                      {selected.tags.map((tag) => <span key={tag}>{tag}</span>)}
+        <div className={styles.projectPanelFrame}>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.article
+              key={selected.slug}
+              id="selected-work-panel"
+              role="tabpanel"
+              aria-labelledby={`work-tab-${selected.slug}`}
+              className={styles.projectStage}
+              initial={{ opacity: 0, y: reducedMotion ? 0 : 18, scale: reducedMotion ? 1 : 0.992 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: reducedMotion ? 0 : -10, scale: reducedMotion ? 1 : 0.996 }}
+              transition={{ duration: reducedMotion ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <h2 className={`${styles.display} ${styles.projectTitle}`}>{selected.client}</h2>
+              <div className={styles.media} data-project-media>
+                <div className={styles.mediaCanvas}>
+                  {selected.assets?.video ? (
+                    <GraceVideo label={`${selected.client} selected project artifact`} />
+                  ) : (
+                    <div className={styles.artifact}>
+                      <p className={styles.artifactCopy}>{selected.artifact}</p>
+                      <div className={styles.artifactTags}>
+                        {selected.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
+                <div className={styles.mediaShade} />
               </div>
-              <div className={styles.mediaShade} />
-            </div>
 
-            <Link href={`/work/${selected.slug}`} className={`${styles.projectAction} group`} data-project-link>
-              View project
-              <ArrowUpRight
-                size={16}
-                className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              />
-            </Link>
-          </article>
-        </Reveal>
+              <Link href={`/work/${selected.slug}`} className={`${styles.projectAction} group`} data-project-link>
+                View project
+                <ArrowUpRight
+                  size={16}
+                  className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </Link>
+            </motion.article>
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );

@@ -38,7 +38,7 @@ try {
     const layout = await page.evaluate(() => {
       const processItems = [...document.querySelectorAll("#process article")];
       const signalItems = [...document.querySelectorAll("#client-signals p")];
-      const middleSections = ["what-we-build", "selected-work", "process", "client-signals"]
+      const middleSections = ["what-we-build", "selected-work", "motion-work", "process", "client-signals"]
         .map((id) => document.getElementById(id))
         .filter(Boolean);
       return {
@@ -69,8 +69,8 @@ try {
 
     assert(layout.scrollWidth === width, `${width}x${height}: page overflow ${layout.scrollWidth - width}px`);
     assert(!layout.progressUi, `${width}x${height}: progress UI is still present`);
-    assert(!layout.motionWork, `${width}x${height}: separate Motion Work section still renders`);
-    assert(layout.graceVideos === 1, `${width}x${height}: expected one Grace media presentation, got ${layout.graceVideos}`);
+    assert(layout.motionWork, `${width}x${height}: Motion Work proof section is missing`);
+    assert(layout.graceVideos === 2, `${width}x${height}: expected two distinct Grace motion presentations, got ${layout.graceVideos}`);
     assert(layout.processCount === 4, `${width}x${height}: expected four process steps`);
     assert(layout.signalCount === 4, `${width}x${height}: expected four client signals`);
     assert(!layout.stateAttributes, `${width}x${height}: obsolete scroll-state attributes remain`);
@@ -85,10 +85,10 @@ try {
       const tab = capabilityTabs.nth(index);
       const expectedTitle = (await tab.textContent())?.trim();
       await tab.click();
-      await wait(80);
+      await page.waitForFunction((title) => document.querySelector("#capability-panel p")?.textContent?.trim() === title, expectedTitle);
       const capabilityState = await page.locator("#capability-panel").evaluate((panel) => ({
         name: panel.querySelector("p")?.textContent?.trim(),
-        proofVisible: Boolean(panel.querySelector("[data-capability-proof] video, [data-capability-proof] p")),
+        proofVisible: Boolean(panel.querySelector("[data-capability-proof] img, [data-capability-proof] span")),
       }));
       assert(capabilityState.name === expectedTitle, `${width}x${height}: capability proof did not synchronize for ${expectedTitle}`);
       assert(capabilityState.proofVisible, `${width}x${height}: ${expectedTitle} has an empty capability proof`);
@@ -99,7 +99,7 @@ try {
       const tab = projectTabs.nth(index);
       const expectedTitle = (await tab.textContent())?.trim();
       await tab.click();
-      await wait(80);
+      await page.waitForFunction((title) => document.querySelector("#selected-work-panel h2")?.textContent?.trim() === title, expectedTitle);
       const projectState = await page.locator("#selected-work-panel").evaluate((panel) => ({
         title: panel.querySelector("h2")?.textContent?.trim(),
         mediaVisible: Boolean(panel.querySelector("[data-project-media] video, [data-project-media] p")),

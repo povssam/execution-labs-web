@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
 
 const QUERY = "(prefers-reduced-motion: reduce)";
@@ -27,15 +27,33 @@ export function GraceVideo({
   className,
   controls = false,
   label = "Grace animation final",
+  startAt = 0,
 }: {
   className?: string;
   controls?: boolean;
   label?: string;
+  startAt?: number;
 }) {
   const reducedMotion = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || startAt <= 0) return;
+
+    const seekToStart = () => {
+      if (video.duration > startAt) video.currentTime = startAt;
+    };
+
+    if (video.readyState >= 1) seekToStart();
+    else video.addEventListener("loadedmetadata", seekToStart, { once: true });
+
+    return () => video.removeEventListener("loadedmetadata", seekToStart);
+  }, [startAt]);
 
   return (
     <video
+      ref={videoRef}
       aria-label={label}
       className={cn("block h-full w-full object-cover", className)}
       src="/brand/grace/grace-animation.mp4"

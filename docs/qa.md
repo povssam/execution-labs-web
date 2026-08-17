@@ -113,3 +113,24 @@ Before/after captures live in `docs/qa/responsive-collision-repair/`.
 - Scroll locking now applies to both `html` and `body` and restores both values on close, navigation, Escape, unmount, and mobile-to-desktop breakpoint changes.
 - Deep-scroll geometry was verified at 390×844 and 430×932. The menu remained bounded from the 64px nav edge to the viewport bottom on `/`, `/work`, `/services`, `/contact`, and `/work/soniq`.
 - Review captures: `docs/qa/nav-scroll-fix/menu-open-deep-scroll-390x844.png` and `docs/qa/nav-scroll-fix/menu-closed-deep-scroll-390x844.png`.
+
+## Premium middle-section refinement — 2026-08-17
+
+The hero, navigation structure, CTA, and footer remain unchanged. The statement, capabilities, work, motion, process, and outcome sections were evaluated as one sequence and refined through two full-page screenshot cycles.
+
+- The statement is content-driven instead of viewport-height-driven and retains its one-time 40%-visibility character reveal.
+- What We Build uses one deterministic active tab, a shared editorial lead, and one proof surface. Motion Design opens on a real frame extracted from the existing Grace film; no fake product imagery was added.
+- Selected Work synchronizes project name, media, and link in one keyed transition. The five real project records remain available by tap, swipe, and keyboard.
+- Motion Work uses the existing Grace film from a later timestamp so the second presentation demonstrates a different part of the real asset.
+- Process and Client Signals use static, fully readable editorial compositions with no scroll state machine, rails, markers, or decorative numbering.
+
+Production-build Playwright results:
+
+- Premium middle suite: 6/6 viewports passed at 390×844, 430×932, 768×1024, 1024×768, 1366×768, and 1440×900.
+- Homepage regression suite: 8/8 viewports passed, additionally covering 1280×800 and 1728×1117.
+- Statement suite: 3/3 passed with fixed geometry, no replay, and immediate reduced-motion content.
+- Document-level horizontal overflow: 0px at every tested viewport.
+- Exactly one active capability and project; all selected content and links synchronized after tap/keyboard changes.
+- Mobile selector centering, swipe behavior, menu scroll-lock release, anchor offsets, and reduced-motion video behavior passed.
+
+Review captures live in `docs/qa/premium-middle-2026-08-17/`.
