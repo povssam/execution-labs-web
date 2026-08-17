@@ -3753,6 +3753,12 @@ body {
   background: transparent;
   box-shadow: none;
   isolation: isolate;
+  transform: translate3d(0, 0, 0);
+  transition:
+    background-color 360ms var(--middle-ease),
+    box-shadow 360ms var(--middle-ease),
+    opacity 280ms var(--middle-ease),
+    transform 280ms var(--middle-ease);
 }
 
 .site-header::before {
@@ -3873,6 +3879,19 @@ body {
 
   .nav-smart-track {
     width: 2.75rem;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Keep the final CTA clear of the fixed header at the bottom scroll limit. */
+  .final-cta-content {
+    transform: translateY(5.5rem);
+  }
+
+  .site-header[data-at-end="true"]:not([data-menu-open="true"]) {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(0, -100%, 0);
   }
 }
 
