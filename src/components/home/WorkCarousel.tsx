@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -15,6 +16,25 @@ import { caseStudies } from "@/lib/data";
 import styles from "./Middle.module.css";
 
 const projectCount = caseStudies.length;
+
+const projectMedia: Record<string, { src: string; alt: string }> = {
+  "orbit-artist-group": {
+    src: "/media/generated/orbit-artist-ops.webp",
+    alt: "Artist roster operations workspace with releases and creative handoffs",
+  },
+  "media-scaling": {
+    src: "/media/generated/media-scaling-control.webp",
+    alt: "Media operations control surface showing performance and scaling flows",
+  },
+  soniq: {
+    src: "/media/generated/soniq-audio-product.webp",
+    alt: "Music product interface with waveform, playback, and discovery controls",
+  },
+  "dividends-total-returns": {
+    src: "/media/generated/dividends-return-system.webp",
+    alt: "Portfolio system visualizing dividends, reinvestment, and total returns",
+  },
+};
 
 function wrapIndex(index: number) {
   return (index + projectCount) % projectCount;
@@ -33,6 +53,7 @@ export function WorkCarousel() {
   const suppressClick = useRef(false);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const selected = caseStudies[activeIndex];
+  const generatedMedia = projectMedia[selected.slug];
 
   useEffect(() => {
     if (window.innerWidth >= 768) return;
@@ -198,12 +219,13 @@ export function WorkCarousel() {
                   {selected.assets?.video ? (
                     <GraceVideo label={`${selected.client} selected project artifact`} />
                   ) : (
-                    <div className={styles.artifact}>
-                      <p className={styles.artifactCopy}>{selected.artifact}</p>
-                      <div className={styles.artifactTags}>
-                        {selected.tags.map((tag) => <span key={tag}>{tag}</span>)}
-                      </div>
-                    </div>
+                    <Image
+                      src={generatedMedia.src}
+                      alt={generatedMedia.alt}
+                      fill
+                      sizes="(max-width: 767px) calc(100vw - 16px), (max-width: 1440px) calc(100vw - 64px), 1440px"
+                      className={styles.mediaImage}
+                    />
                   )}
                 </div>
                 <div className={styles.mediaShade} />

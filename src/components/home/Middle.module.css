@@ -156,17 +156,7 @@
 }
 
 .capabilityLead {
-  display: grid;
-  grid-template-columns: minmax(9rem, 0.36fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 4vw, 5rem);
-  align-items: start;
-}
-
-.capabilityName {
-  margin: 0.25rem 0 0;
-  color: var(--middle-copy);
-  font-size: var(--middle-body);
-  font-weight: 500;
+  max-width: 68rem;
 }
 
 .capabilityMedia {
@@ -182,8 +172,7 @@
 
 .capabilityImage {
   object-fit: cover;
-  object-position: center 48%;
-  scale: 1.015;
+  object-position: center;
 }
 
 .capabilityMediaShade,
@@ -195,32 +184,6 @@
   background: linear-gradient(to bottom, rgba(5, 5, 5, 0.02), transparent 55%, rgba(5, 5, 5, 0.34));
 }
 
-.proofComposition {
-  display: grid;
-  height: 100%;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: center;
-  gap: clamp(1rem, 4vw, 4rem);
-  padding: clamp(2rem, 5vw, 5rem);
-}
-
-.proofComposition span {
-  color: #ededed;
-  font-size: clamp(1.5rem, 3.4vw, 3.75rem);
-  font-weight: 600;
-  letter-spacing: -0.045em;
-  line-height: 0.96;
-  text-wrap: balance;
-}
-
-.proofComposition span:nth-child(2) {
-  opacity: 0.62;
-}
-
-.proofComposition span:nth-child(3) {
-  opacity: 0.38;
-}
-
 .proofWords {
   position: absolute;
   right: clamp(1.5rem, 3vw, 3rem);
@@ -230,17 +193,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem 1.5rem;
-  color: rgba(5, 5, 5, 0.68);
+  color: rgba(237, 237, 237, 0.82);
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1.35;
   text-transform: uppercase;
-}
-
-.proofComposition ~ .proofWords {
-  display: none;
+  text-shadow: 0 1px 18px rgba(5, 5, 5, 0.9);
 }
 
 .projectPanelFrame {
@@ -273,7 +233,14 @@
 }
 
 .mediaCanvas {
+  position: relative;
   height: 100%;
+}
+
+.mediaImage,
+.motionImage {
+  object-fit: cover;
+  object-position: center;
 }
 
 .artifact {
@@ -345,10 +312,6 @@
 
 .motionMediaReveal {
   min-width: 0;
-}
-
-.motionVideo {
-  object-position: center;
 }
 
 .processGrid,
@@ -457,32 +420,12 @@
     padding-top: 2.5rem;
   }
 
-  .capabilityLead {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
-  }
-
-  .capabilityName {
-    margin: 0;
-  }
-
   .capabilityMedia {
     width: calc(100vw - 2rem);
     aspect-ratio: 4 / 3;
     margin-top: 2.25rem;
     margin-left: 50%;
     transform: translateX(-50%);
-  }
-
-  .proofComposition {
-    grid-template-columns: minmax(0, 1fr);
-    align-content: center;
-    gap: 1rem;
-    padding: 2rem;
-  }
-
-  .proofComposition span {
-    font-size: clamp(2rem, 9vw, 3rem);
   }
 
   .proofWords {

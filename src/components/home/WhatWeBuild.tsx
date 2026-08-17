@@ -12,6 +12,33 @@ import { Reveal } from "../ui/Reveal";
 import { capabilities } from "@/lib/data";
 import styles from "./Middle.module.css";
 
+const capabilityMedia = [
+  {
+    src: "/media/generated/capability-ai-agents.webp",
+    alt: "Agent orchestration system with connected tools and approval points",
+  },
+  {
+    src: "/media/generated/capability-internal-tools.webp",
+    alt: "Internal operations workspace with records, approvals, and live state",
+  },
+  {
+    src: "/media/generated/capability-mvp-software.webp",
+    alt: "Connected product states from onboarding through completion",
+  },
+  {
+    src: "/media/generated/capability-product-systems.webp",
+    alt: "Modular product infrastructure linking services and devices",
+  },
+  {
+    src: "/media/generated/capability-motion-design.webp",
+    alt: "Layered interface states composed as a motion-design sequence",
+  },
+  {
+    src: "/media/generated/capability-automation.webp",
+    alt: "Automation route moving from intake through approval to completion",
+  },
+];
+
 export function WhatWeBuild() {
   const [activeCapability, setActiveCapability] = useState(4);
   const reducedMotion = useReducedMotion();
@@ -20,6 +47,7 @@ export function WhatWeBuild() {
   const pointerStart = useRef<{ id: number; x: number } | null>(null);
   const suppressClick = useRef(false);
   const active = capabilities[activeCapability];
+  const media = capabilityMedia[activeCapability];
 
   useEffect(() => {
     const tab = tabs.current[activeCapability];
@@ -158,29 +186,20 @@ export function WhatWeBuild() {
                 transition={{ duration: reducedMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className={styles.capabilityLead}>
-                  <p className={styles.capabilityName}>{active.title}</p>
                   <h3 className={styles.display}>{active.stance}</h3>
                 </div>
 
                 <div className={styles.capabilityMedia} data-capability-proof>
-                  {activeCapability === 4 ? (
-                    <>
-                      <Image
-                        src="/brand/grace/grace-product-proof.jpg"
-                        alt="Grace product interface shown as motion-design proof"
-                        fill
-                        sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1440px) calc(100vw - 128px), 1280px"
-                        className={styles.capabilityImage}
-                      />
-                      <div className={styles.capabilityMediaShade} />
-                    </>
-                  ) : (
-                    <div className={styles.proofComposition} aria-label={`${active.title} proof points`}>
-                      {active.points.map((point) => <span key={point}>{point}</span>)}
-                    </div>
-                  )}
+                  <Image
+                    src={media.src}
+                    alt={media.alt}
+                    fill
+                    sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1440px) calc(100vw - 128px), 1280px"
+                    className={styles.capabilityImage}
+                  />
+                  <div className={styles.capabilityMediaShade} />
 
-                  <div className={styles.proofWords} aria-hidden={activeCapability !== 4}>
+                  <div className={styles.proofWords}>
                     {active.points.map((point) => <span key={point}>{point}</span>)}
                   </div>
                 </div>

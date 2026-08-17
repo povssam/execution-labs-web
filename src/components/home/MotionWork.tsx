@@ -1,6 +1,6 @@
+import Image from "next/image";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Reveal } from "../ui/Reveal";
-import { GraceVideo } from "@/components/work/GraceVideo";
 import styles from "./Middle.module.css";
 
 export function MotionWork() {
@@ -14,17 +14,19 @@ export function MotionWork() {
         <Reveal className={styles.motionLead}>
           <h2 className={styles.motionTitle}>Motion Work</h2>
           <p className={styles.motionCopy}>
-            Grace shows identity, interface, and motion working as one calm product.
+            Interface and motion working as one calm product.
           </p>
         </Reveal>
 
         <Reveal delay={0.08} className={styles.motionMediaReveal}>
           <div className={styles.motionMediaWrap}>
             <div className={styles.motionMedia}>
-              <GraceVideo
-                startAt={20}
-                className={styles.motionVideo}
-                label="Grace identity, interface, and motion sequence"
+              <Image
+                src="/media/generated/motion-work-study.webp"
+                alt="Interface transitioning from wireframe geometry into a resolved motion surface"
+                fill
+                sizes="(max-width: 767px) calc(100vw - 16px), (max-width: 1440px) calc(100vw - 64px), 1440px"
+                className={styles.motionImage}
               />
               <div className={styles.motionMediaShade} />
             </div>

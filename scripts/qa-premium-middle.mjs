@@ -90,6 +90,8 @@ try {
 
     const workTabs = page.locator('[aria-label="Selected projects"] [role="tab"]');
     assert(await workTabs.count() === 5, `${width}x${height}: project count changed`);
+    const projectNames = await workTabs.allTextContents();
+    assert(new Set(projectNames).size === projectNames.length, `${width}x${height}: duplicate project submission`);
     assert(await page.locator('[aria-label="Selected projects"] [role="tab"][aria-selected="true"]').count() === 1, `${width}x${height}: project active state is ambiguous`);
 
     await workTabs.nth(3).click();
@@ -115,7 +117,9 @@ try {
       characters.filter((character) => Number(getComputedStyle(character).opacity) > 0.99).length,
     );
     assert(visibleCharacters === await statementCharacters.count(), `${width}x${height}: reduced-motion statement is incomplete`);
-    assert(await reducedPage.locator("#motion-work video").evaluate((video) => video.paused), `${width}x${height}: reduced-motion media autoplayed`);
+    assert(await reducedPage.locator("#selected-work video").evaluate((video) => video.paused), `${width}x${height}: reduced-motion Grace media autoplayed`);
+    const graceMediaCount = await reducedPage.locator('#what-we-build img[src*="grace"], #motion-work img[src*="grace"], #selected-work video[src*="grace-animation"]').count();
+    assert(graceMediaCount === 1, `${width}x${height}: Grace media appears ${graceMediaCount} times`);
     await reducedPage.close();
 
     results.push({
