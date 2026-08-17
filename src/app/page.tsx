@@ -2,7 +2,6 @@ import { Hero } from "@/components/home/Hero";
 import { GlobalStatement } from "@/components/home/GlobalStatement";
 import { WorkedWith } from "@/components/home/WorkedWith";
 import { WhatWeBuild } from "@/components/home/WhatWeBuild";
-import { MotionWork } from "@/components/home/MotionWork";
 import { WorkCarousel } from "@/components/home/WorkCarousel";
 import { Process } from "@/components/home/Process";
 import { ClientSignals } from "@/components/home/ClientSignals";
@@ -17,7 +16,6 @@ export default function Home() {
       </div>
       <GlobalStatement />
       <WhatWeBuild />
-      <MotionWork />
       <WorkCarousel />
       <Process />
       <ClientSignals />

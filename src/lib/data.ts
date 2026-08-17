@@ -20,7 +20,7 @@ export const capabilities: Capability[] = [
   },
   {
     title: "MVP Software",
-    stance: "Ship the first real version.",
+    stance: "Ship real software.",
     body: "The smallest complete product that can take payment, gather usage, and prove what should happen next.",
     points: ["Auth", "Payments", "Usage"],
   },

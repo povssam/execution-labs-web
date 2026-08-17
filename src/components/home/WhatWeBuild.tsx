@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type {
   KeyboardEvent as ReactKeyboardEvent,
   PointerEvent as ReactPointerEvent,
@@ -12,10 +12,27 @@ import { capabilities } from "@/lib/data";
 
 export function WhatWeBuild() {
   const [activeCapability, setActiveCapability] = useState(2);
+  const rail = useRef<HTMLDivElement | null>(null);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const pointerStart = useRef<{ id: number; x: number } | null>(null);
   const suppressClick = useRef(false);
   const active = capabilities[activeCapability];
+
+  useEffect(() => {
+    const tab = tabs.current[activeCapability];
+    const viewport = rail.current;
+    if (!tab || !viewport) return;
+
+    window.requestAnimationFrame(() => {
+      const left = tab.offsetLeft - (viewport.clientWidth - tab.offsetWidth) / 2;
+      viewport.scrollTo({
+        left: Math.max(0, left),
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+      });
+    });
+  }, [activeCapability]);
 
   const selectCapability = (index: number, focus = false) => {
     const next = (index + capabilities.length) % capabilities.length;
@@ -39,9 +56,6 @@ export function WhatWeBuild() {
     suppressClick.current = true;
     const next = (activeCapability + (delta < 0 ? 1 : -1) + capabilities.length) % capabilities.length;
     selectCapability(next);
-    requestAnimationFrame(() => {
-      tabs.current[next]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-    });
     window.setTimeout(() => {
       suppressClick.current = false;
     }, 0);
@@ -78,7 +92,7 @@ export function WhatWeBuild() {
       <Container className="middle-container relative z-10">
         <Reveal className="capability-heading">
           <h2 className="middle-section-heading max-w-3xl">
-            Six capabilities. Built as one.
+            Six capabilities.<br />Built as one.
           </h2>
         </Reveal>
 
@@ -86,8 +100,9 @@ export function WhatWeBuild() {
           <div
             role="tablist"
             aria-label="Capabilities"
-            aria-orientation="vertical"
+            aria-orientation="horizontal"
             className="capability-navigation no-scrollbar"
+            ref={rail}
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
             onPointerCancel={() => {
@@ -132,23 +147,10 @@ export function WhatWeBuild() {
             className="capability-detail"
           >
             <div className="capability-detail-primary">
-              <h3 className="capability-detail-title middle-display">
-                {active.stance}
-              </h3>
-            </div>
-            <div className="capability-proof">
-              <div className="capability-system-field" aria-hidden="true">
-                <span className="capability-system-axis" />
-                <span className="capability-system-node capability-system-node--one" />
-                <span className="capability-system-node capability-system-node--two" />
-                <span className="capability-system-node capability-system-node--three" />
-              </div>
+              <p className="capability-detail-name">{active.title}</p>
+              <h3 className="capability-detail-title middle-display">{active.stance}</h3>
               <div className="capability-points">
-                {active.points.map((point) => (
-                  <span key={point}>
-                    {point}
-                  </span>
-                ))}
+                {active.points.map((point) => <span key={point}>{point}</span>)}
               </div>
             </div>
           </div>

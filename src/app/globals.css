@@ -3956,3 +3956,271 @@ body {
     padding-left: max(calc(50% - 2rem), 0px) !important;
   }
 }
+
+/* Minimal middle rebuild — one grid, one rhythm, real media as the proof.
+ * The opening, statement, final CTA, and footer remain outside this system. */
+
+:root {
+  --middle-page-gutter: 1.5rem;
+  --middle-content-max: 80rem;
+  --middle-major-gap: clamp(6rem, 10vw, 10.5rem);
+  --middle-half-gap: calc(var(--middle-major-gap) / 2);
+  --middle-heading-size: clamp(2.5rem, 5.2vw, 4.75rem);
+  --middle-display-size: clamp(3rem, 7.3vw, 7rem);
+  --middle-step-size: clamp(2rem, 4vw, 4rem);
+  --middle-body-size: clamp(0.875rem, 1vw, 1rem);
+  --middle-inactive-opacity: 0.36;
+}
+
+.middle-container {
+  max-width: var(--middle-content-max) !important;
+  padding-inline: max(var(--middle-page-gutter), env(safe-area-inset-left)) !important;
+}
+
+.capabilities-editorial,
+.selected-work,
+.process-editorial,
+.signals-editorial {
+  min-height: 0 !important;
+  margin: 0 !important;
+}
+
+.capabilities-editorial {
+  padding-block: var(--middle-major-gap) var(--middle-half-gap) !important;
+}
+
+.selected-work,
+.process-editorial,
+.signals-editorial {
+  padding-block: var(--middle-half-gap) !important;
+}
+
+.signals-editorial {
+  padding-bottom: var(--middle-major-gap) !important;
+}
+
+.middle-section-heading {
+  max-width: 12ch;
+  font-size: var(--middle-heading-size) !important;
+  line-height: 0.96 !important;
+}
+
+.middle-display {
+  font-size: var(--middle-display-size) !important;
+  line-height: 0.9 !important;
+}
+
+.middle-step-title {
+  font-size: var(--middle-step-size) !important;
+  line-height: 0.95 !important;
+}
+
+.capability-composition {
+  display: block !important;
+  min-width: 0;
+  margin: clamp(2.5rem, 5vw, 4rem) 0 0 !important;
+}
+
+.capability-navigation {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: baseline;
+  gap: clamp(1.5rem, 2.5vw, 2.75rem);
+  width: 100%;
+  min-width: 0;
+  padding: 0 0 0.5rem !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  border: 0 !important;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+}
+
+.capability-nav-item {
+  flex: 0 0 auto;
+  min-width: max-content !important;
+  scroll-snap-align: center;
+}
+
+.capability-nav-label {
+  font-size: var(--middle-body-size) !important;
+}
+
+.capability-detail {
+  display: block !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0 0 !important;
+}
+
+.capability-detail-primary {
+  display: block !important;
+  min-width: 0;
+  padding: 0 !important;
+}
+
+.capability-detail-name {
+  margin: 0 0 clamp(1.25rem, 2vw, 2rem);
+  color: var(--color-bone-dim);
+  font-size: var(--middle-body-size);
+  font-weight: 500;
+}
+
+.capability-detail-title {
+  max-width: 11ch;
+  margin: 0 !important;
+}
+
+.capability-points {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem !important;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem) !important;
+}
+
+.capability-system-field,
+.capability-proof {
+  display: none !important;
+}
+
+.work-project-selector-viewport {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
+}
+
+.work-project-rail {
+  gap: clamp(1.5rem, 2.5vw, 2.75rem) !important;
+  padding-block: 0.25rem 0.5rem !important;
+}
+
+.work-project-stage {
+  margin-top: clamp(2rem, 4vw, 3.5rem) !important;
+}
+
+.work-project-active-title {
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem) !important;
+}
+
+.work-project-media {
+  aspect-ratio: 16 / 9 !important;
+  border: 0 !important;
+  box-shadow: 0 52px 140px -108px rgba(126, 119, 255, 0.58) !important;
+}
+
+.work-project-media-shade {
+  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.04), transparent 18%, transparent 80%, rgba(5, 5, 5, 0.24));
+}
+
+.work-project-copy {
+  justify-content: flex-start !important;
+  padding-top: clamp(1rem, 2vw, 1.5rem) !important;
+}
+
+.process-route-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: clamp(3rem, 7vw, 6rem) clamp(2rem, 8vw, 8rem) !important;
+}
+
+.process-route-step,
+.process-route-step article {
+  min-height: 0 !important;
+  padding: 0 !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.process-route-copy {
+  max-width: 18rem;
+  margin-top: 0.75rem !important;
+}
+
+.signals-manifesto {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem) clamp(2rem, 7vw, 7rem);
+  margin: 0 !important;
+}
+
+.signal-line,
+.signal-line:hover {
+  padding: 0 !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.signal-copy {
+  max-width: 14ch;
+  font-size: var(--middle-step-size) !important;
+  line-height: 0.95 !important;
+}
+
+.site-header[data-scrolled="true"]::before {
+  background: rgba(5, 5, 5, 0.56);
+  backdrop-filter: blur(10px) saturate(110%);
+  -webkit-backdrop-filter: blur(10px) saturate(110%);
+}
+
+.site-header[data-scrolled="true"] {
+  box-shadow: none;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --middle-page-gutter: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --middle-page-gutter: 4rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .capability-navigation,
+  .work-project-rail {
+    padding-left: calc(50% - 3.5rem) !important;
+    padding-right: calc(50% - 3.5rem) !important;
+  }
+
+  .capability-navigation {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+    mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+  }
+
+  .capability-detail {
+    padding-top: 2.5rem !important;
+  }
+
+  .work-project-media {
+    aspect-ratio: 16 / 10 !important;
+  }
+
+  .process-route-grid,
+  .signals-manifesto {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .process-route-grid {
+    gap: 2.5rem !important;
+  }
+
+  .signals-manifesto {
+    gap: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capability-detail,
+  .capability-navigation,
+  .work-project-rail,
+  .process-route-step,
+  .signal-line {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}

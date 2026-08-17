@@ -12,9 +12,8 @@ const viewportLabel = `${viewport.width}x${viewport.height}`;
 
 const sections = [
   ["what-we-build", ".capabilities-editorial"],
-  ["selected-work-intro", ".selected-work-intro"],
-  ["grace-proof", ".work-project-stage"],
-  ["motion-work", ".motion-editorial"],
+  ["selected-work", ".selected-work"],
+  ["project-proof", ".work-project-stage"],
   ["process", ".process-editorial"],
   ["client-signals", ".signals-editorial"],
 ];

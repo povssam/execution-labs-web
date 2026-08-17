@@ -1,14 +1,9 @@
-"use client";
-
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
 import { process } from "@/lib/data";
-import { useScrollSequence } from "@/hooks/useScrollSequence";
 
 export function Process() {
-  const activeStep = useScrollSequence({ sectionId: "process", count: process.length });
-
   return (
     <section id="process" className="process-editorial section-flow relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
@@ -17,10 +12,7 @@ export function Process() {
           <div className="process-route-grid">
             {process.map((step, index) => (
               <Reveal key={step.index} delay={index * 0.07} className="process-route-step">
-                <article
-                  data-active={index === activeStep}
-                  data-past={index < activeStep}
-                >
+                <article>
                   <h3 className="process-route-title middle-step-title">
                     {step.title}
                   </h3>

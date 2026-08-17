@@ -1,9 +1,6 @@
-"use client";
-
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Container } from "../ui/Container";
 import { Reveal } from "../ui/Reveal";
-import { useScrollSequence } from "@/hooks/useScrollSequence";
 
 const signals = [
   "Faster decisions",
@@ -13,8 +10,6 @@ const signals = [
 ];
 
 export function ClientSignals() {
-  const activeSignal = useScrollSequence({ sectionId: "client-signals", count: signals.length });
-
   return (
     <section id="client-signals" className="signals-editorial section-flow relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
@@ -22,13 +17,9 @@ export function ClientSignals() {
         <div className="signals-manifesto">
           {signals.map((signal, index) => (
             <Reveal key={signal} delay={index * 0.04}>
-              <p
-                data-active={index === activeSignal}
-                data-past={index < activeSignal}
-                className="signal-line"
-              >
+              <p className="signal-line">
                 <span className="signal-copy middle-step-title">
-                  {signal}
+                  {signal}.
                 </span>
               </p>
             </Reveal>
