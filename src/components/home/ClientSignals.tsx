@@ -11,7 +11,7 @@ const signals = [
 
 export function ClientSignals() {
   return (
-    <section id="client-signals" className={`${styles.section} ${styles.lastSection} section-flow relative overflow-hidden`}>
+    <section id="client-signals" className={`${styles.section} ${styles.compactSection} ${styles.lastSection} section-flow relative overflow-hidden`}>
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <div className={`${styles.container} relative z-10`}>
         <div className={styles.signalsGrid}>

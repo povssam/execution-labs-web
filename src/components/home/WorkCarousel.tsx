@@ -129,7 +129,7 @@ export function WorkCarousel() {
   };
 
   return (
-    <section id="selected-work" className={`${styles.section} section-flow relative overflow-hidden`}>
+    <section id="selected-work" className={`${styles.section} ${styles.workSection} section-flow relative overflow-hidden`}>
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <div className={`${styles.container} relative z-10`}>
         <Reveal>
@@ -193,6 +193,9 @@ export function WorkCarousel() {
                 ) : (
                   <div className={styles.artifact}>
                     <p className={styles.artifactCopy}>{selected.artifact}</p>
+                    <div className={styles.artifactTags}>
+                      {selected.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                    </div>
                   </div>
                 )}
               </div>

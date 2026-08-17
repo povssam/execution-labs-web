@@ -78,7 +78,38 @@ try {
     assert(layout.clippedMiddleContent.length === 0, `${width}x${height}: clipped middle content ${JSON.stringify(layout.clippedMiddleContent)}`);
     assert(errors.length === 0, `${width}x${height}: browser errors: ${errors.join(" | ")}`);
 
+    const capabilityProof = page.locator("[data-capability-proof]");
+    assert(await capabilityProof.isVisible(), `${width}x${height}: capability proof is not visible`);
     const capabilityTabs = page.getByRole("tab", { name: /AI Agents|Internal Tools|MVP Software|Product Systems|Motion Design|Automation/ });
+    for (let index = 0; index < await capabilityTabs.count(); index += 1) {
+      const tab = capabilityTabs.nth(index);
+      const expectedTitle = (await tab.textContent())?.trim();
+      await tab.click();
+      await wait(80);
+      const capabilityState = await page.locator("#capability-panel").evaluate((panel) => ({
+        name: panel.querySelector("p")?.textContent?.trim(),
+        proofVisible: Boolean(panel.querySelector("[data-capability-proof] video, [data-capability-proof] p")),
+      }));
+      assert(capabilityState.name === expectedTitle, `${width}x${height}: capability proof did not synchronize for ${expectedTitle}`);
+      assert(capabilityState.proofVisible, `${width}x${height}: ${expectedTitle} has an empty capability proof`);
+    }
+
+    const projectTabs = page.locator('#selected-work [role="tab"]');
+    for (let index = 0; index < await projectTabs.count(); index += 1) {
+      const tab = projectTabs.nth(index);
+      const expectedTitle = (await tab.textContent())?.trim();
+      await tab.click();
+      await wait(80);
+      const projectState = await page.locator("#selected-work-panel").evaluate((panel) => ({
+        title: panel.querySelector("h2")?.textContent?.trim(),
+        mediaVisible: Boolean(panel.querySelector("[data-project-media] video, [data-project-media] p")),
+        href: panel.querySelector("[data-project-link]")?.getAttribute("href"),
+      }));
+      assert(projectState.title === expectedTitle, `${width}x${height}: project title did not synchronize for ${expectedTitle}`);
+      assert(projectState.mediaVisible, `${width}x${height}: ${expectedTitle} has an empty project media state`);
+      assert(Boolean(projectState.href), `${width}x${height}: ${expectedTitle} has no project link`);
+    }
+
     await capabilityTabs.nth(2).click();
     await wait(150);
     await capabilityTabs.nth(2).press("ArrowRight");

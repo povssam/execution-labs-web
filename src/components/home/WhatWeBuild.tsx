@@ -7,8 +7,18 @@ import type {
 } from "react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Reveal } from "../ui/Reveal";
-import { capabilities } from "@/lib/data";
+import { GraceVideo } from "@/components/work/GraceVideo";
+import { capabilities, caseStudies } from "@/lib/data";
 import styles from "./Middle.module.css";
+
+const capabilityProofs = [
+  caseStudies[1],
+  caseStudies[2],
+  caseStudies[3],
+  caseStudies[4],
+  caseStudies[0],
+  caseStudies[1],
+];
 
 export function WhatWeBuild() {
   const [activeCapability, setActiveCapability] = useState(2);
@@ -17,6 +27,7 @@ export function WhatWeBuild() {
   const pointerStart = useRef<{ id: number; x: number } | null>(null);
   const suppressClick = useRef(false);
   const active = capabilities[activeCapability];
+  const proof = capabilityProofs[activeCapability];
 
   useEffect(() => {
     const tab = tabs.current[activeCapability];
@@ -151,6 +162,19 @@ export function WhatWeBuild() {
               <h3 className={styles.display}>{active.stance}</h3>
               <div className={styles.proofWords}>
                 {active.points.map((point) => <span key={point}>{point}</span>)}
+              </div>
+              <div className={styles.capabilityMedia} data-capability-proof>
+                {activeCapability === 4 ? (
+                  <GraceVideo
+                    className={styles.capabilityVideo}
+                    label="Grace motion-design capability proof"
+                  />
+                ) : (
+                  <div className={styles.systemProof}>
+                    <p className={styles.systemProofClient}>{proof.client}</p>
+                    <p className={styles.systemProofArtifact}>{proof.artifact}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

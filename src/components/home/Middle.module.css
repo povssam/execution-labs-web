@@ -16,11 +16,19 @@
 }
 
 .firstSection {
-  padding-block: var(--middle-space) var(--middle-half-space);
+  padding-block: var(--middle-space) clamp(3rem, 5vw, 4.5rem);
+}
+
+.workSection {
+  padding-block: clamp(4rem, 6.5vw, 6.5rem);
+}
+
+.compactSection {
+  padding-block: clamp(2.5rem, 4vw, 4rem);
 }
 
 .lastSection {
-  padding-bottom: var(--middle-space);
+  padding-bottom: clamp(5rem, 8vw, 8rem);
 }
 
 .container {
@@ -61,8 +69,6 @@
 .selectorViewport {
   min-width: 0;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
-  mask-image: linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
 }
 
 .selectorRail {
@@ -77,6 +83,7 @@
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
   touch-action: pan-x;
 }
 
@@ -135,6 +142,45 @@
   text-transform: uppercase;
 }
 
+.capabilityMedia {
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  max-height: 28rem;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  overflow: hidden;
+  background: #08080a;
+}
+
+.capabilityVideo {
+  object-fit: cover;
+}
+
+.systemProof {
+  display: grid;
+  height: 100%;
+  align-content: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  padding: clamp(1.5rem, 4vw, 4rem);
+  background: #08080a;
+}
+
+.systemProofClient {
+  margin: 0;
+  color: var(--middle-copy);
+  font-size: var(--middle-body);
+}
+
+.systemProofArtifact {
+  max-width: 12ch;
+  margin: 0;
+  color: #ededed;
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
 .projectStage {
   min-width: 0;
   margin-top: clamp(2rem, 4vw, 3.5rem);
@@ -147,11 +193,13 @@
 
 .media {
   position: relative;
-  width: 100%;
+  width: min(calc(100vw - 4rem), 90rem);
   aspect-ratio: 16 / 9;
+  margin-left: 50%;
   overflow: hidden;
   background: #08080a;
   box-shadow: 0 52px 140px -108px rgba(126, 119, 255, 0.58);
+  transform: translateX(-50%);
 }
 
 .mediaCanvas {
@@ -168,16 +216,33 @@
 .artifact {
   display: grid;
   height: 100%;
-  place-items: end start;
+  align-content: end;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
   padding: clamp(1.5rem, 4vw, 4rem);
   background: #08080a;
 }
 
 .artifactCopy {
-  max-width: 26ch;
+  max-width: 15ch;
   margin: 0;
+  color: #ededed;
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.artifactTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
   color: var(--middle-copy);
-  font-size: var(--middle-body);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  text-transform: uppercase;
 }
 
 .projectAction {
@@ -255,30 +320,52 @@
   }
 
   .selectorRail {
-    padding-right: calc(50% - 3.5rem);
-    padding-left: calc(50% - 3.5rem);
+    padding-inline: 0;
   }
 
+  .selectorRail::before,
+  .selectorRail::after {
+    flex: 0 0 50%;
+    content: "";
+  }
+
+  .capabilityMedia,
   .media {
     aspect-ratio: 16 / 10;
   }
 
-  .processGrid,
-  .signalsGrid {
-    grid-template-columns: minmax(0, 1fr);
+  .media {
+    width: calc(100vw - 1.5rem);
   }
 
   .processGrid {
-    gap: 2.5rem;
+    gap: 2rem 1rem;
   }
 
   .signalsGrid {
-    gap: 1.25rem;
+    gap: 1.25rem 1rem;
+  }
+
+  .itemTitle,
+  .signal {
+    font-size: 1.75rem;
+  }
+
+  .itemCopy {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .processGrid,
+  .signalsGrid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .selectorItem,
+  .selectorRail,
   .capabilityPanel,
   .projectStage {
     animation: none;
