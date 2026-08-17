@@ -17,6 +17,10 @@ export function GlobalStatement() {
     if (!section) return;
     section.dataset.ready = "true";
 
+    let fallbackTimer: number | null = window.setTimeout(() => {
+      setVisible(true);
+    }, 600);
+
     if (!("IntersectionObserver" in window)) {
       section.dataset.visible = "true";
       return;
@@ -27,12 +31,17 @@ export function GlobalStatement() {
         if (!entry.isIntersecting) return;
         setVisible(true);
         observer.disconnect();
+        if (fallbackTimer !== null) window.clearTimeout(fallbackTimer);
+        fallbackTimer = null;
       },
       { rootMargin: "-12% 0px -12% 0px", threshold: 0.12 },
     );
 
     observer.observe(section);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (fallbackTimer !== null) window.clearTimeout(fallbackTimer);
+    };
   }, []);
 
   return (

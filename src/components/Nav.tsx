@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -19,19 +20,72 @@ const links: NavLink[] = [
   { href: "/contact", label: "Contact" },
 ];
 
+const scrollSpyIds = ["what-we-build", "selected-work", "motion-work", "process", "client-signals"];
+
+const scrollSectionLabels: Record<string, string> = {
+  "what-we-build": "What we build",
+  "selected-work": "Selected work",
+  "motion-work": "Motion work",
+  process: "Process",
+  "client-signals": "Client signals",
+};
+
 export function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
   const [openPathname, setOpenPathname] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const previousScrollY = useRef(0);
+  const scrollFrame = useRef<number | null>(null);
   const open = openPathname === pathname;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
+    const getActiveSection = () => {
+      const marker = window.innerHeight * 0.38;
+      const sections = scrollSpyIds
+        .map((id) => document.getElementById(id))
+        .filter((el): el is HTMLElement => el !== null);
+      const active = sections.find((section) => {
+        const bounds = section.getBoundingClientRect();
+        return bounds.top <= marker && bounds.bottom > marker;
+      });
+
+      if (active) return active.id;
+
+      const passed = sections.filter((section) => section.getBoundingClientRect().bottom <= marker);
+      return passed.at(-1)?.id ?? null;
+    };
+
+    const updateScrollState = () => {
+      const scrollY = window.scrollY;
+      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const delta = scrollY - previousScrollY.current;
+
+      setScrolled(scrollY > 12);
+      setScrollProgress(Math.min(1, Math.max(0, scrollY / maxScroll)));
+      setActiveSection(getActiveSection());
+      if (Math.abs(delta) > 4) setScrollDirection(delta > 0 ? "down" : "up");
+
+      previousScrollY.current = scrollY;
+      scrollFrame.current = null;
+    };
+
+    const onScroll = () => {
+      if (scrollFrame.current !== null) return;
+      scrollFrame.current = window.requestAnimationFrame(updateScrollState);
+    };
+
+    updateScrollState();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (scrollFrame.current !== null) window.cancelAnimationFrame(scrollFrame.current);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -67,31 +121,13 @@ export function Nav() {
 
   // Scrollspy: highlight the homepage section currently in view.
   // Off the homepage, isActive() ignores activeSection, so a stale value is harmless.
-  useEffect(() => {
-    if (pathname !== "/") return;
-    const ids = links.filter((l) => l.section).map((l) => l.section!);
-    const els = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (!els.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActiveSection(e.target.id);
-        });
-      },
-      { rootMargin: "-40% 0px -55% 0px" },
-    );
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [pathname]);
-
   const isActive = (link: NavLink) => {
     if (link.section) return pathname === "/" && activeSection === link.section;
     if (link.href === "/") return pathname === "/";
     return pathname.startsWith(link.href);
   };
+
+  const smartLabel = activeSection ? scrollSectionLabels[activeSection] : "Execution Labs";
 
   const handleLinkClick = (
     event: ReactMouseEvent<HTMLAnchorElement>,
@@ -112,10 +148,10 @@ export function Nav() {
   return (
     <>
       <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-          scrolled ? "border-b border-line glass" : "border-b border-transparent",
-        )}
+        className="site-header fixed inset-x-0 top-0 z-50 transition-all duration-300"
+        data-scrolled={scrolled}
+        data-scroll-direction={scrollDirection}
+        data-menu-open={open}
       >
         <nav className="site-container site-nav flex h-[var(--nav-height)] items-center justify-between">
           <Link href="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight text-bone">
@@ -129,6 +165,7 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={(event) => handleLinkClick(event, link)}
+                aria-current={isActive(link) ? "page" : undefined}
                 className={cn(
                   "rounded-full px-3.5 py-2 text-sm transition-colors duration-200",
                   isActive(link) ? "text-bone" : "text-bone-dim hover:text-bone",
@@ -157,6 +194,16 @@ export function Nav() {
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </nav>
+
+        <div className="nav-smart-bar" aria-hidden="true">
+          <span className="nav-smart-label">{smartLabel}</span>
+          <span className="nav-smart-track">
+            <span
+              className="nav-smart-progress"
+              style={{ width: `${scrollProgress * 100}%` } as CSSProperties}
+            />
+          </span>
+        </div>
       </header>
 
       {open && (
