@@ -11,13 +11,13 @@ const viewports = [
   [1440, 900],
   [1728, 1117],
 ];
-const capabilityMediaFiles = [
-  "capability-ai-agents.webp",
-  "capability-internal-tools.webp",
-  "capability-mvp-software.webp",
-  "capability-product-systems.webp",
-  "capability-motion-design.webp",
-  "capability-automation.webp",
+const capabilityVariants = [
+  "ai-agents",
+  "internal-tools",
+  "mvp-software",
+  "product-systems",
+  "motion-design",
+  "automation",
 ];
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -46,7 +46,7 @@ try {
     const layout = await page.evaluate(() => {
       const processItems = [...document.querySelectorAll("#process article")];
       const signalItems = [...document.querySelectorAll("#client-signals p")];
-      const middleSections = ["what-we-build", "selected-work", "motion-work", "process", "client-signals"]
+      const middleSections = ["what-we-build", "selected-work", "process", "client-signals"]
         .map((id) => document.getElementById(id))
         .filter(Boolean);
       return {
@@ -77,7 +77,7 @@ try {
 
     assert(layout.scrollWidth === width, `${width}x${height}: page overflow ${layout.scrollWidth - width}px`);
     assert(!layout.progressUi, `${width}x${height}: progress UI is still present`);
-    assert(layout.motionWork, `${width}x${height}: Motion Work proof section is missing`);
+    assert(!layout.motionWork, `${width}x${height}: redundant Motion Work section remains`);
     assert(layout.graceVideos === 1, `${width}x${height}: Grace should appear once, got ${layout.graceVideos} media presentations`);
     assert(layout.processCount === 4, `${width}x${height}: expected four process steps`);
     assert(layout.signalCount === 4, `${width}x${height}: expected four client signals`);
@@ -92,10 +92,10 @@ try {
     for (let index = 0; index < await capabilityTabs.count(); index += 1) {
       const tab = capabilityTabs.nth(index);
       await tab.click();
-      await page.waitForFunction((file) => document.querySelector("#capability-panel img")?.getAttribute("src")?.includes(file), capabilityMediaFiles[index]);
+      await page.waitForFunction((variant) => document.querySelector("#capability-panel [data-system-visual]")?.getAttribute("data-variant") === variant, capabilityVariants[index]);
       const capabilityState = await page.locator("#capability-panel").evaluate((panel) => ({
         heading: panel.querySelector("h3")?.textContent?.trim(),
-        proofVisible: Boolean(panel.querySelector("[data-capability-proof] img")),
+        proofVisible: Boolean(panel.querySelector("[data-capability-proof] [data-system-visual]")),
       }));
       assert(Boolean(capabilityState.heading), `${width}x${height}: capability heading is empty`);
       assert(capabilityState.proofVisible, `${width}x${height}: capability has an empty proof surface`);
@@ -109,7 +109,7 @@ try {
       await page.waitForFunction((title) => document.querySelector("#selected-work-panel h2")?.textContent?.trim() === title, expectedTitle);
       const projectState = await page.locator("#selected-work-panel").evaluate((panel) => ({
         title: panel.querySelector("h2")?.textContent?.trim(),
-        mediaVisible: Boolean(panel.querySelector("[data-project-media] video, [data-project-media] img")),
+        mediaVisible: Boolean(panel.querySelector("[data-project-media] video, [data-project-media] [data-system-visual]")),
         href: panel.querySelector("[data-project-link]")?.getAttribute("href"),
       }));
       assert(projectState.title === expectedTitle, `${width}x${height}: project title did not synchronize for ${expectedTitle}`);

@@ -49,3 +49,15 @@ improve comprehension, hierarchy, proof, or interaction feedback, it stays off.
 | Motion Work | Enter viewport | One reveal; Grace video supplies the motion | Full-width media surface | Poster frame, no autoplay/loop |
 | Process route | Scroll, hover, or focus | 300–420ms opacity and line progression | Current step bright; prior steps settled | Static readable route |
 | Client Signals | Scroll, tap, hover, or focus | 280–420ms opacity and restrained scale | One outcome leads at a time | Instant active state |
+
+## System-field refinement — 2026-08-18
+
+| Moment | Trigger | Start → settle | Purpose | Reduced motion |
+| --- | --- | --- | --- | --- |
+| Capability selection | Tap, swipe, or arrow key | Copy crossfades while routes draw once and nodes resolve | Show the operational shape of the selected capability | Final diagram appears immediately |
+| Project selection | Tap, swipe, drag, or arrow key | Title, concise descriptor, and media transition as one unit | Keep project identity and proof synchronized | Instant state replacement |
+| Grace proof | Project selected and media visible | Real film plays as the only continuous middle-page motion | Demonstrate brand, product, and motion together | Poster/static frame |
+| Process and outcomes | Enter viewport | 12–18px reveal, then fully readable static content | Establish hierarchy without a scroll state machine | Fully visible |
+
+No system-field animation loops. Once its route and nodes resolve, the diagram remains
+still. The standalone Motion Work scene was removed to avoid repeating Grace.

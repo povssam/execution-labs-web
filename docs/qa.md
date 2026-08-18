@@ -134,3 +134,39 @@ Production-build Playwright results:
 - Mobile selector centering, swipe behavior, menu scroll-lock release, anchor offsets, and reduced-motion video behavior passed.
 
 Review captures live in `docs/qa/premium-middle-2026-08-17/`.
+
+## Coherent system-field refactor — 2026-08-18
+
+The approved hero, opening client rail, studio statement, header, CTA, and footer were
+held. The middle was reviewed through two complete-page screenshot cycles rather than
+as isolated components.
+
+Design and media findings:
+
+- Eleven generated bitmap placeholders used unrelated visual languages and implied
+  literal product screens where authentic captures did not exist. They were removed.
+- The standalone Motion Work section repeated Grace immediately after Selected Work.
+  It was merged into Grace's single real project presentation.
+- What We Build and the four non-Grace projects now share one deterministic SVG system
+  field: common grid, geometry, muted color, one-shot route resolve, and no fake data.
+- Project copy was reduced to one supported orientation line; category, year, proof,
+  users, and artifact metadata remain off the homepage.
+- Process is a four-column/two-column editorial field and outcomes remain four readable
+  statements with no active-state or scroll-state logic.
+
+Production-build browser results:
+
+- Premium middle suite: 6/6 at 390×844, 430×932, 768×1024, 1024×768,
+  1366×768, and 1440×900.
+- Homepage regression suite: 8/8, additionally covering 1280×800 and 1728×1117.
+- Statement suite: 3/3 with fixed geometry, one-time reveal, and immediate
+  reduced-motion content.
+- Document-level horizontal overflow: 0px at every viewport.
+- All six capability and five project states synchronized media, title, link, touch,
+  and keyboard selection.
+- Mobile menu close/navigation restored native scrolling and all tested anchors cleared
+  the fixed header.
+- Reduced motion shows completed diagrams, pauses Grace, and leaves all copy readable.
+- Removing bitmap placeholders reduced shipped static media by roughly 596KB.
+
+Review captures live in `docs/qa/system-field-refactor-2026-08-18/`.

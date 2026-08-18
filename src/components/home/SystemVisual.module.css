@@ -1,0 +1,143 @@
+.frame {
+  --visual-accent: 126, 119, 255;
+  --visual-accent-2: 173, 196, 255;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    #070709;
+  background-size: 4rem 4rem;
+}
+
+.frame[data-variant="internal-tools"],
+.frame[data-variant="orbit-artist-group"] {
+  --visual-accent: 104, 137, 255;
+  --visual-accent-2: 177, 149, 255;
+}
+
+.frame[data-variant="mvp-software"],
+.frame[data-variant="soniq"] {
+  --visual-accent: 255, 117, 88;
+  --visual-accent-2: 255, 190, 143;
+}
+
+.frame[data-variant="product-systems"],
+.frame[data-variant="dividends-total-returns"] {
+  --visual-accent: 94, 193, 181;
+  --visual-accent-2: 232, 190, 111;
+}
+
+.frame[data-variant="automation"],
+.frame[data-variant="media-scaling"] {
+  --visual-accent: 82, 154, 255;
+  --visual-accent-2: 91, 218, 154;
+}
+
+.ambient {
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 68% 42%, rgba(var(--visual-accent), 0.16), transparent 27%),
+    radial-gradient(circle at 38% 64%, rgba(var(--visual-accent-2), 0.08), transparent 30%);
+  filter: blur(32px);
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.plate {
+  fill: rgba(255, 255, 255, 0.018);
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1.5;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: settle 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--visual-index) * 55ms);
+}
+
+.ring {
+  fill: none;
+  stroke: rgba(var(--visual-accent), 0.24);
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-origin: center;
+  animation: resolve 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(100ms + var(--visual-index) * 70ms);
+}
+
+.path {
+  fill: none;
+  stroke: rgba(var(--visual-accent-2), 0.55);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 880ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(80ms + var(--visual-index) * 65ms);
+  filter: drop-shadow(0 0 8px rgba(var(--visual-accent), 0.25));
+}
+
+.node {
+  opacity: 0;
+  animation: resolve 360ms ease-out forwards;
+  animation-delay: calc(260ms + var(--visual-index) * 25ms);
+}
+
+.quiet {
+  fill: #8a8a91;
+}
+
+.core {
+  fill: rgb(var(--visual-accent));
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 1.5;
+}
+
+.accent {
+  fill: rgb(var(--visual-accent-2));
+}
+
+.nodeHalo {
+  fill: rgba(var(--visual-accent), 0.09);
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes settle {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes resolve {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 767px) {
+  .frame {
+    background-size: 3rem 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plate,
+  .ring,
+  .path,
+  .node {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+}

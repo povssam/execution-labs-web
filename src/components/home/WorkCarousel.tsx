@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -11,29 +10,26 @@ import type {
 import { ArrowUpRight } from "lucide-react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Reveal } from "../ui/Reveal";
+import { SystemVisual, type SystemVisualVariant } from "./SystemVisual";
 import { GraceVideo } from "@/components/work/GraceVideo";
 import { caseStudies } from "@/lib/data";
 import styles from "./Middle.module.css";
 
 const projectCount = caseStudies.length;
 
-const projectMedia: Record<string, { src: string; alt: string }> = {
-  "orbit-artist-group": {
-    src: "/media/generated/orbit-artist-ops.webp",
-    alt: "Artist roster operations workspace with releases and creative handoffs",
-  },
-  "media-scaling": {
-    src: "/media/generated/media-scaling-control.webp",
-    alt: "Media operations control surface showing performance and scaling flows",
-  },
-  soniq: {
-    src: "/media/generated/soniq-audio-product.webp",
-    alt: "Music product interface with waveform, playback, and discovery controls",
-  },
-  "dividends-total-returns": {
-    src: "/media/generated/dividends-return-system.webp",
-    alt: "Portfolio system visualizing dividends, reinvestment, and total returns",
-  },
+const projectDescriptors: Record<string, string> = {
+  grace: "Brand, product, and motion as one system.",
+  "orbit-artist-group": "Artist operations, release work, and handoffs in one view.",
+  "media-scaling": "Spend, account health, and budget decisions in one loop.",
+  soniq: "A music concept moved into a usable product.",
+  "dividends-total-returns": "Dividend and total-return logic made legible.",
+};
+
+const projectVisuals: Record<string, SystemVisualVariant> = {
+  "orbit-artist-group": "orbit-artist-group",
+  "media-scaling": "media-scaling",
+  soniq: "soniq",
+  "dividends-total-returns": "dividends-total-returns",
 };
 
 function wrapIndex(index: number) {
@@ -53,7 +49,7 @@ export function WorkCarousel() {
   const suppressClick = useRef(false);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const selected = caseStudies[activeIndex];
-  const generatedMedia = projectMedia[selected.slug];
+  const systemVisual = projectVisuals[selected.slug];
 
   useEffect(() => {
     if (window.innerWidth >= 768) return;
@@ -201,7 +197,7 @@ export function WorkCarousel() {
         </Reveal>
 
         <div className={styles.projectPanelFrame}>
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence mode="popLayout" initial={false}>
             <motion.article
               key={selected.slug}
               id="selected-work-panel"
@@ -213,22 +209,21 @@ export function WorkCarousel() {
               exit={{ opacity: 0, y: reducedMotion ? 0 : -10, scale: reducedMotion ? 1 : 0.996 }}
               transition={{ duration: reducedMotion ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] }}
             >
-              <h2 className={`${styles.display} ${styles.projectTitle}`}>{selected.client}</h2>
+              <div className={styles.projectHeading}>
+                <h2 className={`${styles.projectDisplay} ${styles.projectTitle}`}>{selected.client}</h2>
+                <p className={styles.projectSummary}>{projectDescriptors[selected.slug]}</p>
+              </div>
               <div className={styles.media} data-project-media>
                 <div className={styles.mediaCanvas}>
                   {selected.assets?.video ? (
                     <GraceVideo label={`${selected.client} selected project artifact`} />
                   ) : (
-                    <Image
-                      src={generatedMedia.src}
-                      alt={generatedMedia.alt}
-                      fill
-                      sizes="(max-width: 767px) calc(100vw - 16px), (max-width: 1440px) calc(100vw - 64px), 1440px"
-                      className={styles.mediaImage}
+                    <SystemVisual
+                      variant={systemVisual}
+                      label={`${selected.client}: ${selected.artifact}`}
                     />
                   )}
                 </div>
-                <div className={styles.mediaShade} />
               </div>
 
               <Link href={`/work/${selected.slug}`} className={`${styles.projectAction} group`} data-project-link>

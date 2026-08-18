@@ -1,40 +1,35 @@
 .section {
   --middle-gutter: 1.5rem;
   --middle-max: 80rem;
-  --middle-heading: clamp(2.75rem, 5.2vw, 5rem);
-  --middle-display: clamp(3.25rem, 7.5vw, 7.5rem);
-  --middle-item: clamp(2rem, 3.5vw, 3.75rem);
+  --middle-heading: clamp(2.75rem, 5vw, 4.75rem);
+  --middle-display: clamp(3.25rem, 7vw, 7rem);
+  --middle-item: clamp(1.75rem, 2.8vw, 3rem);
   --middle-body: clamp(0.9375rem, 1vw, 1.0625rem);
   --middle-copy: rgba(237, 237, 237, 0.58);
   --middle-dim: rgba(237, 237, 237, 0.34);
   --middle-ease: cubic-bezier(0.22, 1, 0.36, 1);
   min-height: 0;
   margin: 0;
-  padding-block: clamp(5.5rem, 8vw, 8.5rem);
+  padding-block: clamp(6rem, 9vw, 9rem);
   background: #050505;
 }
 
 .firstSection {
-  padding-top: clamp(6rem, 10vw, 10rem);
-  padding-bottom: clamp(4.5rem, 7vw, 7rem);
-}
-
-.workSection {
-  padding-top: clamp(4.5rem, 7vw, 7rem);
-  padding-bottom: clamp(4rem, 6vw, 6rem);
-}
-
-.motionSection {
-  padding-top: clamp(4rem, 6vw, 6rem);
+  padding-top: clamp(7rem, 10vw, 10rem);
   padding-bottom: clamp(5.5rem, 8vw, 8rem);
 }
 
+.workSection {
+  padding-top: clamp(5.5rem, 8vw, 8rem);
+  padding-bottom: clamp(6rem, 9vw, 9rem);
+}
+
 .compactSection {
-  padding-block: clamp(4rem, 6vw, 6rem);
+  padding-block: clamp(5rem, 7vw, 7rem);
 }
 
 .lastSection {
-  padding-bottom: clamp(6rem, 9vw, 9rem);
+  padding-bottom: clamp(7rem, 10vw, 10rem);
 }
 
 .container {
@@ -45,8 +40,8 @@
 }
 
 .sectionHeading,
-.display,
-.motionTitle,
+.capabilityStatement,
+.projectDisplay,
 .itemTitle,
 .signal {
   margin: 0;
@@ -60,12 +55,6 @@
   max-width: 11ch;
   font-size: var(--middle-heading);
   line-height: 0.94;
-}
-
-.display {
-  max-width: 12ch;
-  font-size: var(--middle-display);
-  line-height: 0.88;
 }
 
 .capabilityLayout {
@@ -147,64 +136,44 @@
   opacity: 1;
 }
 
-.capabilityPanelFrame {
-  min-height: clamp(31rem, 50vw, 47rem);
-}
-
 .capabilityPanel {
+  display: grid;
+  grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: end;
   padding-top: clamp(2.75rem, 5vw, 4.75rem);
 }
 
 .capabilityLead {
-  max-width: 68rem;
+  padding-bottom: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+.capabilityStatement {
+  max-width: 11ch;
+  font-size: var(--middle-heading);
+  line-height: 0.92;
 }
 
 .capabilityMedia {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 7;
-  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 72% 20%, rgba(93, 88, 168, 0.12), transparent 34%),
-    #08080a;
-}
-
-.capabilityImage {
-  object-fit: cover;
-  object-position: center;
-}
-
-.capabilityMediaShade,
-.mediaShade,
-.motionMediaShade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.02), transparent 55%, rgba(5, 5, 5, 0.34));
+  background: #070709;
 }
 
 .proofWords {
-  position: absolute;
-  right: clamp(1.5rem, 3vw, 3rem);
-  bottom: clamp(1.25rem, 2.5vw, 2.5rem);
-  left: clamp(1.5rem, 3vw, 3rem);
-  z-index: 2;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  color: rgba(237, 237, 237, 0.82);
+  gap: 0.65rem 1.25rem;
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--middle-copy);
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1.35;
   text-transform: uppercase;
-  text-shadow: 0 1px 18px rgba(5, 5, 5, 0.9);
-}
-
-.projectPanelFrame {
-  min-height: clamp(31rem, 60vw, 61rem);
 }
 
 .projectStage {
@@ -212,19 +181,35 @@
   padding-top: clamp(2.5rem, 4.5vw, 4rem);
 }
 
-.projectTitle {
-  margin-bottom: clamp(1.5rem, 3vw, 2.75rem);
+.projectHeading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.55fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  align-items: end;
+  margin-bottom: clamp(1.75rem, 3.5vw, 3.5rem);
 }
 
-.media,
-.motionMediaWrap {
+.projectDisplay {
+  max-width: 13ch;
+  font-size: var(--middle-display);
+  line-height: 0.88;
+}
+
+.projectSummary {
+  max-width: 28rem;
+  margin: 0 0 0.35rem;
+  color: var(--middle-copy);
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  line-height: 1.45;
+}
+
+.media {
   width: min(calc(100vw - 4rem), 90rem);
   margin-left: 50%;
   transform: translateX(-50%);
 }
 
-.media,
-.motionMedia {
+.media {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -237,46 +222,6 @@
   height: 100%;
 }
 
-.mediaImage,
-.motionImage {
-  object-fit: cover;
-  object-position: center;
-}
-
-.artifact {
-  display: grid;
-  height: 100%;
-  align-content: end;
-  gap: clamp(1.25rem, 3vw, 2.5rem);
-  padding: clamp(1.75rem, 5vw, 5rem);
-  background:
-    radial-gradient(circle at 78% 20%, rgba(87, 82, 158, 0.12), transparent 36%),
-    #08080a;
-}
-
-.artifactCopy {
-  max-width: 13ch;
-  margin: 0;
-  color: #ededed;
-  font-size: clamp(2.75rem, 6.5vw, 6.75rem);
-  font-weight: 600;
-  letter-spacing: -0.055em;
-  line-height: 0.9;
-  text-wrap: balance;
-}
-
-.artifactTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  color: var(--middle-copy);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-  line-height: 1.35;
-  text-transform: uppercase;
-}
-
 .projectAction {
   display: inline-flex;
   align-items: center;
@@ -286,42 +231,14 @@
   font-size: var(--middle-body);
 }
 
-.motionLead {
-  display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(18rem, 0.62fr);
-  gap: clamp(2rem, 8vw, 9rem);
-  align-items: end;
-}
-
-.motionTitle {
-  font-size: var(--middle-heading);
-  line-height: 0.94;
-}
-
-.motionCopy {
-  max-width: 34rem;
-  margin: 0 0 0.25rem;
-  color: var(--middle-copy);
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
-  line-height: 1.45;
-}
-
-.motionMediaWrap {
-  margin-top: clamp(2.5rem, 5vw, 4.5rem);
-}
-
-.motionMediaReveal {
-  min-width: 0;
-}
-
 .processGrid,
 .signalsGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .processGrid {
-  gap: clamp(3rem, 6vw, 5.5rem) clamp(2rem, 8vw, 8rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 4.5rem);
 }
 
 .processItem {
@@ -343,11 +260,14 @@
 }
 
 .signalsGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1.5rem, 3vw, 3rem) clamp(2rem, 7vw, 7rem);
 }
 
 .signal {
-  max-width: 14ch;
+  max-width: 13ch;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: 0.92;
 }
 
 @media (min-width: 640px) {
@@ -364,30 +284,25 @@
 
 @media (max-width: 767px) {
   .section {
-    padding-block: 5.5rem;
+    padding-block: 6rem;
   }
 
   .firstSection {
-    padding-top: 6rem;
-    padding-bottom: 4.5rem;
+    padding-top: 6.5rem;
+    padding-bottom: 5rem;
   }
 
   .workSection {
-    padding-top: 4.5rem;
-    padding-bottom: 4rem;
-  }
-
-  .motionSection {
-    padding-top: 3.5rem;
+    padding-top: 5rem;
     padding-bottom: 5.5rem;
   }
 
   .compactSection {
-    padding-block: 4rem;
+    padding-block: 4.5rem;
   }
 
   .lastSection {
-    padding-bottom: 6.5rem;
+    padding-bottom: 7rem;
   }
 
   .selectorViewport {
@@ -411,87 +326,68 @@
     content: "";
   }
 
-  .capabilityPanelFrame {
-    min-height: 31rem;
-  }
-
   .capabilityPanel,
   .projectStage {
     padding-top: 2.5rem;
   }
 
+  .capabilityPanel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+  }
+
+  .capabilityLead {
+    padding-bottom: 0;
+  }
+
   .capabilityMedia {
-    width: calc(100vw - 2rem);
+    width: calc(100vw - 1rem);
     aspect-ratio: 4 / 3;
-    margin-top: 2.25rem;
     margin-left: 50%;
     transform: translateX(-50%);
   }
 
   .proofWords {
-    right: 1.25rem;
-    bottom: 1.25rem;
-    left: 1.25rem;
+    margin-top: 1.5rem;
   }
 
-  .projectPanelFrame {
-    min-height: 30rem;
+  .projectHeading {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.75rem;
   }
 
-  .media,
-  .motionMediaWrap {
+  .projectSummary {
+    max-width: 24rem;
+  }
+
+  .media {
     width: calc(100vw - 1rem);
   }
 
-  .media,
-  .motionMedia {
+  .media {
     aspect-ratio: 4 / 3;
   }
 
-  .artifact {
-    padding: 1.5rem;
-  }
-
-  .artifactCopy {
-    font-size: clamp(2.75rem, 13vw, 4rem);
-  }
-
-  .motionLead {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.25rem;
-  }
-
-  .motionCopy {
-    max-width: 30rem;
-    margin: 0;
-  }
-
-  .motionMediaWrap {
-    margin-top: 2.5rem;
-  }
-
   .processGrid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 1.5rem;
   }
 
   .signalsGrid {
     gap: 1.5rem 1rem;
   }
 
-  .itemTitle,
+  .itemTitle {
+    font-size: clamp(1.75rem, 7vw, 2.25rem);
+  }
+
   .signal {
-    font-size: clamp(1.8rem, 8vw, 2.35rem);
+    font-size: clamp(2.25rem, 10.5vw, 3.25rem);
   }
 
   .itemCopy {
     margin-top: 0.4rem;
-  }
-}
-
-@media (max-width: 359px) {
-  .signalsGrid {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
 

@@ -13,7 +13,6 @@ const sectionIds = [
   "studio-statement",
   "what-we-build",
   "selected-work",
-  "motion-work",
   "process",
   "client-signals",
 ];
@@ -118,7 +117,7 @@ try {
     );
     assert(visibleCharacters === await statementCharacters.count(), `${width}x${height}: reduced-motion statement is incomplete`);
     assert(await reducedPage.locator("#selected-work video").evaluate((video) => video.paused), `${width}x${height}: reduced-motion Grace media autoplayed`);
-    const graceMediaCount = await reducedPage.locator('#what-we-build img[src*="grace"], #motion-work img[src*="grace"], #selected-work video[src*="grace-animation"]').count();
+    const graceMediaCount = await reducedPage.locator('#what-we-build img[src*="grace"], #selected-work video[src*="grace-animation"]').count();
     assert(graceMediaCount === 1, `${width}x${height}: Grace media appears ${graceMediaCount} times`);
     await reducedPage.close();
 

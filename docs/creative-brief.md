@@ -70,3 +70,23 @@ and every transition has a clear resting state.
 - Grace media is materially larger than its surrounding copy and chrome.
 - Selected Work reads as a controlled index, not a rotating card carousel.
 - Supporting copy remains readable on mobile and no page-level horizontal overflow exists.
+
+## Coherent system-field refactor — 2026-08-18
+
+The middle now follows one concept: Execution Labs turns ambiguous operational work
+into a legible system. Capabilities and projects without authentic product captures use
+the same restrained, non-claiming system-field visual language rather than unrelated
+AI-generated dashboard imagery. Grace remains the single real moving proof surface.
+
+Narrative sequence:
+
+1. Studio statement establishes the ambition.
+2. What We Build turns six capabilities into one interactive system instrument.
+3. Selected Work pairs one dominant project with either authentic Grace media or a
+   project-specific abstract system map.
+4. Brief → System map → Build → Proof explains the method in one compact field.
+5. Four outcomes close the argument before the approved CTA.
+
+The standalone Motion Work section was merged into Selected Work because it repeated
+Grace and interrupted the proof sequence. No client, metric, result, testimonial, or
+case study was added.

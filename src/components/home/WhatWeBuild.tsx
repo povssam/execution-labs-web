@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type {
@@ -9,34 +8,17 @@ import type {
 } from "react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { Reveal } from "../ui/Reveal";
+import { SystemVisual, type SystemVisualVariant } from "./SystemVisual";
 import { capabilities } from "@/lib/data";
 import styles from "./Middle.module.css";
 
-const capabilityMedia = [
-  {
-    src: "/media/generated/capability-ai-agents.webp",
-    alt: "Agent orchestration system with connected tools and approval points",
-  },
-  {
-    src: "/media/generated/capability-internal-tools.webp",
-    alt: "Internal operations workspace with records, approvals, and live state",
-  },
-  {
-    src: "/media/generated/capability-mvp-software.webp",
-    alt: "Connected product states from onboarding through completion",
-  },
-  {
-    src: "/media/generated/capability-product-systems.webp",
-    alt: "Modular product infrastructure linking services and devices",
-  },
-  {
-    src: "/media/generated/capability-motion-design.webp",
-    alt: "Layered interface states composed as a motion-design sequence",
-  },
-  {
-    src: "/media/generated/capability-automation.webp",
-    alt: "Automation route moving from intake through approval to completion",
-  },
+const capabilityVisuals: SystemVisualVariant[] = [
+  "ai-agents",
+  "internal-tools",
+  "mvp-software",
+  "product-systems",
+  "motion-design",
+  "automation",
 ];
 
 export function WhatWeBuild() {
@@ -47,7 +29,7 @@ export function WhatWeBuild() {
   const pointerStart = useRef<{ id: number; x: number } | null>(null);
   const suppressClick = useRef(false);
   const active = capabilities[activeCapability];
-  const media = capabilityMedia[activeCapability];
+  const visual = capabilityVisuals[activeCapability];
 
   useEffect(() => {
     const tab = tabs.current[activeCapability];
@@ -173,7 +155,7 @@ export function WhatWeBuild() {
           <div
             className={styles.capabilityPanelFrame}
           >
-            <AnimatePresence mode="wait" initial={false}>
+            <AnimatePresence mode="popLayout" initial={false}>
               <motion.div
                 key={active.title}
                 id="capability-panel"
@@ -186,22 +168,17 @@ export function WhatWeBuild() {
                 transition={{ duration: reducedMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className={styles.capabilityLead}>
-                  <h3 className={styles.display}>{active.stance}</h3>
-                </div>
-
-                <div className={styles.capabilityMedia} data-capability-proof>
-                  <Image
-                    src={media.src}
-                    alt={media.alt}
-                    fill
-                    sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1440px) calc(100vw - 128px), 1280px"
-                    className={styles.capabilityImage}
-                  />
-                  <div className={styles.capabilityMediaShade} />
-
+                  <h3 className={styles.capabilityStatement}>{active.stance}</h3>
                   <div className={styles.proofWords}>
                     {active.points.map((point) => <span key={point}>{point}</span>)}
                   </div>
+                </div>
+
+                <div className={styles.capabilityMedia} data-capability-proof>
+                  <SystemVisual
+                    variant={visual}
+                    label={`${active.title}: ${active.stance}`}
+                  />
                 </div>
               </motion.div>
             </AnimatePresence>
