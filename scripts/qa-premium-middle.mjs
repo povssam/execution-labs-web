@@ -106,6 +106,25 @@ try {
     const readableText = await page.locator("#process h3, #process p, #client-signals p").allTextContents();
     assert(new Set(readableText).size === readableText.length, `${width}x${height}: duplicated process or outcome text`);
 
+    const processTabs = page.locator('[aria-label="Process steps"] [role="tab"]');
+    assert(await processTabs.count() === 4, `${width}x${height}: process step count changed`);
+    assert(await page.locator('[aria-label="Process steps"] [role="tab"][aria-selected="true"]').count() === 1, `${width}x${height}: process active state is ambiguous`);
+    await processTabs.nth(2).click();
+    await page.waitForFunction(() => document.querySelector("#process-panel [data-system-visual]")?.getAttribute("data-variant") === "build");
+    assert(await processTabs.nth(2).getAttribute("aria-selected") === "true", `${width}x${height}: process tap failed`);
+    await processTabs.nth(2).press("ArrowRight");
+    await page.waitForFunction(() => document.querySelector("#process-panel [data-system-visual]")?.getAttribute("data-variant") === "proof");
+    assert(await processTabs.nth(3).getAttribute("aria-selected") === "true", `${width}x${height}: process keyboard navigation failed`);
+
+    if (width <= 430) {
+      await page.locator("#process-panel").evaluate((panel) => {
+        panel.parentElement?.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerId: 12, pointerType: "touch", clientX: 260 }));
+        panel.parentElement?.dispatchEvent(new PointerEvent("pointerup", { bubbles: true, pointerId: 12, pointerType: "touch", clientX: 150 }));
+      });
+      await page.waitForFunction(() => document.querySelector("#process-panel [data-system-visual]")?.getAttribute("data-variant") === "brief");
+      assert(await processTabs.nth(0).getAttribute("aria-selected") === "true", `${width}x${height}: process swipe failed`);
+    }
+
     const reducedPage = await browser.newPage({
       viewport: { width, height },
       reducedMotion: "reduce",
@@ -117,6 +136,7 @@ try {
     );
     assert(visibleCharacters === await statementCharacters.count(), `${width}x${height}: reduced-motion statement is incomplete`);
     assert(await reducedPage.locator("#selected-work video").evaluate((video) => video.paused), `${width}x${height}: reduced-motion Grace media autoplayed`);
+    assert(await reducedPage.locator("#process [data-system-visual] path").first().evaluate((path) => getComputedStyle(path).strokeDashoffset === "0px"), `${width}x${height}: reduced-motion process visual did not settle`);
     const graceMediaCount = await reducedPage.locator('#what-we-build img[src*="grace"], #selected-work video[src*="grace-animation"]').count();
     assert(graceMediaCount === 1, `${width}x${height}: Grace media appears ${graceMediaCount} times`);
     await reducedPage.close();

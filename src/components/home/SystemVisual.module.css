@@ -15,19 +15,22 @@
 }
 
 .frame[data-variant="internal-tools"],
-.frame[data-variant="orbit-artist-group"] {
+.frame[data-variant="orbit-artist-group"],
+.frame[data-variant="system-map"] {
   --visual-accent: 104, 137, 255;
   --visual-accent-2: 177, 149, 255;
 }
 
 .frame[data-variant="mvp-software"],
-.frame[data-variant="soniq"] {
+.frame[data-variant="soniq"],
+.frame[data-variant="build"] {
   --visual-accent: 255, 117, 88;
   --visual-accent-2: 255, 190, 143;
 }
 
 .frame[data-variant="product-systems"],
-.frame[data-variant="dividends-total-returns"] {
+.frame[data-variant="dividends-total-returns"],
+.frame[data-variant="proof"] {
   --visual-accent: 94, 193, 181;
   --visual-accent-2: 232, 190, 111;
 }

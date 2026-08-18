@@ -13,6 +13,7 @@ was invented.
 | `public/brand/grace/grace-animation.mp4` | Existing Grace asset | Motion Work / Selected Work proof surface | Poster fallback, `playsInline`, no autoplay requirement for direction review |
 | `public/brand/grace/grace-branding-concept.pdf` | Existing Grace reference | Not embedded in the board; retained as source material | Do not ship as page media without a deliberate review path |
 | `src/components/home/SystemVisual.tsx` | Original code-rendered media | Six capability states and four non-Grace project states | Deterministic SVG geometry; no bitmap payload, logos, readable fake data, or claims |
+| Process system fields (`brief`, `system-map`, `build`, `proof`) | Original code-rendered media | Interactive process proof sequence | Reuses the established SVG grammar; no fake interface text, data, metrics, or client imagery |
 
 ## Rights and provenance
 
@@ -31,3 +32,6 @@ The existing `hero-glass.png` remains the approved full-bleed hero atmosphere. G
 remains the only real project-motion proof and appears once on the homepage. The former
 generated bitmap placeholders were removed and replaced with one coherent, lightweight
 system-field component following the guardrails above.
+
+The focused process pass adds four new deterministic geometry states to the same
+component rather than introducing another media style or bitmap payload.

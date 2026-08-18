@@ -43,7 +43,7 @@
 .capabilityStatement,
 .projectDisplay,
 .itemTitle,
-.signal {
+.outcome {
   margin: 0;
   color: #ededed;
   font-weight: 600;
@@ -235,27 +235,13 @@
   font-size: var(--middle-body);
 }
 
-.processGrid,
-.signalsGrid {
-  display: grid;
-}
-
-.processGrid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(2rem, 4vw, 4.5rem);
-}
-
-.processItem {
-  min-width: 0;
-}
-
-.itemTitle,
-.signal {
+.itemTitle {
   font-size: var(--middle-item);
   line-height: 0.94;
 }
 
 .itemCopy {
+  display: block;
   max-width: 18rem;
   margin: 0.75rem 0 0;
   color: var(--middle-copy);
@@ -263,15 +249,100 @@
   line-height: 1.45;
 }
 
-.signalsGrid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.5rem, 3vw, 3rem) clamp(2rem, 7vw, 7rem);
+.processSection {
+  padding-top: clamp(5.5rem, 8vw, 8rem);
+  padding-bottom: clamp(4.5rem, 7vw, 7rem);
 }
 
-.signal {
-  max-width: 13ch;
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  line-height: 0.92;
+.processExperience {
+  display: grid;
+  grid-template-columns: clamp(16rem, 22vw, 20rem) minmax(0, 1fr);
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: stretch;
+}
+
+.processNavigation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 2.6vw, 2.5rem);
+  align-content: center;
+}
+
+.processStep {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(237, 237, 237, 0.46);
+  text-align: left;
+  transition: color 300ms var(--middle-ease), transform 300ms var(--middle-ease);
+}
+
+.processStep:hover {
+  color: var(--middle-copy);
+}
+
+.processStep:focus-visible {
+  border-radius: 0.125rem;
+  outline: 1px solid rgba(237, 237, 237, 0.7);
+  outline-offset: 0.5rem;
+}
+
+.processStepSelected {
+  color: #ededed;
+  transform: translateX(0.5rem);
+}
+
+.processStep .itemTitle {
+  display: block;
+  color: currentColor;
+}
+
+.processStep .itemCopy {
+  color: currentColor;
+}
+
+.processMedia {
+  position: relative;
+  align-self: center;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #070709;
+  touch-action: pan-y;
+}
+
+.processPanel {
+  position: absolute;
+  inset: 0;
+}
+
+.outcomesSection {
+  padding-top: clamp(4.5rem, 6vw, 6rem);
+}
+
+.outcomesComposition {
+  display: grid;
+  gap: clamp(0.35rem, 1vw, 0.85rem);
+}
+
+.outcome {
+  max-width: 16ch;
+  font-size: clamp(3rem, 6.7vw, 6.75rem);
+  line-height: 0.88;
+}
+
+.outcomesComposition > :nth-child(2) {
+  margin-left: clamp(4rem, 14vw, 13rem);
+}
+
+.outcomesComposition > :nth-child(3) {
+  margin-left: clamp(1rem, 6vw, 5rem);
+}
+
+.outcomesComposition > :nth-child(4) {
+  margin-left: auto;
 }
 
 @media (min-width: 640px) {
@@ -373,32 +444,72 @@
     aspect-ratio: 4 / 3;
   }
 
-  .processGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2.5rem 1.5rem;
+  .processSection {
+    padding-top: 5rem;
+    padding-bottom: 4rem;
   }
 
-  .signalsGrid {
-    gap: 1.5rem 1rem;
+  .processExperience {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+  }
+
+  .processNavigation {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 1rem;
+  }
+
+  .processStepSelected {
+    transform: translateX(0.25rem);
+  }
+
+  .processMedia {
+    width: calc(100vw - 1rem);
+    aspect-ratio: 4 / 3;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .outcomesSection {
+    padding-top: 4rem;
   }
 
   .itemTitle {
     font-size: clamp(1.75rem, 7vw, 2.25rem);
   }
 
-  .signal {
-    font-size: clamp(2.25rem, 10.5vw, 3.25rem);
+  .outcome {
+    max-width: none;
+    font-size: clamp(2.5rem, 11vw, 3.5rem);
   }
 
   .itemCopy {
     margin-top: 0.4rem;
   }
+
+  .outcomesComposition {
+    gap: 0.65rem;
+  }
+
+  .outcomesComposition > :nth-child(2),
+  .outcomesComposition > :nth-child(4) {
+    margin-left: 1.25rem;
+  }
+
+  .outcomesComposition > :nth-child(3) {
+    margin-left: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .selectorItem,
-  .selectorRail {
+  .selectorRail,
+  .processStep {
     scroll-behavior: auto;
     transition: none;
+  }
+
+  .processStepSelected {
+    transform: none;
   }
 }

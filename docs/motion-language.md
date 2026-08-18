@@ -61,3 +61,14 @@ improve comprehension, hierarchy, proof, or interaction feedback, it stays off.
 
 No system-field animation loops. Once its route and nodes resolve, the diagram remains
 still. The standalone Motion Work scene was removed to avoid repeating Grace.
+
+## Process proof sequence — 2026-08-18
+
+| Moment | Trigger | Start → settle | Purpose | Reduced motion |
+| --- | --- | --- | --- | --- |
+| Process selection | Tap, horizontal swipe, or arrow key | 18px horizontal settle plus opacity over 380ms | Connect each concise process step to a distinct visual system state | Instant replacement |
+| Process system field | Selection completes | Routes and nodes resolve once, then remain still | Replace explanatory copy with visual proof of input, map, build, and feedback | Complete diagram shown immediately |
+| Outcomes entrance | Section enters | Four lines rise 12–18px in a short stagger, then remain fully readable | Close the middle with one editorial statement rather than another interaction | Full composition shown immediately |
+
+No scroll-driven active state controls readability. Process state changes only through
+an explicit user action, and all four outcomes remain visible together.

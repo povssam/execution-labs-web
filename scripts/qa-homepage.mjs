@@ -44,7 +44,7 @@ try {
     await page.goto(baseUrl, { waitUntil: "networkidle" });
 
     const layout = await page.evaluate(() => {
-      const processItems = [...document.querySelectorAll("#process article")];
+      const processItems = [...document.querySelectorAll("#process [data-process-step]")];
       const signalItems = [...document.querySelectorAll("#client-signals p")];
       const middleSections = ["what-we-build", "selected-work", "process", "client-signals"]
         .map((id) => document.getElementById(id))
@@ -66,7 +66,7 @@ try {
           return style.display === "none" || style.visibility === "hidden" || Number(style.opacity) < 0.95;
         }).length,
         clippedMiddleContent: [...document.querySelectorAll(
-          "#what-we-build h2, #what-we-build h3, #what-we-build [role='tabpanel'], #selected-work h2, #selected-work [data-project-media], #selected-work [data-project-link], #process article, #client-signals p",
+          "#what-we-build h2, #what-we-build h3, #what-we-build [role='tabpanel'], #selected-work h2, #selected-work [data-project-media], #selected-work [data-project-link], #process [data-process-step], #process [data-system-visual], #client-signals p",
         )].filter((item) => {
           const bounds = item.getBoundingClientRect();
           return bounds.left < -0.5 || bounds.right > window.innerWidth + 0.5;
@@ -85,6 +85,15 @@ try {
     assert(layout.hiddenReadableItems === 0, `${width}x${height}: middle copy is hidden or state-dimmed`);
     assert(layout.clippedMiddleContent.length === 0, `${width}x${height}: clipped middle content ${JSON.stringify(layout.clippedMiddleContent)}`);
     assert(errors.length === 0, `${width}x${height}: browser errors: ${errors.join(" | ")}`);
+
+    const processTabs = page.locator('#process [role="tab"]');
+    assert(await processTabs.count() === 4, `${width}x${height}: expected four process controls`);
+    assert(await page.locator('#process [role="tab"][aria-selected="true"]').count() === 1, `${width}x${height}: process active state is ambiguous`);
+    await processTabs.nth(1).click();
+    await page.waitForFunction(() => document.querySelector("#process-panel [data-system-visual]")?.getAttribute("data-variant") === "system-map");
+    await processTabs.nth(1).press("ArrowRight");
+    await page.waitForFunction(() => document.querySelector("#process-panel [data-system-visual]")?.getAttribute("data-variant") === "build");
+    assert((await processTabs.nth(2).getAttribute("aria-selected")) === "true", `${width}x${height}: process keyboard selection failed`);
 
     const capabilityProof = page.locator("[data-capability-proof]");
     assert(await capabilityProof.isVisible(), `${width}x${height}: capability proof is not visible`);

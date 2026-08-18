@@ -170,3 +170,33 @@ Production-build browser results:
 - Removing bitmap placeholders reduced shipped static media by roughly 596KB.
 
 Review captures live in `docs/qa/system-field-refactor-2026-08-18/`.
+
+## Process, visual proof, and outcomes refinement — 2026-08-18
+
+Scope was limited to the sequence between Selected Work and the final CTA. The hero,
+Worked With, studio statement, capability system, Selected Work, CTA, and footer were
+held unchanged.
+
+- Process changed from a static text grid to one explicit four-state interaction. Tap,
+  horizontal swipe, and arrow/Home/End keys synchronize one active step with one visual.
+- Four deterministic system-field states represent input, workflow mapping, build, and
+  feedback. They reuse the existing media grammar and contain no fake product data.
+- Outcomes changed from a second 2×2 grid to one compact editorial composition with the
+  requested four lines visible together and no state machine.
+- Two full-page visual refinement cycles were captured at mobile and desktop sizes in
+  `docs/qa/process-proof-outcomes-2026-08-18/`.
+
+Production-build results:
+
+- Focused middle suite: 6/6 at 390×844, 430×932, 768×1024, 1024×768,
+  1366×768, and 1440×900.
+- Homepage regression suite: 8/8, additionally covering 1280×800 and 1728×1117.
+- Statement regression suite: 3/3 at 390×844, 430×932, and 1440×900.
+- Document-level horizontal overflow: 0px at every viewport.
+- Process tap, horizontal swipe, Arrow keys, Home/End behavior, exactly-one-selected
+  state, and reduced-motion settling passed.
+- Mobile menu lock/release, anchor clearance, capability/project controls, resize, and
+  console-error checks passed.
+- A 768px intrinsic aspect-ratio overflow found during the first production-build pass
+  was corrected by constraining the visual to its grid track; the rerun passed without
+  clipping or document overflow.
