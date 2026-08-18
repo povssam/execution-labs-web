@@ -19,7 +19,7 @@ const projectCount = caseStudies.length;
 
 const projectDescriptors: Record<string, string> = {
   grace: "Brand, product, and motion as one system.",
-  "orbit-artist-group": "Artist operations, release work, and handoffs in one view.",
+  "orbit-artist-group": "Artist ops, releases, handoffs.",
   "media-scaling": "Spend, account health, and budget decisions in one loop.",
   soniq: "A music concept moved into a usable product.",
   "dividends-total-returns": "Dividend and total-return logic made legible.",
@@ -50,6 +50,13 @@ export function WorkCarousel() {
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const selected = caseStudies[activeIndex];
   const systemVisual = projectVisuals[selected.slug];
+  const headingAfterMedia = selected.slug === "orbit-artist-group";
+  const projectHeading = (
+    <div className={`${styles.projectHeading} ${headingAfterMedia ? styles.projectHeadingAfter : ""}`}>
+      <h2 className={`${styles.projectDisplay} ${styles.projectTitle}`}>{selected.client}</h2>
+      <p className={styles.projectSummary}>{projectDescriptors[selected.slug]}</p>
+    </div>
+  );
 
   useEffect(() => {
     if (window.innerWidth >= 768) return;
@@ -209,10 +216,7 @@ export function WorkCarousel() {
               exit={{ opacity: 0, y: reducedMotion ? 0 : -10, scale: reducedMotion ? 1 : 0.996 }}
               transition={{ duration: reducedMotion ? 0 : 0.42, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className={styles.projectHeading}>
-                <h2 className={`${styles.projectDisplay} ${styles.projectTitle}`}>{selected.client}</h2>
-                <p className={styles.projectSummary}>{projectDescriptors[selected.slug]}</p>
-              </div>
+              {!headingAfterMedia && projectHeading}
               <div className={styles.media} data-project-media>
                 <div className={styles.mediaCanvas}>
                   {selected.assets?.video ? (
@@ -225,6 +229,7 @@ export function WorkCarousel() {
                   )}
                 </div>
               </div>
+              {headingAfterMedia && projectHeading}
 
               <Link href={`/work/${selected.slug}`} className={`${styles.projectAction} group`} data-project-link>
                 View project

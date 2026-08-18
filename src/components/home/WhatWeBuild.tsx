@@ -7,7 +7,6 @@ import type {
   PointerEvent as ReactPointerEvent,
 } from "react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
-import { Reveal } from "../ui/Reveal";
 import { SystemVisual, type SystemVisualVariant } from "./SystemVisual";
 import { capabilities } from "@/lib/data";
 import styles from "./Middle.module.css";
@@ -103,12 +102,6 @@ export function WhatWeBuild() {
     >
       <BrandAtmosphere intensity="soft" tone="system" focus="right" />
       <div className={`${styles.container} relative z-10`}>
-        <Reveal>
-          <h2 className={styles.sectionHeading}>
-            Six capabilities.<br />Built as one.
-          </h2>
-        </Reveal>
-
         <div className={styles.capabilityLayout}>
           <div className={styles.selectorViewport}>
             <div

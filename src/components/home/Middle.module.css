@@ -59,7 +59,6 @@
 
 .capabilityLayout {
   min-width: 0;
-  margin-top: clamp(2.25rem, 4vw, 3.75rem);
 }
 
 .selectorViewport {
@@ -201,6 +200,11 @@
   color: var(--middle-copy);
   font-size: clamp(1rem, 1.25vw, 1.25rem);
   line-height: 1.45;
+}
+
+.projectHeadingAfter {
+  margin-top: clamp(1.75rem, 3vw, 3rem);
+  margin-bottom: 0;
 }
 
 .media {
