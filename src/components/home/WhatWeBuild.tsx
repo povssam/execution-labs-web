@@ -148,17 +148,18 @@ export function WhatWeBuild() {
           <div
             className={styles.capabilityPanelFrame}
           >
-            <AnimatePresence mode="popLayout" initial={false}>
+            <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={active.title}
                 id="capability-panel"
                 role="tabpanel"
                 aria-labelledby={`capability-tab-${activeCapability}`}
                 className={styles.capabilityPanel}
-                initial={{ opacity: 0, y: reducedMotion ? 0 : 14 }}
+                data-capability-transition-unit
+                initial={{ opacity: 0, y: reducedMotion ? 0 : 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
-                transition={{ duration: reducedMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: reducedMotion ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className={styles.capabilityLead}>
                   <h3 className={styles.capabilityStatement}>{active.stance}</h3>

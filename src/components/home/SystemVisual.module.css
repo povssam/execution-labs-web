@@ -23,22 +23,30 @@
 
 .frame[data-variant="mvp-software"],
 .frame[data-variant="soniq"],
-.frame[data-variant="build"] {
-  --visual-accent: 255, 117, 88;
-  --visual-accent-2: 255, 190, 143;
+.frame[data-variant="build"],
+.frame[data-variant="ready-to-launch"] {
+  --visual-accent: 118, 126, 255;
+  --visual-accent-2: 181, 198, 255;
 }
 
 .frame[data-variant="product-systems"],
 .frame[data-variant="dividends-total-returns"],
-.frame[data-variant="proof"] {
-  --visual-accent: 94, 193, 181;
-  --visual-accent-2: 232, 190, 111;
+.frame[data-variant="proof"],
+.frame[data-variant="faster-decisions"] {
+  --visual-accent: 112, 160, 255;
+  --visual-accent-2: 164, 134, 255;
 }
 
 .frame[data-variant="automation"],
-.frame[data-variant="media-scaling"] {
-  --visual-accent: 82, 154, 255;
-  --visual-accent-2: 91, 218, 154;
+.frame[data-variant="media-scaling"],
+.frame[data-variant="less-follow-up"] {
+  --visual-accent: 98, 145, 255;
+  --visual-accent-2: 154, 127, 255;
+}
+
+.frame[data-variant="clearer-workflows"] {
+  --visual-accent: 104, 137, 255;
+  --visual-accent-2: 177, 149, 255;
 }
 
 .ambient {

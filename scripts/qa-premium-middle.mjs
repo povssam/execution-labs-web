@@ -103,7 +103,7 @@ try {
     await page.waitForFunction(() => document.querySelector("#selected-work-panel h2")?.textContent === "Dividends & Total Returns");
     assert(await workTabs.nth(4).getAttribute("aria-selected") === "true", `${width}x${height}: project keyboard navigation failed`);
 
-    const readableText = await page.locator("#process h3, #process p, #client-signals p").allTextContents();
+    const readableText = await page.locator("#process h3, #process p, #client-signals h2").allTextContents();
     assert(new Set(readableText).size === readableText.length, `${width}x${height}: duplicated process or outcome text`);
 
     const processTabs = page.locator('[aria-label="Process steps"] [role="tab"]');
@@ -125,6 +125,18 @@ try {
       assert(await processTabs.nth(0).getAttribute("aria-selected") === "true", `${width}x${height}: process swipe failed`);
     }
 
+    const outcomeTitles = await page.locator("#client-signals ul.sr-only li").allTextContents();
+    assert(outcomeTitles.join("|") === "Faster decisions|Clearer workflows|Less follow-up|Ready to launch", `${width}x${height}: outcome content changed or duplicated`);
+    const outcomeNext = page.getByRole("button", { name: "Next outcome" });
+    const orderedStates = [Number(await page.locator("#client-signals").getAttribute("data-outcome-index"))];
+    for (const variant of ["clearer-workflows", "less-follow-up", "ready-to-launch"]) {
+      await outcomeNext.click();
+      await page.waitForFunction((expected) => document.querySelector("#outcome-panel [data-system-visual]")?.getAttribute("data-variant") === expected, variant);
+      orderedStates.push(Number(await page.locator("#client-signals").getAttribute("data-outcome-index")));
+    }
+    assert(orderedStates.join(",") === "0,1,2,3", `${width}x${height}: outcome progression skipped (${orderedStates.join(" → ")})`);
+    assert(await page.locator("#client-signals [data-outcome-panel]").count() === 1, `${width}x${height}: outcome media duplicated`);
+
     const reducedPage = await browser.newPage({
       viewport: { width, height },
       reducedMotion: "reduce",
@@ -137,6 +149,7 @@ try {
     assert(visibleCharacters === await statementCharacters.count(), `${width}x${height}: reduced-motion statement is incomplete`);
     assert(await reducedPage.locator("#selected-work video").evaluate((video) => video.paused), `${width}x${height}: reduced-motion Grace media autoplayed`);
     assert(await reducedPage.locator("#process [data-system-visual] path").first().evaluate((path) => getComputedStyle(path).strokeDashoffset === "0px"), `${width}x${height}: reduced-motion process visual did not settle`);
+    assert(await reducedPage.locator("#client-signals [data-system-visual] path").first().evaluate((path) => getComputedStyle(path).strokeDashoffset === "0px"), `${width}x${height}: reduced-motion outcome visual did not settle`);
     const graceMediaCount = await reducedPage.locator('#what-we-build img[src*="grace"], #selected-work video[src*="grace-animation"]').count();
     assert(graceMediaCount === 1, `${width}x${height}: Grace media appears ${graceMediaCount} times`);
     await reducedPage.close();

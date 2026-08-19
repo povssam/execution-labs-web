@@ -15,13 +15,13 @@
 }
 
 .firstSection {
-  padding-top: clamp(7rem, 10vw, 10rem);
+  padding-top: clamp(5rem, 7vw, 6rem);
   padding-bottom: clamp(5.5rem, 8vw, 8rem);
 }
 
 .workSection {
   padding-top: clamp(5.5rem, 8vw, 8rem);
-  padding-bottom: clamp(6rem, 9vw, 9rem);
+  padding-bottom: clamp(5rem, 7vw, 6rem);
 }
 
 .compactSection {
@@ -43,7 +43,7 @@
 .capabilityStatement,
 .projectDisplay,
 .itemTitle,
-.outcome {
+.outcomeTitle {
   margin: 0;
   color: #ededed;
   font-weight: 600;
@@ -250,8 +250,8 @@
 }
 
 .processSection {
-  padding-top: clamp(5.5rem, 8vw, 8rem);
-  padding-bottom: clamp(4.5rem, 7vw, 7rem);
+  padding-top: clamp(4.5rem, 6vw, 5rem);
+  padding-bottom: clamp(3.5rem, 5vw, 4rem);
 }
 
 .processExperience {
@@ -319,30 +319,92 @@
 }
 
 .outcomesSection {
-  padding-top: clamp(4.5rem, 6vw, 6rem);
+  padding-top: clamp(3.5rem, 5vw, 4rem);
 }
 
-.outcomesComposition {
+.outcomesExperience {
   display: grid;
-  gap: clamp(0.35rem, 1vw, 0.85rem);
+  grid-template-columns: minmax(0, 1fr) clamp(16rem, 22vw, 20rem);
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: stretch;
 }
 
-.outcome {
-  max-width: 16ch;
-  font-size: clamp(3rem, 6.7vw, 6.75rem);
-  line-height: 0.88;
+.outcomesMedia {
+  position: relative;
+  align-self: center;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #070709;
+  touch-action: pan-y;
 }
 
-.outcomesComposition > :nth-child(2) {
-  margin-left: clamp(4rem, 14vw, 13rem);
+.outcomesMedia:focus-visible {
+  outline: 1px solid rgba(237, 237, 237, 0.7);
+  outline-offset: 0.5rem;
 }
 
-.outcomesComposition > :nth-child(3) {
-  margin-left: clamp(1rem, 6vw, 5rem);
+.outcomePanel {
+  position: absolute;
+  inset: 0;
 }
 
-.outcomesComposition > :nth-child(4) {
-  margin-left: auto;
+.outcomeControl {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.outcomeCount {
+  margin: 0 0 1.25rem;
+  color: var(--middle-dim);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.outcomeTitle {
+  max-width: 9ch;
+  font-size: var(--middle-item);
+  line-height: 0.94;
+}
+
+.outcomeActions {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.outcomeAction {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ededed;
+  transition: color 220ms var(--middle-ease), opacity 220ms var(--middle-ease), transform 220ms var(--middle-ease);
+}
+
+.outcomeAction:hover:not(:disabled) {
+  transform: translateY(-0.125rem);
+}
+
+.outcomeAction:focus-visible {
+  border-radius: 50%;
+  outline: 1px solid rgba(237, 237, 237, 0.7);
+  outline-offset: 0.25rem;
+}
+
+.outcomeAction:disabled {
+  color: var(--middle-dim);
+  opacity: 0.35;
 }
 
 @media (min-width: 640px) {
@@ -363,13 +425,13 @@
   }
 
   .firstSection {
-    padding-top: 6.5rem;
+    padding-top: 4rem;
     padding-bottom: 5rem;
   }
 
   .workSection {
     padding-top: 5rem;
-    padding-bottom: 5.5rem;
+    padding-bottom: 4rem;
   }
 
   .compactSection {
@@ -445,8 +507,8 @@
   }
 
   .processSection {
-    padding-top: 5rem;
-    padding-bottom: 4rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3rem;
   }
 
   .processExperience {
@@ -471,34 +533,54 @@
   }
 
   .outcomesSection {
-    padding-top: 4rem;
+    padding-top: 3rem;
   }
 
   .itemTitle {
     font-size: clamp(1.75rem, 7vw, 2.25rem);
   }
 
-  .outcome {
-    max-width: none;
-    font-size: clamp(2.5rem, 11vw, 3.5rem);
+  .itemCopy {
+    margin-top: 0.4rem;
+  }
+
+  .outcomesExperience {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+
+  .outcomeControl {
+    order: -1;
+    min-height: 7.5rem;
+  }
+
+  .outcomeTitle {
+    max-width: 10ch;
+    font-size: clamp(2.25rem, 9vw, 3rem);
+  }
+
+  .outcomeCount {
+    margin-bottom: 0.85rem;
+  }
+
+  .outcomeActions {
+    position: absolute;
+    right: var(--middle-gutter);
+    align-self: flex-end;
+    margin-top: 0;
+  }
+
+  .outcomesMedia {
+    width: calc(100vw - 1rem);
+    aspect-ratio: 4 / 3;
+    margin-left: 50%;
+    transform: translateX(-50%);
   }
 
   .itemCopy {
     margin-top: 0.4rem;
   }
 
-  .outcomesComposition {
-    gap: 0.65rem;
-  }
-
-  .outcomesComposition > :nth-child(2),
-  .outcomesComposition > :nth-child(4) {
-    margin-left: 1.25rem;
-  }
-
-  .outcomesComposition > :nth-child(3) {
-    margin-left: 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -511,5 +593,9 @@
 
   .processStepSelected {
     transform: none;
+  }
+
+  .outcomeAction {
+    transition: none;
   }
 }

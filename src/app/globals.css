@@ -1555,7 +1555,7 @@ body {
 
 .statement-section {
   min-height: 0;
-  padding-block: clamp(8rem, 10vw, 10rem) clamp(7rem, 9vw, 9rem);
+  padding-block: clamp(8rem, 10vw, 10rem) clamp(4.5rem, 6vw, 6rem);
   background:
     radial-gradient(ellipse 52% 34% at 50% 50%, rgba(126, 119, 255, 0.045), transparent 72%),
     var(--color-ink);
@@ -1655,7 +1655,7 @@ body {
 @media (max-width: 767px) {
   .statement-section {
     min-height: 0;
-    padding-block: 7rem 6rem;
+    padding-block: 7rem 4rem;
   }
 
   .motion-media {

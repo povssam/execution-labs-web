@@ -21,7 +21,15 @@ try {
       hasTouch: width <= 430,
     });
     await page.goto(baseUrl, { waitUntil: "networkidle" });
-    await page.waitForTimeout(900);
+    await page.evaluate(async () => {
+      const step = Math.max(220, Math.round(window.innerHeight * 0.35));
+      for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+        window.scrollTo(0, y);
+        await new Promise((resolve) => window.setTimeout(resolve, 60));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForTimeout(4700);
 
     await page.screenshot({
       path: path.join(outputDir, `homepage-${width}x${height}.png`),

@@ -45,7 +45,7 @@ try {
 
     const layout = await page.evaluate(() => {
       const processItems = [...document.querySelectorAll("#process [data-process-step]")];
-      const signalItems = [...document.querySelectorAll("#client-signals p")];
+      const outcomeItems = [...document.querySelectorAll("#client-signals ul.sr-only li")];
       const middleSections = ["what-we-build", "selected-work", "process", "client-signals"]
         .map((id) => document.getElementById(id))
         .filter(Boolean);
@@ -57,16 +57,16 @@ try {
         graceVideos: [...document.querySelectorAll("video")].filter((video) => video.currentSrc.includes("grace-animation")).length,
         headerHeight: document.querySelector(".site-header")?.getBoundingClientRect().height ?? 0,
         processCount: processItems.length,
-        signalCount: signalItems.length,
-        stateAttributes: [...processItems, ...signalItems].some(
+        signalCount: outcomeItems.length,
+        stateAttributes: processItems.some(
           (item) => item.hasAttribute("data-active") || item.hasAttribute("data-past"),
         ),
-        hiddenReadableItems: [...processItems, ...signalItems].filter((item) => {
+        hiddenReadableItems: [...processItems, ...document.querySelectorAll("#client-signals h2")].filter((item) => {
           const style = getComputedStyle(item);
           return style.display === "none" || style.visibility === "hidden" || Number(style.opacity) < 0.95;
         }).length,
         clippedMiddleContent: [...document.querySelectorAll(
-          "#what-we-build h2, #what-we-build h3, #what-we-build [role='tabpanel'], #selected-work h2, #selected-work [data-project-media], #selected-work [data-project-link], #process [data-process-step], #process [data-system-visual], #client-signals p",
+          "#what-we-build h2, #what-we-build h3, #what-we-build [role='tabpanel'], #selected-work h2, #selected-work [data-project-media], #selected-work [data-project-link], #process [data-process-step], #process [data-system-visual], #client-signals h2, #client-signals [data-system-visual]",
         )].filter((item) => {
           const bounds = item.getBoundingClientRect();
           return bounds.left < -0.5 || bounds.right > window.innerWidth + 0.5;
@@ -85,6 +85,25 @@ try {
     assert(layout.hiddenReadableItems === 0, `${width}x${height}: middle copy is hidden or state-dimmed`);
     assert(layout.clippedMiddleContent.length === 0, `${width}x${height}: clipped middle content ${JSON.stringify(layout.clippedMiddleContent)}`);
     assert(errors.length === 0, `${width}x${height}: browser errors: ${errors.join(" | ")}`);
+
+    const outcomeNext = page.getByRole("button", { name: "Next outcome" });
+    const outcomePrevious = page.getByRole("button", { name: "Previous outcome" });
+    const outcomeSequence = [Number(await page.locator("#client-signals").getAttribute("data-outcome-index"))];
+    for (const variant of ["clearer-workflows", "less-follow-up", "ready-to-launch"]) {
+      await outcomeNext.click();
+      await page.waitForFunction((expected) => document.querySelector("#outcome-panel [data-system-visual]")?.getAttribute("data-variant") === expected, variant);
+      outcomeSequence.push(Number(await page.locator("#client-signals").getAttribute("data-outcome-index")));
+    }
+    assert(outcomeSequence.join(",") === "0,1,2,3", `${width}x${height}: outcome order skipped (${outcomeSequence.join(" → ")})`);
+    assert(await outcomeNext.isDisabled(), `${width}x${height}: final outcome should not wrap forward`);
+    const reverseSequence = [3];
+    for (const variant of ["less-follow-up", "clearer-workflows", "faster-decisions"]) {
+      await outcomePrevious.click();
+      await page.waitForFunction((expected) => document.querySelector("#outcome-panel [data-system-visual]")?.getAttribute("data-variant") === expected, variant);
+      reverseSequence.push(Number(await page.locator("#client-signals").getAttribute("data-outcome-index")));
+    }
+    assert(reverseSequence.join(",") === "3,2,1,0", `${width}x${height}: reverse outcome order skipped (${reverseSequence.join(" → ")})`);
+    assert(await outcomePrevious.isDisabled(), `${width}x${height}: first outcome should not wrap backward`);
 
     const processTabs = page.locator('#process [role="tab"]');
     assert(await processTabs.count() === 4, `${width}x${height}: expected four process controls`);
@@ -193,6 +212,13 @@ try {
         return Math.abs((tabBounds.left + tabBounds.right) / 2 - (railBounds.left + railBounds.right) / 2);
       });
       assert(projectCenterDelta <= 3, `${width}x${height}: selected project is ${projectCenterDelta}px off center`);
+
+      await page.locator("#client-signals [role='group']").evaluate((visual) => {
+        visual.dispatchEvent(new PointerEvent("pointerdown", { bubbles: true, pointerId: 14, pointerType: "touch", clientX: 280, clientY: 360 }));
+        visual.dispatchEvent(new PointerEvent("pointerup", { bubbles: true, pointerId: 14, pointerType: "touch", clientX: 150, clientY: 360 }));
+      });
+      await page.waitForFunction(() => document.querySelector("#client-signals")?.getAttribute("data-outcome-index") === "1");
+      assert((await page.locator("#client-signals").getAttribute("data-outcome-index")) === "1", `${width}x${height}: outcome swipe did not advance exactly one state`);
 
     }
 

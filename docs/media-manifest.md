@@ -14,6 +14,7 @@ was invented.
 | `public/brand/grace/grace-branding-concept.pdf` | Existing Grace reference | Not embedded in the board; retained as source material | Do not ship as page media without a deliberate review path |
 | `src/components/home/SystemVisual.tsx` | Original code-rendered media | Six capability states and four non-Grace project states | Deterministic SVG geometry; no bitmap payload, logos, readable fake data, or claims |
 | Process system fields (`brief`, `system-map`, `build`, `proof`) | Original code-rendered media | Interactive process proof sequence | Reuses the established SVG grammar; no fake interface text, data, metrics, or client imagery |
+| Outcome system fields (`faster-decisions`, `clearer-workflows`, `less-follow-up`, `ready-to-launch`) | Original code-rendered media | Ordered outcomes sequence | Four deterministic SVG states using the same graphite grid and restrained violet-blue palette |
 
 ## Rights and provenance
 
@@ -35,3 +36,7 @@ system-field component following the guardrails above.
 
 The focused process pass adds four new deterministic geometry states to the same
 component rather than introducing another media style or bitmap payload.
+
+The outcomes refinement adds no bitmap, canvas, video, or third-party media payload.
+Its four proof states extend the existing deterministic system-field component and do
+not contain fake labels, metrics, dashboards, or client claims.

@@ -200,3 +200,35 @@ Production-build results:
 - A 768px intrinsic aspect-ratio overflow found during the first production-build pass
   was corrected by constraining the visual to its grid track; the rerun passed without
   clipping or document overflow.
+
+## Ordered media outcomes refinement — 2026-08-19
+
+Scope remained limited to capability transition behavior, Process media states,
+Outcomes, and the spacing handoffs around those sections. The hero, Worked With,
+statement composition/copy, Grace treatment, CTA, and footer were not redesigned.
+
+- Outcomes was rebuilt from a giant four-line type block into one compact active title
+  paired with a dominant system-field visual. Next/previous controls, arrow keys, tap,
+  and horizontal swipe move only one adjacent state at a time and clamp at each end.
+- Faster decisions, Clearer workflows, Less follow-up, and Ready to launch each have a
+  distinct deterministic geometry using the same graphite grid and cool violet-blue
+  media language as Process.
+- Process geometry was sharpened so Brief gathers inputs, System map organizes routes,
+  Build assembles modules, and Proof resolves into a live output and feedback path.
+- Capability headline, keywords, and media now transition through one keyed presence
+  unit, while each system visual resolves once and settles.
+- Statement → capabilities, Grace → Process, and Process → Outcomes handoffs were
+  reduced through content-driven section padding rather than spacer or viewport-height
+  rules.
+
+Production-build browser results:
+
+- Focused middle suite: 6/6 at 390×844, 430×932, 768×1024, 1024×768,
+  1366×768, and 1440×900.
+- Homepage regression suite: 8/8, additionally covering 1280×800 and 1728×1117.
+- Statement regression suite: 3/3 at 390×844, 430×932, and 1440×900.
+- Outcome state order passed exactly `0 → 1 → 2 → 3`; controls do not wrap or skip.
+- Tap/swipe, keyboard, reduced motion, menu lock/release, anchor clearance, responsive
+  resize, duplicate Grace, console errors, and 0px document overflow checks passed.
+- Two visual refinement cycles and final production-build captures live in
+  `docs/qa/outcomes-media-refinement-2026-08-19/`.

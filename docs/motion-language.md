@@ -72,3 +72,15 @@ still. The standalone Motion Work scene was removed to avoid repeating Grace.
 
 No scroll-driven active state controls readability. Process state changes only through
 an explicit user action, and all four outcomes remain visible together.
+
+## Ordered outcomes refinement — 2026-08-19
+
+| Moment | Trigger | Start → settle | Purpose | Reduced motion |
+| --- | --- | --- | --- | --- |
+| Capability state | Tap, swipe, or arrow key | Headline, keywords, and diagram crossfade as one keyed unit over 380ms | Keep language and proof synchronized | Instant replacement |
+| Process state | Tap, swipe, or arrow key | One distinct diagram resolves once for input, mapping, assembly, or live proof | Make each process step visually legible without more copy | Final diagram immediately visible |
+| Outcome state | Next/previous control, tap, swipe, or arrow key | Adjacent state only; media crosses 18px while the compact title settles 12px | Preserve the exact 1 → 2 → 3 → 4 narrative without scroll-state errors | Instant adjacent state |
+
+Outcome navigation clamps at the first and final states. It never wraps, auto-plays,
+or skips an intermediate state. Every system-field animation enters, communicates,
+and becomes still.
