@@ -57,7 +57,7 @@ improve comprehension, hierarchy, proof, or interaction feedback, it stays off.
 | Capability selection | Tap, swipe, or arrow key | Copy crossfades while routes draw once and nodes resolve | Show the operational shape of the selected capability | Final diagram appears immediately |
 | Project selection | Tap, swipe, drag, or arrow key | Title, concise descriptor, and media transition as one unit | Keep project identity and proof synchronized | Instant state replacement |
 | Grace proof | Project selected and media visible | Real film plays as the only continuous middle-page motion | Demonstrate brand, product, and motion together | Poster/static frame |
-| Process and outcomes | Enter viewport | 12–18px reveal, then fully readable static content | Establish hierarchy without a scroll state machine | Fully visible |
+| Process and outcomes | Enter viewport | Process plays one ordered visual sequence; outcomes remain fully readable | Establish process movement without continuous scroll coupling | Process settles to Proof; outcomes remain static |
 
 No system-field animation loops. Once its route and nodes resolve, the diagram remains
 still. The standalone Motion Work scene was removed to avoid repeating Grace.
@@ -70,8 +70,16 @@ still. The standalone Motion Work scene was removed to avoid repeating Grace.
 | Process system field | Selection completes | Routes and nodes resolve once, then remain still | Replace explanatory copy with visual proof of input, map, build, and feedback | Complete diagram shown immediately |
 | Outcomes entrance | Section enters | Four lines rise 12–18px in a short stagger, then remain fully readable | Close the middle with one editorial statement rather than another interaction | Full composition shown immediately |
 
-No scroll-driven active state controls readability. Process state changes only through
-an explicit user action, and all four outcomes remain visible together.
+Process playback is entrance-triggered rather than continuously mapped to scroll. The
+manual process controls remain available, and all four outcome states remain visible
+through their existing adjacent-state controls.
+
+## Replayable process entrance — 2026-08-21
+
+| Moment | Trigger | Start → settle | Reset rule | Reduced motion |
+| --- | --- | --- | --- | --- |
+| Process sequence | One section-level `IntersectionObserver` at roughly 35% visibility, with the fixed header removed from the root | Brief → System map → Build → Proof; the existing visual transition and system-field draw timing are unchanged | No reset at the entry boundary; reset only at roughly 5% visibility, canceling timers and returning to Brief | Proof appears immediately and no timed sequence runs |
+| Process re-entry | Any clean re-entry after reset | A fresh visual mount replays the existing SVG/CSS resolve from Brief | A generation token rejects stale callbacks from a previous pass | The final static state remains settled |
 
 ## Ordered outcomes refinement — 2026-08-19
 

@@ -232,3 +232,20 @@ Production-build browser results:
   resize, duplicate Grace, console errors, and 0px document overflow checks passed.
 - Two visual refinement cycles and final production-build captures live in
   `docs/qa/outcomes-media-refinement-2026-08-19/`.
+
+## Replayable Process entrance — 2026-08-21
+
+The Process interaction was limited to replay behavior. The existing visual grammar,
+manual controls, and transition timings remain unchanged.
+
+- One section-level `IntersectionObserver` starts the sequence at approximately 35%
+  visibility, with a root margin derived from the fixed header height.
+- A separate 5% reset threshold provides hysteresis: crossing the entry boundary does
+  not restart the sequence, while a genuine exit cancels pending timers and returns to
+  Brief.
+- A generation token prevents stale timeout callbacks from skipping or duplicating a
+  state after a fast exit and re-entry. A run key remounts the existing SVG visual so
+  its established CSS draw animation can replay.
+- `scripts/qa-process-replay.mjs` passed five complete replays plus an interrupted
+  re-entry case at 390×844, 430×932, 768×1024, and 1440×900. Reduced-motion checks
+  settled immediately on Proof without replay.
