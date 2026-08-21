@@ -233,19 +233,24 @@ Production-build browser results:
 - Two visual refinement cycles and final production-build captures live in
   `docs/qa/outcomes-media-refinement-2026-08-19/`.
 
-## Replayable Process entrance — 2026-08-21
+## Scroll-position-driven Process state — 2026-08-21
 
-The Process interaction was limited to replay behavior. The existing visual grammar,
-manual controls, and transition timings remain unchanged.
+The rejected observer/timer replay implementation was removed. Process now has one
+source of truth: Framer Motion's normalized `scrollYProgress` for the Process section.
+The existing visual components, copy, layout, transition duration, and controls remain
+unchanged.
 
-- One section-level `IntersectionObserver` starts the sequence at approximately 35%
-  visibility, with a root margin derived from the fixed header height.
-- A separate 5% reset threshold provides hysteresis: crossing the entry boundary does
-  not restart the sequence, while a genuine exit cancels pending timers and returns to
-  Brief.
-- A generation token prevents stale timeout callbacks from skipping or duplicating a
-  state after a fast exit and re-entry. A run key remounts the existing SVG visual so
-  its established CSS draw animation can replay.
-- `scripts/qa-process-replay.mjs` passed five complete replays plus an interrupted
-  re-entry case at 390×844, 430×932, 768×1024, and 1440×900. Reduced-motion checks
-  settled immediately on Proof without replay.
+- The section progress range is `start 70%` → `end 30%`, which leaves the fixed header
+  clear while giving the compact section enough travel to read each state.
+- The active index is `clamp(floor(progress × 4), 0, 3)`, mapping exactly to Brief,
+  System map, Build, and Proof. It is updated only when that scroll-derived index
+  changes; there is no timer, replay flag, reset observer, or per-step observer.
+- Clicking, swiping, and keyboard navigation scroll to the selected progress midpoint.
+  They do not set active state directly, so manual controls and native scrolling use
+  the same state path.
+- Changing the scroll-derived index remounts the existing visual once, allowing its
+  established draw/settle treatment to replay on every down/up/down pass. Reversing
+  direction follows the same mapping in reverse.
+- `scripts/qa-process-replay.mjs` covers five repeated down/up/down passes, midpoint
+  reversal, fast direction changes, control navigation, touch swipes, reduced motion,
+  and zero document overflow at 390×844, 430×932, 768×1024, and 1440×900.

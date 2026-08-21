@@ -47,7 +47,7 @@ improve comprehension, hierarchy, proof, or interaction feedback, it stays off.
 | Capability system | Tap, swipe, or arrow key | 420ms opacity/vertical settle | One connected active capability | Instant content replacement |
 | Project arc | Tap, swipe, drag, or arrow key | 420–620ms transform and opacity | Active project centered; neighbors recede | Instant selection |
 | Motion Work | Enter viewport | One reveal; Grace video supplies the motion | Full-width media surface | Poster frame, no autoplay/loop |
-| Process route | Scroll, hover, or focus | 300–420ms opacity and line progression | Current step bright; prior steps settled | Static readable route |
+| Process route | Section scroll progress; hover or focus controls | 300–420ms opacity and line progression | One index derived from progress; visual state settles | Same scroll mapping with instant visual state |
 | Client Signals | Scroll, tap, hover, or focus | 280–420ms opacity and restrained scale | One outcome leads at a time | Instant active state |
 
 ## System-field refinement — 2026-08-18
@@ -57,7 +57,7 @@ improve comprehension, hierarchy, proof, or interaction feedback, it stays off.
 | Capability selection | Tap, swipe, or arrow key | Copy crossfades while routes draw once and nodes resolve | Show the operational shape of the selected capability | Final diagram appears immediately |
 | Project selection | Tap, swipe, drag, or arrow key | Title, concise descriptor, and media transition as one unit | Keep project identity and proof synchronized | Instant state replacement |
 | Grace proof | Project selected and media visible | Real film plays as the only continuous middle-page motion | Demonstrate brand, product, and motion together | Poster/static frame |
-| Process and outcomes | Enter viewport | Process plays one ordered visual sequence; outcomes remain fully readable | Establish process movement without continuous scroll coupling | Process settles to Proof; outcomes remain static |
+| Process and outcomes | Process scroll progress; outcomes remain readable | Process visual transitions only when the derived index changes | Make scroll position and system proof agree | Same four-state mapping without non-essential transitions |
 
 No system-field animation loops. Once its route and nodes resolve, the diagram remains
 still. The standalone Motion Work scene was removed to avoid repeating Grace.
@@ -70,16 +70,23 @@ still. The standalone Motion Work scene was removed to avoid repeating Grace.
 | Process system field | Selection completes | Routes and nodes resolve once, then remain still | Replace explanatory copy with visual proof of input, map, build, and feedback | Complete diagram shown immediately |
 | Outcomes entrance | Section enters | Four lines rise 12–18px in a short stagger, then remain fully readable | Close the middle with one editorial statement rather than another interaction | Full composition shown immediately |
 
-Process playback is entrance-triggered rather than continuously mapped to scroll. The
-manual process controls remain available, and all four outcome states remain visible
-through their existing adjacent-state controls.
+Process playback is derived from the section's current normalized scroll progress. The
+manual process controls remain available, but they scroll to a progress midpoint instead
+of writing a second active-state value. The same mapping therefore works on every pass:
+`0.00–0.25` Brief, `0.25–0.50` System map, `0.50–0.75` Build, and `0.75–1.00` Proof.
 
-## Replayable process entrance — 2026-08-21
+## Scroll-position-driven Process state — 2026-08-21
 
-| Moment | Trigger | Start → settle | Reset rule | Reduced motion |
+| Moment | Trigger | Start → settle | Source of truth | Reduced motion |
 | --- | --- | --- | --- | --- |
-| Process sequence | One section-level `IntersectionObserver` at roughly 35% visibility, with the fixed header removed from the root | Brief → System map → Build → Proof; the existing visual transition and system-field draw timing are unchanged | No reset at the entry boundary; reset only at roughly 5% visibility, canceling timers and returning to Brief | Proof appears immediately and no timed sequence runs |
-| Process re-entry | Any clean re-entry after reset | A fresh visual mount replays the existing SVG/CSS resolve from Brief | A generation token rejects stale callbacks from a previous pass | The final static state remains settled |
+| Process state | `useScroll` section progress | The existing visual crossfades and resolves when the quantized index changes | `clamp(floor(scrollYProgress × 4), 0, 3)` | Same state mapping; non-essential transitions are removed |
+| Process reverse | Scroll progress decreases | Proof → Build → System map → Brief with no reset branch | The same progress value, read in the opposite direction | Instant state changes |
+| Process controls | Tap, swipe, or arrow/Home/End key | Scroll to the selected state's midpoint, then let progress update the active tab and visual | Native document scroll plus the section progress value | Instant scroll and state changes |
+
+There are no autoplay timers, `once` flags, enter/exit reset observers, or independent
+step observers in the Process implementation. A keyed visual remount still lets each
+existing SVG/CSS state enter, communicate, and settle whenever the scroll-derived state
+changes.
 
 ## Ordered outcomes refinement — 2026-08-19
 

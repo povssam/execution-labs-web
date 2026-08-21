@@ -1,7 +1,13 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "framer-motion";
+import { useCallback, useRef, useState } from "react";
 import type {
   KeyboardEvent as ReactKeyboardEvent,
   PointerEvent as ReactPointerEvent,
@@ -17,151 +23,66 @@ const processVisuals: SystemVisualVariant[] = [
   "proof",
 ];
 
-const PROCESS_ENTRY_THRESHOLD = 0.35;
-const PROCESS_RESET_THRESHOLD = 0.05;
-const PROCESS_STEP_DURATION = 1000;
-
-type ProcessSequencePhase =
-  | "outside"
-  | "ready"
-  | "playing"
-  | "complete"
-  | "manual";
+const PROCESS_SCROLL_OFFSETS: ["start 70%", "end 30%"] = [
+  "start 70%",
+  "end 30%",
+];
+const PROCESS_PROGRESS_START = 0.7;
+const PROCESS_PROGRESS_END = 0.3;
 
 export function Process() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [sequenceId, setSequenceId] = useState(0);
   const reducedMotion = useReducedMotion();
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const pointerStart = useRef<{ id: number; x: number } | null>(null);
-  const activeIndexRef = useRef(0);
-  const sequencePhaseRef = useRef<ProcessSequencePhase>("ready");
-  const sequenceGenerationRef = useRef(0);
-  const sequenceTimerRef = useRef<number | null>(null);
-  const reducedMotionRef = useRef(reducedMotion === true);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: PROCESS_SCROLL_OFFSETS,
+  });
   const active = process[activeIndex];
 
-  useEffect(() => {
-    reducedMotionRef.current = reducedMotion === true;
-  }, [reducedMotion]);
-
-  const setActiveStep = useCallback((index: number) => {
-    const next = Math.min(process.length - 1, Math.max(0, index));
-    activeIndexRef.current = next;
-    setActiveIndex(next);
-  }, []);
-
-  const clearSequenceTimer = useCallback(() => {
-    if (sequenceTimerRef.current === null) return;
-    window.clearTimeout(sequenceTimerRef.current);
-    sequenceTimerRef.current = null;
-  }, []);
-
-  const stopSequence = useCallback(
-    (phase: ProcessSequencePhase) => {
-      sequenceGenerationRef.current += 1;
-      clearSequenceTimer();
-      sequencePhaseRef.current = phase;
-    },
-    [clearSequenceTimer],
-  );
-
-  const resetSequence = useCallback(() => {
-    stopSequence("ready");
-    setActiveStep(0);
-  }, [setActiveStep, stopSequence]);
-
-  const startSequence = useCallback(() => {
-    if (sequencePhaseRef.current !== "ready") return;
-
-    clearSequenceTimer();
-    sequenceGenerationRef.current += 1;
-    const generation = sequenceGenerationRef.current;
-    sequencePhaseRef.current = "playing";
-    // A fresh key remounts the existing SVG/CSS visual so its established
-    // draw/settle animation is replayable after every genuine re-entry.
-    setSequenceId((current) => current + 1);
-    setActiveStep(0);
-
-    if (
-      reducedMotionRef.current ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      sequencePhaseRef.current = "complete";
-      setActiveStep(process.length - 1);
-      return;
-    }
-
-    const advance = () => {
-      sequenceTimerRef.current = window.setTimeout(() => {
-        sequenceTimerRef.current = null;
-        if (
-          sequenceGenerationRef.current !== generation ||
-          sequencePhaseRef.current !== "playing"
-        ) {
-          return;
-        }
-
-        const next = activeIndexRef.current + 1;
-        if (next >= process.length) {
-          sequencePhaseRef.current = "complete";
-          return;
-        }
-
-        setActiveStep(next);
-        advance();
-      }, PROCESS_STEP_DURATION);
-    };
-
-    advance();
-  }, [clearSequenceTimer, setActiveStep]);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const headerHeight = document
-      .querySelector<HTMLElement>(".site-header")
-      ?.getBoundingClientRect().height ?? 0;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry) return;
-
-        if (entry.intersectionRatio <= PROCESS_RESET_THRESHOLD) {
-          resetSequence();
-          return;
-        }
-
-        if (
-          entry.intersectionRatio >= PROCESS_ENTRY_THRESHOLD &&
-          sequencePhaseRef.current === "ready"
-        ) {
-          startSequence();
-        }
-      },
-      {
-        rootMargin: `-${headerHeight}px 0px 0px 0px`,
-        threshold: [0, PROCESS_RESET_THRESHOLD, PROCESS_ENTRY_THRESHOLD],
-      },
+  const updateActiveFromProgress = useCallback((progress: number) => {
+    const boundedProgress = Math.min(1, Math.max(0, progress));
+    const next = Math.min(
+      process.length - 1,
+      Math.floor(boundedProgress * process.length),
     );
 
-    observer.observe(section);
+    setActiveIndex((current) => (current === next ? current : next));
+  }, []);
 
-    return () => {
-      observer.disconnect();
-      stopSequence("outside");
-    };
-  }, [resetSequence, startSequence, stopSequence]);
+  useMotionValueEvent(scrollYProgress, "change", updateActiveFromProgress);
+
+  const scrollToStep = useCallback(
+    (index: number, focus = false) => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const next = (index + process.length) % process.length;
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top + window.scrollY;
+      const progressStart = sectionTop - window.innerHeight * PROCESS_PROGRESS_START;
+      const progressEnd =
+        sectionTop + rect.height - window.innerHeight * PROCESS_PROGRESS_END;
+      const targetProgress = (next + 0.5) / process.length;
+      const targetTop = progressStart + (progressEnd - progressStart) * targetProgress;
+      const shouldReduceMotion =
+        reducedMotion === true ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: shouldReduceMotion ? "auto" : "smooth",
+      });
+
+      if (focus) requestAnimationFrame(() => tabs.current[next]?.focus());
+    },
+    [reducedMotion],
+  );
 
   const selectStep = (index: number, focus = false) => {
-    const next = (index + process.length) % process.length;
-    // An explicit control action wins over an entrance sequence, including
-    // the small race where a browser scrolls a tab into view before clicking.
-    stopSequence("manual");
-    setActiveStep(next);
-    if (focus) requestAnimationFrame(() => tabs.current[next]?.focus());
+    scrollToStep(index, focus);
   };
 
   const handleKeyDown = (
@@ -206,7 +127,6 @@ export function Process() {
       ref={sectionRef}
       id="process"
       data-process-index={activeIndex}
-      data-process-run={sequenceId}
       className={`${styles.section} ${styles.processSection} section-flow relative overflow-hidden`}
     >
       <div className={`${styles.container} relative z-10`}>
@@ -253,7 +173,7 @@ export function Process() {
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
-                key={`${active.title}-${sequenceId}`}
+                key={active.title}
                 id="process-panel"
                 role="tabpanel"
                 aria-labelledby={`process-tab-${activeIndex}`}
