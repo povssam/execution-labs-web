@@ -233,24 +233,26 @@ Production-build browser results:
 - Two visual refinement cycles and final production-build captures live in
   `docs/qa/outcomes-media-refinement-2026-08-19/`.
 
-## Scroll-position-driven Process state — 2026-08-21
+## Scroll-position-driven Process state — 2026-08-23
 
-The rejected observer/timer replay implementation was removed. Process now has one
-source of truth: Framer Motion's normalized `scrollYProgress` for the Process section.
-The existing visual components, copy, layout, transition duration, and controls remain
-unchanged.
+The rejected IntersectionObserver/timer replay implementation was removed. Process now
+derives its active step from one normalized Framer Motion `scrollYProgress` value. The
+existing copy, layout, SystemVisual geometry, and transition timing remain unchanged;
+the panel entry is a keyed CSS transition so the browser cannot strand a Framer Motion
+layer at zero opacity after repeated mobile passes.
 
-- The section progress range is `start 70%` → `end 30%`, which leaves the fixed header
-  clear while giving the compact section enough travel to read each state.
-- The active index is `clamp(floor(progress × 4), 0, 3)`, mapping exactly to Brief,
-  System map, Build, and Proof. It is updated only when that scroll-derived index
-  changes; there is no timer, replay flag, reset observer, or per-step observer.
-- Clicking, swiping, and keyboard navigation scroll to the selected progress midpoint.
-  They do not set active state directly, so manual controls and native scrolling use
-  the same state path.
-- Changing the scroll-derived index remounts the existing visual once, allowing its
-  established draw/settle treatment to replay on every down/up/down pass. Reversing
-  direction follows the same mapping in reverse.
-- `scripts/qa-process-replay.mjs` covers five repeated down/up/down passes, midpoint
-  reversal, fast direction changes, control navigation, touch swipes, reduced motion,
-  and zero document overflow at 390×844, 430×932, 768×1024, and 1440×900.
+- Progress uses `start 70%` → `end 30%` to keep the fixed header clear and give the compact
+  section a stable travel range.
+- `clamp(floor(progress × 4), 0, 3)` maps exactly to Brief, System map, Build, and Proof.
+  Reversing scroll reads the same value in reverse; there is no reset branch or timer.
+- Every step boundary increments `data-process-transition`. A genuine progress re-entry
+  from zero increments it again so Brief's visual also remounts on every pass.
+- Tap, swipe, and keyboard controls scroll to progress midpoints instead of writing the
+  active state directly, keeping one source of truth.
+- `scripts/qa-process-replay.mjs` verifies five complete DOWN → UP → DOWN → UP → DOWN
+  passes, midpoint reversals, CSS `animationstart` events for every transition revision,
+  reduced motion, no overflow, and browser errors in Chromium and WebKit at 390×844,
+  430×932, 768×1024, and 1440×900.
+
+Visual captures from the isolated QA server remain in
+`docs/qa/process-replay-2026-08-22/`.

@@ -70,23 +70,20 @@ still. The standalone Motion Work scene was removed to avoid repeating Grace.
 | Process system field | Selection completes | Routes and nodes resolve once, then remain still | Replace explanatory copy with visual proof of input, map, build, and feedback | Complete diagram shown immediately |
 | Outcomes entrance | Section enters | Four lines rise 12–18px in a short stagger, then remain fully readable | Close the middle with one editorial statement rather than another interaction | Full composition shown immediately |
 
-Process playback is derived from the section's current normalized scroll progress. The
-manual process controls remain available, but they scroll to a progress midpoint instead
-of writing a second active-state value. The same mapping therefore works on every pass:
-`0.00–0.25` Brief, `0.25–0.50` System map, `0.50–0.75` Build, and `0.75–1.00` Proof.
-
-## Scroll-position-driven Process state — 2026-08-21
+## Scroll-position-driven Process state — 2026-08-23
 
 | Moment | Trigger | Start → settle | Source of truth | Reduced motion |
 | --- | --- | --- | --- | --- |
-| Process state | `useScroll` section progress | The existing visual crossfades and resolves when the quantized index changes | `clamp(floor(scrollYProgress × 4), 0, 3)` | Same state mapping; non-essential transitions are removed |
-| Process reverse | Scroll progress decreases | Proof → Build → System map → Brief with no reset branch | The same progress value, read in the opposite direction | Instant state changes |
-| Process controls | Tap, swipe, or arrow/Home/End key | Scroll to the selected state's midpoint, then let progress update the active tab and visual | Native document scroll plus the section progress value | Instant scroll and state changes |
+| Process state | Framer Motion `useScroll` section progress | `0.00–0.25` Brief, `0.25–0.50` System map, `0.50–0.75` Build, `0.75–1.00` Proof | `clamp(floor(scrollYProgress × 4), 0, 3)` | Same mapping with the non-essential entry transition removed |
+| Process reverse | Progress decreases | Proof → Build → System map → Brief | The same normalized progress value | Instant state changes |
+| Process replay | Progress leaves zero and re-enters the section | The existing keyed SystemVisual re-mounts and its CSS draw/settle animations replay | A progress-derived transition revision | Static visual state |
+| Process controls | Tap, swipe, or arrow/Home/End key | Scroll to a state midpoint, then let scroll progress update the active tab and visual | Native document scroll plus the MotionValue | Instant scroll and state changes |
 
-There are no autoplay timers, `once` flags, enter/exit reset observers, or independent
-step observers in the Process implementation. A keyed visual remount still lets each
-existing SVG/CSS state enter, communicate, and settle whenever the scroll-derived state
-changes.
+There are no autoplay timers, `once` flags, reset observers, or independent step
+observers. Every state boundary and genuine progress re-entry increments the keyed
+transition revision. The panel uses the same 380ms cubic-bezier entry treatment as the
+previous visual transition, implemented with a keyed CSS animation so mobile Safari does
+not leave an entering Motion layer at zero opacity.
 
 ## Ordered outcomes refinement — 2026-08-19
 

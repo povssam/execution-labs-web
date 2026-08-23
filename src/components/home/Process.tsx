@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  AnimatePresence,
-  motion,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
@@ -29,30 +27,53 @@ const PROCESS_SCROLL_OFFSETS: ["start 70%", "end 30%"] = [
 ];
 const PROCESS_PROGRESS_START = 0.7;
 const PROCESS_PROGRESS_END = 0.3;
+const PROCESS_ENTRY_EPSILON = 0.001;
+
+function getProcessStep(progress: number) {
+  const boundedProgress = Math.min(1, Math.max(0, progress));
+  return Math.min(
+    process.length - 1,
+    Math.floor(boundedProgress * process.length),
+  );
+}
 
 export function Process() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [transitionId, setTransitionId] = useState(0);
   const reducedMotion = useReducedMotion();
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const pointerStart = useRef<{ id: number; x: number } | null>(null);
+  const previousProgressRef = useRef<number | null>(null);
+  const previousStepRef = useRef<number | null>(null);
+  const transitionIdRef = useRef(0);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: PROCESS_SCROLL_OFFSETS,
   });
   const active = process[activeIndex];
 
-  const updateActiveFromProgress = useCallback((progress: number) => {
-    const boundedProgress = Math.min(1, Math.max(0, progress));
-    const next = Math.min(
-      process.length - 1,
-      Math.floor(boundedProgress * process.length),
-    );
+  const updateFromScrollProgress = useCallback((latestProgress: number) => {
+    const boundedProgress = Math.min(1, Math.max(0, latestProgress));
+    const nextStep = getProcessStep(boundedProgress);
+    const previousProgress = previousProgressRef.current;
+    const isGenuineReentry =
+      previousProgress !== null &&
+      previousProgress <= PROCESS_ENTRY_EPSILON &&
+      boundedProgress > PROCESS_ENTRY_EPSILON;
+    const stepChanged = previousStepRef.current !== nextStep;
 
-    setActiveIndex((current) => (current === next ? current : next));
+    if (stepChanged || isGenuineReentry) {
+      previousStepRef.current = nextStep;
+      transitionIdRef.current += 1;
+      setActiveIndex(nextStep);
+      setTransitionId(transitionIdRef.current);
+    }
+
+    previousProgressRef.current = boundedProgress;
   }, []);
 
-  useMotionValueEvent(scrollYProgress, "change", updateActiveFromProgress);
+  useMotionValueEvent(scrollYProgress, "change", updateFromScrollProgress);
 
   const scrollToStep = useCallback(
     (index: number, focus = false) => {
@@ -62,11 +83,13 @@ export function Process() {
       const next = (index + process.length) % process.length;
       const rect = section.getBoundingClientRect();
       const sectionTop = rect.top + window.scrollY;
-      const progressStart = sectionTop - window.innerHeight * PROCESS_PROGRESS_START;
+      const progressStart =
+        sectionTop - window.innerHeight * PROCESS_PROGRESS_START;
       const progressEnd =
         sectionTop + rect.height - window.innerHeight * PROCESS_PROGRESS_END;
       const targetProgress = (next + 0.5) / process.length;
-      const targetTop = progressStart + (progressEnd - progressStart) * targetProgress;
+      const targetTop =
+        progressStart + (progressEnd - progressStart) * targetProgress;
       const shouldReduceMotion =
         reducedMotion === true ||
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -119,7 +142,9 @@ export function Process() {
 
     const delta = event.clientX - start.x;
     if (Math.abs(delta) < 42) return;
-    selectStep(activeIndex + (delta < 0 ? 1 : -1));
+
+    const currentStep = getProcessStep(scrollYProgress.get());
+    selectStep(currentStep + (delta < 0 ? 1 : -1));
   };
 
   return (
@@ -127,6 +152,7 @@ export function Process() {
       ref={sectionRef}
       id="process"
       data-process-index={activeIndex}
+      data-process-transition={transitionId}
       className={`${styles.section} ${styles.processSection} section-flow relative overflow-hidden`}
     >
       <div className={`${styles.container} relative z-10`}>
@@ -171,27 +197,19 @@ export function Process() {
               pointerStart.current = null;
             }}
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={active.title}
-                id="process-panel"
-                role="tabpanel"
-                aria-labelledby={`process-tab-${activeIndex}`}
-                className={styles.processPanel}
-                initial={{ opacity: 0, x: reducedMotion ? 0 : 18 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: reducedMotion ? 0 : -12 }}
-                transition={{
-                  duration: reducedMotion ? 0 : 0.38,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
-                <SystemVisual
-                  variant={processVisuals[activeIndex]}
-                  label={`${active.title}: ${active.body}`}
-                />
-              </motion.div>
-            </AnimatePresence>
+            <div
+              key={`${active.title}-${transitionId}`}
+              data-process-panel-transition={transitionId}
+              id="process-panel"
+              role="tabpanel"
+              aria-labelledby={`process-tab-${activeIndex}`}
+              className={`${styles.processPanel} ${styles.processPanelEnter}`}
+            >
+              <SystemVisual
+                variant={processVisuals[activeIndex]}
+                label={`${active.title}: ${active.body}`}
+              />
+            </div>
             <p className="sr-only">Swipe or use the process buttons to change the visual.</p>
           </div>
         </div>
