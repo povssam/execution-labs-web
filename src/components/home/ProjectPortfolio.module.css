@@ -6,6 +6,7 @@
   --portfolio-line: rgba(237, 237, 237, 0.13);
   --portfolio-ease: cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
+  overflow: clip;
   min-height: 0;
   padding-block: clamp(4rem, 7vw, 7rem) 0;
   background: var(--portfolio-ink);

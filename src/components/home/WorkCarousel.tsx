@@ -270,7 +270,7 @@ export function WorkCarousel() {
     <section
       id="selected-work"
       data-portfolio-index={activeIndex}
-      className={`${styles.section} section-flow relative overflow-hidden`}
+      className={`${styles.section} section-flow relative`}
     >
       <BrandAtmosphere intensity="soft" tone="media" focus="right" />
       <Container className={`${styles.container} relative z-10`}>

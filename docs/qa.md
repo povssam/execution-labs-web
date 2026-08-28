@@ -276,6 +276,15 @@ Automated checks:
   state; `prefers-reduced-motion` was enabled during QA.
 - Fresh 390px and 768px pages had no hydration errors. Grace video is poster-only and
   unmounted below 768px; the real video mounts at 768px and above.
+- Final static-export pass covered 320×700, 375×812, 390×844, 430×932, 768×1024,
+  1024×768, and 1440×900 with 0px document overflow, five portfolio states, and four
+  process tabs. The desktop stage stayed pinned at the navigation offset throughout
+  its scroll runway.
+- WebKit checks at 390×844 and 430×932 confirmed the native touch rail, selection,
+  process tabs, reduced motion, and no console/page errors. The sticky fix uses
+  `overflow: clip` so the portfolio stage is not trapped by the section’s overflow.
+- Durable command results and the final delivery checklist are recorded in
+  `docs/qa/client-delivery-2026-08-28.md`.
 
 Review captures from the client delivery pass are kept outside the source commit in
 the local `test-results/` workspace. The verified branch preview is:
