@@ -90,3 +90,18 @@ Narrative sequence:
 The standalone Motion Work section was merged into Selected Work because it repeated
 Grace and interrupted the proof sequence. No client, metric, result, testimonial, or
 case study was added.
+
+## Client delivery alignment — 2026-08-28
+
+The client feedback thread and supplied references are the source of truth for this
+delivery. The approved hero remains intact. The first major change begins after the
+hero: the former video/project treatment is now a Project Portfolio experience with a
+central title, five real case-study states, orbiting artifact tiles, scroll progression,
+and direct case-study links.
+
+Only the real case-study data in `src/lib/data.ts` is used. Grace keeps the existing
+video/poster; the other projects use restrained code-rendered artifact surfaces because
+the repository contains no authentic project captures for them. The process section now
+reads as one execution protocol field rather than four generic cards. Mobile uses a
+native horizontal snap rail and the same concise project metadata, not a shrunken
+desktop orbit.

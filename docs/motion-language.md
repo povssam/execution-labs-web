@@ -96,3 +96,16 @@ not leave an entering Motion layer at zero opacity.
 Outcome navigation clamps at the first and final states. It never wraps, auto-plays,
 or skips an intermediate state. Every system-field animation enters, communicates,
 and becomes still.
+
+## Client delivery motion — 2026-08-28
+
+| Moment | Trigger | Motion | Guardrail |
+| --- | --- | --- | --- |
+| Portfolio state | Native document scroll | A requestAnimationFrame-throttled scroll readout advances one of five project states; tiles settle with opacity and transform | No scroll-jacking, timer, or continuous orbit rotation |
+| Project selection | Tap, click, or arrow key | Active tile resolves, central copy remounts, and the existing case-study link updates | One active state; focus follows the visible desktop tile or mobile card |
+| Mobile portfolio | Horizontal touch scroll | Native snap rail derives the centered project | Touch owns only the rail; vertical page scrolling remains native |
+| Execution protocol | Tab click or arrow/Home/End key | Route line and readout resolve to the selected real process step | Reduced motion removes transition and entry animation |
+
+The portfolio uses the existing case-study content as its state machine. No autoplay
+behavior was added; Grace is the only existing continuous media and keeps its poster and
+reduced-motion behavior.

@@ -206,10 +206,12 @@ export function SystemVisual({
   variant,
   label,
   className = "",
+  animated = true,
 }: {
   variant: SystemVisualVariant;
   label: string;
   className?: string;
+  animated?: boolean;
 }) {
   const geometry = geometries[variant];
 
@@ -218,6 +220,7 @@ export function SystemVisual({
       className={`${styles.frame} ${className}`}
       data-system-visual
       data-variant={variant}
+      data-animated={animated}
       role="img"
       aria-label={label}
     >

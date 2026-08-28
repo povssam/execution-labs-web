@@ -256,3 +256,27 @@ layer at zero opacity after repeated mobile passes.
 
 Visual captures from the isolated QA server remain in
 `docs/qa/process-replay-2026-08-22/`.
+
+## Client delivery QA — 2026-08-28
+
+The client feedback brief was verified from the connected Drive folder before the
+delivery pass. The liked hero remains unchanged. The homepage now uses the existing
+five `caseStudies` records in one Project Portfolio experience, with direct
+`/work/[slug]` links and no fabricated clients or project media.
+
+Automated checks:
+
+- `npm run build` passed on Next 16.2.9 with all static routes generated.
+- Targeted ESLint passed for the changed TypeScript and TSX files.
+- Static-export Playwright smoke passed at 320, 375, 390, 430, 768, 1024, and 1440
+  widths with 0px document overflow and no console/page errors.
+- Desktop scroll advanced the portfolio state; orbital tile selection updated the
+  active case-study link; process Arrow-key navigation reached `Build`.
+- Mobile touch-rail selection and native horizontal scrolling advanced the project
+  state; `prefers-reduced-motion` was enabled during QA.
+- Fresh 390px and 768px pages had no hydration errors. Grace video is poster-only and
+  unmounted below 768px; the real video mounts at 768px and above.
+
+Review captures from the client delivery pass are kept outside the source commit in
+the local `test-results/` workspace. The verified branch preview is:
+`https://feat-mvp-website.execution-labs-web.pages.dev`

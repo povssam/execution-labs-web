@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type {
   KeyboardEvent as ReactKeyboardEvent,
@@ -8,6 +8,7 @@ import type {
 } from "react";
 import { BrandAtmosphere } from "../BrandAtmosphere";
 import { SystemVisual, type SystemVisualVariant } from "./SystemVisual";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { capabilities } from "@/lib/data";
 import styles from "./Middle.module.css";
 
@@ -22,7 +23,7 @@ const capabilityVisuals: SystemVisualVariant[] = [
 
 export function WhatWeBuild() {
   const [activeCapability, setActiveCapability] = useState(4);
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = usePrefersReducedMotion();
   const rail = useRef<HTMLDivElement | null>(null);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
   const pointerStart = useRef<{ id: number; x: number } | null>(null);

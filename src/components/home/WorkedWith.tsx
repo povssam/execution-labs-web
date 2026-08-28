@@ -9,39 +9,26 @@ const clients = [
 export function WorkedWith() {
   return (
     <section className="worked-with-surface relative overflow-hidden">
-      <div className="relative z-10">
-        <p className="text-center font-mono text-[10px] uppercase tracking-[0.22em] text-bone-faint">
-          Worked with
-        </p>
+      <div
+        className="worked-with-grid relative z-10"
+        role="group"
+        aria-label={`Worked with ${clients.join(", ")}`}
+      >
+        <div className="worked-with-heading">
+          <span>Worked with</span>
+          <span>00 / selected systems</span>
+        </div>
 
-        <div
-          className="worked-marquee relative mt-4 overflow-hidden sm:mt-5"
-          aria-label={`Worked with ${clients.join(", ")}`}
-        >
-          <ul className="sr-only">
-            {clients.map((client) => (
-              <li key={client}>{client}</li>
-            ))}
-          </ul>
-
-          <div className="worked-marquee-track flex w-max items-center">
-            {[0, 1].map((group) => (
-              <div
-                key={group}
-                aria-hidden="true"
-                className="worked-marquee-group flex shrink-0 items-center gap-10 pr-10 sm:gap-16 sm:pr-16 lg:gap-24 lg:pr-24"
-              >
-                {clients.map((client) => (
-                  <span
-                    key={`${group}-${client}`}
-                    className="worked-wordmark whitespace-nowrap text-sm font-medium text-bone-dim sm:text-base lg:text-lg"
-                  >
-                    {client}
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
+        <div className="worked-client-grid">
+          {clients.map((client, index) => (
+            <span key={client} className="worked-client">
+              <span className="worked-client-node" aria-hidden="true" />
+              <span>{client}</span>
+              <span className="worked-client-index" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            </span>
+          ))}
         </div>
       </div>
     </section>

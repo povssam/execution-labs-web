@@ -113,3 +113,17 @@ The approved direction is now being translated as a restrained editorial system:
 - CTA hierarchy remains singular: `Start a project` is the only primary action and the approved footer direction is unchanged.
 
 The existing local art-direction board remains the visual reference because no Figma MCP connector is exposed in this workspace.
+
+## Client delivery direction — orbital project portfolio
+
+The portfolio is the signature post-hero moment. Its near-black field, thin rules,
+hero-derived chromatic prism treatment, and restrained cyan state color extend the
+existing Execution Labs visual system without turning the page into a generic AI
+dashboard. Project artifacts sit on a controlled orbital composition around the central
+`Project Portfolio` title; selecting a tile resolves its client, discipline, summary,
+and existing case-study route.
+
+On small screens the orbit becomes a touch-first snap rail beneath the central project
+readout. This preserves the visual hierarchy and keeps the page scroll native. The
+execution protocol below uses the same grid/prism grammar with one route field and four
+real process states.

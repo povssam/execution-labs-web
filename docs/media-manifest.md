@@ -40,3 +40,16 @@ component rather than introducing another media style or bitmap payload.
 The outcomes refinement adds no bitmap, canvas, video, or third-party media payload.
 Its four proof states extend the existing deterministic system-field component and do
 not contain fake labels, metrics, dashboards, or client claims.
+
+## Client delivery asset use — 2026-08-28
+
+The delivery uses the existing media inventory only:
+
+- `public/brand/hero-glass.png` remains the hero anchor and is reused as a low-opacity
+  prism texture inside the portfolio/process fields.
+- `public/brand/grace/grace-animation.mp4` and its poster remain the only real project
+  media, now appearing as the Grace portfolio tile.
+- `src/lib/data.ts` supplies all five real client/project names, copy, years, tags, and
+  case-study routes.
+- Other portfolio tiles are deterministic CSS/SVG artifact surfaces labeled from that
+  real data; no project, client, metric, or image was fabricated.

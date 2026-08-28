@@ -19,7 +19,7 @@ const links: NavLink[] = [
   { href: "/contact", label: "Contact" },
 ];
 
-const scrollSpyIds = ["what-we-build", "selected-work", "process", "client-signals"];
+const scrollSpyIds = ["what-we-build", "selected-work", "process"];
 
 export function Nav() {
   const pathname = usePathname();
