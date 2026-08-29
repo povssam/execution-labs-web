@@ -12,14 +12,14 @@ import { Logo } from "./brand/Logo";
 type NavLink = { href: string; label: string; section?: string };
 
 const links: NavLink[] = [
-  { href: "/#what-we-build", label: "What we build", section: "what-we-build" },
+  { href: "/#selected-work", label: "Project portfolio", section: "selected-work" },
   { href: "/work", label: "Work" },
   { href: "/services", label: "Services" },
   { href: "/#process", label: "Process", section: "process" },
   { href: "/contact", label: "Contact" },
 ];
 
-const scrollSpyIds = ["what-we-build", "selected-work", "process"];
+const scrollSpyIds = ["selected-work", "process"];
 
 export function Nav() {
   const pathname = usePathname();
