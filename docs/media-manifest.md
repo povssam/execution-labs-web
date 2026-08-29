@@ -60,3 +60,20 @@ The delivery uses the existing media inventory only:
 | `public/brand/projects/dividends-total-returns-orbit.png` | Dividends & Total Returns |
 | `public/brand/projects/orbit-artist-group-orbit.png` | Orbit Artist Group |
 | `public/brand/projects/media-scaling-orbit.png` | Media Scaling |
+
+## Reference-grounded middle system — 2026-08-29
+
+The middle pass uses only the existing Execution Labs and project inventory:
+
+- `public/brand/hero-glass.png` supplies the approved refracted field and the subtle
+  optical texture behind the portfolio, protocol, and capability objects.
+- `public/brand/grace/grace-animation-poster.jpg` and the existing
+  `grace-animation.mp4` provide the Grace tile and evidence state.
+- `public/brand/projects/soniq-orbit.png`,
+  `dividends-total-returns-orbit.png`, `orbit-artist-group-orbit.png`, and
+  `media-scaling-orbit.png` provide the remaining real project tiles and evidence
+  states.
+- `src/lib/data.ts` remains the source of truth for all five project names, routes,
+  years, categories, and artifact labels.
+
+No new client work, metrics, logos, screenshots, or fabricated evidence were added.

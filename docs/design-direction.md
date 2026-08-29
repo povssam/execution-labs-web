@@ -140,3 +140,19 @@ styling: one large cropped rotor, eighteen radial arms, upright compact media ti
 black center space, small centered copy, and precise scroll-derived rotation. Desktop
 uses a broad circular field; mobile preserves the same geometry at roughly 650px and
 crops it to a five-tile arc.
+
+## Reference-grounded middle system — 2026-08-29
+
+The portfolio's grammar now carries through the whole middle rather than being
+repeated literally:
+
+- `01 / Refracted Field` bridges the hero with one large optical field and a short statement.
+- `02 / Project Orbit` uses the true circular rotor as the signature interactive composition.
+- `03 / Protocol Lens` keeps one lens on screen while Brief, System, Build, and Proof become states.
+- `04 / Capability Stack` uses one layered spatial object for AI Agents, Software, Automation, and Product Systems.
+- `05 / Evidence Viewport` uses one real project viewport with five real project states.
+
+Black space and real media do most of the work. Hero-derived `hero-glass.png` is used
+as a restrained optical surface, while mono labels remain instrumentation rather than
+the visual subject. The sections are intentionally sparse so the middle belongs to the
+same refracted, engineered world as the approved hero.

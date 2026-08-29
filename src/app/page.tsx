@@ -3,6 +3,8 @@ import { GlobalStatement } from "@/components/home/GlobalStatement";
 import { WorkedWith } from "@/components/home/WorkedWith";
 import { WorkCarousel } from "@/components/home/WorkCarousel";
 import { Process } from "@/components/home/Process";
+import { CapabilityStack } from "@/components/home/CapabilityStack";
+import { EvidenceViewport } from "@/components/home/EvidenceViewport";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function Home() {
@@ -15,6 +17,8 @@ export default function Home() {
       <GlobalStatement />
       <WorkCarousel />
       <Process />
+      <CapabilityStack />
+      <EvidenceViewport />
       <FinalCTA compact />
     </>
   );

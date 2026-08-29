@@ -5,6 +5,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { BrandAtmosphere } from "@/components/BrandAtmosphere";
 import { Preloader } from "@/components/Preloader";
+import { MotionProvider } from "@/components/MotionProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,11 +50,13 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-ink">
-        <BrandAtmosphere intensity="soft" fixed />
-        <Preloader />
-        <Nav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <MotionProvider>
+          <BrandAtmosphere intensity="soft" fixed />
+          <Preloader />
+          <Nav />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

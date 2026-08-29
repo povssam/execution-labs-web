@@ -1,0 +1,75 @@
+[
+  {
+    "viewport": "1024x768",
+    "sequences": {
+      "portfolio": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "process": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "capabilities": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "proof": [
+        0,
+        1,
+        3,
+        4
+      ]
+    },
+    "metrics": {
+      "overflow": 0,
+      "bottom": 3349,
+      "documentHeight": 14463
+    },
+    "errors": []
+  },
+  {
+    "viewport": "768x1024",
+    "sequences": {
+      "portfolio": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "process": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "capabilities": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "proof": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "metrics": {
+      "overflow": 0,
+      "bottom": 4235,
+      "documentHeight": 18729
+    },
+    "errors": []
+  }
+]

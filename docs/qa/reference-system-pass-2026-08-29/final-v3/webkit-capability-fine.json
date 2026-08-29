@@ -1,0 +1,23 @@
+{
+  "viewport": "390x844",
+  "scrollDriver": "incremental window.scrollBy (mobile WebKit mouse.wheel unsupported)",
+  "forward": {
+    "sequence": [0, 1, 2, 3],
+    "samples": [
+      { "y": 7783, "state": 0 },
+      { "y": 8383, "state": 1 },
+      { "y": 8883, "state": 2 },
+      { "y": 9383, "state": 3 }
+    ]
+  },
+  "reverse": {
+    "sequence": [3, 2, 1, 0],
+    "samples": [
+      { "y": 9950, "state": 3 },
+      { "y": 9350, "state": 2 },
+      { "y": 8850, "state": 1 },
+      { "y": 8350, "state": 0 }
+    ]
+  },
+  "errors": []
+}

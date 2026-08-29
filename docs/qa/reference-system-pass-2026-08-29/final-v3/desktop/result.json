@@ -1,0 +1,71 @@
+{
+  "viewport": "1440x1000",
+  "forwardLoops": 56,
+  "reverseLoops": 56,
+  "forward": {
+    "selected-work": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "process": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "capabilities": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "proof": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "reverse": {
+    "selected-work": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "process": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "capabilities": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "proof": [
+      4,
+      3,
+      2,
+      1,
+      0
+    ]
+  },
+  "bottomReached": true,
+  "topReached": true,
+  "overflow": false,
+  "errors": [],
+  "perf": {
+    "longTaskCount": 27,
+    "maxLongTask": 614,
+    "layoutShiftCount": 8,
+    "layoutShiftTotal": 0.0057937821903935195
+  }
+}

@@ -17,12 +17,18 @@
   isolation: isolate;
 }
 
+.lensMedia {
+  position: absolute;
+  inset: -3%;
+  z-index: 0;
+  will-change: transform;
+}
+
 .lensImage {
   z-index: 0;
   object-fit: cover;
   object-position: 70% 52%;
   filter: saturate(1.08) contrast(1.04);
-  transform: scale(1.05);
 }
 
 .lensShade {
@@ -60,25 +66,14 @@
   width: min(32rem, 58%);
 }
 
-.kicker {
-  color: rgba(237, 237, 237, 0.58);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.11em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
 .copy h2 {
-  max-width: 12ch;
-  margin: 1.1rem 0 0;
+  max-width: 15ch;
+  margin: 0;
   color: #ededed;
-  font-size: clamp(2.8rem, 4.6vw, 4.35rem);
+  font-size: clamp(2.65rem, 4.15vw, 3.95rem);
   font-weight: 600;
   letter-spacing: -0.055em;
   line-height: 0.96;
-  text-wrap: balance;
 }
 
 .copy p {
@@ -102,9 +97,8 @@
     height: 31rem;
   }
 
-  .lensImage {
+  .lensMedia {
     object-position: 67% 50%;
-    transform: scale(1.2);
   }
 
   .lensShade {
@@ -127,14 +121,9 @@
     width: auto;
   }
 
-  .kicker {
-    font-size: 0.56rem;
-  }
-
   .copy h2 {
-    max-width: 10ch;
-    margin-top: 0.85rem;
-    font-size: clamp(2.15rem, 10.4vw, 2.65rem);
+    max-width: 13ch;
+    font-size: clamp(2.05rem, 9.6vw, 2.45rem);
     line-height: 0.95;
   }
 
@@ -146,7 +135,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lensImage {
-    transform: none;
+  .lensMedia {
+    will-change: auto;
   }
 }

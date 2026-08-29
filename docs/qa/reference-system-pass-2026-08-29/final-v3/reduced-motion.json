@@ -1,0 +1,41 @@
+{
+  "viewport": "390x844",
+  "preference": "reduce",
+  "initial": {
+    "videoCount": 0,
+    "overflow": 0
+  },
+  "sequences": {
+    "portfolio": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "process": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "capabilities": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "proof": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "post": {
+    "overflow": 0,
+    "y": 13704
+  },
+  "errors": []
+}

@@ -121,3 +121,22 @@ reduced-motion behavior.
 
 The active metadata changes without a keyed entrance animation so WebKit cannot leave
 the selected project hidden after a scroll-derived state update.
+
+## Reference-grounded middle system — 2026-08-29
+
+The middle uses three motion classes only:
+
+1. Reveal: opacity with a minimal translate for section entry.
+2. State transition: a controlled rotation, translation, scale, or media crossfade between discrete states.
+3. Optical drift: very small scroll-linked movement inside the refracted field or lens.
+
+Project Orbit uses native document scroll through a sticky scene. Progress maps to five
+project states and a damped rotor rotation; the radial tiles counter-rotate so their
+images remain upright. Protocol, Capability Stack, and Evidence Viewport use the same
+native scroll pattern for their discrete states. No section hijacks the wheel, starts a
+continuous spin, or uses a bouncy spring.
+
+`MotionConfig reducedMotion="user"` wraps the page, and stateful sections use the
+repository's SSR-safe `usePrefersReducedMotion` store. Reduced motion removes large
+transforms, parallax, and Grace autoplay while leaving state changes, selection, links,
+keyboard controls, and scroll access intact.
