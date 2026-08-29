@@ -11,10 +11,10 @@ import { Container } from "../ui/Container";
 import styles from "./CapabilityStack.module.css";
 
 const stack = [
-  { title: "AI Agents", statement: "Observe. Decide. Act.", detail: "Agents with a real job, clear tools, and a human handoff." },
-  { title: "Software", statement: "Useful software. Shipped.", detail: "The smallest complete product people can use and judge." },
-  { title: "Automation", statement: "Less repetition. Clearer handoffs.", detail: "Recurring work routed without another layer of admin." },
-  { title: "Product Systems", statement: "The layer that holds up.", detail: "Product, data, and infrastructure designed to keep moving." },
+  { title: "AI Agents", statement: "Observe. Decide. Act.", detail: "Tools, context, handoff." },
+  { title: "Software", statement: "Useful software. Shipped.", detail: "A complete product, ready to judge." },
+  { title: "Automation", statement: "Less repetition. Clearer handoffs.", detail: "Recurring work, routed cleanly." },
+  { title: "Product Systems", statement: "The layer that holds up.", detail: "Product, data, infrastructure." },
 ] as const;
 
 export function CapabilityStack() {
@@ -51,7 +51,7 @@ export function CapabilityStack() {
     if (next === null) return;
     event.preventDefault();
     const bounded = Math.max(0, Math.min(stack.length - 1, next));
-    setActiveIndex(bounded);
+    select(bounded);
     document.getElementById(`capability-control-${bounded}`)?.focus();
   };
 

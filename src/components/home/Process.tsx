@@ -10,10 +10,10 @@ import { Container } from "../ui/Container";
 import styles from "./Process.module.css";
 
 const details = [
-  "Start with the pressure point, not a deck.",
-  "Design the shortest useful route through the work.",
-  "Ship the version people can use and judge.",
-  "Watch it run, then sharpen what matters.",
+  "Start at the pressure point.",
+  "Choose the shortest useful route.",
+  "Ship what people can judge.",
+  "Sharpen what real use reveals.",
 ] as const;
 
 const statements = [
@@ -89,7 +89,7 @@ export function Process() {
               </div>
 
               <div className={styles.content}>
-                <span className={styles.kicker}>One system / four states</span>
+                <span className={styles.kicker}>One lens / four states</span>
                 <motion.div key={activeStep.title} id="process-panel" role="tabpanel" aria-labelledby={`process-tab-${activeIndex}`} className={styles.activeState} initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0.18 : 0.42 }}>
                   <span>{activeIndex === 1 ? "System" : activeStep.title}</span>
                   <h2>{statements[activeIndex]}</h2>

@@ -168,7 +168,7 @@ export function Nav() {
             aria-expanded={open}
             aria-controls="mobile-navigation"
             onClick={() => setOpenPathname(open ? null : pathname)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-charcoal/70 text-bone transition-colors duration-150 hover:border-bone/40 lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-charcoal/70 text-bone transition-colors duration-150 hover:border-bone/40 lg:hidden"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>

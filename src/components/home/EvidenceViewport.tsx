@@ -61,7 +61,7 @@ export function EvidenceViewport() {
             <div className={styles.instrumentation}><span>05 / Evidence</span><span>{String(activeIndex + 1).padStart(2, "0")} / 05</span></div>
             <div className={styles.viewport}>
               <AnimatePresence mode="sync" initial={false}>
-                <motion.div key={active.slug} className={styles.media} initial={{ opacity: 0, scale: reduceMotion ? 1 : 1.018 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? 0.2 : 0.5 }}>
+                <motion.div key={active.slug} data-media={active.slug} className={styles.media} initial={{ opacity: 0, scale: reduceMotion ? 1 : 1.018 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? 0.2 : 0.5 }}>
                   {active.slug === "grace" && !reduceMotion ? (
                     <video className={styles.video} autoPlay muted loop playsInline poster={media.grace}><source src="/brand/grace/grace-animation.mp4" type="video/mp4" /></video>
                   ) : (

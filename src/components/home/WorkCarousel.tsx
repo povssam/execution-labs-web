@@ -20,8 +20,6 @@ import styles from "./ProjectPortfolio.module.css";
 const ORBIT_COUNT = 18;
 const ORBIT_STEP = 360 / ORBIT_COUNT;
 const ORBIT_PROJECTS = [0, 1, 2, 3, 4, 0, 2, 4, 1, 3, 0, 4, 2, 1, 3, 0, 4, 2] as const;
-const ORBIT_SIZES = ["small", "large", "medium", "large", "small", "medium", "large", "small", "medium", "large", "small", "medium", "large", "small", "medium", "large", "small", "medium"] as const;
-const ORBIT_SHAPES = ["square", "portrait", "square", "landscape", "square", "portrait", "square", "landscape", "portrait", "square", "landscape", "square", "portrait", "square", "landscape", "portrait", "square", "landscape"] as const;
 
 const projectImages: Record<string, string> = {
   grace: "/brand/grace/grace-animation-poster.jpg",
@@ -70,11 +68,9 @@ function OrbitTile({
           className={styles.projectTile}
           data-orbit-item={itemIndex}
           data-orbit-primary-index={itemIndex < caseStudies.length ? itemIndex : undefined}
+          data-project={study.slug}
           data-active={isFocus}
-          data-selected={projectIndex === activeIndex}
-          data-size={ORBIT_SIZES[itemIndex]}
-          data-shape={ORBIT_SHAPES[itemIndex]}
-          aria-pressed={projectIndex === activeIndex}
+          aria-pressed={isFocus}
           aria-label={`Select ${study.client} project`}
           onClick={() => onSelect(projectIndex)}
           onKeyDown={(event) => onKeyDown(event, projectIndex)}
