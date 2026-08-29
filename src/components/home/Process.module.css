@@ -1,5 +1,5 @@
 .section { position: relative; overflow: clip; background: #030303; border-bottom: 1px solid rgba(237,237,237,.055); }
-.scrollScene { min-height: 160svh; }
+.scrollScene { min-height: 150svh; }
 .stickyStage { position: sticky; top: var(--nav-height); height: calc(100svh - var(--nav-height)); min-height: 40rem; overflow: hidden; }
 .container { position: relative; display: flex; height: 100%; flex-direction: column; justify-content: center; }
 .instrumentation { position: absolute; top: 1.35rem; right: 0; left: 0; display: flex; justify-content: space-between; gap: 1rem; color: rgba(237,237,237,.42); font-family: var(--font-geist-mono),monospace; font-size: .56rem; font-weight: 600; letter-spacing: .11em; line-height: 1.2; text-transform: uppercase; }
@@ -13,12 +13,10 @@
 .lensShade { position: absolute; inset: 0; background: radial-gradient(circle at 46% 42%,transparent 14%,rgba(5,5,5,.22) 72%,rgba(5,5,5,.66) 100%); }
 .lensIndex { position: absolute; right: 2%; bottom: 15%; color: rgba(237,237,237,.72); font-family: var(--font-geist-mono),monospace; font-size: .62rem; letter-spacing: .12em; }
 .content { max-width: 37rem; }
-.kicker,.activeState>span,.steps button span { font-family: var(--font-geist-mono),monospace; font-size: .57rem; font-weight: 600; letter-spacing: .11em; line-height: 1.2; text-transform: uppercase; }
-.kicker { color: rgba(237,237,237,.44); }
-.activeState { min-height: 11.75rem; padding-top: 1.65rem; }
+.activeState>span,.steps button span { font-family: var(--font-geist-mono),monospace; font-size: .57rem; font-weight: 600; letter-spacing: .11em; line-height: 1.2; text-transform: uppercase; }
+.activeState { min-height: 10.25rem; padding-top: 1.65rem; }
 .activeState>span { color: rgba(237,237,237,.7); }
 .activeState h2 { max-width: 13ch; margin: .95rem 0 0; color: #ededed; font-size: clamp(2.7rem,4.5vw,4.1rem); font-weight: 600; letter-spacing: -.065em; line-height: .92; text-wrap: balance; }
-.activeState p { max-width: 23rem; margin: 1.2rem 0 0; color: rgba(237,237,237,.56); font-size: .92rem; line-height: 1.5; }
 .steps { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border-top: 1px solid rgba(237,237,237,.14); }
 .steps button { position: relative; display: grid; gap: .55rem; min-width: 0; padding: 1.05rem .65rem 1rem 0; border: 0; background: transparent; color: rgba(237,237,237,.3); cursor: pointer; font: inherit; text-align: left; transition: color 260ms ease; }
 .steps button::before { position: absolute; top: -1px; right: .65rem; left: 0; height: 1px; background: #ededed; content: ""; opacity: 0; transform: scaleX(.25); transform-origin: left; transition: opacity 240ms ease,transform 380ms cubic-bezier(.22,1,.36,1); }
@@ -29,7 +27,7 @@
 .steps button:focus-visible { outline: 1px solid rgba(237,237,237,.75); outline-offset: .35rem; }
 @media (max-width:900px) and (min-width:768px) { .layout { grid-template-columns:minmax(19rem,.9fr) minmax(20rem,1.1fr); gap:3rem; } }
 @media (max-width:767px) {
-  .scrollScene { min-height: 160svh; }
+  .scrollScene { min-height: 150svh; }
   .stickyStage { min-height: 39rem; }
   .instrumentation { top: 1rem; font-size: .5rem; }
   .layout { display:flex; flex-direction:column; gap:2rem; padding-top:2.55rem; }
@@ -37,9 +35,8 @@
   .lens { width:92%; }
   .lensIndex { right:-1%; bottom:11%; font-size:.52rem; }
   .content { width:100%; }
-  .activeState { min-height:9.6rem; padding-top:1.2rem; }
+  .activeState { min-height:8.25rem; padding-top:1rem; }
   .activeState h2 { max-width:12ch; font-size:clamp(2.3rem,10.4vw,2.75rem); }
-  .activeState p { max-width:19rem; margin-top:.8rem; font-size:.84rem; }
   .steps button { min-height:3.8rem; padding-top:.8rem; }
   .steps button strong { font-size:.72rem; }
 }

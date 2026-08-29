@@ -1,5 +1,5 @@
 .section { position:relative; overflow:clip; background:#030303; border-bottom:1px solid rgba(237,237,237,.055); }
-.scrollScene { min-height:160svh; }
+.scrollScene { min-height:150svh; }
 .stickyStage { position:sticky; top:var(--nav-height); height:calc(100svh - var(--nav-height)); min-height:40rem; overflow:hidden; }
 .container { position:relative; display:flex; height:100%; flex-direction:column; align-items:center; justify-content:center; gap:1.35rem; }
 .instrumentation { position:absolute; top:1.35rem; right:0; left:0; z-index:9; display:flex; justify-content:space-between; color:rgba(237,237,237,.42); font-family:var(--font-geist-mono),monospace; font-size:.56rem; font-weight:600; letter-spacing:.11em; text-transform:uppercase; }
@@ -15,9 +15,8 @@
 .plane[data-active="true"]::before { opacity:.08; }
 .planeIndex { color:rgba(237,237,237,.4); font-family:var(--font-geist-mono),monospace; font-size:.56rem; letter-spacing:.11em; }
 .planeTitle { font-size:clamp(1.2rem,1.8vw,1.6rem); font-weight:500; letter-spacing:-.035em; }
-.readout { grid-column:2; display:grid; align-content:end; gap:.55rem; padding:1.75rem 0 2.35rem; }
+.readout { grid-column:2; display:grid; align-content:end; padding:1.75rem 0 2.35rem; }
 .readout strong { max-width:14ch; font-size:clamp(2.45rem,4.4vw,3.85rem); font-weight:600; letter-spacing:-.06em; line-height:.92; text-wrap:balance; }
-.readout small { max-width:25rem; color:rgba(237,237,237,.54); font-size:.86rem; line-height:1.45; }
 .plane:focus-visible { outline:1px solid #ededed; outline-offset:.45rem; }
 .controls { position:absolute; right:0; bottom:1.15rem; left:0; z-index:10; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:min(100%,58rem); margin-inline:auto; gap:1rem; }
 .controls button { display:grid; gap:.35rem; min-width:0; padding:.65rem 0 .55rem; border-top:1px solid rgba(237,237,237,.14); color:rgba(237,237,237,.32); cursor:pointer; font:inherit; text-align:left; transition:color 220ms ease,border-color 220ms ease; }
@@ -26,7 +25,7 @@
 .controls button span { font-family:var(--font-geist-mono),monospace; font-size:.52rem; font-weight:600; letter-spacing:.11em; }
 .controls button strong { overflow:hidden; font-size:.72rem; font-weight:500; line-height:1.15; text-overflow:ellipsis; white-space:nowrap; }
 @media (max-width:767px) {
-  .scrollScene { min-height:160svh; }
+  .scrollScene { min-height:150svh; }
   .stickyStage { min-height:39rem; }
   .instrumentation { top:1rem; font-size:.5rem; }
   .stackObject { width:100%; height:30rem; margin-top:-1.35rem; }
@@ -36,7 +35,6 @@
   .planeTitle { font-size:1.15rem; }
   .readout { padding:1.45rem 0 2.35rem; }
   .readout strong { font-size:clamp(2.1rem,9.5vw,2.6rem); }
-  .readout small { max-width:18rem; font-size:.78rem; }
   .controls { right:1.5rem; bottom:1rem; left:1.5rem; width:auto; gap:.65rem; }
   .controls button { min-height:3rem; padding-top:.55rem; }
   .controls button strong { font-size:.62rem; white-space:normal; }

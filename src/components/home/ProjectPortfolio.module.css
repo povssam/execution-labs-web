@@ -7,7 +7,7 @@
 
 .portfolioScroll {
   position: relative;
-  min-height: 180svh;
+  min-height: 165svh;
 }
 
 .portfolioSticky {
@@ -248,7 +248,7 @@
 
 @media (max-width: 767px) {
   .portfolioScroll {
-    min-height: 180svh;
+    min-height: 165svh;
   }
 
   .portfolioSticky {

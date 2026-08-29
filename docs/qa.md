@@ -289,3 +289,24 @@ Automated checks:
 Review captures from the client delivery pass are kept outside the source commit in
 the local `test-results/` workspace. The verified branch preview is:
 `https://feat-mvp-website.execution-labs-web.pages.dev`
+
+## Final composition polish — 2026-08-29
+
+The approved homepage identity and interaction system were held. The final pass reduced
+capability and protocol copy, shortened the three sticky scene runways, removed the
+duplicated Project Reel open action, and tightened the final CTA. Soniq now uses its
+existing 1024px product artifact as one full interface view and two editorial detail
+crops; generic problem/build cards, result container, pills, and the duplicate project
+CTA were removed.
+
+- Chromium desktop and mobile traversed Capabilities `0 → 1 → 2 → 3`, Portfolio
+  `0 → 1 → 2 → 3 → 4`, and Protocol `0 → 1 → 2 → 3` in both directions.
+- WebKit at 390×844 traversed the same state order in both directions with 100px native
+  wheel increments.
+- Mouse drag and Chromium touch drag advanced the Project Reel by exactly one card;
+  linked media resolved to the selected real project route.
+- Mobile menu lock and release, reduced-motion marquee/reel fallbacks, and 0px document
+  overflow passed.
+- `npm run lint`, `npx tsc --noEmit`, `npm run build`, and `git diff --check` passed.
+- Before and three refinement-pass captures are in
+  `docs/qa/final-polish-2026-08-29/` and remain outside the source commit.

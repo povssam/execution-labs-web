@@ -10,10 +10,10 @@ import { Container } from "../ui/Container";
 import styles from "./CapabilityStack.module.css";
 
 const stack = [
-  { title: "AI Agents", statement: "Observe. Decide. Act.", detail: "Tools, context, handoff." },
-  { title: "Software", statement: "Useful software. Shipped.", detail: "A complete product, ready to judge." },
-  { title: "Automation", statement: "Less repetition. Clearer handoffs.", detail: "Recurring work, routed cleanly." },
-  { title: "Product Systems", statement: "The layer that holds up.", detail: "Product, data, infrastructure." },
+  { title: "AI Agents", statement: "Observe. Decide. Act." },
+  { title: "Software", statement: "Useful software. Shipped." },
+  { title: "Automation", statement: "Less repetition. Clearer handoffs." },
+  { title: "Product Systems", statement: "The layer that holds up." },
 ] as const;
 
 export function CapabilityStack() {
@@ -96,7 +96,6 @@ export function CapabilityStack() {
                     {index === activeIndex && (
                       <motion.span id="capability-readout" role="tabpanel" className={styles.readout} initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }} animate={{ opacity: 1, y: 0 }}>
                         <strong>{capability.statement}</strong>
-                        <small>{capability.detail}</small>
                       </motion.span>
                     )}
                   </motion.button>

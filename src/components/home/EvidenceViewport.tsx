@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type {
   KeyboardEvent as ReactKeyboardEvent,
@@ -44,7 +43,6 @@ export function EvidenceViewport() {
   const [dragging, setDragging] = useState(false);
   const [step, setStep] = useState(0);
   const reducedMotion = usePrefersReducedMotion();
-  const activeStudy = reelStudies[activeIndex] ?? reelStudies[0];
 
   const measureStep = useCallback(() => {
     const track = trackRef.current;
@@ -225,12 +223,9 @@ export function EvidenceViewport() {
           <p className="sr-only">Swipe or drag horizontally to browse projects. Tap a project to open it.</p>
         </div>
 
-        <div className={styles.status} aria-live="polite">
-          <span>{String(activeIndex + 1).padStart(2, "0")} / {String(reelStudies.length).padStart(2, "0")}</span>
-          <Link href={`/work/${activeStudy?.slug ?? reelStudies[0]?.slug}`}>
-            Open project <ArrowUpRight size={14} aria-hidden="true" />
-          </Link>
-        </div>
+        <p className="sr-only" aria-live="polite">
+          Project {activeIndex + 1} of {reelStudies.length}: {reelStudies[activeIndex]?.client}
+        </p>
       </Container>
     </section>
   );

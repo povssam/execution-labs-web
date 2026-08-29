@@ -9,18 +9,11 @@ import { process } from "@/lib/data";
 import { Container } from "../ui/Container";
 import styles from "./Process.module.css";
 
-const details = [
-  "Start at the pressure point.",
-  "Choose the shortest useful route.",
-  "Ship what people can judge.",
-  "Sharpen what real use reveals.",
-] as const;
-
 const statements = [
   "Find the leak.",
-  "Design the route.",
+  "Map the workflow.",
   "Ship the useful version.",
-  "Test it in real use.",
+  "Test it live.",
 ] as const;
 
 type LensState = {
@@ -112,11 +105,9 @@ export function Process() {
               </div>
 
               <div className={styles.content}>
-                <span className={styles.kicker}>One lens / four states</span>
                 <motion.div key={activeStep.title} id="process-panel" role="tabpanel" aria-labelledby={`process-tab-${activeIndex}`} className={styles.activeState} initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0.18 : 0.42 }}>
                   <span>{activeIndex === 1 ? "System" : activeStep.title}</span>
                   <h2>{statements[activeIndex]}</h2>
-                  <p>{details[activeIndex]}</p>
                 </motion.div>
 
                 <div className={styles.steps} role="tablist" aria-label="Process steps">

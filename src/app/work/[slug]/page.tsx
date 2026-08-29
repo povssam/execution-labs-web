@@ -9,6 +9,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { FinalCTA } from "@/components/home/FinalCTA";
 import { GraceVideo } from "@/components/work/GraceVideo";
 import { OrbitCaseReveal } from "@/components/work/OrbitCaseReveal";
+import { SoniqCaseStudy } from "@/components/work/SoniqCaseStudy";
 import { caseStudies } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -102,6 +103,10 @@ export default async function CaseStudyPage({ params }: Params) {
 
   const study = caseStudies[index];
   const next = caseStudies[(index + 1) % caseStudies.length];
+
+  if (study.slug === "soniq") {
+    return <SoniqCaseStudy study={study} next={next} />;
+  }
 
   return (
     <>

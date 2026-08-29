@@ -18,10 +18,7 @@ export function FinalCTA({ compact = false }: { compact?: boolean }) {
             <h2 className="text-wipe mx-auto max-w-3xl text-4xl font-semibold leading-[1.02] tracking-tight text-bone sm:text-5xl lg:text-6xl">
               Make the work move.
             </h2>
-            <p className={`mx-auto ${compact ? "mt-4 text-base sm:text-lg" : "mt-6 text-lg"} max-w-xl text-bone-dim`}>
-              Send the problem. We will map the first useful build.
-            </p>
-            <CtaButtons className={`${compact ? "mt-7" : "mt-10"} justify-center`} primaryLabel="Start a project" />
+            <CtaButtons className={`${compact ? "mt-7" : "mt-9"} justify-center`} primaryLabel="Start a project" />
           </div>
         </Reveal>
       </Container>
