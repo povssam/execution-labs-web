@@ -156,10 +156,10 @@ export function EvidenceViewport() {
   const transform = `translate3d(${-(activeIndex * step) + dragOffset}px, 0, 0)`;
 
   return (
-    <section id="proof" data-evidence-index={activeIndex} className={styles.section}>
+    <section id="selected-work" data-evidence-index={activeIndex} className={styles.section}>
       <Container className={styles.container}>
         <div className={styles.intro}>
-          <span>05 / Project reel</span>
+          <span>03 / Selected work</span>
           <span>Drag / tap to open</span>
         </div>
 

@@ -310,3 +310,20 @@ CTA were removed.
 - `npm run lint`, `npx tsc --noEmit`, `npm run build`, and `git diff --check` passed.
 - Before and three refinement-pass captures are in
   `docs/qa/final-polish-2026-08-29/` and remain outside the source commit.
+
+## Final surgical homepage simplification — 2026-08-29
+
+The approved visual system was preserved. The redundant floating-icon Project Portfolio
+and the post-hero Global Statement were removed from the homepage. The existing
+draggable Project Reel is now the sole `03 / Selected Work` section; Capabilities,
+Execution Protocol, CTA, header, hero, and footer remain in the existing order and
+visual treatment.
+
+- Homepage section order is Hero → Worked With → Capabilities → Selected Work →
+  Execution Protocol → CTA → Footer.
+- The homepage no longer renders `GlobalStatement` or `WorkCarousel`; the preserved
+  `ProjectReel.tsx` QA artifact was not touched.
+- Full-page built captures at 390×844, 430×932, 768×1024, and 1440×900 are in
+  `docs/qa/final-surgical-2026-08-29/built/`.
+- Lint, TypeScript, production build, whitespace validation, project drag/tap, process
+  state order, header collision, and document overflow checks passed.
