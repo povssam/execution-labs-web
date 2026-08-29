@@ -34,7 +34,6 @@ export function GlobalStatement() {
 
           <div className={styles.copy}>
             <h2>The work changes when the system is clear.</h2>
-            <p>Built for work that moves.</p>
           </div>
         </div>
       </Container>

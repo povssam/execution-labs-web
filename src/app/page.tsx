@@ -15,9 +15,9 @@ export default function Home() {
         <WorkedWith />
       </div>
       <GlobalStatement />
+      <CapabilityStack />
       <WorkCarousel />
       <Process />
-      <CapabilityStack />
       <EvidenceViewport />
       <FinalCTA compact />
     </>

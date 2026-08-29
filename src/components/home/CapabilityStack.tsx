@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -61,7 +60,7 @@ export function CapabilityStack() {
         <div className={styles.stickyStage}>
           <Container className={styles.container}>
             <div className={styles.instrumentation}>
-              <span>04 / Capabilities</span>
+              <span>02 / Capabilities</span>
               <span>{String(activeIndex + 1).padStart(2, "0")} / 04</span>
             </div>
 
@@ -98,7 +97,6 @@ export function CapabilityStack() {
                       <motion.span id="capability-readout" role="tabpanel" className={styles.readout} initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }} animate={{ opacity: 1, y: 0 }}>
                         <strong>{capability.statement}</strong>
                         <small>{capability.detail}</small>
-                        <span className={styles.action}>View capability <ArrowUpRight size={14} aria-hidden="true" /></span>
                       </motion.span>
                     )}
                   </motion.button>

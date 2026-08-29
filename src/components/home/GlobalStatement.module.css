@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem) clamp(3rem, 5vw, 4.5rem);
   background: #050505;
 }
 
@@ -11,7 +11,7 @@
 
 .frame {
   position: relative;
-  height: clamp(28rem, 42vw, 36rem);
+  height: clamp(24rem, 35vw, 32rem);
   overflow: hidden;
   border: 1px solid rgba(237, 237, 237, 0.08);
   border-radius: clamp(1.1rem, 1.8vw, 1.6rem);
@@ -62,28 +62,20 @@
 
 .copy {
   position: absolute;
-  bottom: clamp(2.4rem, 6vw, 5.5rem);
+  bottom: clamp(2rem, 5vw, 4.25rem);
   left: clamp(1.5rem, 5vw, 4.5rem);
   z-index: 2;
-  width: min(32rem, 58%);
+  width: min(30rem, 58%);
 }
 
 .copy h2 {
-  max-width: 22ch;
+  max-width: 19ch;
   margin: 0;
   color: #ededed;
-  font-size: clamp(2.45rem, 3.8vw, 3.55rem);
+  font-size: clamp(2.3rem, 3.5vw, 3.25rem);
   font-weight: 600;
   letter-spacing: -0.055em;
   line-height: 0.96;
-}
-
-.copy p {
-  max-width: 23rem;
-  margin: 1.35rem 0 0;
-  color: rgba(237, 237, 237, 0.62);
-  font-size: 0.94rem;
-  line-height: 1.5;
 }
 
 @media (max-width: 767px) {
@@ -96,7 +88,7 @@
   }
 
   .frame {
-    height: 28rem;
+    height: 24rem;
   }
 
   .lensMedia { inset: -7%; }
@@ -125,12 +117,6 @@
     max-width: 16ch;
     font-size: clamp(1.85rem, 8.6vw, 2.2rem);
     line-height: 0.95;
-  }
-
-  .copy p {
-    max-width: 19rem;
-    margin-top: 1rem;
-    font-size: 0.86rem;
   }
 }
 

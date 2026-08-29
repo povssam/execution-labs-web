@@ -172,8 +172,7 @@ export function WorkCarousel() {
               draggable={false}
             />
             <div className={styles.instrumentation}>
-              <span>Project portfolio</span>
-              <span>Scroll / select / open</span>
+              <span>03 / Selected work</span>
             </div>
 
             <div className={styles.rotorPosition} aria-label="Project portfolio orbit">

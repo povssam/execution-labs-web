@@ -94,7 +94,7 @@ export function Process() {
         <div className={styles.stickyStage}>
           <Container className={styles.container}>
             <div className={styles.instrumentation}>
-              <span>03 / Execution protocol</span>
+              <span>04 / Execution protocol</span>
               <span>{String(activeIndex + 1).padStart(2, "0")} / 04</span>
             </div>
 

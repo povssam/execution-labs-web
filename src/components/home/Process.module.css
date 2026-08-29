@@ -1,5 +1,5 @@
 .section { position: relative; overflow: clip; background: #030303; border-bottom: 1px solid rgba(237,237,237,.055); }
-.scrollScene { min-height: 280svh; }
+.scrollScene { min-height: 160svh; }
 .stickyStage { position: sticky; top: var(--nav-height); height: calc(100svh - var(--nav-height)); min-height: 40rem; overflow: hidden; }
 .container { position: relative; display: flex; height: 100%; flex-direction: column; justify-content: center; }
 .instrumentation { position: absolute; top: 1.35rem; right: 0; left: 0; display: flex; justify-content: space-between; gap: 1rem; color: rgba(237,237,237,.42); font-family: var(--font-geist-mono),monospace; font-size: .56rem; font-weight: 600; letter-spacing: .11em; line-height: 1.2; text-transform: uppercase; }
@@ -29,7 +29,7 @@
 .steps button:focus-visible { outline: 1px solid rgba(237,237,237,.75); outline-offset: .35rem; }
 @media (max-width:900px) and (min-width:768px) { .layout { grid-template-columns:minmax(19rem,.9fr) minmax(20rem,1.1fr); gap:3rem; } }
 @media (max-width:767px) {
-  .scrollScene { min-height: 280svh; }
+  .scrollScene { min-height: 160svh; }
   .stickyStage { min-height: 39rem; }
   .instrumentation { top: 1rem; font-size: .5rem; }
   .layout { display:flex; flex-direction:column; gap:2rem; padding-top:2.55rem; }
