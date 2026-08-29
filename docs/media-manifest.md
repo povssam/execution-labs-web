@@ -47,9 +47,16 @@ The delivery uses the existing media inventory only:
 
 - `public/brand/hero-glass.png` remains the hero anchor and is reused as a low-opacity
   prism texture inside the portfolio/process fields.
-- `public/brand/grace/grace-animation.mp4` and its poster remain the only real project
-  media, now appearing as the Grace portfolio tile.
+- `public/brand/grace/grace-animation-poster.jpg` appears as the Grace portfolio tile.
 - `src/lib/data.ts` supplies all five real client/project names, copy, years, tags, and
   case-study routes.
-- Other portfolio tiles are deterministic CSS/SVG artifact surfaces labeled from that
-  real data; no project, client, metric, or image was fabricated.
+- The remaining portfolio tiles use project-specific captures already present in the
+  repository QA material, normalized into `public/brand/projects/*-orbit.png` for the
+  compact square/portrait orbit slots. No client or project was fabricated.
+
+| Orbit asset | Real project |
+| --- | --- |
+| `public/brand/projects/soniq-orbit.png` | Soniq |
+| `public/brand/projects/dividends-total-returns-orbit.png` | Dividends & Total Returns |
+| `public/brand/projects/orbit-artist-group-orbit.png` | Orbit Artist Group |
+| `public/brand/projects/media-scaling-orbit.png` | Media Scaling |

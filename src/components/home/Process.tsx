@@ -1,80 +1,24 @@
 "use client";
 
-import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
+import Image from "next/image";
 import { useState } from "react";
-import type { KeyboardEvent as ReactKeyboardEvent } from "react";
+import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent } from "react";
 import { process } from "@/lib/data";
+import { Container } from "../ui/Container";
 import styles from "./Process.module.css";
 
-const processSignals = [
-  {
-    route: "problem / context",
-    detail: "A problem enters the system.",
-  },
-  {
-    route: "agent / tool / handoff",
-    detail: "Agents, tools, and handoffs find the useful path.",
-  },
-  {
-    route: "input / interface / action",
-    detail: "The smallest working version takes shape.",
-  },
-  {
-    route: "use / feedback / result",
-    detail: "The system returns a result and a next move.",
-  },
+const processDetails = [
+  "Start with the pressure point, not a deck.",
+  "Design the shortest useful route through the work.",
+  "Ship the version people can use and judge.",
+  "Watch it run, then sharpen what matters.",
 ] as const;
 
-const routePoints = [
-  { x: 42, y: 240 },
-  { x: 242, y: 108 },
-  { x: 450, y: 240 },
-  { x: 710, y: 112 },
-] as const;
-
-const routePath = "M42 240 C138 240 144 108 242 108 S350 240 450 240 S590 112 710 112";
-
-function RouteMap({ activeIndex, reducedMotion }: { activeIndex: number; reducedMotion: boolean }) {
-  const progress = [0.16, 0.42, 0.68, 1][activeIndex];
-
-  return (
-    <div className={styles.routeField} data-reduced-motion={reducedMotion}>
-      <div className={styles.routeFieldGrid} aria-hidden="true" />
-      <div className={styles.routeFieldPrism} aria-hidden="true" />
-      <svg className={styles.routeMap} viewBox="0 0 760 340" fill="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="process-route-spectrum" x1="36" y1="240" x2="714" y2="108" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#EDEDED" stopOpacity="0.72" />
-            <stop offset="0.46" stopColor="#7FEEE8" stopOpacity="0.86" />
-            <stop offset="0.78" stopColor="#B9A2FF" stopOpacity="0.82" />
-            <stop offset="1" stopColor="#FFD09B" stopOpacity="0.82" />
-          </linearGradient>
-        </defs>
-        <path d={routePath} pathLength="1" className={styles.routeBase} />
-        <path
-          d={routePath}
-          pathLength="1"
-          className={styles.routeActive}
-          style={{ strokeDashoffset: 1 - progress }}
-        />
-        {routePoints.map((point, index) => (
-          <g key={`${point.x}-${point.y}`} className={styles.routeNode} data-active={index <= activeIndex}>
-            {index === activeIndex && <circle cx={point.x} cy={point.y} r="22" className={styles.routeHalo} />}
-            <circle cx={point.x} cy={point.y} r={index === activeIndex ? 8 : 5} className={styles.routeDot} />
-          </g>
-        ))}
-      </svg>
-      <span className={styles.routeFieldLabel}>execution route / live readout</span>
-      <span className={styles.routeFieldState}>{String(activeIndex + 1).padStart(2, "0")} / 04</span>
-    </div>
-  );
-}
+const lensPositions = ["66% 54%", "54% 46%", "74% 58%", "46% 62%"] as const;
 
 export function Process() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const reducedMotion = usePrefersReducedMotion();
   const activeStep = process[activeIndex];
-  const activeSignal = processSignals[activeIndex];
 
   const setStep = (requestedIndex: number) => {
     setActiveIndex(Math.max(0, Math.min(process.length - 1, requestedIndex)));
@@ -90,6 +34,9 @@ export function Process() {
 
     event.preventDefault();
     setStep(nextIndex);
+    window.requestAnimationFrame(() => {
+      document.getElementById(`process-tab-${Math.max(0, Math.min(process.length - 1, nextIndex!))}`)?.focus();
+    });
   };
 
   return (
@@ -99,30 +46,47 @@ export function Process() {
       data-process-state={activeStep.title}
       className={`${styles.section} section-flow relative overflow-hidden`}
     >
-      <div className={`${styles.container} relative z-10`}>
-        <div className={styles.header}>
-          <span>04 / Execution protocol</span>
-          <span>Idea / system / product</span>
+      <Container className={styles.container}>
+        <div className={styles.instrumentation}>
+          <span>Execution protocol</span>
+          <span>{String(activeIndex + 1).padStart(2, "0")} / 04</span>
         </div>
 
         <div className={styles.layout}>
-          <div className={styles.intro}>
-            <span className={styles.eyebrow}>How the work moves</span>
-            <h2>Clear input.<br />Useful output.</h2>
-            <p>
-              We find the leak, route the work, and make the next useful version real.
-            </p>
+          <div className={styles.lensWrap} aria-hidden="true">
+            <div
+              className={styles.lens}
+              style={{ "--lens-rotation": `${activeIndex * 8 - 10}deg` } as CSSProperties}
+            >
+              <Image
+                src="/brand/hero-glass.png"
+                alt=""
+                fill
+                sizes="(max-width: 767px) 76vw, 42vw"
+                className={styles.lensImage}
+                style={{ objectPosition: lensPositions[activeIndex] }}
+                draggable={false}
+              />
+              <div className={styles.lensShade} />
+            </div>
+            <span className={styles.lensIndex}>{activeStep.index}</span>
           </div>
 
-          <div className={styles.panel}>
-            <div className={styles.panelHeader}>
-              <span>Route / 01—04</span>
-              <span>{activeSignal.route}</span>
+          <div className={styles.content}>
+            <span className={styles.kicker}>How the work moves</span>
+            <div
+              key={activeStep.title}
+              id="process-panel"
+              role="tabpanel"
+              aria-labelledby={`process-tab-${activeIndex}`}
+              className={styles.activeState}
+            >
+              <span>{activeStep.title}</span>
+              <h2>{activeStep.body}</h2>
+              <p>{processDetails[activeIndex]}</p>
             </div>
 
-            <RouteMap activeIndex={activeIndex} reducedMotion={reducedMotion} />
-
-            <div className={styles.stepRail} role="tablist" aria-label="Process steps" aria-orientation="horizontal">
+            <div className={styles.steps} role="tablist" aria-label="Process steps" aria-orientation="horizontal">
               {process.map((step, index) => (
                 <button
                   key={step.title}
@@ -141,27 +105,9 @@ export function Process() {
                 </button>
               ))}
             </div>
-
-            <div
-              key={activeStep.title}
-              id="process-panel"
-              role="tabpanel"
-              aria-labelledby={`process-tab-${activeIndex}`}
-              className={styles.readout}
-              data-reduced-motion={reducedMotion}
-            >
-              <div>
-                <span className={styles.readoutIndex}>{activeStep.index}</span>
-                <h3>{activeStep.title}</h3>
-              </div>
-              <div className={styles.readoutCopy}>
-                <p>{activeStep.body}</p>
-                <span>{activeSignal.detail}</span>
-              </div>
-            </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

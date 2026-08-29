@@ -109,3 +109,15 @@ and becomes still.
 The portfolio uses the existing case-study content as its state machine. No autoplay
 behavior was added; Grace is the only existing continuous media and keeps its poster and
 reduced-motion behavior.
+
+## Circular portfolio correction — 2026-08-29
+
+| Moment | Trigger | Motion | Guardrail |
+| --- | --- | --- | --- |
+| Portfolio progression | Native vertical scroll through the sticky scene | Scroll progress maps five project states to 20-degree rotor steps, then a damped spring adds weight | No wheel/touch interception, bounce, autoplay, or looping rotation |
+| Tile orientation | Rotor movement | Each tile counter-rotates by the exact rotor plus arm angle so project media remains upright | No playful tilt or random movement |
+| Direct selection | Click, tap, or keyboard | The page scrolls to the requested project state; the selected tile sharpens and gains a restrained prismatic edge | Existing project routes remain the only open actions |
+| Reduced motion | System preference | State changes use discrete rotation with all nonessential CSS transitions removed | Content, selection, and routes remain fully available |
+
+The active metadata changes without a keyed entrance animation so WebKit cannot leave
+the selected project hidden after a scroll-derived state update.

@@ -123,7 +123,20 @@ dashboard. Project artifacts sit on a controlled orbital composition around the 
 `Project Portfolio` title; selecting a tile resolves its client, discipline, summary,
 and existing case-study route.
 
-On small screens the orbit becomes a touch-first snap rail beneath the central project
-readout. This preserves the visual hierarchy and keeps the page scroll native. The
-execution protocol below uses the same grid/prism grammar with one route field and four
-real process states.
+On small screens the same rotor remains intact and is intentionally cropped beyond the
+viewport. The center stays quiet while four to six upright project tiles occupy the
+upper and side arc. Native vertical scroll advances the wheel; it never collapses into
+an editorial card stack or horizontal carousel.
+
+## Gather-reference correction — 2026-08-29
+
+The approved hero remains unchanged. After it, `hero-glass.png` becomes the single
+visual anchor: a cinematic refracted field bridges into the portfolio, and a circular
+lens carries the four process states. Dashboard grids, system graphs, route maps, and
+large technical readouts are no longer the primary visual language.
+
+The portfolio follows the reference construction principle rather than its surface
+styling: one large cropped rotor, eighteen radial arms, upright compact media tiles,
+black center space, small centered copy, and precise scroll-derived rotation. Desktop
+uses a broad circular field; mobile preserves the same geometry at roughly 650px and
+crops it to a five-tile arc.
