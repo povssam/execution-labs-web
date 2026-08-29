@@ -1,36 +1,44 @@
+import styles from "./WorkedWith.module.css";
+
 const clients = [
   "Soniq",
-  "Dividends & Total Returns",
   "Grace",
-  "Orbit Artist Group",
   "Media Scaling",
+  "Dividends & Total Returns",
+  "Orbit Artist Group",
 ];
 
 export function WorkedWith() {
   return (
-    <section className="worked-with-surface relative overflow-hidden">
-      <div
-        className="worked-with-grid relative z-10"
-        role="group"
-        aria-label={`Worked with ${clients.join(", ")}`}
-      >
-        <div className="worked-with-heading">
+    <section
+      className={styles.section}
+      role="group"
+      aria-label={`Worked with ${clients.join(", ")}`}
+    >
+      <div className={styles.shell}>
+        <div className={styles.meta} aria-hidden="true">
           <span>Worked with</span>
-          <span>00 / selected systems</span>
+          <span>Five real projects</span>
         </div>
+      </div>
 
-        <div className="worked-client-grid">
-          {clients.map((client, index) => (
-            <span key={client} className="worked-client">
-              <span className="worked-client-node" aria-hidden="true" />
-              <span>{client}</span>
-              <span className="worked-client-index" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-            </span>
+      <div className={styles.marquee}>
+        <div className={styles.track} aria-hidden="true">
+          {[0, 1].map((copy) => (
+            <div key={copy} className={styles.sequence}>
+              {clients.map((client, index) => (
+                <span key={`${copy}-${client}`} className={styles.item}>
+                  <span className={styles.itemIndex}>{String(index + 1).padStart(2, "0")}</span>
+                  <span>{client}</span>
+                  <span className={styles.separator}>/</span>
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </div>
+
+      <span className="sr-only">Worked with {clients.join(", ")}.</span>
     </section>
   );
 }

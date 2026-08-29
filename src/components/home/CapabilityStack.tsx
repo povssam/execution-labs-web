@@ -65,7 +65,7 @@ export function CapabilityStack() {
               <span>{String(activeIndex + 1).padStart(2, "0")} / 04</span>
             </div>
 
-            <div className={styles.stackObject} role="group" aria-label="Capability stack">
+            <div className={styles.stackObject} data-state={activeIndex} role="group" aria-label="Capability stack">
               <Image src="/brand/hero-glass.png" alt="" fill sizes="(max-width: 767px) 100vw, 1100px" className={styles.prismField} draggable={false} />
               {stack.map((capability, index) => {
                 const delta = index - activeIndex;
@@ -80,13 +80,14 @@ export function CapabilityStack() {
                     tabIndex={index === activeIndex ? 0 : -1}
                     className={styles.plane}
                     data-active={index === activeIndex}
+                    data-depth={distance}
                     onClick={() => select(index)}
                     onKeyDown={(event) => onKeyDown(event, index)}
                     animate={reduceMotion ? { opacity: index === activeIndex ? 1 : 0.48 } : {
-                      x: delta * 15,
-                      y: delta * 66,
-                      scale: 1 - distance * 0.035,
-                      opacity: 1 - distance * 0.17,
+                      x: delta * 22,
+                      y: delta * 82,
+                      scale: 1 - distance * 0.045,
+                      opacity: 1 - distance * 0.21,
                     }}
                     transition={{ duration: reduceMotion ? 0.18 : 0.52 }}
                     style={{ "--plane-z": stack.length - distance } as CSSProperties}

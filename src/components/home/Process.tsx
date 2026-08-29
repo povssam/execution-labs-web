@@ -23,16 +23,37 @@ const statements = [
   "Test it in real use.",
 ] as const;
 
+type LensState = {
+  objectPosition: string;
+  scale: number;
+  x: string;
+  y: string;
+  focusX: string;
+  focusY: string;
+  arc: number;
+};
+
+const lensStates: LensState[] = [
+  { objectPosition: "89% 54%", scale: 1.28, x: "-3%", y: "2%", focusX: "-12%", focusY: "10%", arc: -24 },
+  { objectPosition: "82% 48%", scale: 1.34, x: "-1%", y: "-1%", focusX: "4%", focusY: "-7%", arc: -6 },
+  { objectPosition: "76% 43%", scale: 1.38, x: "2%", y: "-2%", focusX: "16%", focusY: "-12%", arc: 14 },
+  { objectPosition: "70% 48%", scale: 1.32, x: "0%", y: "1%", focusX: "8%", focusY: "8%", arc: 34 },
+];
+
 export function Process() {
   const sceneRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const reduceMotion = usePrefersReducedMotion();
   const activeStep = process[activeIndex];
+  const lensState = lensStates[activeIndex];
   const { scrollYProgress } = useScroll({ target: sceneRef, offset: ["start start", "end end"] });
-  const rawRotation = useTransform(scrollYProgress, [0, 1], [-12, 18]);
-  const rawScale = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], [1.31, 1.39, 1.3, 1.36]);
-  const rawX = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], ["0%", "-4%", "3%", "-2%"]);
-  const rawY = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], ["0%", "2%", "-3%", "1%"]);
+  const rawRotation = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], [-14, -4, 8, 18]);
+  const rawScale = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], lensStates.map((state) => state.scale));
+  const rawX = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], lensStates.map((state) => state.x));
+  const rawY = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], lensStates.map((state) => state.y));
+  const focusX = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], lensStates.map((state) => state.focusX));
+  const focusY = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], lensStates.map((state) => state.focusY));
+  const arcRotation = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], lensStates.map((state) => state.arc));
   const rotation = useSpring(rawRotation, { stiffness: 82, damping: 26, mass: 0.8 });
   const scale = useSpring(rawScale, { stiffness: 76, damping: 25, mass: 0.82 });
 
@@ -79,10 +100,12 @@ export function Process() {
 
             <div className={styles.layout}>
               <div className={styles.lensWrap} aria-hidden="true">
-                <motion.div className={styles.lens} style={{ rotate: reduceMotion ? activeIndex * 7 - 10 : rotation }}>
-                  <motion.div className={styles.lensMedia} style={{ scale: reduceMotion ? 1.32 : scale, x: reduceMotion ? 0 : rawX, y: reduceMotion ? 0 : rawY }}>
-                    <Image src="/brand/hero-glass.png" alt="" fill sizes="(max-width: 767px) 76vw, 42vw" className={styles.lensImage} draggable={false} />
+                <motion.div className={styles.lens} data-state={activeIndex} style={{ rotate: reduceMotion ? lensState.arc : rotation }}>
+                  <motion.div className={styles.lensMedia} style={{ scale: reduceMotion ? lensState.scale : scale, x: reduceMotion ? lensState.x : rawX, y: reduceMotion ? lensState.y : rawY }}>
+                    <Image src="/brand/hero-glass.png" alt="" fill sizes="(max-width: 767px) 76vw, 42vw" className={styles.lensImage} style={{ objectPosition: lensState.objectPosition }} draggable={false} />
                   </motion.div>
+                  <motion.span className={styles.lensArc} style={{ rotate: reduceMotion ? lensState.arc : arcRotation }} />
+                  <motion.span className={styles.lensFocus} style={{ x: reduceMotion ? lensState.focusX : focusX, y: reduceMotion ? lensState.focusY : focusY }} />
                   <div className={styles.lensShade} />
                 </motion.div>
                 <span className={styles.lensIndex}>{activeStep.index}</span>

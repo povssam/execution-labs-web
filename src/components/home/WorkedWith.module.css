@@ -1,0 +1,140 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  padding-block: 0.8rem 1.55rem;
+  border-top: 1px solid rgba(237, 237, 237, 0.11);
+  background: #050505;
+}
+
+.shell {
+  width: min(calc(100% - 3rem), var(--content-max));
+  margin-inline: auto;
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  color: rgba(237, 237, 237, 0.42);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.meta span:last-child {
+  color: rgba(237, 237, 237, 0.28);
+}
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  margin-top: 0.95rem;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  transform: translate3d(0, 0, 0);
+  animation: workedWithMarquee 48s linear infinite;
+  will-change: transform;
+}
+
+.sequence {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1.7rem, 3vw, 3.8rem);
+  padding-right: clamp(1.7rem, 3vw, 3.8rem);
+}
+
+.item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  color: rgba(237, 237, 237, 0.76);
+  font-size: clamp(0.82rem, 1.05vw, 1rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.itemIndex {
+  color: rgba(237, 237, 237, 0.34);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.separator {
+  margin-left: clamp(0.8rem, 1.5vw, 1.5rem);
+  color: rgba(237, 237, 237, 0.25);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.7rem;
+}
+
+@keyframes workedWithMarquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.section:hover .track {
+  animation-play-state: paused;
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-block: 0.7rem calc(1.15rem + env(safe-area-inset-bottom));
+  }
+
+  .shell {
+    width: calc(100% - 3rem);
+  }
+
+  .meta {
+    font-size: 0.5rem;
+  }
+
+  .marquee {
+    margin-top: 0.8rem;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent);
+  }
+
+  .track {
+    animation-duration: 42s;
+  }
+
+  .sequence {
+    gap: 1.6rem;
+    padding-right: 1.6rem;
+  }
+
+  .item {
+    gap: 0.55rem;
+    font-size: 0.8rem;
+  }
+
+  .separator {
+    margin-left: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transform: translate3d(0, 0, 0);
+    animation: none;
+    will-change: auto;
+  }
+
+  .section:hover .track {
+    animation-play-state: running;
+  }
+}
