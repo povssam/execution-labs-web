@@ -156,3 +156,12 @@ Black space and real media do most of the work. Hero-derived `hero-glass.png` is
 as a restrained optical surface, while mono labels remain instrumentation rather than
 the visual subject. The sections are intentionally sparse so the middle belongs to the
 same refracted, engineered world as the approved hero.
+
+## Client brand-alignment pass — 2026-08-30
+
+The approved hero and Worked With rail remain locked. The post-hero now has one
+connected visual grammar: a restrained refracted statement wakes the system, one
+capability engine reconfigures rather than swapping generic illustrations, one
+real-media Project Portfolio orbit becomes the work showcase, and the protocol lens
+shows the same routing logic at four execution stages. The visual hierarchy is black
+space first, real project media second, and instrumentation last.

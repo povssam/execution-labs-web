@@ -11,9 +11,16 @@ import styles from "./Process.module.css";
 
 const statements = [
   "Find the leak.",
-  "Map the workflow.",
-  "Ship the useful version.",
-  "Test it live.",
+  "Design the workflow.",
+  "Ship v1.",
+  "Test in real use.",
+] as const;
+
+const systemPaths = [
+  { route: "M16 56 H34 C43 56 43 34 56 34 S69 68 84 68", ghost: "M16 70 H38 C46 70 46 80 57 80 S70 47 85 47" },
+  { route: "M16 34 H36 C44 34 45 56 56 56 H84", ghost: "M16 76 H38 C46 76 46 56 56 56 H84" },
+  { route: "M16 56 H33 C42 56 42 32 54 32 S69 78 84 78", ghost: "M16 76 H38 C46 76 46 56 56 56 S69 36 84 36" },
+  { route: "M16 36 H34 C44 36 44 56 56 56 S67 36 84 36", ghost: "M16 76 H34 C44 76 44 56 56 56 S67 76 84 76" },
 ] as const;
 
 type LensState = {
@@ -39,6 +46,7 @@ export function Process() {
   const reduceMotion = usePrefersReducedMotion();
   const activeStep = process[activeIndex];
   const lensState = lensStates[activeIndex];
+  const systemPath = systemPaths[activeIndex];
   const { scrollYProgress } = useScroll({ target: sceneRef, offset: ["start start", "end end"] });
   const rawRotation = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], [-14, -4, 8, 18]);
   const rawScale = useTransform(scrollYProgress, [0, 0.34, 0.67, 1], lensStates.map((state) => state.scale));
@@ -99,6 +107,12 @@ export function Process() {
                   </motion.div>
                   <motion.span className={styles.lensArc} style={{ rotate: reduceMotion ? lensState.arc : arcRotation }} />
                   <motion.span className={styles.lensFocus} style={{ x: reduceMotion ? lensState.focusX : focusX, y: reduceMotion ? lensState.focusY : focusY }} />
+                  <svg className={styles.lensSystem} viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <motion.path className={styles.systemRoute} d={systemPath.route} initial={false} animate={{ pathLength: 1 }} transition={{ duration: reduceMotion ? .18 : .55, ease: [0.22, 1, 0.36, 1] }} />
+                    <motion.path className={styles.systemGhost} d={systemPath.ghost} initial={false} animate={{ pathLength: 1 }} transition={{ duration: reduceMotion ? .18 : .55, ease: [0.22, 1, 0.36, 1] }} />
+                    <motion.circle className={styles.systemHub} cx="56" cy="56" r="4.2" animate={{ scale: activeIndex === 3 ? 1.18 : 1, opacity: 1 }} transition={{ duration: reduceMotion ? .18 : .4 }} />
+                    {!reduceMotion && <motion.circle className={styles.systemSignal} r="2.1" animate={activeIndex === 0 ? { cx: [16, 34, 56, 84], cy: [56, 56, 34, 68] } : activeIndex === 1 ? { cx: [16, 36, 56, 84], cy: [34, 34, 56, 56] } : activeIndex === 2 ? { cx: [16, 33, 54, 84], cy: [56, 56, 32, 78] } : { cx: [16, 34, 56, 84], cy: [36, 36, 56, 36] }} transition={{ duration: 1.25, ease: "easeInOut", repeat: 0 }} />}
+                  </svg>
                   <div className={styles.lensShade} />
                 </motion.div>
                 <span className={styles.lensIndex}>{activeStep.index}</span>
@@ -106,7 +120,7 @@ export function Process() {
 
               <div className={styles.content}>
                 <motion.div key={activeStep.title} id="process-panel" role="tabpanel" aria-labelledby={`process-tab-${activeIndex}`} className={styles.activeState} initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0.18 : 0.42 }}>
-                  <span>{activeIndex === 1 ? "System" : activeStep.title}</span>
+                  <span>{activeStep.title}</span>
                   <h2>{statements[activeIndex]}</h2>
                 </motion.div>
 
@@ -114,7 +128,7 @@ export function Process() {
                   {process.map((step, index) => (
                     <button key={step.title} type="button" role="tab" id={`process-tab-${index}`} aria-controls="process-panel" aria-selected={index === activeIndex} tabIndex={index === activeIndex ? 0 : -1} data-active={index === activeIndex} onClick={() => setStep(index)} onKeyDown={(event) => onKeyDown(event, index)}>
                       <span>{step.index}</span>
-                      <strong>{index === 1 ? "System" : step.title}</strong>
+                      <strong>{step.title}</strong>
                     </button>
                   ))}
                 </div>

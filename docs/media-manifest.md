@@ -77,3 +77,11 @@ The middle pass uses only the existing Execution Labs and project inventory:
   years, categories, and artifact labels.
 
 No new client work, metrics, logos, screenshots, or fabricated evidence were added.
+
+## Client brand-alignment pass — 2026-08-30
+
+The signature Project Portfolio uses only the five existing real project media assets:
+the Grace poster and the four repository project orbit captures. `hero-glass.png`
+continues to be the only optical brand asset and is used as a low-opacity refracted
+surface in the statement, capability engine, and protocol lens. No generated media or
+fabricated work was introduced.

@@ -140,3 +140,12 @@ continuous spin, or uses a bouncy spring.
 repository's SSR-safe `usePrefersReducedMotion` store. Reduced motion removes large
 transforms, parallax, and Grace autoplay while leaving state changes, selection, links,
 keyboard controls, and scroll access intact.
+
+## Client brand-alignment pass — 2026-08-30
+
+| Moment | Trigger | Motion | Reduced motion |
+| --- | --- | --- | --- |
+| Studio field | Native page scroll | A single hero-derived refraction shifts a few percent behind static precision paths | Static optical field |
+| Capability engine | Native sticky-scene progress, tabs, or keyboard | One route, three nodes, and one signal resolve into the selected operating pattern | Immediate route/node replacement; no travelling signal |
+| Project Portfolio | Native sticky-scene scroll, drag, tap, or keyboard | Five upright real-media tiles settle around an elliptical trace; active tile moves to the focal arc | Immediate selected state, direct project opening retained |
+| Protocol lens | Native sticky-scene progress or tabs | Lens crop, route, hub, and one signal update in the ordered Brief → System map → Build → Proof sequence | Immediate state replacement, no signal travel |

@@ -1,8 +1,9 @@
 import { Hero } from "@/components/home/Hero";
 import { WorkedWith } from "@/components/home/WorkedWith";
+import { StudioStatement } from "@/components/home/StudioStatement";
 import { Process } from "@/components/home/Process";
 import { CapabilityStack } from "@/components/home/CapabilityStack";
-import { EvidenceViewport } from "@/components/home/EvidenceViewport";
+import { ProjectPortfolio } from "@/components/home/ProjectPortfolio";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function Home() {
@@ -12,8 +13,9 @@ export default function Home() {
         <Hero />
         <WorkedWith />
       </div>
+      <StudioStatement />
       <CapabilityStack />
-      <EvidenceViewport />
+      <ProjectPortfolio />
       <Process />
       <FinalCTA compact />
     </>

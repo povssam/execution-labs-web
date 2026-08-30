@@ -327,3 +327,14 @@ visual treatment.
   `docs/qa/final-surgical-2026-08-29/built/`.
 - Lint, TypeScript, production build, whitespace validation, project drag/tap, process
   state order, header collision, and document overflow checks passed.
+
+## Client brand-alignment implementation — 2026-08-30
+
+- The approved hero, header, Worked With rail, CTA, and footer were not modified.
+- Three screenshot-review cycles covered the studio statement, capability engine,
+  Project Portfolio, and protocol at 390, 430, 768, and 1440 widths. The cycle and
+  final built captures are retained locally at `docs/qa/client-brand-alignment-2026-08-30/`.
+- The final built output was checked at 390×844, 430×932, 768×1024, and 1440×900;
+  document overflow was 0px in the detailed desktop check. Project Portfolio has five
+  real-media states, direct keyboard/drag/tap selection, and direct case-study routes.
+- `npm run lint`, `npx tsc --noEmit`, `npm run build`, and `git diff --check` passed.

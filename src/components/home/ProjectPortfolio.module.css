@@ -1,0 +1,27 @@
+.section { position:relative; overflow:clip; background:#020203; border-bottom:1px solid rgba(237,237,237,.055); }
+.scrollScene { min-height:190svh; }
+.stickyStage { position:sticky; top:var(--nav-height); height:calc(100svh - var(--nav-height)); min-height:40rem; overflow:hidden; }
+.container { position:relative; display:flex; height:100%; align-items:center; justify-content:center; }
+.instrumentation { position:absolute; top:1.35rem; right:0; left:0; z-index:7; display:flex; justify-content:space-between; color:rgba(237,237,237,.42); font-family:var(--font-geist-mono),monospace; font-size:.56rem; font-weight:600; letter-spacing:.11em; text-transform:uppercase; }
+.orbitStage { position:relative; width:min(82rem,114vw); height:min(46rem,76svh); min-height:33rem; outline:none; touch-action:pan-y; cursor:grab; }
+.orbitStage[data-dragging="true"] { cursor:grabbing; }
+.orbitStage:focus-visible { outline:1px solid rgba(237,237,237,.62); outline-offset:.6rem; }
+.orbitTrace { position:absolute; top:50%; left:50%; width:91%; height:66%; border:1px solid rgba(237,237,237,.11); border-radius:50%; box-shadow:0 0 6rem -3rem rgba(115,107,255,.22),inset 0 0 5rem -4rem rgba(255,175,105,.24); translate:-50% -50%; }
+.orbitTrace::before,.orbitTrace::after { position:absolute; top:50%; left:50%; width:4px; height:4px; border:1px solid rgba(237,237,237,.36); border-radius:50%; content:""; translate:-50% -50%; }
+.orbitTrace::after { width:65%; height:1px; border:0; border-top:1px solid rgba(237,237,237,.075); border-radius:0; }
+.tile { position:absolute; z-index:2; width:clamp(5.5rem,9vw,8.35rem); padding:0; border:0; border-radius:1.25rem .78rem 1.25rem .78rem; background:transparent; color:#ededed; cursor:pointer; translate:-50% -50%; transform-origin:center; }
+.tileMedia { position:relative; display:block; overflow:hidden; aspect-ratio:1; border:1px solid rgba(237,237,237,.19); border-radius:inherit; background:#111115; box-shadow:0 1.5rem 2.8rem -2rem rgba(0,0,0,.9); }
+.tileMedia::after { position:absolute; inset:0; border:1px solid rgba(237,237,237,.06); border-radius:inherit; background:linear-gradient(125deg,rgba(195,198,255,.18),transparent 35%,rgba(255,181,111,.12) 68%,transparent); content:""; opacity:.4; mix-blend-mode:screen; }
+.tileImage { object-fit:cover; filter:saturate(.88) contrast(1.07); transition:filter .48s ease,transform .6s cubic-bezier(.22,1,.36,1); }
+.tile[data-active="true"] { z-index:5; }
+.tile[data-active="true"] .tileMedia { border-color:rgba(237,237,237,.72); box-shadow:0 0 0 .35rem rgba(237,237,237,.045),-1rem -1rem 3rem -1.4rem rgba(119,110,255,.78),1rem 1rem 3rem -1.5rem rgba(255,172,100,.65); }
+.tile[data-active="true"] .tileImage { filter:saturate(1.02) contrast(1.04); transform:scale(1.035); }
+.tileName { display:block; overflow:hidden; padding-top:.55rem; color:rgba(237,237,237,.56); font-family:var(--font-geist-mono),monospace; font-size:.48rem; font-weight:600; letter-spacing:.08em; text-align:center; text-overflow:ellipsis; text-transform:uppercase; white-space:nowrap; }
+.tile[data-active="true"] .tileName { color:#ededed; }
+.centerReadout { position:absolute; top:53%; left:50%; z-index:4; display:grid; min-width:16rem; place-items:center; text-align:center; translate:-50% -50%; pointer-events:none; }
+.centerReadout>span,.centerReadout h2 { margin:0; color:#ededed; font-size:clamp(2.1rem,4.4vw,4.3rem); font-weight:560; letter-spacing:-.07em; line-height:.82; text-transform:uppercase; }
+.centerReadout strong { margin-top:1.5rem; font-size:clamp(.85rem,1.25vw,1.05rem); font-weight:500; letter-spacing:-.025em; }
+.centerReadout small,.centerHint { margin-top:.34rem; color:rgba(237,237,237,.42); font-family:var(--font-geist-mono),monospace; font-size:.53rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+.centerHint { position:absolute; bottom:4%; left:50%; margin:0; translate:-50% 0; white-space:nowrap; }
+@media (max-width:767px) { .scrollScene { min-height:175svh; } .stickyStage { min-height:39rem; } .instrumentation { top:1rem; font-size:.5rem; } .orbitStage { width:178vw; height:min(38rem,67svh); min-height:28rem; } .orbitTrace { width:94%; height:57%; } .tile { width:clamp(4.85rem,24vw,6.3rem); border-radius:1rem .65rem 1rem .65rem; } .tileName { display:none; } .centerReadout { top:55%; min-width:12rem; } .centerReadout>span,.centerReadout h2 { font-size:clamp(2.05rem,11vw,2.7rem); } .centerReadout strong { margin-top:1.2rem; font-size:.88rem; } .centerReadout small { max-width:15ch; font-size:.48rem; line-height:1.4; } .centerHint { bottom:5%; font-size:.47rem; } }
+@media (prefers-reduced-motion:reduce) { .tileImage { transition:none; } }

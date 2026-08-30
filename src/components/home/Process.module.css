@@ -10,6 +10,12 @@
 .lensImage { object-fit: cover; object-position: 100% 52%; filter: saturate(1.06) contrast(1.04) brightness(0.86); opacity: .88; }
 .lensArc { position: absolute; inset: -7%; z-index: 2; border: 1px solid rgba(237,237,237,.18); border-bottom-color: rgba(255,177,104,.46); border-left-color: transparent; border-radius: 50%; mix-blend-mode: screen; opacity: .8; pointer-events: none; will-change: transform; }
 .lensFocus { position: absolute; top: 50%; left: 50%; z-index: 2; width: 34%; height: 43%; border: 1px solid rgba(237,237,237,.2); border-radius: 47% 53% 48% 52%; opacity: .5; pointer-events: none; translate: -50% -50%; will-change: transform; }
+.lensSystem { position:absolute; inset:0; z-index:3; width:100%; height:100%; overflow:visible; fill:none; pointer-events:none; }
+.systemRoute,.systemGhost { vector-effect:non-scaling-stroke; }
+.systemRoute { stroke:rgba(235,238,255,.66); stroke-width:.56; filter:drop-shadow(0 0 4px rgba(127,119,255,.78)); }
+.systemGhost { stroke:rgba(255,187,113,.36); stroke-width:.42; }
+.systemHub { fill:rgba(14,14,18,.87); stroke:rgba(238,240,255,.78); stroke-width:.55; transform-origin:56px 56px; filter:drop-shadow(0 0 7px rgba(139,132,255,.78)); }
+.systemSignal { fill:rgba(255,229,184,.96); filter:drop-shadow(0 0 6px rgba(255,176,98,.95)); }
 .lensShade { position: absolute; inset: 0; background: radial-gradient(circle at 46% 42%,transparent 14%,rgba(5,5,5,.22) 72%,rgba(5,5,5,.66) 100%); }
 .lensIndex { position: absolute; right: 2%; bottom: 15%; color: rgba(237,237,237,.72); font-family: var(--font-geist-mono),monospace; font-size: .62rem; letter-spacing: .12em; }
 .content { max-width: 37rem; }
