@@ -111,7 +111,7 @@ export function Process() {
                     <motion.path className={styles.systemRoute} d={systemPath.route} initial={false} animate={{ pathLength: 1 }} transition={{ duration: reduceMotion ? .18 : .55, ease: [0.22, 1, 0.36, 1] }} />
                     <motion.path className={styles.systemGhost} d={systemPath.ghost} initial={false} animate={{ pathLength: 1 }} transition={{ duration: reduceMotion ? .18 : .55, ease: [0.22, 1, 0.36, 1] }} />
                     <motion.circle className={styles.systemHub} cx="56" cy="56" r="4.2" animate={{ scale: activeIndex === 3 ? 1.18 : 1, opacity: 1 }} transition={{ duration: reduceMotion ? .18 : .4 }} />
-                    {!reduceMotion && <motion.circle className={styles.systemSignal} r="2.1" animate={activeIndex === 0 ? { cx: [16, 34, 56, 84], cy: [56, 56, 34, 68] } : activeIndex === 1 ? { cx: [16, 36, 56, 84], cy: [34, 34, 56, 56] } : activeIndex === 2 ? { cx: [16, 33, 54, 84], cy: [56, 56, 32, 78] } : { cx: [16, 34, 56, 84], cy: [36, 36, 56, 36] }} transition={{ duration: 1.25, ease: "easeInOut", repeat: 0 }} />}
+                    {!reduceMotion && <motion.circle className={styles.systemSignal} r="2.1" animate={activeIndex === 0 ? { cx: [16, 34, 56, 84], cy: [56, 56, 34, 68] } : activeIndex === 1 ? { cx: [16, 36, 56, 84], cy: [34, 34, 56, 56] } : activeIndex === 2 ? { cx: [16, 33, 54, 84], cy: [56, 56, 32, 78] } : { cx: [16, 34, 56, 84], cy: [36, 36, 56, 36] }} transition={{ duration: 1.25, ease: [0.77, 0, 0.175, 1], repeat: 0 }} />}
                   </svg>
                   <div className={styles.lensShade} />
                 </motion.div>

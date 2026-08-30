@@ -66,16 +66,24 @@ export function StudioStatement() {
           <span className={styles.fieldNode} />
         </div>
         <h2 id="studio-statement-title" aria-label="Building exceptional digital experiences for visionaries and innovators around the world.">
-          {words.map((word, index) => (
-            <motion.span
-              key={`${replay}-${word}-${index}`}
-              className={styles.word}
-              initial={reduceMotion ? false : { opacity: 0, y: "0.28em", letterSpacing: "-.02em", filter: "blur(4px)" }}
-              animate={reduceMotion ? { opacity: 1, y: "0em", letterSpacing: "-.065em", filter: "blur(0px)" } : { opacity: 1, y: "0em", letterSpacing: "-.065em", filter: "blur(0px)" }}
-              transition={reduceMotion ? { duration: 0 } : { duration: .5, delay: .13 + index * .055, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {word}{" "}
-            </motion.span>
+          {words.map((word, wordIndex) => (
+            <span key={`${replay}-${word}-${wordIndex}`} className={styles.word}>
+              {[...word].map((letter, letterIndex) => {
+                const offset = words.slice(0, wordIndex).join("").length + letterIndex;
+                return (
+                  <motion.span
+                    key={`${replay}-${offset}`}
+                    className={styles.letter}
+                    initial={reduceMotion ? false : { opacity: 0, filter: "blur(3px)", transform: "translateY(0.18em)" }}
+                    animate={{ opacity: 1, filter: "blur(0px)", transform: "translateY(0em)" }}
+                    transition={reduceMotion ? { duration: 0 } : { duration: .28, delay: .06 + offset * .012, ease: [0.23, 1, 0.32, 1] }}
+                  >
+                    {letter}
+                  </motion.span>
+                );
+              })}
+              {wordIndex < words.length - 1 ? " " : null}
+            </span>
           ))}
         </h2>
       </Container>

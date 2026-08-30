@@ -9,6 +9,7 @@
 .paths circle { fill:rgba(233,237,255,.75); stroke:none; }
 .fieldNode { position:absolute; top:48%; left:51%; width:.45rem; height:.45rem; border:1px solid rgba(237,237,237,.6); border-radius:50%; box-shadow:0 0 1.6rem .22rem rgba(124,119,255,.32); }
 .container h2 { position:relative; z-index:1; max-width:20ch; margin:2.5rem 0 0; color:#ededed; font-size:clamp(2.45rem,5.1vw,5.35rem); font-weight:550; letter-spacing:-.065em; line-height:.94; text-wrap:balance; }
-.word { display:inline-block; will-change:transform,filter,opacity; }
+.word { display:inline-block; }
+.letter { display:inline-block; will-change:transform,filter,opacity; }
 @media (max-width:767px) { .section { padding-block:4.8rem 5.3rem; } .container { min-height:29rem; } .instrumentation { font-size:.5rem; } .instrumentation span:last-child { display:none; } .field { inset:8% -62% 5% -22%; } .refraction { background-position:75% 50%; background-size:auto 108%; -webkit-mask-image:radial-gradient(ellipse 72% 63% at 77% 50%,#000 0%,transparent 76%); mask-image:radial-gradient(ellipse 72% 63% at 77% 50%,#000 0%,transparent 76%); } .paths { inset:14% -35% 4%; width:165%; } .container h2 { max-width:13ch; margin-top:2rem; font-size:clamp(2.55rem,11.1vw,3.35rem); } }
-@media (prefers-reduced-motion:reduce) { .refraction { transform:none !important; } .word { will-change:auto; } }
+@media (prefers-reduced-motion:reduce) { .refraction { transform:none !important; } .letter { will-change:auto; } }
