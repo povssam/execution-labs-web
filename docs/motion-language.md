@@ -149,3 +149,11 @@ keyboard controls, and scroll access intact.
 | Capability engine | Native sticky-scene progress, tabs, or keyboard | One route, three nodes, and one signal resolve into the selected operating pattern | Immediate route/node replacement; no travelling signal |
 | Project Portfolio | Native sticky-scene scroll, drag, tap, or keyboard | Five upright real-media tiles settle around an elliptical trace; active tile moves to the focal arc | Immediate selected state, direct project opening retained |
 | Protocol lens | Native sticky-scene progress or tabs | Lens crop, route, hub, and one signal update in the ordered Brief → System map → Build → Proof sequence | Immediate state replacement, no signal travel |
+
+## Studio statement replay — 2026-08-30
+
+The statement uses a central 30% viewport observation band. Entering that band arms a
+fresh 1.2s word-resolution sequence and one spectral pass; leaving it resets only the
+animation key while the final text remains visually settled off-axis. This gives an
+indefinite replay in both directions without a boundary flicker. Reduced motion renders
+the final word state immediately.

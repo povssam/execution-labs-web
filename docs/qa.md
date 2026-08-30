@@ -308,6 +308,14 @@ CTA were removed.
 - Mobile menu lock and release, reduced-motion marquee/reel fallbacks, and 0px document
   overflow passed.
 - `npm run lint`, `npx tsc --noEmit`, `npm run build`, and `git diff --check` passed.
+
+## Studio statement replay — 2026-08-30
+
+- Chromium mobile at 390px completed five alternating above/below re-entry cycles;
+  each entry incremented exactly once and each exit disarmed the next replay.
+- WebKit 390px and 430px plus Chromium desktop were checked for both-direction entry,
+  no document overflow, and no browser console/page errors. Reduced motion resolves
+  the final typography without a stagger or spectral sweep.
 - Before and three refinement-pass captures are in
   `docs/qa/final-polish-2026-08-29/` and remain outside the source commit.
 
