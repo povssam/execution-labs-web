@@ -1,5 +1,5 @@
 .section { position:relative; overflow:clip; background:#030303; border-bottom:1px solid rgba(237,237,237,.055); }
-.scrollScene { min-height:155svh; }
+.scrollScene { min-height:138svh; }
 .stickyStage { position:sticky; top:var(--nav-height); height:calc(100svh - var(--nav-height)); min-height:40rem; overflow:hidden; }
 .container { position:relative; display:flex; height:100%; flex-direction:column; align-items:center; justify-content:center; }
 .instrumentation { position:absolute; top:1.35rem; right:0; left:0; z-index:4; display:flex; justify-content:space-between; color:rgba(237,237,237,.42); font-family:var(--font-geist-mono),monospace; font-size:.56rem; font-weight:600; letter-spacing:.11em; text-transform:uppercase; }
@@ -16,12 +16,12 @@
 .systemCore span,.readout span { color:rgba(237,237,237,.46); font-family:var(--font-geist-mono),monospace; font-size:.53rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
 .systemCore strong { margin-top:.25rem; font-size:1.15rem; font-weight:600; letter-spacing:-.08em; }
 .readout { position:absolute; bottom:4%; left:7%; display:grid; gap:.65rem; max-width:18rem; }
-.readout strong { max-width:14ch; color:#ededed; font-size:clamp(1.55rem,2.5vw,2.6rem); font-weight:550; letter-spacing:-.055em; line-height:.96; text-wrap:balance; }
+.readout strong { max-width:14ch; color:#ededed; font-size:var(--type-section-display); font-weight:550; letter-spacing:-.055em; line-height:.94; text-wrap:balance; }
 .controls { position:absolute; right:0; bottom:1.15rem; left:0; z-index:5; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); width:min(100%,58rem); margin-inline:auto; gap:1rem; }
 .controls button { display:grid; gap:.35rem; min-width:0; padding:.65rem 0 .55rem; border-top:1px solid rgba(237,237,237,.14); color:rgba(237,237,237,.32); cursor:pointer; font:inherit; text-align:left; transition:color 220ms ease,border-color 220ms ease; }
 .controls button[data-active="true"] { border-color:rgba(237,237,237,.8); color:#ededed; }
 .controls button:focus-visible { outline:1px solid rgba(237,237,237,.75); outline-offset:.35rem; }
 .controls button span { font-family:var(--font-geist-mono),monospace; font-size:.52rem; font-weight:600; letter-spacing:.11em; }
 .controls button strong { overflow:hidden; font-size:.72rem; font-weight:500; line-height:1.15; text-overflow:ellipsis; white-space:nowrap; }
-@media (max-width:767px) { .scrollScene { min-height:155svh; } .stickyStage { min-height:39rem; } .instrumentation { top:1rem; font-size:.5rem; } .systemObject { width:calc(100vw - 1rem); height:min(32rem,58svh); min-height:25rem; } .systemObject::before { inset:8% -18%; } .systemHalo { inset:7% -28%; } .systemCore { width:4.55rem; height:4.55rem; } .readout { bottom:4%; left:6%; max-width:12rem; } .readout strong { font-size:clamp(1.45rem,7.2vw,2rem); } .controls { right:1.5rem; bottom:1rem; left:1.5rem; width:auto; gap:.65rem; } .controls button { min-height:3rem; padding-top:.55rem; } .controls button strong { font-size:.61rem; white-space:normal; } }
+@media (max-width:767px) { .scrollScene { min-height:138svh; } .stickyStage { min-height:39rem; } .instrumentation { top:1rem; font-size:var(--type-label); } .systemObject { width:calc(100vw - 1rem); height:min(32rem,58svh); min-height:25rem; } .systemObject::before { inset:8% -18%; } .systemHalo { inset:7% -28%; } .systemCore { width:4.55rem; height:4.55rem; } .readout { bottom:4%; left:6%; max-width:12rem; } .readout strong { font-size:var(--type-section-display); } .controls { right:1.5rem; bottom:1rem; left:1.5rem; width:auto; gap:.65rem; } .controls button { min-height:3rem; padding-top:.55rem; } .controls button strong { font-size:var(--type-micro); white-space:normal; } }
 @media (prefers-reduced-motion:reduce) { .controls button { transition:none; } }

@@ -6,7 +6,7 @@ import { CtaButtons } from "../ui/CtaButtons";
 export function FinalCTA({ compact = false }: { compact?: boolean }) {
   return (
     <section
-      className={`section-flow section-flow--fade relative overflow-hidden ${compact ? "py-12 sm:py-20" : "py-20 sm:py-28"}`}
+      className={`final-cta-section section-flow section-flow--fade relative overflow-hidden ${compact ? "py-12 sm:py-20" : "py-20 sm:py-28"}`}
     >
       <BrandAtmosphere intensity="soft" tone="fade" focus="bottom" />
       <Container className="relative z-10">

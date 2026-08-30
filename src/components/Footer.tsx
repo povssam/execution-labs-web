@@ -15,7 +15,7 @@ const nav = [
 
 export function Footer() {
   return (
-    <footer className="section-flow section-flow--fade relative overflow-hidden">
+    <footer className="site-footer section-flow section-flow--fade relative overflow-hidden">
       <BrandAtmosphere intensity="soft" tone="fade" focus="bottom" />
       <Container className="relative z-10 py-14">
         <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">

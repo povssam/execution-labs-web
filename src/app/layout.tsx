@@ -4,7 +4,7 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { BrandAtmosphere } from "@/components/BrandAtmosphere";
-import { Preloader } from "@/components/Preloader";
+import { OpeningSequence } from "@/components/OpeningSequence";
 import { MotionProvider } from "@/components/MotionProvider";
 
 const geistSans = Geist({
@@ -52,7 +52,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col bg-ink">
         <MotionProvider>
           <BrandAtmosphere intensity="soft" fixed />
-          <Preloader />
+          <OpeningSequence />
           <Nav />
           <main className="flex-1">{children}</main>
           <Footer />

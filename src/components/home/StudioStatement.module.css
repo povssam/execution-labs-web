@@ -1,6 +1,6 @@
 .section { position:relative; overflow:clip; padding-block:clamp(5.5rem,9vw,9.5rem) clamp(5rem,8vw,8rem); background:#030303; border-bottom:1px solid rgba(237,237,237,.055); }
 .container { position:relative; min-height:clamp(25rem,47vw,34rem); display:grid; align-content:center; }
-.instrumentation { position:absolute; top:0; right:0; left:0; display:flex; justify-content:space-between; color:rgba(237,237,237,.4); font-family:var(--font-geist-mono),monospace; font-size:.56rem; font-weight:600; letter-spacing:.11em; text-transform:uppercase; }
+.instrumentation { position:absolute; top:0; right:0; left:0; display:flex; justify-content:space-between; color:rgba(237,237,237,.4); font-family:var(--font-geist-mono),monospace; font-size:var(--type-label); font-weight:600; letter-spacing:.11em; text-transform:uppercase; }
 .field { position:absolute; inset:10% -10% 1%; overflow:hidden; pointer-events:none; }
 .refraction { position:absolute; inset:0; opacity:.64; background-image:url("/brand/hero-glass.png"); background-position:72% 49%; background-repeat:no-repeat; background-size:cover; filter:saturate(1.05) brightness(.62); -webkit-mask-image:radial-gradient(ellipse 55% 78% at 75% 47%,#000 0%,transparent 70%); mask-image:radial-gradient(ellipse 55% 78% at 75% 47%,#000 0%,transparent 70%); }
 .signalPass { position:absolute; top:13%; left:0; width:32%; height:74%; background:linear-gradient(104deg,transparent 26%,rgba(139,132,255,.08) 42%,rgba(194,220,255,.48) 49%,rgba(255,180,105,.28) 55%,transparent 70%); filter:blur(2px); mix-blend-mode:screen; }
@@ -8,8 +8,9 @@
 .paths path:last-of-type { stroke:rgba(255,186,121,.2); }
 .paths circle { fill:rgba(233,237,255,.75); stroke:none; }
 .fieldNode { position:absolute; top:48%; left:51%; width:.45rem; height:.45rem; border:1px solid rgba(237,237,237,.6); border-radius:50%; box-shadow:0 0 1.6rem .22rem rgba(124,119,255,.32); }
-.container h2 { position:relative; z-index:1; max-width:20ch; margin:2.5rem 0 0; color:#ededed; font-size:clamp(2.45rem,5.1vw,5.35rem); font-weight:550; letter-spacing:-.065em; line-height:.94; text-wrap:balance; }
-.word { display:inline-block; }
+.container h2 { position:relative; z-index:1; max-width:min(20ch,92%); margin:2.5rem 0 0; color:#ededed; font-size:var(--type-display); font-weight:550; letter-spacing:-.065em; line-height:.92; text-wrap:balance; }
+.word { display:inline-block; margin-right:.19em; }
+.word:last-child { margin-right:0; }
 .letter { display:inline-block; will-change:transform,filter,opacity; }
-@media (max-width:767px) { .section { padding-block:4.8rem 5.3rem; } .container { min-height:29rem; } .instrumentation { font-size:.5rem; } .instrumentation span:last-child { display:none; } .field { inset:8% -62% 5% -22%; } .refraction { background-position:75% 50%; background-size:auto 108%; -webkit-mask-image:radial-gradient(ellipse 72% 63% at 77% 50%,#000 0%,transparent 76%); mask-image:radial-gradient(ellipse 72% 63% at 77% 50%,#000 0%,transparent 76%); } .paths { inset:14% -35% 4%; width:165%; } .container h2 { max-width:13ch; margin-top:2rem; font-size:clamp(2.55rem,11.1vw,3.35rem); } }
-@media (prefers-reduced-motion:reduce) { .refraction { transform:none !important; } .letter { will-change:auto; } }
+@media (max-width:767px) { .section { padding-block:4.8rem 5.3rem; } .container { min-height:27.5rem; } .instrumentation { font-size:var(--type-label); } .instrumentation span:last-child { display:none; } .field { inset:8% -62% 5% -22%; } .refraction { background-position:75% 50%; background-size:auto 108%; -webkit-mask-image:radial-gradient(ellipse 72% 63% at 77% 50%,#000 0%,transparent 76%); mask-image:radial-gradient(ellipse 72% 63% at 77% 50%,#000 0%,transparent 76%); } .paths { inset:14% -35% 4%; width:165%; } .container h2 { max-width:92%; margin-top:2rem; font-size:var(--type-display); } }
+@media (prefers-reduced-motion:reduce) { .refraction { transform:none !important; } .letter { opacity:1 !important; filter:none !important; transform:none !important; transition:none !important; will-change:auto; } }
