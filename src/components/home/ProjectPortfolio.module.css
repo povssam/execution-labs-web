@@ -1,4 +1,4 @@
-.section { position:relative; overflow:clip; background:#020203; border-bottom:1px solid rgba(237,237,237,.055); }
+.section { position:relative; overflow:clip; background:var(--color-ink); border-bottom:1px solid rgba(237,237,237,.055); }
 .scrollScene { min-height:145svh; }
 .stickyStage { position:sticky; top:var(--nav-height); height:calc(100svh - var(--nav-height)); min-height:40rem; overflow:hidden; }
 .container { position:relative; display:flex; height:100%; align-items:center; justify-content:center; }

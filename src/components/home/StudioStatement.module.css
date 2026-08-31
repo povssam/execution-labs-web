@@ -2,7 +2,7 @@
   position: relative;
   overflow: clip;
   padding-block: clamp(4.75rem, 8vw, 7rem) clamp(4.25rem, 7vw, 6.5rem);
-  background: #030303;
+  background: var(--color-ink);
   border-bottom: 1px solid rgba(237, 237, 237, 0.055);
 }
 
@@ -38,7 +38,7 @@
 .refraction {
   position: absolute;
   inset: -25% -8%;
-  background-image: url("/brand/hero-glass.png");
+  background-image: url("/brand/hero-glass-light.png");
   background-position: 80% 74%;
   background-repeat: no-repeat;
   background-size: auto 240%;

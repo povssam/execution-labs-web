@@ -81,9 +81,8 @@ export function Process() {
               <div className={styles.prismWrap} aria-hidden="true">
                 <div className={styles.prismField} data-state={activeIndex}>
                   <motion.div className={styles.prismMedia} style={{ scale: reduceMotion ? prismState.scale : scale, x: reduceMotion ? prismState.x : rawX, y: reduceMotion ? prismState.y : rawY, rotate: reduceMotion ? prismState.rotate : rotation }}>
-                    <Image src="/brand/hero-glass.png" alt="" fill sizes="(max-width: 767px) 124vw, 100vw" className={styles.prismImage} draggable={false} />
+                    <Image src="/brand/hero-glass-light.png" alt="" fill sizes="(max-width: 767px) 124vw, 100vw" className={styles.prismImage} draggable={false} />
                   </motion.div>
-                  <div className={styles.prismShade} />
                 </div>
               </div>
 
