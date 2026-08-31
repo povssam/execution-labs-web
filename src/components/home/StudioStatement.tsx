@@ -1,88 +1,149 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { Container } from "../ui/Container";
 import styles from "./StudioStatement.module.css";
 
+const statementWords = [
+  "Building",
+  "exceptional",
+  "digital",
+  "experiences",
+  "for",
+  "visionaries",
+  "and",
+  "innovators",
+  "around",
+  "the",
+  "world.",
+];
+
+const resolveEase = [0.23, 1, 0.32, 1] as const;
+
+const letterVariants = {
+  hidden: {
+    opacity: 0,
+    filter: "blur(2px)",
+    transform: "translate3d(0, 0.08em, 0)",
+  },
+  visible: {
+    opacity: 1,
+    filter: "blur(0px)",
+    transform: "translate3d(0, 0, 0)",
+  },
+};
+
+const refractionVariants = {
+  hidden: {
+    opacity: 0,
+    transform: "translate3d(-5%, 3%, 0) scale(1.02)",
+  },
+  visible: {
+    opacity: [0, 0.58, 0.04],
+    transform: [
+      "translate3d(-5%, 3%, 0) scale(1.02)",
+      "translate3d(0, 0, 0) scale(1)",
+      "translate3d(7%, -2%, 0) scale(0.99)",
+    ],
+  },
+};
+
 export function StudioStatement() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const reduceMotion = usePrefersReducedMotion();
-  const [replay, setReplay] = useState(0);
-  const [inView, setInView] = useState(false);
-  const wasInView = useRef(false);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const signalX = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-  const signalY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
-  const words = ["Building", "exceptional", "digital", "experiences", "for", "visionaries", "and", "innovators", "around", "the", "world."];
+  const [presence, setPresence] = useState({ inView: false, replay: 0 });
+  const { inView, replay } = presence;
 
   useEffect(() => {
-    let frame = 0;
+    const section = sectionRef.current;
+    if (!section) return;
+
     const updateViewportState = () => {
-      const section = sectionRef.current;
-      if (!section) return;
       const rect = section.getBoundingClientRect();
-      const upperBoundary = window.innerHeight * 0.35;
-      const lowerBoundary = window.innerHeight * 0.65;
-      // The central 30% band gives one reliable enter/exit boundary in either direction.
-      setInView(rect.top < lowerBoundary && rect.bottom > upperBoundary);
+      setPresence((current) => {
+        const nextInView = current.inView
+          ? rect.top < window.innerHeight * 0.82 && rect.bottom > window.innerHeight * 0.18
+          : rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3;
+        if (current.inView === nextInView) return current;
+        return {
+          inView: nextInView,
+          replay: nextInView ? current.replay + 1 : current.replay,
+        };
+      });
     };
-    const queueUpdate = () => {
-      window.cancelAnimationFrame(frame);
-      frame = window.requestAnimationFrame(updateViewportState);
-    };
+
+    // Enter through the central band, then stay armed until the section is
+    // clearly gone. The wider exit band prevents boundary flicker while
+    // scrolling back and forth on iOS WebKit.
     updateViewportState();
-    window.addEventListener("scroll", queueUpdate, { passive: true });
-    window.addEventListener("resize", queueUpdate);
+    window.addEventListener("scroll", updateViewportState, { passive: true });
+    window.addEventListener("resize", updateViewportState);
+
     return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", queueUpdate);
-      window.removeEventListener("resize", queueUpdate);
+      window.removeEventListener("scroll", updateViewportState);
+      window.removeEventListener("resize", updateViewportState);
     };
   }, []);
 
-  useEffect(() => {
-    if (inView && !wasInView.current) setReplay((current) => current + 1);
-    wasInView.current = inView;
-  }, [inView]);
-
   return (
-    <section ref={sectionRef} className={styles.section} aria-labelledby="studio-statement-title" data-statement-cycle={replay} data-statement-in-view={inView}>
+    <section
+      ref={sectionRef}
+      className={styles.section}
+      aria-labelledby="studio-statement-title"
+      data-statement-cycle={replay}
+      data-statement-in-view={inView}
+      data-statement-visible={reduceMotion || inView}
+    >
       <Container className={styles.container}>
         <div className={styles.instrumentation}>
           <span>01 / Execution Labs</span>
-          <span>System online</span>
         </div>
         <div className={styles.field} aria-hidden="true">
-          <motion.div className={styles.refraction} style={{ x: reduceMotion ? "0%" : signalX, y: reduceMotion ? "0%" : signalY }} />
-          {!reduceMotion && <motion.span key={`signal-${replay}`} className={styles.signalPass} initial={{ opacity: 0, x: "-36%" }} animate={{ opacity: [0, .72, 0], x: ["-36%", "122%"] }} transition={{ duration: 1.08, delay: .06, ease: [0.22, 1, 0.36, 1] }} />}
-          <svg className={styles.paths} viewBox="0 0 1000 440" preserveAspectRatio="none">
-            <path d="M-40 286 C164 318 244 108 462 198 S734 356 1040 134" />
-            <path d="M-30 334 C178 360 304 168 514 246 S774 314 1040 198" />
-            <circle cx="462" cy="198" r="4" />
-            <circle cx="514" cy="246" r="3" />
-          </svg>
-          <span className={styles.fieldNode} />
+          <motion.div
+            key={`refraction-${replay}`}
+            className={styles.refraction}
+            variants={refractionVariants}
+            initial={reduceMotion ? false : "hidden"}
+            animate={reduceMotion ? "hidden" : inView ? "visible" : "hidden"}
+            transition={
+              reduceMotion || !inView
+                ? { duration: 0 }
+                : { duration: 1.2, delay: 0.05, ease: resolveEase, times: [0, 0.55, 1] }
+            }
+          />
         </div>
-        <h2 id="studio-statement-title" aria-label="Building exceptional digital experiences for visionaries and innovators around the world.">
-          {words.map((word, wordIndex) => (
-            <span key={`${replay}-${word}-${wordIndex}`} className={styles.word}>
+        <h2
+          id="studio-statement-title"
+          aria-label="Building exceptional digital experiences for visionaries and innovators around the world."
+        >
+          {statementWords.map((word, wordIndex) => (
+            <span key={`${replay}-${word}-${wordIndex}`} className={styles.word} aria-hidden="true">
               {[...word].map((letter, letterIndex) => {
-                const offset = words.slice(0, wordIndex).join("").length + letterIndex;
+                const offset = statementWords.slice(0, wordIndex).join("").length + letterIndex;
                 return (
                   <motion.span
                     key={`${replay}-${offset}`}
                     className={styles.letter}
-                    initial={reduceMotion ? false : { opacity: 0, filter: "blur(3px)", transform: "translateY(0.18em)" }}
-                    animate={{ opacity: 1, filter: "blur(0px)", transform: "translateY(0em)" }}
-                    transition={reduceMotion ? { duration: 0 } : { duration: .28, delay: .06 + offset * .012, ease: [0.23, 1, 0.32, 1] }}
+                    variants={letterVariants}
+                    initial={reduceMotion ? false : "hidden"}
+                    animate={reduceMotion || inView ? "visible" : "hidden"}
+                    transition={
+                      reduceMotion || !inView
+                        ? { duration: 0 }
+                        : {
+                            duration: 0.24,
+                            delay: 0.05 + offset * 0.0105,
+                            ease: resolveEase,
+                          }
+                    }
                   >
                     {letter}
                   </motion.span>
                 );
               })}
-              {wordIndex < words.length - 1 ? " " : null}
+              {wordIndex < statementWords.length - 1 ? " " : null}
             </span>
           ))}
         </h2>
