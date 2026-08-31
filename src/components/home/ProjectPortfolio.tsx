@@ -11,7 +11,7 @@ import { Container } from "../ui/Container";
 import styles from "./ProjectPortfolio.module.css";
 
 const media: Record<string, string> = {
-  grace: "/brand/grace/grace-animation-poster.jpg",
+  grace: "/brand/grace/grace-avatar.jpg",
   "orbit-artist-group": "/brand/projects/orbit-artist-group-orbit.png",
   "media-scaling": "/brand/projects/media-scaling-orbit.png",
   soniq: "/brand/projects/soniq-orbit.png",

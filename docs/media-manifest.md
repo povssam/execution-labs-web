@@ -9,6 +9,7 @@ was invented.
 | --- | --- | --- | --- |
 | `public/brand/hero-glass.png` | Existing brand asset | Hero atmosphere in A/B; desaturated presentation in C | Use as a single responsive image; preserve the existing crop and avoid duplicate copies |
 | `public/brand/logo.png` | Existing brand asset | Available E mark reference; not required as a new hero lockup | Keep small and only where it supports navigation/CTA |
+| `public/brand/grace/grace-avatar.jpg` | Square crop from the standalone portrait frame in the existing Grace animation | Primary Grace tile in Project Portfolio | 512px square, poster-sized and intentionally framed for the rounded orbit tile |
 | `public/brand/grace/grace-animation-poster.jpg` | Existing Grace asset | Selected Work fallback/poster and phone-review surface | Poster-first loading; keep intrinsic ratio; lazy-load below hero |
 | `public/brand/grace/grace-animation.mp4` | Existing Grace asset | Motion Work / Selected Work proof surface | Poster fallback, `playsInline`, no autoplay requirement for direction review |
 | `public/brand/grace/grace-branding-concept.pdf` | Existing Grace reference | Not embedded in the board; retained as source material | Do not ship as page media without a deliberate review path |
@@ -47,7 +48,7 @@ The delivery uses the existing media inventory only:
 
 - `public/brand/hero-glass.png` remains the hero anchor and is reused as a low-opacity
   prism texture inside the portfolio/process fields.
-- `public/brand/grace/grace-animation-poster.jpg` appears as the Grace portfolio tile.
+- `public/brand/grace/grace-avatar.jpg` appears as the primary Grace portfolio tile. It is a square crop from the standalone portrait moment in the existing `grace-animation.mp4`; the poster remains the case-study/video fallback.
 - `src/lib/data.ts` supplies all five real client/project names, copy, years, tags, and
   case-study routes.
 - The remaining portfolio tiles use project-specific captures already present in the
@@ -81,7 +82,7 @@ No new client work, metrics, logos, screenshots, or fabricated evidence were add
 ## Client brand-alignment pass — 2026-08-30
 
 The signature Project Portfolio uses only the five existing real project media assets:
-the Grace poster and the four repository project orbit captures. `hero-glass.png`
+the derived Grace avatar crop from the existing animation and the four repository project orbit captures. `hero-glass.png`
 continues to be the only optical brand asset and is used as a low-opacity refracted
 surface in the statement, capability engine, and protocol lens. No generated media or
 fabricated work was introduced.
