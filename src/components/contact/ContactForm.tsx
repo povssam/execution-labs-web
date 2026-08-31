@@ -36,7 +36,7 @@ function Chip({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full border px-4 py-2 text-sm transition-all duration-200",
+        "min-h-11 rounded-full border px-4 py-2 text-sm transition-all duration-200",
         active
           ? "border-bone bg-bone text-ink"
           : "border-line text-bone-dim hover:border-bone/40 hover:text-bone",
@@ -121,7 +121,7 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-line bg-charcoal/60 p-6 sm:p-8">
+    <div className="rounded-2xl border border-line bg-charcoal/60 p-5 sm:p-7">
       <AnimatePresence mode="wait">
         {sent ? (
           <motion.div
@@ -166,10 +166,10 @@ export function ContactForm() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.25 }}
             onSubmit={onSubmit}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-5"
           >
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="flex flex-col gap-2">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="flex flex-col gap-1.5">
                 <label htmlFor="name" className={labelClass}>
                   Name
                 </label>
@@ -181,7 +181,7 @@ export function ContactForm() {
                   className={fieldClass}
                 />
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1.5">
                 <label htmlFor="email" className={labelClass}>
                   Email
                 </label>
@@ -196,7 +196,7 @@ export function ContactForm() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1.5">
               <label htmlFor="company" className={labelClass}>
                 Company
               </label>
@@ -208,9 +208,9 @@ export function ContactForm() {
               />
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
               <span className={labelClass}>Project type</span>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {projectTypes.map((t) => (
                   <Chip key={t} active={type === t} onClick={() => setType(t)}>
                     {t}
@@ -219,9 +219,9 @@ export function ContactForm() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
               <span className={labelClass}>Budget</span>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {budgets.map((b) => (
                   <Chip
                     key={b}
@@ -234,7 +234,7 @@ export function ContactForm() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1.5">
               <label htmlFor="message" className={labelClass}>
                 What are you building?
               </label>
@@ -242,13 +242,13 @@ export function ContactForm() {
                 id="message"
                 name="message"
                 required
-                rows={5}
+                rows={4}
                 placeholder="Tell us about the system you want to build."
                 className={cn(fieldClass, "resize-none")}
               />
             </div>
 
-            <div className="mt-1 flex flex-col gap-3">
+            <div className="mt-0 flex flex-col gap-2">
               <Button
                 type="submit"
                 disabled={status === "sending"}

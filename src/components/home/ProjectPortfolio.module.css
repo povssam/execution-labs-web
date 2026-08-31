@@ -1,5 +1,5 @@
 .section { position:relative; overflow:clip; background:#020203; border-bottom:1px solid rgba(237,237,237,.055); }
-.scrollScene { min-height:165svh; }
+.scrollScene { min-height:145svh; }
 .stickyStage { position:sticky; top:var(--nav-height); height:calc(100svh - var(--nav-height)); min-height:40rem; overflow:hidden; }
 .container { position:relative; display:flex; height:100%; align-items:center; justify-content:center; }
 .instrumentation { position:absolute; top:1.35rem; right:0; left:0; z-index:7; display:flex; justify-content:space-between; color:rgba(237,237,237,.42); font-family:var(--font-geist-mono),monospace; font-size:.56rem; font-weight:600; letter-spacing:.11em; text-transform:uppercase; }
@@ -23,5 +23,5 @@
 .centerReadout strong { margin-top:.85rem; font-size:var(--type-body); font-weight:500; letter-spacing:-.025em; }
 .centerReadout small,.centerHint { margin-top:.34rem; color:rgba(237,237,237,.42); font-family:var(--font-geist-mono),monospace; font-size:.53rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
 .centerHint { position:absolute; bottom:4%; left:50%; margin:0; translate:-50% 0; white-space:nowrap; }
-@media (max-width:767px) { .scrollScene { min-height:158svh; } .stickyStage { min-height:39rem; } .instrumentation { top:1rem; font-size:var(--type-label); } .orbitStage { width:178vw; height:min(38rem,67svh); min-height:28rem; } .orbitTrace { width:94%; height:57%; } .tile { width:clamp(4.85rem,24vw,6.3rem); border-radius:1rem .65rem 1rem .65rem; } .tileName { display:none; } .centerReadout { top:55%; min-width:12rem; } .centerReadout>span,.centerReadout h2 { font-size:var(--type-section-display); } .centerReadout strong { margin-top:.75rem; font-size:var(--type-body); } .centerReadout small { max-width:15ch; font-size:var(--type-micro); line-height:1.4; } .centerHint { bottom:5%; font-size:var(--type-micro); } }
+@media (max-width:767px) { .scrollScene { min-height:132svh; } .stickyStage { min-height:39rem; } .instrumentation { top:1rem; font-size:var(--type-label); } .orbitStage { width:178vw; height:min(38rem,67svh); min-height:28rem; } .orbitTrace { width:94%; height:57%; } .tile { width:clamp(4.85rem,24vw,6.3rem); border-radius:1rem .65rem 1rem .65rem; } .tileName { display:none; } .centerReadout { top:55%; min-width:12rem; } .centerReadout>span,.centerReadout h2 { font-size:var(--type-section-display); } .centerReadout strong { margin-top:.75rem; font-size:var(--type-body); } .centerReadout small { max-width:15ch; font-size:var(--type-micro); line-height:1.4; } .centerHint { bottom:5%; font-size:var(--type-micro); } }
 @media (prefers-reduced-motion:reduce) { .tileImage { transition:none; } }

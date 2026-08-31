@@ -193,7 +193,7 @@ export function Nav() {
                 className={cn(
                   "flex items-center justify-between rounded-lg border border-transparent px-3 py-3 text-base transition-colors duration-150",
                   isActive(link)
-                    ? "border-line bg-charcoal text-bone"
+                    ? "text-bone"
                     : "text-bone-dim hover:bg-charcoal-2 hover:text-bone",
                 )}
               >

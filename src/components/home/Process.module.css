@@ -3,7 +3,7 @@
 .stickyStage { position: sticky; top: var(--nav-height); height: calc(100svh - var(--nav-height)); min-height: 40rem; overflow: hidden; }
 .container { position: relative; display: flex; height: 100%; flex-direction: column; justify-content: center; }
 .instrumentation { position: absolute; top: 1.35rem; right: 0; left: 0; display: flex; justify-content: space-between; gap: 1rem; color: rgba(237,237,237,.42); font-family: var(--font-geist-mono),monospace; font-size: .56rem; font-weight: 600; letter-spacing: .11em; line-height: 1.2; text-transform: uppercase; }
-.layout { display: grid; grid-template-columns: minmax(25rem,.98fr) minmax(23rem,1.02fr); gap: clamp(3.5rem,7vw,7rem); align-items: center; }
+.layout { display: grid; grid-template-columns: minmax(25rem,.98fr) minmax(23rem,1.02fr); gap: clamp(3.5rem,7vw,7rem); align-items: center; transform:translateY(-1.25rem); }
 .lensWrap { position: relative; display: grid; width: min(100%,38rem); place-items: center; aspect-ratio: 1; }
 .lens { position: relative; width: 92%; overflow: hidden; aspect-ratio: 1; border: 1px solid rgba(237,237,237,.22); border-radius: 50%; box-shadow: -2.4rem -1.8rem 5rem -3rem rgba(126,119,255,.5),2.8rem 1.9rem 5rem -3rem rgba(255,177,104,.4),0 0 0 1rem rgba(237,237,237,.012); will-change: transform; }
 .lensMedia { position: absolute; inset: -10%; will-change: transform; }
@@ -36,7 +36,7 @@
   .scrollScene { min-height: 138svh; }
   .stickyStage { min-height: 39rem; }
   .instrumentation { top: 1rem; font-size: .5rem; }
-  .layout { display:flex; flex-direction:column; gap:1.35rem; padding-top:2.25rem; }
+  .layout { display:flex; flex-direction:column; gap:1.35rem; padding-top:2.25rem; transform:translateY(-1rem); }
   .lensWrap { width:min(68vw,18rem); margin-inline:auto; }
   .lens { width:92%; }
   .lensIndex { right:-1%; bottom:11%; font-size:.52rem; }

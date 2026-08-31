@@ -4478,11 +4478,11 @@ body {
 }
 
 .final-cta-section {
-  padding-block: clamp(3.5rem, 6vw, 5.5rem) !important;
+  padding-block: clamp(3rem, 5vw, 4.5rem) !important;
 }
 
 .final-cta-section .final-cta-content {
-  padding-block: clamp(1.5rem, 3vw, 3rem) !important;
+  padding-block: clamp(1.25rem, 2.5vw, 2.5rem) !important;
   transform: none !important;
 }
 
