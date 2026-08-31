@@ -12,13 +12,14 @@ export function FinalCTA({ compact = false }: { compact?: boolean }) {
       <Container className="relative z-10">
         <Reveal>
           <div
-            className={`final-cta-content relative px-2 text-center ${compact ? "py-10 sm:py-16" : "py-16 sm:py-24"}`}
+            className={`final-cta-content relative px-2 text-left ${compact ? "py-10 sm:py-16" : "py-16 sm:py-24"}`}
             style={compact ? { transform: "none" } : undefined}
           >
-            <h2 className="text-wipe mx-auto max-w-3xl text-4xl font-semibold leading-[1.02] tracking-tight text-bone sm:text-5xl lg:text-6xl">
-              Make the work move.
+            <h2 className="text-wipe max-w-3xl text-left text-4xl font-semibold leading-[1.02] tracking-tight text-bone sm:text-5xl lg:text-6xl">
+              <span className="block sm:inline">Make the</span>{" "}
+              <span className="block sm:inline">work move.</span>
             </h2>
-            <CtaButtons className={`${compact ? "mt-7" : "mt-9"} justify-center`} primaryLabel="Start a project" />
+            <CtaButtons className={`${compact ? "mt-7" : "mt-9"} justify-start`} primaryLabel="Start a project" />
           </div>
         </Reveal>
       </Container>
