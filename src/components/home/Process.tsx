@@ -73,8 +73,7 @@ export function Process() {
         <div className={styles.stickyStage}>
           <Container className={styles.container}>
             <div className={styles.instrumentation}>
-              <span>04 / Execution protocol</span>
-              <span>{String(activeIndex + 1).padStart(2, "0")} / 04</span>
+              <span>Execution protocol</span>
             </div>
 
             <div className={styles.layout}>
@@ -95,7 +94,6 @@ export function Process() {
                 <div className={styles.steps} role="tablist" aria-label="Process steps">
                   {process.map((step, index) => (
                     <button key={step.title} type="button" role="tab" id={`process-tab-${index}`} aria-controls="process-panel" aria-selected={index === activeIndex} tabIndex={index === activeIndex ? 0 : -1} data-active={index === activeIndex} onClick={() => setStep(index)} onKeyDown={(event) => onKeyDown(event, index)}>
-                      <span>{step.index}</span>
                       <strong>{step.title}</strong>
                     </button>
                   ))}

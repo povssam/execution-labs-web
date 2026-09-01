@@ -97,9 +97,6 @@ export function StudioStatement() {
       data-statement-visible={reduceMotion || inView}
     >
       <Container className={styles.container}>
-        <div className={styles.instrumentation}>
-          <span>01 / Execution Labs</span>
-        </div>
         <div className={styles.field} aria-hidden="true">
           <motion.div
             key={`refraction-${replay}`}
