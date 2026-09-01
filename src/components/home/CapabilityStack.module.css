@@ -11,7 +11,7 @@
   position: relative;
   height: auto;
   min-height: 0;
-  padding-block: clamp(5rem, 9vw, 7.5rem);
+  padding-block: clamp(4rem, 7vw, 6rem);
 }
 
 .container {
@@ -47,16 +47,18 @@
   display: grid;
   grid-template-columns: repeat(4,minmax(0,1fr));
   width: 100%;
-  margin-top: clamp(2rem,4vw,3.5rem);
+  margin-top: clamp(1.5rem,3vw,2.5rem);
   border-top: 1px solid rgba(237,237,237,.18);
   border-bottom: 1px solid rgba(237,237,237,.18);
+  touch-action: pan-y;
+  user-select: none;
 }
 
 .capability {
   position: relative;
   display: grid;
   min-width: 0;
-  min-height: 9.25rem;
+  min-height: 8.5rem;
   grid-template-rows: auto auto 1fr;
   align-content: start;
   gap: .8rem;
@@ -64,11 +66,12 @@
   border: 0;
   border-left: 1px solid rgba(237,237,237,.15);
   background: transparent;
-  color: rgba(237,237,237,.4);
+  color: rgba(237,237,237,.5);
   cursor: pointer;
   font: inherit;
   text-align: left;
-  transition: color 220ms ease, opacity 220ms ease;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 180ms cubic-bezier(.23,1,.32,1), opacity 180ms cubic-bezier(.23,1,.32,1), transform 120ms ease-out;
 }
 
 .capability:first-child {
@@ -94,7 +97,7 @@
 
 .capability:last-child::after { right: 0; }
 
-.capability[data-active="false"] { opacity: .58; }
+.capability[data-active="false"] { opacity: .72; }
 
 .capability[data-active="true"] { color: #ededed; }
 
@@ -136,15 +139,17 @@
 
 .capability[data-active="true"] .capabilityDescriptor { color: rgba(237,237,237,.72); }
 
+.capability:active { transform: scale(.98); }
+
 @media (max-width:767px) {
-  .stickyStage { padding-block: 4.5rem 5rem; }
+  .stickyStage { padding-block: 3.25rem 3.5rem; }
   .instrumentation { font-size: var(--type-label); }
-  .capabilityGrid { margin-top: 2rem; }
+  .capabilityGrid { margin-top: 1.5rem; }
   .capability {
-    min-height: 8.75rem;
+    min-height: 7.75rem;
     grid-template-rows: auto auto 1fr;
-    gap: .6rem;
-    padding: 1.15rem .45rem 1.15rem .65rem;
+    gap: .5rem;
+    padding: 1rem .45rem 1.05rem .65rem;
   }
   .capability:first-child { padding-left: 0; }
   .capability:last-child { padding-right: 0; }
