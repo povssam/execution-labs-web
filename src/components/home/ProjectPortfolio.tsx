@@ -269,22 +269,9 @@ export function ProjectPortfolio() {
                     router.push("/work");
                   }}
                 >
-                  View work <span aria-hidden="true">↗</span>
+                  View work
                 </button>
               </div>
-
-              <button
-                type="button"
-                className={styles.nextButton}
-                aria-label="Next sample"
-                onPointerDown={(event) => event.stopPropagation()}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  select(activeRef.current + 1, false);
-                }}
-              >
-                <span aria-hidden="true">→</span>
-              </button>
             </div>
           </Container>
         </div>
