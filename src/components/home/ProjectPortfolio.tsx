@@ -10,22 +10,23 @@ import { Container } from "../ui/Container";
 import styles from "./ProjectPortfolio.module.css";
 
 /**
- * One replaceable sample list keeps the radial composition independent from
- * the eventual client project media. The routes remain real while the
- * gallery is intentionally presented as a Gather-style visual field.
+ * Keep the radial composition independent from the replaceable project
+ * media. The repository has one approved Grace avatar and four real,
+ * project-specific square assets; repeating those assets preserves the
+ * reference density without introducing fabricated work.
  */
-const placeholderSamples = [
-  { slug: "grace", src: "/brand/projects/gather-samples/sample-01.webp" },
-  { slug: "media-scaling", src: "/brand/projects/gather-samples/sample-02.webp" },
-  { slug: "dividends-total-returns", src: "/brand/projects/gather-samples/sample-03.jpeg" },
-  { slug: "orbit-artist-group", src: "/brand/projects/gather-samples/sample-04.webp" },
-  { slug: "soniq", src: "/brand/projects/gather-samples/sample-05.webp" },
-  { slug: "grace", src: "/brand/projects/gather-samples/sample-06.webp" },
-  { slug: "media-scaling", src: "/brand/projects/gather-samples/sample-07.webp" },
-  { slug: "dividends-total-returns", src: "/brand/projects/gather-samples/sample-08.webp" },
-  { slug: "orbit-artist-group", src: "/brand/projects/gather-samples/sample-09.webp" },
-  { slug: "soniq", src: "/brand/projects/gather-samples/sample-10.webp" },
-  { slug: "grace", src: "/brand/projects/gather-samples/sample-11.webp" },
+const projectSamples = [
+  { slug: "grace", src: "/brand/grace/grace-avatar.jpg" },
+  { slug: "media-scaling", src: "/brand/projects/media-scaling-orbit.png" },
+  { slug: "dividends-total-returns", src: "/brand/projects/dividends-total-returns-orbit.png" },
+  { slug: "orbit-artist-group", src: "/brand/projects/orbit-artist-group-orbit.png" },
+  { slug: "soniq", src: "/brand/projects/soniq-orbit.png" },
+  { slug: "grace", src: "/brand/grace/grace-avatar.jpg" },
+  { slug: "media-scaling", src: "/brand/projects/media-scaling-orbit.png" },
+  { slug: "dividends-total-returns", src: "/brand/projects/dividends-total-returns-orbit.png" },
+  { slug: "orbit-artist-group", src: "/brand/projects/orbit-artist-group-orbit.png" },
+  { slug: "soniq", src: "/brand/projects/soniq-orbit.png" },
+  { slug: "grace", src: "/brand/grace/grace-avatar.jpg" },
 ] as const;
 
 const ORBIT_SLOT_COUNT = 24;
@@ -33,7 +34,7 @@ const ORBIT_STEP = 360 / ORBIT_SLOT_COUNT;
 const CARD_ROTATION_FACTOR = 0.24;
 
 const orbitSamples = Array.from({ length: ORBIT_SLOT_COUNT }, (_, slot) => ({
-  ...placeholderSamples[slot % placeholderSamples.length],
+  ...projectSamples[slot % projectSamples.length],
   slot,
   angle: slot * ORBIT_STEP,
 }));
