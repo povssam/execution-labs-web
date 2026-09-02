@@ -3,10 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Send } from "lucide-react";
-import { Button } from "../ui/Button";
+import { ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EMAIL } from "@/lib/site";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
+import styles from "./ContactForm.module.css";
 
 const projectTypes = [
   "AI Agents",
@@ -16,11 +17,6 @@ const projectTypes = [
 ];
 
 const budgets = ["Under 10k", "10k to 30k", "30k+", "Not sure"];
-
-const fieldClass =
-  "w-full rounded-xl border border-line bg-ink/60 px-4 py-3 text-sm text-bone placeholder:text-bone-faint outline-none transition-all duration-200 focus:border-bone/50 focus:bg-charcoal-2 focus:ring-1 focus:ring-bone/20";
-
-const labelClass = "text-xs font-medium text-bone-dim";
 
 function Chip({
   active,
@@ -35,12 +31,8 @@ function Chip({
     <button
       type="button"
       onClick={onClick}
-      className={cn(
-        "min-h-11 rounded-full border px-4 py-2 text-sm transition-all duration-200",
-        active
-          ? "border-bone bg-bone text-ink"
-          : "border-line text-bone-dim hover:border-bone/40 hover:text-bone",
-      )}
+      aria-pressed={active}
+      className={cn(styles.chip, active && styles.chipActive)}
     >
       {children}
     </button>
@@ -55,6 +47,7 @@ export function ContactForm() {
   const [sent, setSent] = useState(false);
   const [usedEmailFallback, setUsedEmailFallback] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const reduceMotion = usePrefersReducedMotion();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -121,26 +114,28 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-2xl border border-line bg-charcoal/60 p-5 sm:p-7">
+    <div className={styles.formShell}>
       <AnimatePresence mode="wait">
         {sent ? (
           <motion.div
             key="done"
-            initial={{ opacity: 0, y: 12 }}
+            role="status"
+            aria-live="polite"
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 4 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-center gap-4 py-16 text-center"
+            transition={{ duration: reduceMotion ? 0.12 : 0.2, ease: [0.23, 1, 0.32, 1] }}
+            className={styles.success}
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-full border border-line bg-ink text-emerald-400">
+            <div className={styles.successIcon}>
               <Check size={24} />
             </div>
-            <h3 className="text-xl font-medium text-bone">Brief received</h3>
-            <p className="max-w-sm text-sm leading-relaxed text-bone-dim">
+            <h3 className={styles.successTitle}>Brief received</h3>
+            <p className={styles.successCopy}>
               {usedEmailFallback
                 ? "Your email app should now have a drafted project brief. Send it when it looks right and we will reply within a day."
                 : `Thanks for reaching out about your ${type.toLowerCase()} project. We read every brief and reply within a day. Next, we map the system with you before any quote.`}
             </p>
-            <div className="mt-2 flex items-center gap-5 text-sm">
+            <div className={styles.successActions}>
               <Link
                 href="/work"
                 className="text-bone underline underline-offset-4 transition-colors hover:text-white"
@@ -160,29 +155,27 @@ export function ContactForm() {
             </div>
           </motion.div>
         ) : (
-          <motion.form
+          <form
             key="form"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.25 }}
             onSubmit={onSubmit}
-            className="flex flex-col gap-5"
+            className={styles.form}
           >
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="name" className={labelClass}>
+            <div className={styles.fieldGrid}>
+              <div className={styles.field}>
+                <label htmlFor="name" className={styles.label}>
                   Name
                 </label>
                 <input
                   id="name"
                   name="name"
                   required
-                  placeholder="Your name"
-                  className={fieldClass}
+                  autoComplete="name"
+                  placeholder="Your name…"
+                  className={styles.input}
                 />
               </div>
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="email" className={labelClass}>
+              <div className={styles.field}>
+                <label htmlFor="email" className={styles.label}>
                   Email
                 </label>
                 <input
@@ -190,38 +183,42 @@ export function ContactForm() {
                   name="email"
                   type="email"
                   required
-                  placeholder="you@company.com"
-                  className={fieldClass}
+                  autoComplete="email"
+                  spellCheck={false}
+                  inputMode="email"
+                  placeholder="you@company.com…"
+                  className={styles.input}
                 />
               </div>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="company" className={labelClass}>
+            <div className={styles.field}>
+              <label htmlFor="company" className={styles.label}>
                 Company
               </label>
               <input
                 id="company"
                 name="company"
-                placeholder="Company name"
-                className={fieldClass}
+                autoComplete="organization"
+                placeholder="Company name…"
+                className={styles.input}
               />
             </div>
 
-            <div className="flex flex-col gap-2">
-              <span className={labelClass}>Project type</span>
-              <div className="flex flex-wrap gap-1.5">
+            <fieldset className={styles.choiceGroup}>
+              <legend className={styles.label}>Project type</legend>
+              <div className={styles.chipRow}>
                 {projectTypes.map((t) => (
                   <Chip key={t} active={type === t} onClick={() => setType(t)}>
                     {t}
                   </Chip>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
-            <div className="flex flex-col gap-2">
-              <span className={labelClass}>Budget</span>
-              <div className="flex flex-wrap gap-1.5">
+            <fieldset className={styles.choiceGroup}>
+              <legend className={styles.label}>Budget</legend>
+              <div className={styles.chipRow}>
                 {budgets.map((b) => (
                   <Chip
                     key={b}
@@ -232,36 +229,36 @@ export function ContactForm() {
                   </Chip>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="message" className={labelClass}>
+            <div className={styles.field}>
+              <label htmlFor="message" className={styles.label}>
                 What are you building?
               </label>
               <textarea
                 id="message"
                 name="message"
                 required
-                rows={4}
-                placeholder="Tell us about the system you want to build."
-                className={cn(fieldClass, "resize-none")}
+                rows={5}
+                placeholder="Tell us about the system you want to build…"
+                className={cn(styles.input, styles.textarea)}
               />
             </div>
 
-            <div className="mt-0 flex flex-col gap-2">
-              <Button
+            <div className={styles.submitRow}>
+              <button
                 type="submit"
                 disabled={status === "sending"}
-                className="w-full disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                className={styles.submit}
               >
-                {status === "sending" ? "Sending..." : "Send message"}
-                <Send
+                {status === "sending" ? "Sending…" : "Send message"}
+                <ArrowRight
                   size={15}
-                  className="transition-transform duration-200 group-hover:translate-x-0.5"
+                  aria-hidden="true"
                 />
-              </Button>
+              </button>
               {status === "error" && (
-                <p className="text-sm text-amber-400/90">
+                <p className={styles.error} role="alert" aria-live="polite">
                   Something went wrong sending your message. Email us directly at{" "}
                   <a
                     href="mailto:hello@executionlabs.com"
@@ -272,8 +269,13 @@ export function ContactForm() {
                   .
                 </p>
               )}
+              {status === "sending" && (
+                <p className={styles.status} role="status" aria-live="polite">
+                  Sending your brief…
+                </p>
+              )}
             </div>
-          </motion.form>
+          </form>
         )}
       </AnimatePresence>
     </div>
