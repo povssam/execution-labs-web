@@ -1,6 +1,6 @@
 .page {
   padding-top: calc(var(--nav-height) + 3.5rem);
-  padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 .container {

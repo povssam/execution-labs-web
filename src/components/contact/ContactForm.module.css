@@ -120,6 +120,7 @@
   flex-direction: column;
   gap: 0.625rem;
   padding-top: 0.15rem;
+  padding-bottom: 1.5rem;
 }
 
 .submit {
@@ -242,6 +243,10 @@
 @media (min-width: 1024px) {
   .form {
     gap: 1.25rem;
+  }
+
+  .submitRow {
+    padding-bottom: 0;
   }
 
   .textarea {
