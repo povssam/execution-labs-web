@@ -115,6 +115,14 @@ body {
   will-change: transform, opacity;
 }
 
+/* The parsed opening clock covers the time before React hydration begins. */
+html[data-opening-phase="brand"] .opening-sequence__mark,
+html[data-opening-phase="wordmark"] .opening-sequence__mark,
+html[data-opening-phase="handoff"] .opening-sequence__mark {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
 .opening-sequence[data-phase="mark"] .opening-sequence__mark,
 .opening-sequence[data-phase="wordmark"] .opening-sequence__mark,
 .opening-sequence[data-phase="handoff"] .opening-sequence__mark {
@@ -134,6 +142,40 @@ body {
   white-space: nowrap;
   transition: transform 0.28s var(--opening-ease);
   will-change: transform, opacity;
+}
+
+html[data-opening-phase="wordmark"] .opening-sequence__wordmark,
+html[data-opening-phase="handoff"] .opening-sequence__wordmark {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+html[data-opening-phase="handoff"] .opening-sequence__brand {
+  transform: translate3d(
+    calc(var(--opening-header-x) - 50vw + 50%),
+    calc(var(--opening-header-y) - 50vh + 50%),
+    0
+  ) scale(1);
+}
+
+html[data-opening-phase="complete"] .opening-sequence__mark,
+html[data-opening-phase="complete"] .opening-sequence__wordmark {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+html[data-opening-phase="complete"] .opening-sequence__brand {
+  transform: translate3d(
+    calc(var(--opening-header-x) - 50vw + 50%),
+    calc(var(--opening-header-y) - 50vh + 50%),
+    0
+  ) scale(1);
+}
+
+html[data-opening-phase="complete"] .opening-sequence {
+  opacity: 0 !important;
+  visibility: hidden;
+  transition: opacity 0.14s var(--opening-ease), visibility 0s linear 0.14s;
 }
 
 .opening-sequence[data-phase="wordmark"] .opening-sequence__wordmark,
