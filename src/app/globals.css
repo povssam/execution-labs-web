@@ -92,7 +92,7 @@ body {
   white-space: nowrap;
   transform: scale(var(--opening-scale));
   transform-origin: center;
-  transition: transform 0.22s var(--opening-ease);
+  transition: transform 0.36s var(--opening-ease);
   will-change: transform;
 }
 
@@ -111,7 +111,7 @@ body {
   height: 1.25rem;
   opacity: 0;
   transform: translate3d(0, 0.16rem, 0);
-  transition: transform 0.28s var(--opening-ease);
+  transition: transform 0.28s var(--opening-ease), opacity 0.28s var(--opening-ease);
   will-change: transform, opacity;
 }
 
@@ -140,7 +140,7 @@ html[data-opening-phase="handoff"] .opening-sequence__mark {
   opacity: 0;
   transform: translate3d(0, 0.16rem, 0);
   white-space: nowrap;
-  transition: transform 0.28s var(--opening-ease);
+  transition: transform 0.28s var(--opening-ease), opacity 0.28s var(--opening-ease);
   will-change: transform, opacity;
 }
 
@@ -165,6 +165,8 @@ html[data-opening-phase="complete"] .opening-sequence__wordmark {
 }
 
 html[data-opening-phase="complete"] .opening-sequence__brand {
+  /* Swap logos before fading the backdrop so they can never overlap. */
+  visibility: hidden;
   transform: translate3d(
     calc(var(--opening-header-x) - 50vw + 50%),
     calc(var(--opening-header-y) - 50vh + 50%),

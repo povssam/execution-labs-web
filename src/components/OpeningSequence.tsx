@@ -8,8 +8,8 @@ type OpeningPhase = "black" | "mark" | "wordmark" | "handoff";
 
 const WORDMARK = "Execution Labs";
 const WORDMARK_START_MS = 180;
-const HANDOFF_START_MS = 760;
-const HANDOFF_DURATION_MS = 220;
+const HANDOFF_START_MS = 620;
+const HANDOFF_DURATION_MS = 360;
 const HANDOFF_EXIT_MS = 140;
 const HANDOFF_COMPLETE_MS = HANDOFF_START_MS + HANDOFF_DURATION_MS;
 const OPENING_TOTAL_MS = HANDOFF_COMPLETE_MS + HANDOFF_EXIT_MS;
