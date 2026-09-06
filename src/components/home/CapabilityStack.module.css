@@ -11,7 +11,7 @@
   position: relative;
   height: auto;
   min-height: 0;
-  padding-block: clamp(4rem, 7vw, 6rem);
+  padding-block: var(--rhythm-section-compact);
 }
 
 .container {
@@ -47,7 +47,7 @@
   display: grid;
   grid-template-columns: repeat(4,minmax(0,1fr));
   width: 100%;
-  margin-top: clamp(1.5rem,3vw,2.5rem);
+  margin-top: var(--rhythm-label-gap);
   border-top: 1px solid rgba(237,237,237,.18);
   border-bottom: 1px solid rgba(237,237,237,.18);
   touch-action: pan-y;
@@ -142,9 +142,9 @@
 .capability:active { transform: scale(.98); }
 
 @media (max-width:767px) {
-  .stickyStage { padding-block: 3.25rem 3.5rem; }
+  .stickyStage { padding-block: var(--rhythm-section-compact); }
   .instrumentation { font-size: var(--type-label); }
-  .capabilityGrid { margin-top: 1.5rem; }
+  .capabilityGrid { margin-top: var(--rhythm-label-gap); }
   .capability {
     min-height: 7.75rem;
     grid-template-rows: auto auto 1fr;

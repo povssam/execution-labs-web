@@ -67,6 +67,7 @@ function PortfolioCard({
     <div
       className={styles.orbitArm}
       data-project-id={sample.id}
+      data-orbit-slot={sample.slot}
     >
       <motion.div className={styles.tileUpright} style={{ transform }}>
         <button

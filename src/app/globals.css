@@ -4453,6 +4453,12 @@ body {
   --space-tight: 0.75rem;
   --space-cluster: 1.5rem;
   --space-section: clamp(4.5rem, 7vw, 7rem);
+  --rhythm-section: clamp(4rem, 6.25vw, 6rem);
+  --rhythm-section-compact: clamp(3.5rem, 5vw, 4.5rem);
+  --rhythm-section-inset: clamp(1.25rem, 2.5vw, 2.5rem);
+  --rhythm-label-gap: clamp(0.875rem, 1.6vw, 1.25rem);
+  --rhythm-copy-gap: clamp(1rem, 1.8vw, 1.5rem);
+  --rhythm-footer: clamp(2.5rem, 5vw, 3.5rem);
 }
 
 .home-hero h1 {
@@ -4470,11 +4476,11 @@ body {
 }
 
 .final-cta-section {
-  padding-block: clamp(3rem, 5vw, 4.5rem) !important;
+  padding-block: var(--rhythm-section-compact) !important;
 }
 
 .final-cta-section .final-cta-content {
-  padding-block: clamp(1.25rem, 2.5vw, 2.5rem) !important;
+  padding-block: var(--rhythm-section-inset) !important;
   transform: none !important;
 }
 
@@ -4484,7 +4490,7 @@ body {
 }
 
 .site-footer .site-container {
-  padding-block: clamp(2.5rem, 5vw, 3.5rem);
+  padding-block: var(--rhythm-footer);
 }
 
 .site-footer .site-container > .flex:first-child {
@@ -4499,5 +4505,11 @@ body {
   :root {
     --type-display: clamp(2.35rem, 10.2vw, 3.1rem);
     --type-section-display: clamp(2rem, 9.5vw, 2.4rem);
+    --rhythm-section: clamp(3.5rem, 12vw, 4.75rem);
+    --rhythm-section-compact: clamp(3rem, 10vw, 3.5rem);
+    --rhythm-section-inset: 1.5rem;
+    --rhythm-label-gap: 1rem;
+    --rhythm-copy-gap: 1rem;
+    --rhythm-footer: clamp(2.5rem, 8vw, 3rem);
   }
 }

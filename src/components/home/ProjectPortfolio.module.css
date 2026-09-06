@@ -6,28 +6,29 @@
 }
 
 .scrollScene {
-  min-height: 145svh;
+  min-height: 0;
 }
 
 .stickyStage {
-  position: sticky;
-  top: var(--nav-height);
-  height: calc(100svh - var(--nav-height));
-  min-height: 40rem;
+  position: relative;
+  height: auto;
+  min-height: 0;
   overflow: visible;
 }
 
 .container {
   position: relative;
   display: flex;
-  height: 100%;
+  height: auto;
+  min-height: 0;
   align-items: center;
   justify-content: center;
+  padding-bottom: var(--rhythm-section-compact);
 }
 
 .instrumentation {
   position: absolute;
-  top: 1.35rem;
+  top: var(--rhythm-label-gap);
   right: var(--page-gutter);
   left: var(--page-gutter);
   z-index: 7;
@@ -43,7 +44,7 @@
 .orbitStage {
   position: relative;
   width: min(90rem, 100%);
-  height: min(52rem, calc(100svh - var(--nav-height)));
+  height: min(48rem, calc(100svh - var(--nav-height)));
   min-height: 33rem;
   outline: none;
   touch-action: pan-y;
@@ -71,6 +72,21 @@
   position: relative;
   width: 100%;
   min-width: 0;
+  transform: translate3d(0, var(--portfolio-arc-y), 0);
+}
+
+.orbitArm[data-orbit-slot="0"],
+.orbitArm[data-orbit-slot="4"] {
+  --portfolio-arc-y: 3.25rem;
+}
+
+.orbitArm[data-orbit-slot="1"],
+.orbitArm[data-orbit-slot="3"] {
+  --portfolio-arc-y: 1.15rem;
+}
+
+.orbitArm[data-orbit-slot="2"] {
+  --portfolio-arc-y: 0rem;
 }
 
 .tileUpright {
@@ -159,7 +175,7 @@
 }
 
 .centerReadout p {
-  margin: 1rem 0 0;
+  margin: var(--rhythm-label-gap) 0 0;
   color: rgba(237, 237, 237, 0.48);
   font-size: clamp(0.84rem, 1.2vw, 1rem);
   letter-spacing: -0.015em;
@@ -170,7 +186,7 @@
   display: inline-flex;
   min-height: 2.5rem;
   align-items: center;
-  margin-top: 1.4rem;
+  margin-top: var(--rhythm-copy-gap);
   padding: 0.65rem 1.1rem;
   border: 0;
   border-radius: 999px;
@@ -215,11 +231,11 @@
 
 @media (max-width: 767px) {
   .scrollScene {
-    min-height: 132svh;
+    min-height: 0;
   }
 
   .stickyStage {
-    min-height: min(39rem, calc(100svh - var(--nav-height)));
+    min-height: 0;
   }
 
   .container {
@@ -227,21 +243,35 @@
   }
 
   .instrumentation {
-    top: 1rem;
+    top: var(--rhythm-label-gap);
     font-size: var(--type-label);
   }
 
   .orbitStage {
     width: 100%;
-    height: min(38rem, calc(100svh - var(--nav-height)));
-    min-height: min(32rem, calc(100svh - var(--nav-height)));
-    margin-top: 3rem;
+    height: min(32rem, calc(100svh - var(--nav-height)));
+    min-height: min(30rem, calc(100svh - var(--nav-height)));
+    margin-top: 2rem;
   }
 
   .orbitRotor {
-    top: 16%;
+    top: 18%;
     width: 100%;
     gap: clamp(0.2rem, 1.6vw, 0.45rem);
+  }
+
+  .orbitArm[data-orbit-slot="0"],
+  .orbitArm[data-orbit-slot="4"] {
+    --portfolio-arc-y: 1.35rem;
+  }
+
+  .orbitArm[data-orbit-slot="1"],
+  .orbitArm[data-orbit-slot="3"] {
+    --portfolio-arc-y: 0.45rem;
+  }
+
+  .orbitArm[data-orbit-slot="2"] {
+    --portfolio-arc-y: 0rem;
   }
 
   .tileUpright {
@@ -269,7 +299,7 @@
 
   .centerAction {
     min-height: 2.45rem;
-    margin-top: 1.2rem;
+    margin-top: var(--rhythm-copy-gap);
     padding-inline: 1rem;
   }
 

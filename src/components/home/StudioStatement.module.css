@@ -1,14 +1,14 @@
 .section {
   position: relative;
   overflow: clip;
-  padding-block: clamp(4.75rem, 8vw, 7rem) clamp(4.25rem, 7vw, 6.5rem);
+  padding-block: var(--rhythm-section);
   background: var(--color-ink);
   border-bottom: 1px solid rgba(237, 237, 237, 0.055);
 }
 
 .container {
   position: relative;
-  min-height: clamp(22rem, 39vw, 30rem);
+  min-height: clamp(20rem, 34vw, 28rem);
   display: grid;
   align-content: center;
 }
@@ -37,7 +37,7 @@
   position: relative;
   z-index: 1;
   max-width: min(20ch, 92%);
-  margin: 2.25rem 0 0;
+  margin: 0;
   color: #ededed;
   font-size: var(--type-display);
   font-weight: 550;
@@ -72,11 +72,11 @@
 
 @media (max-width: 767px) {
   .section {
-    padding-block: 4.75rem 4.75rem;
+    padding-block: var(--rhythm-section);
   }
 
   .container {
-    min-height: 23rem;
+    min-height: 20rem;
   }
 
   .field {
@@ -93,7 +93,7 @@
 
   .container h2 {
     max-width: 100%;
-    margin-top: 1.9rem;
+    margin-top: 0;
     font-size: clamp(2rem, 8.8vw, 2.85rem);
   }
 }
