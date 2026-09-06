@@ -23,7 +23,7 @@
   min-height: 0;
   align-items: center;
   justify-content: center;
-  padding-block: var(--rhythm-chapter-top) var(--rhythm-section-compact);
+  padding-block: var(--rhythm-major-top) var(--rhythm-compact-bottom);
 }
 
 .instrumentation {
@@ -44,7 +44,7 @@
 .orbitStage {
   position: relative;
   width: min(90rem, 100%);
-  height: clamp(32rem, 44vw, 42rem);
+  height: clamp(28rem, 38vw, 36rem);
   min-height: 0;
   outline: none;
   touch-action: pan-y;
@@ -249,9 +249,9 @@
 
   .orbitStage {
     width: 100%;
-    height: min(27rem, calc(100svh - var(--nav-height)));
+    height: min(22rem, calc(100svh - var(--nav-height)));
     min-height: 0;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 
   .orbitRotor {
@@ -307,7 +307,7 @@
 
 @media (max-height: 500px) and (orientation: landscape) {
   .orbitStage {
-    height: min(32rem, calc(100svh - var(--nav-height)));
+    height: min(26rem, calc(100svh - var(--nav-height)));
   }
 }
 

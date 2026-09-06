@@ -21,7 +21,7 @@
   min-height: 0;
   flex-direction: column;
   justify-content: center;
-  padding-block: var(--rhythm-chapter-top) var(--rhythm-chapter-bottom);
+  padding-block: var(--rhythm-immersive-top) var(--rhythm-immersive-bottom);
 }
 
 .instrumentation {

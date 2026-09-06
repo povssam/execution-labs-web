@@ -1,7 +1,7 @@
 .section {
   position: relative;
   overflow: clip;
-  padding-block: var(--rhythm-chapter-top) var(--rhythm-chapter-bottom);
+  padding-block: var(--rhythm-major-top) var(--rhythm-major-bottom);
   background: var(--color-ink);
   border-bottom: 1px solid rgba(237, 237, 237, 0.055);
 }
@@ -72,7 +72,7 @@
 
 @media (max-width: 767px) {
   .section {
-    padding-block: var(--rhythm-chapter-top) var(--rhythm-chapter-bottom);
+    padding-block: var(--rhythm-major-top) var(--rhythm-major-bottom);
   }
 
   .container {
