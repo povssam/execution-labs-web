@@ -11,7 +11,7 @@
   position: relative;
   height: auto;
   min-height: 0;
-  padding-block: var(--rhythm-section-compact);
+  padding-block: var(--rhythm-chapter-top) var(--rhythm-chapter-bottom);
 }
 
 .container {
@@ -142,7 +142,7 @@
 .capability:active { transform: scale(.98); }
 
 @media (max-width:767px) {
-  .stickyStage { padding-block: var(--rhythm-section-compact); }
+  .stickyStage { padding-block: var(--rhythm-chapter-top) var(--rhythm-chapter-bottom); }
   .instrumentation { font-size: var(--type-label); }
   .capabilityGrid { margin-top: var(--rhythm-label-gap); }
   .capability {

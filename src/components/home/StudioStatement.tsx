@@ -7,17 +7,15 @@ import { Container } from "../ui/Container";
 import styles from "./StudioStatement.module.css";
 
 const statementWords = [
-  "Building",
-  "exceptional",
-  "digital",
-  "experiences",
-  "for",
-  "visionaries",
-  "and",
-  "innovators",
-  "around",
+  "Find",
   "the",
-  "world.",
+  "bottleneck.",
+  "Build",
+  "the",
+  "system.",
+  "Make",
+  "it",
+  "move.",
 ];
 
 const resolveEase = [0.23, 1, 0.32, 1] as const;
@@ -113,7 +111,7 @@ export function StudioStatement() {
         </div>
         <h2
           id="studio-statement-title"
-          aria-label="Building exceptional digital experiences for visionaries and innovators around the world."
+          aria-label="Find the bottleneck. Build the system. Make it move."
         >
           {statementWords.map((word, wordIndex) => (
             <span key={`${replay}-${word}-${wordIndex}`} className={styles.word} aria-hidden="true">

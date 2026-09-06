@@ -21,12 +21,12 @@
   min-height: 0;
   flex-direction: column;
   justify-content: center;
-  padding-block: var(--rhythm-section-compact);
+  padding-block: var(--rhythm-chapter-top) var(--rhythm-chapter-bottom);
 }
 
 .instrumentation {
   position: absolute;
-  top: var(--rhythm-label-gap);
+  top: var(--rhythm-section-inset);
   right: var(--page-gutter);
   left: var(--page-gutter);
   display: flex;
@@ -167,7 +167,7 @@
 @media (max-width:767px) {
   .scrollScene { min-height: 0; }
   .stickyStage { min-height: 0; }
-  .instrumentation { top: var(--rhythm-label-gap); font-size: var(--type-label); }
+  .instrumentation { top: var(--rhythm-section-inset); font-size: var(--type-label); }
   .layout { gap: var(--rhythm-label-gap); }
   .prismWrap { height: min(17rem,64vw); min-height: 15rem; }
   .prismMedia { inset: -20% 0; }

@@ -4,7 +4,7 @@
 
 .page {
   padding-top: calc(var(--nav-height) + 3.5rem);
-  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(var(--rhythm-contact-footer) + env(safe-area-inset-bottom, 0px));
 }
 
 .container {
@@ -13,7 +13,7 @@
 
 .layout {
   display: grid;
-  gap: 2.5rem;
+  gap: var(--rhythm-chapter-bottom);
 }
 
 .intro {
@@ -75,14 +75,14 @@
 
 @media (min-width: 640px) {
   .layout {
-    gap: 3.5rem;
+    gap: var(--rhythm-chapter-bottom);
   }
 }
 
 @media (min-width: 1024px) {
   .page {
     padding-top: calc(var(--nav-height) + 5rem);
-    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(var(--rhythm-contact-footer) + env(safe-area-inset-bottom, 0px));
   }
 
   .layout {

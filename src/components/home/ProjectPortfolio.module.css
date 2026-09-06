@@ -23,12 +23,12 @@
   min-height: 0;
   align-items: center;
   justify-content: center;
-  padding-bottom: var(--rhythm-section-compact);
+  padding-block: var(--rhythm-chapter-top) var(--rhythm-section-compact);
 }
 
 .instrumentation {
   position: absolute;
-  top: var(--rhythm-label-gap);
+  top: var(--rhythm-section-inset);
   right: var(--page-gutter);
   left: var(--page-gutter);
   z-index: 7;
@@ -44,8 +44,8 @@
 .orbitStage {
   position: relative;
   width: min(90rem, 100%);
-  height: min(48rem, calc(100svh - var(--nav-height)));
-  min-height: 33rem;
+  height: clamp(32rem, 44vw, 42rem);
+  min-height: 0;
   outline: none;
   touch-action: pan-y;
 }
@@ -243,14 +243,14 @@
   }
 
   .instrumentation {
-    top: var(--rhythm-label-gap);
+    top: var(--rhythm-section-inset);
     font-size: var(--type-label);
   }
 
   .orbitStage {
     width: 100%;
-    height: min(32rem, calc(100svh - var(--nav-height)));
-    min-height: min(30rem, calc(100svh - var(--nav-height)));
+    height: min(27rem, calc(100svh - var(--nav-height)));
+    min-height: 0;
     margin-top: 2rem;
   }
 
@@ -283,7 +283,7 @@
   }
 
   .centerReadout {
-    top: 50%;
+    top: 56%;
     width: min(22rem, calc(100vw - 48px));
   }
 
@@ -303,6 +303,12 @@
     padding-inline: 1rem;
   }
 
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .orbitStage {
+    height: min(32rem, calc(100svh - var(--nav-height)));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

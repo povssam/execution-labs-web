@@ -5,13 +5,13 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
+  gap: var(--rhythm-copy-gap);
   min-width: 0;
 }
 
 .fieldGrid {
   display: grid;
-  gap: 0.875rem;
+  gap: var(--rhythm-copy-gap);
 }
 
 .field {
@@ -68,7 +68,7 @@
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.625rem;
   margin: 0;
   padding: 0;
   border: 0;
@@ -119,8 +119,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
-  padding-top: 0.15rem;
-  padding-bottom: 1.5rem;
+  padding-top: var(--rhythm-label-gap);
+  padding-bottom: var(--rhythm-section-inset);
 }
 
 .submit {
@@ -241,12 +241,8 @@
 }
 
 @media (min-width: 1024px) {
-  .form {
-    gap: 1.25rem;
-  }
-
   .submitRow {
-    padding-bottom: 0;
+    padding-bottom: var(--rhythm-section-inset);
   }
 
   .textarea {
