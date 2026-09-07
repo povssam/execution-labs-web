@@ -45,3 +45,11 @@ next-env.d.ts
 
 # keep the template, ignore real env files
 !.env.example
+
+# Local agent tooling and QA artifacts
+/.agents/
+/docs/qa/
+/test-results/
+*.key
+*.p12
+*.pfx
