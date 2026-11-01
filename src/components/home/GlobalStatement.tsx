@@ -4,7 +4,7 @@ import { Reveal } from "../ui/Reveal";
 
 export function GlobalStatement() {
   return (
-    <section className="section-flow scroll-reveal relative overflow-hidden py-12 sm:py-20">
+    <section className="section-flow relative overflow-hidden py-12 sm:py-20">
       <BrandAtmosphere intensity="soft" tone="fade" focus="center" />
       <Container className="relative z-10">
         <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center">
