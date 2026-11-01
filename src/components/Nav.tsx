@@ -8,12 +8,11 @@ import { cn } from "@/lib/utils";
 import { ButtonLink } from "./ui/Button";
 import { Logo } from "./brand/Logo";
 
-type NavLink = { href: string; label: string; section?: string };
+type NavLink = { href: string; label: string };
 
 const links: NavLink[] = [
-  { href: "/#services", label: "Services", section: "services" },
-  { href: "/#work", label: "Work", section: "work" },
-  { href: "/#process", label: "Process", section: "process" },
+  { href: "/services", label: "Services" },
+  { href: "/work", label: "Work" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -21,7 +20,6 @@ export function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -40,33 +38,8 @@ export function Nav() {
     if (open) setOpen(false);
   }
 
-  // Scrollspy: highlight the homepage section currently in view.
-  // Off the homepage, isActive() ignores activeSection, so a stale value is harmless.
-  useEffect(() => {
-    if (pathname !== "/") return;
-    const ids = links.filter((l) => l.section).map((l) => l.section!);
-    const els = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (!els.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActiveSection(e.target.id);
-        });
-      },
-      { rootMargin: "-40% 0px -55% 0px" },
-    );
-    els.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [pathname]);
-
-  const isActive = (link: NavLink) => {
-    if (link.section) return pathname === "/" && activeSection === link.section;
-    if (link.href === "/") return pathname === "/";
-    return pathname.startsWith(link.href);
-  };
+  const isActive = (link: NavLink) =>
+    pathname === link.href || pathname.startsWith(`${link.href}/`);
 
   return (
     <header
